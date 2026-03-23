@@ -1,0 +1,67 @@
+# Quarto cache / temp
+.quarto/
+*_cache/
+*_files/
+/.quarto/
+**/*.quarto_ipynb
+
+# Freeze (if you use freeze)
+_freeze/
+
+# =========================
+# R / RStudio
+# =========================
+
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# renv (使っている場合)
+renv/library/
+renv/staging/
+renv/python/
+renv/cache/
+
+# =========================
+# OS
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs / temp
+# =========================
+
+*.log
+*.tmp
+*.bak
+
+# =========================
+# PDF build（必要に応じて）
+# =========================
+
+*.aux
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+
+# =========================
+# Python (もし使う場合)
+# =========================
+
+__pycache__/
+*.pyc
+
+# =========================
+# VS Code / Positron
+# =========================
+
+.vscode/
+
+# =========================
+# aes
+# =========================
+node_modules/

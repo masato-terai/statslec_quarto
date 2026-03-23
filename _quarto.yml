@@ -4,23 +4,51 @@ project:
 
 book:
   title: "言語統計処理a"
-  author: "寺井雅人 (Terai Masato)"
-  date: "2026/3/23"
+ 
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - 01-week1.qmd
+    - 02-week2.qmd
+    - 03-week3.qmd
+    - 04-week4.qmd
+    - 05-week5.qmd
+    - 06-regression.qmd
+    - 07-multipleregression.qmd
+    - 08-multiplereg_2.qmd
+    - 09-multiplereg_3.qmd
+    - 10-Week10_logistic.qmd
+    - 11-Week11_tidyverse.qmd
+    - 12-Week12_GLMM.qmd
+    - 13-Week13_Eff_pow.qmd
+    - 14-Week14_nonpara.qmd
+    - 15-Week15_Repro.qmd
+  reader-mode: true
+  page-navigation: true
+  cover-image: cover.png
+  favicon: cover.png
+  page-footer:
+    left: |
+      作成者：寺井雅人（名古屋学院大学）.
+    right: |
+      本サイトはQuartoで作成されてます。 <a href="https://quarto.org/">Quarto</a>.
+  repo-url: https://github.com/masato-terai/statslec_quarto/
 
-bibliography: references.bib
 
 format:
   html:
+    date-format: "YYYY年M月D日"
+    toc: true
+    css: style.css
     theme:
       - cosmo
-      - brand
-  pdf:
-    documentclass: scrreprt
+      - statslecquarto.scss  
+ # pdf:
+ #   documentclass: scrreprt
 
-
+date: 
+  value: now
+  format: "YYYY-MM-DD"
+date-modified: 
+  value: last-modified
+  format: "YYYY-MM-DD HH:mm:ss"
 

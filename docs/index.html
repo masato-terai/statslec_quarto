@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="寺井雅人 (Terai Masato)">
 <meta name="dcterms.date" content="2026-03-23">
 
 <title>言語統計処理a</title>
@@ -32,7 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./01-week1.html" rel="next">
+<link href="./cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-9bfc0e7d01402a0cc422ef4173aa7173.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -73,6 +73,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -84,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">この資料について</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -100,6 +101,14 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">言語統計処理a</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/masato-terai/statslec_quarto/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -112,25 +121,97 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">この資料について</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  <a href="./02-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2：要約統計量</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+  <a href="./03-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3：推測統計学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: 統計的検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week5: 相関分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week12: 階層モデル</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-Week15_Repro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 15：言語研究とオープンサイエンス</span></a>
   </div>
 </li>
     </ul>
@@ -143,7 +224,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#この資料について" id="toc-この資料について" class="nav-link active" data-scroll-target="#この資料について">この資料について</a>
+  <ul class="collapse">
+  <li><a href="#担当者" id="toc-担当者" class="nav-link" data-scroll-target="#担当者">担当者</a></li>
+  <li><a href="#講義概要" id="toc-講義概要" class="nav-link" data-scroll-target="#講義概要">講義概要</a></li>
+  <li><a href="#講義スケジュール" id="toc-講義スケジュール" class="nav-link" data-scroll-target="#講義スケジュール">講義スケジュール</a></li>
+  <li><a href="#成績評価について" id="toc-成績評価について" class="nav-link" data-scroll-target="#成績評価について">成績評価について</a></li>
+  <li><a href="#留意事項" id="toc-留意事項" class="nav-link" data-scroll-target="#留意事項">留意事項</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -159,20 +247,20 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>寺井雅人 (Terai Masato) </p>
-          </div>
-  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 23, 2026</p>
+      <p class="date">2026-03-23</p>
     </div>
   </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">2026-03-23 16:36:50</p>
+    </div>
+  </div>
     
   </div>
   
@@ -181,12 +269,85 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This is a Quarto book.</p>
-<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+
+<section id="この資料について" class="level1 unnumbered">
+<h1 class="unnumbered">この資料について</h1><p><img src="cover.png" title="言語統計処理a" class="quarto-cover-image nolightbox img-fluid"></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>この資料は配布厳禁です。<br></p>
+</div>
+</div>
+<section id="担当者" class="level2">
+<h2 class="anchored" data-anchor-id="担当者">担当者</h2>
+<ul>
+<li><p>寺井雅人（名古屋学院大学、外国語学部、講師）</p>
+<ul>
+<li>Website: （<a href="https://sites.google.com/view/masatoterai/">googlesite</a>）</li>
+</ul></li>
+</ul>
+</section>
+<section id="講義概要" class="level2">
+<h2 class="anchored" data-anchor-id="講義概要">講義概要</h2>
+<p>この資料は、名古屋大学大学院人文学研究科で開講されている言語統計処理（春学期）で使用する資料です。私はこの講義は昨年2025度から担当しています（<a href="https://masato-terai.github.io/stat_class_2025/">2025年度の資料はこちら</a>）。この講義内容は予告なく更新される可能性があります。<br> 　この講義では，受講者が15回の講義終了時に，以下の知識・能力を身につけていることを目標とする。</p>
+<ol type="1">
+<li><p>統計処理の手続きに関する知識</p></li>
+<li><p>分析結果を適切に解釈し、説明する能力</p></li>
+<li><p>プログラム言語(R)を用いた統計処理能力</p></li>
+<li><p>統計理論の数学・概念的知識</p></li>
+</ol>
+<div class="alert alert-info">
+<p><strong>注</strong></p>
+<ul>
+<li><p>Rがインストールされているパソコンを毎回の講義で必ず持参してください。</p></li>
+<li><p>講義内容、講義スケジュールは講義の進度等によって変更する可能性があります。</p></li>
+</ul>
+</div>
+</section>
+<section id="講義スケジュール" class="level2">
+<h2 class="anchored" data-anchor-id="講義スケジュール">講義スケジュール</h2>
+<ul>
+<li>Week 1：オリエンテーション、R、開発環境のインストールと操作、Quarto</li>
+<li>Week 2：要約統計量</li>
+<li>Week 3：推測統計学</li>
+<li>Week 4：統計的検定の論理と <em>t検定</em></li>
+<li>Week 5：相関分析</li>
+<li>Week 6：単回帰分析</li>
+<li>Week 7：重回帰分析(1)：概要</li>
+<li>Week 8：重回帰分析(2)：コーディングの変更</li>
+<li>Week 9：重回帰分析(3)：交互作用の解釈</li>
+<li>Week 10：一般化線形モデル：ロジスティック回帰分析</li>
+<li>Week 11：階層モデル</li>
+<li>Week 12：効果量と検定力分析</li>
+<li>Week 13：ノンパラメトリック検定</li>
+<li>Week 14：tidyverseパッケージによるデータの加工と可視化</li>
+<li>Week 15：言語研究とオープンサイエンス</li>
+</ul>
+</section>
+<section id="成績評価について" class="level2">
+<h2 class="anchored" data-anchor-id="成績評価について">成績評価について</h2>
+<ul>
+<li>小テスト（20%）、演習課題（40%）、レポート試験（40%）
+<ul>
+<li>上記の各評価100点満点に換算し、それらを合計した得点が60点以上を合格とする。A+（100-95）、A（94-80）、B（79-70）、C（69-65）、C-（64-60）、F（59-0）</li>
+</ul></li>
+</ul>
+</section>
+<section id="留意事項" class="level2">
+<h2 class="anchored" data-anchor-id="留意事項">留意事項</h2>
+<ul>
+<li>質問は講義内容に関する質問への回答を優先します。取り組んでいる学位論文やその他プロジェクトへの質問への回答は原則お答えしません。</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -594,12 +755,25 @@ ul.task-list li input[type="checkbox"] {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01-week1.html" class="pagination-link" aria-label="Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto">
+        <span class="nav-page-text">Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>作成者：寺井雅人（名古屋学院大学）.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>本サイトはQuartoで作成されてます。 <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
 
 
 

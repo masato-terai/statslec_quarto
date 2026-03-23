@@ -10,5 +10,53 @@
   },
   "references.qmd": {
     "references.html": "52caf4e6"
+  },
+  "01-week1.qmd": {
+    "01-week1.html": "f6f36325"
+  },
+  "02-week2.qmd": {
+    "02-week2.html": "bea23a2b"
+  },
+  "03-week3.qmd": {
+    "03-week3.html": "a43d491d"
+  },
+  "04-week4.qmd": {
+    "04-week4.html": "03334d43"
+  },
+  "05-week5.qmd": {
+    "05-week5.html": "1a6b81ce"
+  },
+  "06-regression.qmd": {
+    "06-regression.html": "4d95449c"
+  },
+  "07-multipleregression.qmd": {
+    "07-multipleregression.html": "5b1d2da9"
+  },
+  "08-multiplereg_2.qmd": {
+    "08-multiplereg_2.html": "563996a7"
+  },
+  "09-multiplereg_3.qmd": {
+    "09-multiplereg_3.html": "e8621fc3"
+  },
+  "10-Week10_logistic.qmd": {
+    "10-Week10_logistic.html": "eb8d132d"
+  },
+  "11-Week11_tidyverse.qmd": {
+    "11-Week11_tidyverse.html": "55060fec"
+  },
+  "12-Week12_GLMM.qmd": {
+    "12-Week12_GLMM.html": "a5a40e9b"
+  },
+  "13-Week13_Eff_pow.qmd": {
+    "13-Week13_Eff_pow.html": "d2433ca3"
+  },
+  "14-Week14_nonpara.qmd": {
+    "14-Week14_nonpara.html": "63da6e85"
+  },
+  "15-Week15_repro.qmd": {
+    "15-Week15_repro.html": "5331bb18"
+  },
+  "15-Week15_Repro.qmd": {
+    "15-Week15_Repro.html": "e9d368ad"
   }
 }

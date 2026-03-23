@@ -1,0 +1,4052 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-23">
+
+<title>Week9: 重回帰分析 (3)：交互作用の解釈 – 言語統計処理a</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./10-Week10_logistic.html" rel="next">
+<link href="./08-multiplereg_2.html" rel="prev">
+<link href="./cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9bfc0e7d01402a0cc422ef4173aa7173.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-multiplereg_3.html">Week9: 重回帰分析 (3)：交互作用の解釈</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">言語統計処理a</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/masato-terai/statslec_quarto/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">この資料について</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2：要約統計量</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3：推測統計学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: 統計的検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week5: 相関分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week12: 階層モデル</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-Week15_Repro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 15：言語研究とオープンサイエンス</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#事前の確認" id="toc-事前の確認" class="nav-link active" data-scroll-target="#事前の確認">事前の確認</a></li>
+  <li><a href="#今日の目標" id="toc-今日の目標" class="nav-link" data-scroll-target="#今日の目標">今日の目標</a></li>
+  <li><a href="#交互作用" id="toc-交互作用" class="nav-link" data-scroll-target="#交互作用">交互作用</a>
+  <ul class="collapse">
+  <li><a href="#量的変数-量的変数" id="toc-量的変数-量的変数" class="nav-link" data-scroll-target="#量的変数-量的変数">量的変数 × 量的変数</a></li>
+  <li><a href="#量的変数-質的変数" id="toc-量的変数-質的変数" class="nav-link" data-scroll-target="#量的変数-質的変数">量的変数 × 質的変数</a></li>
+  <li><a href="#質的変数-質的変数" id="toc-質的変数-質的変数" class="nav-link" data-scroll-target="#質的変数-質的変数">質的変数 × 質的変数</a></li>
+  </ul></li>
+  <li><a href="#ハンズオンセッション" id="toc-ハンズオンセッション" class="nav-link" data-scroll-target="#ハンズオンセッション">ハンズオンセッション</a>
+  <ul class="collapse">
+  <li><a href="#質的-質的サムコントラスト" id="toc-質的-質的サムコントラスト" class="nav-link" data-scroll-target="#質的-質的サムコントラスト">質的 × 質的（サムコントラスト）</a></li>
+  <li><a href="#係数の解釈" id="toc-係数の解釈" class="nav-link" data-scroll-target="#係数の解釈">係数の解釈</a></li>
+  <li><a href="#質的-質的反復コントラスト" id="toc-質的-質的反復コントラスト" class="nav-link" data-scroll-target="#質的-質的反復コントラスト">質的 × 質的（反復コントラスト）</a></li>
+  <li><a href="#係数の解釈-1" id="toc-係数の解釈-1" class="nav-link" data-scroll-target="#係数の解釈-1">係数の解釈</a></li>
+  </ul></li>
+  <li><a href="#次週までの課題" id="toc-次週までの課題" class="nav-link" data-scroll-target="#次週までの課題">次週までの課題</a>
+  <ul class="collapse">
+  <li><a href="#課題内容" id="toc-課題内容" class="nav-link" data-scroll-target="#課題内容">課題内容</a></li>
+  <li><a href="#提出方法" id="toc-提出方法" class="nav-link" data-scroll-target="#提出方法">提出方法</a></li>
+  </ul></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week9: 重回帰分析 (3)：交互作用の解釈</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-03-23</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">2026-03-23 16:23:41</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="事前の確認" class="level2">
+<h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</section>
+<section id="今日の目標" class="level2">
+<h2 class="anchored" data-anchor-id="今日の目標">今日の目標</h2>
+<ol type="1">
+<li>重回帰分析の交互作用項について概念的に理解できる</li>
+<li>交互作用を含む重回帰分析を実装しその結果を適切に報告できる</li>
+</ol>
+</section>
+<section id="交互作用" class="level2">
+<h2 class="anchored" data-anchor-id="交互作用">交互作用</h2>
+<ul>
+<li><p>2つ以上の独立変数の組み合わせが従属変数にもたらす影響</p>
+<ul>
+<li><p>質的変数は<strong>トリートメント・コーディング</strong>を行ったと仮定</p></li>
+<li><p>一般化線形モデルでは、「説明変数同士の積」を説明変数として加えることで、交互作用を表現する</p></li>
+</ul></li>
+</ul>
+<section id="量的変数-量的変数" class="level3">
+<h3 class="anchored" data-anchor-id="量的変数-量的変数">量的変数 × 量的変数</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> product <span class="sc">*</span> clerk, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"identity"</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">silent =</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>緑色（平均値）の線、赤色の線は右肩上がりになっている</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(eff, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-multiplereg_3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">sales</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI (95%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Intercept</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">88.19</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">63.23&nbsp;–&nbsp;112.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">product</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.26</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.01&nbsp;–&nbsp;-1.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">clerk</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.49</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.01&nbsp;–&nbsp;11.02</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">product:clerk</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.05</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.91&nbsp;–&nbsp;1.19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> Bayes</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.967</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>量的 × 量的変数の交互作用の予測値</p>
+<ul>
+<li><p>切片 + Product × (-2.26) + Clerk × (6.49) + <strong>（Product × Clerk） × 1.05</strong></p></li>
+<li><p>店員数（Clerk）によって、製品数（Product）の係数の値が変化する</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="vvdpkixmxb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vvdpkixmxb table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vvdpkixmxb thead, #vvdpkixmxb tbody, #vvdpkixmxb tfoot, #vvdpkixmxb tr, #vvdpkixmxb td, #vvdpkixmxb th {
+  border-style: none;
+}
+
+#vvdpkixmxb p {
+  margin: 0;
+  padding: 0;
+}
+
+#vvdpkixmxb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vvdpkixmxb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vvdpkixmxb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vvdpkixmxb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vvdpkixmxb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vvdpkixmxb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vvdpkixmxb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vvdpkixmxb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vvdpkixmxb .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vvdpkixmxb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vvdpkixmxb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vvdpkixmxb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vvdpkixmxb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vvdpkixmxb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vvdpkixmxb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvdpkixmxb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vvdpkixmxb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vvdpkixmxb .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vvdpkixmxb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvdpkixmxb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vvdpkixmxb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvdpkixmxb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vvdpkixmxb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvdpkixmxb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vvdpkixmxb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vvdpkixmxb .gt_left {
+  text-align: left;
+}
+
+#vvdpkixmxb .gt_center {
+  text-align: center;
+}
+
+#vvdpkixmxb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vvdpkixmxb .gt_font_normal {
+  font-weight: normal;
+}
+
+#vvdpkixmxb .gt_font_bold {
+  font-weight: bold;
+}
+
+#vvdpkixmxb .gt_font_italic {
+  font-style: italic;
+}
+
+#vvdpkixmxb .gt_super {
+  font-size: 65%;
+}
+
+#vvdpkixmxb .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vvdpkixmxb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vvdpkixmxb .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vvdpkixmxb .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vvdpkixmxb .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vvdpkixmxb .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vvdpkixmxb .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vvdpkixmxb .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vvdpkixmxb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">量的 × 量的変数の交互作用</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="product" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">product</th>
+<th id="clerk" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">clerk</th>
+<th id="Estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Estimate</th>
+<th id="Est.Error" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Est.Error</th>
+<th id="Q2.5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Q2.5</th>
+<th id="Q97.5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Q97.5</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="product">0</td>
+<td class="gt_row gt_center" headers="clerk">0</td>
+<td class="gt_row gt_center" headers="Estimate">88.22</td>
+<td class="gt_row gt_center" headers="Est.Error">12.28</td>
+<td class="gt_row gt_center" headers="Q2.5">63.23</td>
+<td class="gt_row gt_center" headers="Q97.5">112.05</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="product">10</td>
+<td class="gt_row gt_center" headers="clerk">0</td>
+<td class="gt_row gt_center" headers="Estimate">65.63</td>
+<td class="gt_row gt_center" headers="Est.Error">8.83</td>
+<td class="gt_row gt_center" headers="Q2.5">47.53</td>
+<td class="gt_row gt_center" headers="Q97.5">82.50</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="product">0</td>
+<td class="gt_row gt_center" headers="clerk">10</td>
+<td class="gt_row gt_center" headers="Estimate">153.01</td>
+<td class="gt_row gt_center" headers="Est.Error">12.85</td>
+<td class="gt_row gt_center" headers="Q2.5">128.51</td>
+<td class="gt_row gt_center" headers="Q97.5">178.89</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="product">10</td>
+<td class="gt_row gt_center" headers="clerk">10</td>
+<td class="gt_row gt_center" headers="Estimate">235.59</td>
+<td class="gt_row gt_center" headers="Est.Error">9.22</td>
+<td class="gt_row gt_center" headers="Q2.5">217.78</td>
+<td class="gt_row gt_center" headers="Q97.5">254.15</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="量的変数-質的変数" class="level3">
+<h3 class="anchored" data-anchor-id="量的変数-質的変数">量的変数 × 質的変数</h3>
+<ul>
+<li>データの読み込み</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/3-10-2-interaction-2.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><p>コーディング（トリートメント）</p>
+<ul>
+<li>他のコーディングでも分析可能である</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             2
+not          0
+to_implement 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> temperature, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"identity"</span>),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">silent =</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>宣伝アリの方が、切片（線の開始点）も傾きも大きいことが分かる</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(eff2, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-multiplereg_3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">sales</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI (95%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Intercept</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">42.80</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">31.39&nbsp;–&nbsp;54.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">publicity2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">17.49</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.15&nbsp;–&nbsp;33.52</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">temperature</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.59</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.94&nbsp;–&nbsp;3.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">publicity2:temperature</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.19</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.26&nbsp;–&nbsp;5.13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> Bayes</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.904</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>質的 × 量的変数の交互作用の予測値</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"なし"</span>, <span class="st">"あり"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"42.80 + temperature × 2.59"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"42.80 + 17.49 + temperature × (2.59 + 4.19)"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"質的 × 量的変数の交互作用"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="tvbawhrmgc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tvbawhrmgc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tvbawhrmgc thead, #tvbawhrmgc tbody, #tvbawhrmgc tfoot, #tvbawhrmgc tr, #tvbawhrmgc td, #tvbawhrmgc th {
+  border-style: none;
+}
+
+#tvbawhrmgc p {
+  margin: 0;
+  padding: 0;
+}
+
+#tvbawhrmgc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tvbawhrmgc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tvbawhrmgc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tvbawhrmgc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tvbawhrmgc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tvbawhrmgc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tvbawhrmgc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tvbawhrmgc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tvbawhrmgc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#tvbawhrmgc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tvbawhrmgc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tvbawhrmgc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tvbawhrmgc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tvbawhrmgc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tvbawhrmgc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvbawhrmgc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tvbawhrmgc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tvbawhrmgc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#tvbawhrmgc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvbawhrmgc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tvbawhrmgc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvbawhrmgc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tvbawhrmgc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvbawhrmgc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tvbawhrmgc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvbawhrmgc .gt_left {
+  text-align: left;
+}
+
+#tvbawhrmgc .gt_center {
+  text-align: center;
+}
+
+#tvbawhrmgc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tvbawhrmgc .gt_font_normal {
+  font-weight: normal;
+}
+
+#tvbawhrmgc .gt_font_bold {
+  font-weight: bold;
+}
+
+#tvbawhrmgc .gt_font_italic {
+  font-style: italic;
+}
+
+#tvbawhrmgc .gt_super {
+  font-size: 65%;
+}
+
+#tvbawhrmgc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tvbawhrmgc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tvbawhrmgc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tvbawhrmgc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tvbawhrmgc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tvbawhrmgc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tvbawhrmgc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#tvbawhrmgc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#tvbawhrmgc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">質的 × 量的変数の交互作用</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="a宣伝" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">宣伝</th>
+<th id="a売り上げの予測値" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">売り上げの予測値</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="宣伝">なし</td>
+<td class="gt_row gt_center" headers="売り上げの予測値">42.80 + temperature × 2.59</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="宣伝">あり</td>
+<td class="gt_row gt_center" headers="売り上げの予測値">42.80 + 17.49 + temperature × (2.59 + 4.19)</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>気温の主効果は、宣伝がなかった時における気温の効果であることに注意。そのため、気温の主効果の数値だけではなく、交互作用を確認して結果を解釈する必要がある。</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="nuflwzddhm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nuflwzddhm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nuflwzddhm thead, #nuflwzddhm tbody, #nuflwzddhm tfoot, #nuflwzddhm tr, #nuflwzddhm td, #nuflwzddhm th {
+  border-style: none;
+}
+
+#nuflwzddhm p {
+  margin: 0;
+  padding: 0;
+}
+
+#nuflwzddhm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#nuflwzddhm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nuflwzddhm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nuflwzddhm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nuflwzddhm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nuflwzddhm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nuflwzddhm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nuflwzddhm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nuflwzddhm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#nuflwzddhm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#nuflwzddhm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nuflwzddhm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nuflwzddhm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nuflwzddhm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nuflwzddhm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nuflwzddhm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nuflwzddhm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nuflwzddhm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#nuflwzddhm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nuflwzddhm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nuflwzddhm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nuflwzddhm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nuflwzddhm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nuflwzddhm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nuflwzddhm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nuflwzddhm .gt_left {
+  text-align: left;
+}
+
+#nuflwzddhm .gt_center {
+  text-align: center;
+}
+
+#nuflwzddhm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nuflwzddhm .gt_font_normal {
+  font-weight: normal;
+}
+
+#nuflwzddhm .gt_font_bold {
+  font-weight: bold;
+}
+
+#nuflwzddhm .gt_font_italic {
+  font-style: italic;
+}
+
+#nuflwzddhm .gt_super {
+  font-size: 65%;
+}
+
+#nuflwzddhm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#nuflwzddhm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nuflwzddhm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nuflwzddhm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nuflwzddhm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nuflwzddhm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nuflwzddhm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#nuflwzddhm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#nuflwzddhm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">質的 × 量的変数の交互作用</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="publicity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">publicity</th>
+<th id="temperature" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">temperature</th>
+<th id="Estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Estimate</th>
+<th id="Est.Error" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Est.Error</th>
+<th id="Q2.5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Q2.5</th>
+<th id="Q97.5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Q97.5</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="publicity">not</td>
+<td class="gt_row gt_center" headers="temperature">0</td>
+<td class="gt_row gt_center" headers="Estimate">42.89</td>
+<td class="gt_row gt_center" headers="Est.Error">5.91</td>
+<td class="gt_row gt_center" headers="Q2.5">31.39</td>
+<td class="gt_row gt_center" headers="Q97.5">54.62</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="publicity">not</td>
+<td class="gt_row gt_center" headers="temperature">10</td>
+<td class="gt_row gt_center" headers="Estimate">68.80</td>
+<td class="gt_row gt_center" headers="Est.Error">3.29</td>
+<td class="gt_row gt_center" headers="Q2.5">62.26</td>
+<td class="gt_row gt_center" headers="Q97.5">75.37</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="publicity">to_implement</td>
+<td class="gt_row gt_center" headers="temperature">0</td>
+<td class="gt_row gt_center" headers="Estimate">60.31</td>
+<td class="gt_row gt_center" headers="Est.Error">5.67</td>
+<td class="gt_row gt_center" headers="Q2.5">49.33</td>
+<td class="gt_row gt_center" headers="Q97.5">71.52</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="publicity">to_implement</td>
+<td class="gt_row gt_center" headers="temperature">10</td>
+<td class="gt_row gt_center" headers="Estimate">128.06</td>
+<td class="gt_row gt_center" headers="Est.Error">3.13</td>
+<td class="gt_row gt_center" headers="Q2.5">121.93</td>
+<td class="gt_row gt_center" headers="Q97.5">134.27</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="質的変数-質的変数" class="level3">
+<h3 class="anchored" data-anchor-id="質的変数-質的変数">質的変数 × 質的変数</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/3-10-1-interaction-1.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>コーディング（トリートメント）</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             2
+not          0
+to_implement 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>bargen <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>bargen)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             2
+not          0
+to_implement 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> bargen, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"identity"</span>),</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">silent =</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>宣伝も安売りもありの方が売り上げが最も大きいことが分かる</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(eff3, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-multiplereg_3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">sales</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI (95%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Intercept</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">103.32</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">96.18&nbsp;–&nbsp;110.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">publicity2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">10.05</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.22&nbsp;–&nbsp;20.17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">bargen2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">27.35</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">17.33&nbsp;–&nbsp;37.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">publicity2:bargen2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">20.72</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.04&nbsp;–&nbsp;35.36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> Bayes</td>
+<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.601</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>質的 × 質的変数の交互作用の予測値</p>
+<ul>
+<li>宣伝も安売りもあった場合、二つの主効果に加え、交互作用の影響が加算される</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="ykzecpszhk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ykzecpszhk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ykzecpszhk thead, #ykzecpszhk tbody, #ykzecpszhk tfoot, #ykzecpszhk tr, #ykzecpszhk td, #ykzecpszhk th {
+  border-style: none;
+}
+
+#ykzecpszhk p {
+  margin: 0;
+  padding: 0;
+}
+
+#ykzecpszhk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ykzecpszhk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ykzecpszhk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ykzecpszhk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ykzecpszhk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ykzecpszhk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ykzecpszhk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ykzecpszhk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ykzecpszhk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ykzecpszhk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ykzecpszhk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ykzecpszhk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ykzecpszhk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ykzecpszhk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ykzecpszhk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykzecpszhk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ykzecpszhk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ykzecpszhk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ykzecpszhk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykzecpszhk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ykzecpszhk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykzecpszhk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ykzecpszhk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykzecpszhk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ykzecpszhk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykzecpszhk .gt_left {
+  text-align: left;
+}
+
+#ykzecpszhk .gt_center {
+  text-align: center;
+}
+
+#ykzecpszhk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ykzecpszhk .gt_font_normal {
+  font-weight: normal;
+}
+
+#ykzecpszhk .gt_font_bold {
+  font-weight: bold;
+}
+
+#ykzecpszhk .gt_font_italic {
+  font-style: italic;
+}
+
+#ykzecpszhk .gt_super {
+  font-size: 65%;
+}
+
+#ykzecpszhk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ykzecpszhk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ykzecpszhk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ykzecpszhk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ykzecpszhk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ykzecpszhk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ykzecpszhk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ykzecpszhk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ykzecpszhk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">質的 × 質的の交互作用</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="a宣伝" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">宣伝</th>
+<th id="a安売り" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">安売り</th>
+<th id="a売り上げの予測値" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">売り上げの予測値</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="宣伝">なし</td>
+<td class="gt_row gt_center" headers="安売り">なし</td>
+<td class="gt_row gt_center" headers="売り上げの予測値">103.32</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="宣伝">あり</td>
+<td class="gt_row gt_center" headers="安売り">なし</td>
+<td class="gt_row gt_center" headers="売り上げの予測値">103.32 + 10.05</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="宣伝">なし</td>
+<td class="gt_row gt_center" headers="安売り">あり</td>
+<td class="gt_row gt_center" headers="売り上げの予測値">103.32 + 27.35</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="宣伝">あり</td>
+<td class="gt_row gt_center" headers="安売り">あり</td>
+<td class="gt_row gt_center" headers="売り上げの予測値">103.32 + 10.05 + 27.35 + 20.72</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>得られた係数の結果と比較するとさらに分かりやすい</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="knnnjgdnks" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#knnnjgdnks table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#knnnjgdnks thead, #knnnjgdnks tbody, #knnnjgdnks tfoot, #knnnjgdnks tr, #knnnjgdnks td, #knnnjgdnks th {
+  border-style: none;
+}
+
+#knnnjgdnks p {
+  margin: 0;
+  padding: 0;
+}
+
+#knnnjgdnks .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#knnnjgdnks .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#knnnjgdnks .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#knnnjgdnks .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#knnnjgdnks .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#knnnjgdnks .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#knnnjgdnks .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#knnnjgdnks .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#knnnjgdnks .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#knnnjgdnks .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#knnnjgdnks .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#knnnjgdnks .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#knnnjgdnks .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#knnnjgdnks .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#knnnjgdnks .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#knnnjgdnks .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#knnnjgdnks .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#knnnjgdnks .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#knnnjgdnks .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#knnnjgdnks .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#knnnjgdnks .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#knnnjgdnks .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#knnnjgdnks .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#knnnjgdnks .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#knnnjgdnks .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#knnnjgdnks .gt_left {
+  text-align: left;
+}
+
+#knnnjgdnks .gt_center {
+  text-align: center;
+}
+
+#knnnjgdnks .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#knnnjgdnks .gt_font_normal {
+  font-weight: normal;
+}
+
+#knnnjgdnks .gt_font_bold {
+  font-weight: bold;
+}
+
+#knnnjgdnks .gt_font_italic {
+  font-style: italic;
+}
+
+#knnnjgdnks .gt_super {
+  font-size: 65%;
+}
+
+#knnnjgdnks .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#knnnjgdnks .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#knnnjgdnks .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#knnnjgdnks .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#knnnjgdnks .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#knnnjgdnks .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#knnnjgdnks .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#knnnjgdnks .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#knnnjgdnks div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border">質的 × 質的変数の交互作用</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="publicity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">publicity</th>
+<th id="bargen" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">bargen</th>
+<th id="Estimate" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Estimate</th>
+<th id="Est.Error" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Est.Error</th>
+<th id="Q2.5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Q2.5</th>
+<th id="Q97.5" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Q97.5</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="publicity">not</td>
+<td class="gt_row gt_center" headers="bargen">not</td>
+<td class="gt_row gt_center" headers="Estimate">103.34</td>
+<td class="gt_row gt_center" headers="Est.Error">3.68</td>
+<td class="gt_row gt_center" headers="Q2.5">96.18</td>
+<td class="gt_row gt_center" headers="Q97.5">110.51</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="publicity">to_implement</td>
+<td class="gt_row gt_center" headers="bargen">not</td>
+<td class="gt_row gt_center" headers="Estimate">113.35</td>
+<td class="gt_row gt_center" headers="Est.Error">3.64</td>
+<td class="gt_row gt_center" headers="Q2.5">106.09</td>
+<td class="gt_row gt_center" headers="Q97.5">120.52</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="publicity">not</td>
+<td class="gt_row gt_center" headers="bargen">to_implement</td>
+<td class="gt_row gt_center" headers="Estimate">130.65</td>
+<td class="gt_row gt_center" headers="Est.Error">3.70</td>
+<td class="gt_row gt_center" headers="Q2.5">123.49</td>
+<td class="gt_row gt_center" headers="Q97.5">137.85</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="publicity">to_implement</td>
+<td class="gt_row gt_center" headers="bargen">to_implement</td>
+<td class="gt_row gt_center" headers="Estimate">161.30</td>
+<td class="gt_row gt_center" headers="Est.Error">3.70</td>
+<td class="gt_row gt_center" headers="Q2.5">154.02</td>
+<td class="gt_row gt_center" headers="Q97.5">168.31</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="下位検定" class="level4">
+<h4 class="anchored" data-anchor-id="下位検定">下位検定</h4>
+<ul>
+<li><p>交互作用が有意だった場合に、交互作用の中身を詳しく検討するために単純主効果の検定を行う（検定の多重性に注意）。</p>
+<ul>
+<li><p>単純主効果</p>
+<ul>
+<li><p>ある要因の各水準における、別の要因の効果のこと</p></li>
+<li><p>e.g., Publicity条件における、Bargen実施の有無（to_impement/not）の平均値差</p></li>
+</ul></li>
+<li><p>多重比較</p>
+<ul>
+<li>単純主効果において比較する1要因の水準が3以上などの場合、単純主効果の検定と合わせて行い、どの水準間に差があるかを調べる必要がある。</li>
+</ul></li>
+</ul></li>
+<li><p>交互作用が有意</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</th>
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">sales</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">std. Error</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Statistic</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">103.38</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.64</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">96.15&nbsp;–&nbsp;110.60</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">28.39</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">publicity [2]</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9.94</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5.15</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.28&nbsp;–&nbsp;20.16</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.93</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.057</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">bargen [2]</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">27.27</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5.15</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">17.05&nbsp;–&nbsp;37.49</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5.30</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">publicity [2] × bargen<br>
+[2]</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">20.80</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">7.28</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.34&nbsp;–&nbsp;35.25</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.86</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.005</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="5" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="5" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.604 / 0.592</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-multiplereg_3_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><code>emmeans()</code>関数を使って、下位検定を行う</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("emmeans")</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Welcome to emmeans.
+Caution: You lose important information if you filter this package's results.
+See '? untidy'</code></pre>
+</div>
+</div>
+<ul>
+<li><p>bargenの単純主効果（publicityの各水準ごとにbargenの効果を調べる）</p></li>
+<li><p>bargen by publicity（縦の比較）</p></li>
+<li><p>publicityがnotの場合もto_implementの場合も条件間の差は有意</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">"bonferroni"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>publicity = not:
+ contrast            estimate   SE df t.ratio p.value
+ not effect             -13.6 2.57 96  -5.297 &lt;0.0001
+ to_implement effect     13.6 2.57 96   5.297 &lt;0.0001
+
+publicity = to_implement:
+ contrast            estimate   SE df t.ratio p.value
+ not effect             -24.0 2.57 96  -9.335 &lt;0.0001
+ to_implement effect     24.0 2.57 96   9.335 &lt;0.0001
+
+P value adjustment: bonferroni method for 2 tests </code></pre>
+</div>
+</div>
+<ul>
+<li><p>publicityの単純主効果（bargenの各水準ごとにpublicityの効果を調べる）</p></li>
+<li><p>publicity by bargen</p></li>
+<li><p>bargenがto_implementの場合のみ条件間の差は有意</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">"bonferroni"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>bargen = not:
+ contrast            estimate   SE df t.ratio p.value
+ not effect             -4.97 2.57 96  -1.930  0.1132
+ to_implement effect     4.97 2.57 96   1.930  0.1132
+
+bargen = to_implement:
+ contrast            estimate   SE df t.ratio p.value
+ not effect            -15.37 2.57 96  -5.968 &lt;0.0001
+ to_implement effect    15.37 2.57 96   5.968 &lt;0.0001
+
+P value adjustment: bonferroni method for 2 tests </code></pre>
+</div>
+</div>
+<ul>
+<li>報告の例</li>
+</ul>
+<p>宣伝と安売りの有無、そしてそれらの交互作用が売り上げに与える影響を調べるため、回帰分析を行った。宣伝と安売りはトリートメント・コントラストでコーディングし、いずれも「なし」を0、「あり」を1とした。分析の結果、安売りおよび宣伝×安売りの交互作用の係数が有意であった（安売り: <em>b</em> = 27.27, 95% CI [17.05, 37.49], <em>SE</em> = 5.15, <em>t</em> = 5.30, <em>p</em> &lt; .001；交互作用: <em>b</em> = 20.80, 95% CI [6.34, 35.25], <em>SE</em> = 7.28, <em>t</em> = 2.86, <em>p</em> = .005）。</p>
+<p>交互作用が有意であったため、単純主効果の検定を行った。その結果、安売りがある条件では、宣伝の効果が有意であった（<em>b</em> = 15.37, <em>SE</em> = 2.57, <em>t</em> = 5.96, <em>p</em> &lt; .001）。一方、安売りがない条件では、宣伝の効果は有意ではなかった（<em>b</em> = 4.97, <em>SE</em> = 2.57, <em>t</em> = 1.93, <em>p</em> = .113）。</p>
+<p>また、安売りの単純主効果は、宣伝の有無にかかわらず有意であった（宣伝なし: <em>b</em> = 13.60, <em>SE</em> = 2.57, <em>t</em> = 5.29, <em>p</em> &lt; .001；宣伝あり: <em>b</em> = 24.00, <em>SE</em> = 2.57, <em>t</em> = 9.33, <em>p</em> &lt; .001）。これにより、宣伝の有無にかかわらず、安売りは売上向上に寄与する可能性が示唆された。</p>
+</section>
+</section>
+</section>
+<section id="ハンズオンセッション" class="level2">
+<h2 class="anchored" data-anchor-id="ハンズオンセッション">ハンズオンセッション</h2>
+<section id="質的-質的サムコントラスト" class="level3">
+<h3 class="anchored" data-anchor-id="質的-質的サムコントラスト">質的 × 質的（サムコントラスト）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/Example4.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Grade Learning id Post
+1 First     List  1   73
+2 First     List  2   59
+3 First     List  3   63
+4 First     List  4   59
+5 First     List  5   46</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ First Second 
+    15     15 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Context KeyWord    List 
+     10      10      10 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>Grade <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Grade)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>Learning <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Learning, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"List"</span>, <span class="st">"Context"</span>, <span class="st">"KeyWord"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>各群ごとの平均</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Grade     Post
+1  First 39.93333
+2 Second 55.06667</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">aggregate</span>(Post <span class="sc">~</span> Learning, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Learning Post
+1     List 65.1
+2  Context 32.5
+3  KeyWord 44.9</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade<span class="sc">*</span>Learning , <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Grade Learning Post
+1  First     List 60.0
+2 Second     List 70.2
+3  First  Context 19.8
+4 Second  Context 45.2
+5  First  KeyWord 40.0
+6 Second  KeyWord 49.8</code></pre>
+</div>
+</div>
+<ul>
+<li>Ground Mean</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>Post)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 47.5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       [,1]
+First     1
+Second   -1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        [,1] [,2]
+List       1    0
+Context    0    1
+KeyWord   -1   -1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_sum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Post ~ Grade * Learning, data = dat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -14.2   -6.7   -1.0    8.1   15.2 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        47.500      1.807  26.285  &lt; 2e-16 ***
+Grade1             -7.567      1.807  -4.187 0.000328 ***
+Learning1          17.600      2.556   6.887 4.02e-07 ***
+Learning2         -15.000      2.556  -5.869 4.70e-06 ***
+Grade1:Learning1    2.467      2.556   0.965 0.344071    
+Grade1:Learning2   -5.133      2.556  -2.009 0.055952 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 9.898 on 24 degrees of freedom
+Multiple R-squared:  0.762, Adjusted R-squared:  0.7124 
+F-statistic: 15.37 on 5 and 24 DF,  p-value: 8.253e-07</code></pre>
+</div>
+</div>
+<ul>
+<li>以下のような作図を行う場合、コーディングによって図中のパターンが変わることはない</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("sjPlot")</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'sjPlot'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggplot2':
+
+    set_theme</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  model_sum, </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"pred"</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Grade"</span>, <span class="st">"Learning"</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>           )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Ignoring unknown labels:
+• linetype : "Learning"
+• shape : "Learning"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-multiplereg_3_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="係数の解釈" class="level3">
+<h3 class="anchored" data-anchor-id="係数の解釈">係数の解釈</h3>
+<ul>
+<li>記述統計の値を参照して考えると分かりやすい
+<ul>
+<li>Intercept: grand mean (47.5)</li>
+<li>GradeSecond: First - grand mean (39.93333 - 47.5)</li>
+<li>Learning1: List - grand mean (65.1 - 47.5)</li>
+<li>Learning2: Context - grand mean (32.5 - 47.5)</li>
+<li>GradeSecond:Learning1: {2 * (60 - 70.2) + (45.2 - 19.8) + (49.8 - 40)} ÷ 6</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\frac{2(M_{\text{リスト1}} - M_{\text{リスト2}}) + (M_{\text{文脈2}} - M_{\text{文脈1}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
+\]</span></p>
+<ul>
+<li>GradeSecond:Learning2: {(70.2-60) + 2 * (19.8-45.2) + (49.8 - 40)} ÷ 6</li>
+</ul>
+<p><span class="math display">\[
+\frac{(M_{\text{リスト2}} - M_{\text{リスト1}}) + 2(M_{\text{文脈1}} - M_{\text{文脈2}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
+\]</span></p>
+</section>
+<section id="質的-質的反復コントラスト" class="level3">
+<h3 class="anchored" data-anchor-id="質的-質的反復コントラスト">質的 × 質的（反復コントラスト）</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'MASS'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">2</span>))</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       2-1 
+First  -1/2
+Second  1/2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        2-1  3-2 
+List    -2/3 -1/3
+Context  1/3 -1/3
+KeyWord  1/3  2/3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>model_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_rep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Post ~ Grade * Learning, data = dat)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -14.2   -6.7   -1.0    8.1   15.2 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            47.500      1.807  26.285  &lt; 2e-16 ***
+Grade2-1               15.133      3.614   4.187 0.000328 ***
+Learning2-1           -32.600      4.426  -7.365 1.32e-07 ***
+Learning3-2            12.400      4.426   2.801 0.009898 ** 
+Grade2-1:Learning2-1   15.200      8.853   1.717 0.098867 .  
+Grade2-1:Learning3-2  -15.600      8.853  -1.762 0.090780 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 9.898 on 24 degrees of freedom
+Multiple R-squared:  0.762, Adjusted R-squared:  0.7124 
+F-statistic: 15.37 on 5 and 24 DF,  p-value: 8.253e-07</code></pre>
+</div>
+</div>
+</section>
+<section id="係数の解釈-1" class="level3">
+<h3 class="anchored" data-anchor-id="係数の解釈-1">係数の解釈</h3>
+<ul>
+<li>記述統計の値を参照して考えると分かりやすい
+<ul>
+<li>Intercept: grand mean</li>
+<li>Grade2-1: Second - First</li>
+<li>Learning2-1: Context - List</li>
+<li>Learning3-2: Keyword - Context</li>
+<li>Grade2-1:Learning2-1: (ContextにおけるSecond-First) - (ListにおけるSecond-First) = (45.2 - 19.8) - (70.2 - 60)</li>
+<li>Grade2-1:Learning3-2: (KeywordにおけるSecond-First) - (ContextにおけるSecond-First) = (49.8 - 40) - (45.2 - 19.8)</li>
+</ul></li>
+<li><code>emmeans()</code>関数で下位検定を行う場合も、どのコーディングをあてはめても結果は同じになります。</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>2水準 × 3水準の交互作用でも係数の解釈は結構複雑になります。デザインはシンプルな方が解釈する側も分析をしやすいです。</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="次週までの課題" class="level2">
+<h2 class="anchored" data-anchor-id="次週までの課題">次週までの課題</h2>
+<section id="課題内容" class="level3">
+<h3 class="anchored" data-anchor-id="課題内容">課題内容</h3>
+<ol type="1">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p><code>week8_data.csv</code>のデータを用いて質的変数 * 量的変数、質的変数 * 質的変数、もしくは量的変数 * 量的変数のいずれかの交互作用を含む回帰分析を行う。記述統計や図示、結果の報告を行うこと。</p></li>
+</ol>
+</section>
+<section id="提出方法" class="level3">
+<h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
+<ul>
+<li>TACT上で提出。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</section>
+</section>
+<section id="参考文献" class="level2">
+<h2 class="anchored" data-anchor-id="参考文献">参考文献</h2>
+<ul>
+<li><p>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</p></li>
+<li><p>📚馬場（2019）『RとStanではじめる　ベイズ統計モデリングによるデータ分析入門』講談社</p></li>
+<li><p>🗣小島（2022）「外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に」The 2021 Annual Conference on Vocabulary Acquisition</p></li>
+<li><p>💻<a href="https://debruine.github.io/faux/articles/contrasts.html#x3-design">Contrasts</a></p></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./08-multiplereg_2.html" class="pagination-link" aria-label="Week8: 重回帰分析：質的変数のコーディング">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week8: 重回帰分析：質的変数のコーディング</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./10-Week10_logistic.html" class="pagination-link" aria-label="Week10: 一般化線形モデル：ロジスティック回帰分析">
+        <span class="nav-page-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>作成者：寺井雅人（名古屋学院大学）.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>本サイトはQuartoで作成されてます。 <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
