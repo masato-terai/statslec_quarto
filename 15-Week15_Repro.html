@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-23">
+
+<title>Week 15：言語研究とオープンサイエンス – 言語統計処理a</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./14-Week14_nonpara.html" rel="prev">
+<link href="./cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9bfc0e7d01402a0cc422ef4173aa7173.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./15-Week15_Repro.html">Week 15：言語研究とオープンサイエンス</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">言語統計処理a</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/masato-terai/statslec_quarto/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">この資料について</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2：要約統計量</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3：推測統計学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: 統計的検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week5: 相関分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week12: 階層モデル</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-Week15_Repro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 15：言語研究とオープンサイエンス</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#事前の確認" id="toc-事前の確認" class="nav-link active" data-scroll-target="#事前の確認">事前の確認</a></li>
+  <li><a href="#今日の目標" id="toc-今日の目標" class="nav-link" data-scroll-target="#今日の目標">今日の目標</a></li>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link" data-scroll-target="#はじめに">はじめに</a>
+  <ul class="collapse">
+  <li><a href="#研究成果や研究資料の公開共有の必要性" id="toc-研究成果や研究資料の公開共有の必要性" class="nav-link" data-scroll-target="#研究成果や研究資料の公開共有の必要性">研究成果や研究資料の公開・共有の必要性</a></li>
+  </ul></li>
+  <li><a href="#r-markdownを使って分析結果をまとめることができる" id="toc-r-markdownを使って分析結果をまとめることができる" class="nav-link" data-scroll-target="#r-markdownを使って分析結果をまとめることができる">1. R Markdownを使って分析結果をまとめることができる</a>
+  <ul class="collapse">
+  <li><a href="#r-studioを開いて作成する" id="toc-r-studioを開いて作成する" class="nav-link" data-scroll-target="#r-studioを開いて作成する">R Studioを開いて作成する</a></li>
+  <li><a href="#knitを押して出力" id="toc-knitを押して出力" class="nav-link" data-scroll-target="#knitを押して出力">Knit🧶を押して出力！</a></li>
+  </ul></li>
+  <li><a href="#プロジェクト" id="toc-プロジェクト" class="nav-link" data-scroll-target="#プロジェクト">プロジェクト</a></li>
+  <li><a href="#実際に作ってみましょう" id="toc-実際に作ってみましょう" class="nav-link" data-scroll-target="#実際に作ってみましょう">実際に作ってみましょう</a></li>
+  <li><a href="#ドキュメントチャンクmarkdown記法" id="toc-ドキュメントチャンクmarkdown記法" class="nav-link" data-scroll-target="#ドキュメントチャンクmarkdown記法">ドキュメントチャンク：Markdown記法</a>
+  <ul class="collapse">
+  <li><a href="#覚えるのはマストではないその都度調べてよく使うものを覚えていく" id="toc-覚えるのはマストではないその都度調べてよく使うものを覚えていく" class="nav-link" data-scroll-target="#覚えるのはマストではないその都度調べてよく使うものを覚えていく">覚えるのはマストではない。その都度調べてよく使うものを覚えていく</a></li>
+  </ul></li>
+  <li><a href="#lets-実践" id="toc-lets-実践" class="nav-link" data-scroll-target="#lets-実践">Let’s 実践</a></li>
+  <li><a href="#答え合わせ" id="toc-答え合わせ" class="nav-link" data-scroll-target="#答え合わせ">答え合わせ</a></li>
+  <li><a href="#実はwordのように編集できます" id="toc-実はwordのように編集できます" class="nav-link" data-scroll-target="#実はwordのように編集できます">実は、Wordのように編集できます！</a></li>
+  <li><a href="#コードチャンクの挿入" id="toc-コードチャンクの挿入" class="nav-link" data-scroll-target="#コードチャンクの挿入">コードチャンクの挿入</a>
+  <ul class="collapse">
+  <li><a href="#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" id="toc-ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" class="nav-link" data-scroll-target="#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac">ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</a></li>
+  </ul></li>
+  <li><a href="#lets-実践-1" id="toc-lets-実践-1" class="nav-link" data-scroll-target="#lets-実践-1">Let’s 実践</a></li>
+  <li><a href="#食費の合計" id="toc-食費の合計" class="nav-link" data-scroll-target="#食費の合計">食費の合計</a></li>
+  <li><a href="#答え合わせ-1" id="toc-答え合わせ-1" class="nav-link" data-scroll-target="#答え合わせ-1">答え合わせ</a></li>
+  <li><a href="#r-markdownでまとめた結果を共有することができる" id="toc-r-markdownでまとめた結果を共有することができる" class="nav-link" data-scroll-target="#r-markdownでまとめた結果を共有することができる">2. R Markdownでまとめた結果を共有することができる</a>
+  <ul class="collapse">
+  <li><a href="#wordに出力" id="toc-wordに出力" class="nav-link" data-scroll-target="#wordに出力">Wordに出力</a></li>
+  <li><a href="#before" id="toc-before" class="nav-link" data-scroll-target="#before">Before</a></li>
+  <li><a href="#after" id="toc-after" class="nav-link" data-scroll-target="#after">After</a></li>
+  <li><a href="#power-pointに出力" id="toc-power-pointに出力" class="nav-link" data-scroll-target="#power-pointに出力">Power Pointに出力</a></li>
+  <li><a href="#html-slideに変更" id="toc-html-slideに変更" class="nav-link" data-scroll-target="#html-slideに変更">HTML slideに変更</a></li>
+  </ul></li>
+  <li><a href="#html形式だと簡単にウェブサイトにできます" id="toc-html形式だと簡単にウェブサイトにできます" class="nav-link" data-scroll-target="#html形式だと簡単にウェブサイトにできます">HTML形式だと、簡単にウェブサイトにできます</a>
+  <ul class="collapse">
+  <li><a href="#rpubsを使う" id="toc-rpubsを使う" class="nav-link" data-scroll-target="#rpubsを使う">RPubsを使う</a></li>
+  <li><a href="#githubを使う" id="toc-githubを使う" class="nav-link" data-scroll-target="#githubを使う">Githubを使う</a></li>
+  </ul></li>
+  <li><a href="#様々なパソコンで同じ分析環境を再現することができる" id="toc-様々なパソコンで同じ分析環境を再現することができる" class="nav-link" data-scroll-target="#様々なパソコンで同じ分析環境を再現することができる">3. 様々なパソコンで同じ分析環境を再現することができる</a>
+  <ul class="collapse">
+  <li><a href="#パッケージのバージョン管理renvパッケージ" id="toc-パッケージのバージョン管理renvパッケージ" class="nav-link" data-scroll-target="#パッケージのバージョン管理renvパッケージ">パッケージのバージョン管理：<code>renv</code>パッケージ</a></li>
+  <li><a href="#バージョン管理の開始" id="toc-バージョン管理の開始" class="nav-link" data-scroll-target="#バージョン管理の開始">バージョン管理の開始</a></li>
+  <li><a href="#パッケージ情報の保存" id="toc-パッケージ情報の保存" class="nav-link" data-scroll-target="#パッケージ情報の保存">パッケージ情報の保存</a></li>
+  <li><a href="#パッケージ情報の復元" id="toc-パッケージ情報の復元" class="nav-link" data-scroll-target="#パッケージ情報の復元">パッケージ情報の復元</a></li>
+  </ul></li>
+  <li><a href="#rのバージョン管理" id="toc-rのバージョン管理" class="nav-link" data-scroll-target="#rのバージョン管理">Rのバージョン管理</a>
+  <ul class="collapse">
+  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
+  <li><a href="#mac" id="toc-mac" class="nav-link" data-scroll-target="#mac">Mac</a></li>
+  </ul></li>
+  <li><a href="#再現性をさらに高める工夫" id="toc-再現性をさらに高める工夫" class="nav-link" data-scroll-target="#再現性をさらに高める工夫">再現性をさらに高める工夫</a>
+  <ul class="collapse">
+  <li><a href="#r-markdownに含めておきたい情報" id="toc-r-markdownに含めておきたい情報" class="nav-link" data-scroll-target="#r-markdownに含めておきたい情報">R Markdownに含めておきたい情報</a></li>
+  <li><a href="#日付日時" id="toc-日付日時" class="nav-link" data-scroll-target="#日付日時">日付、日時</a></li>
+  <li><a href="#rのバージョン-使用したrのパッケージのバージョン" id="toc-rのバージョン-使用したrのパッケージのバージョン" class="nav-link" data-scroll-target="#rのバージョン-使用したrのパッケージのバージョン">Rのバージョン &amp; 使用したRのパッケージのバージョン</a></li>
+  <li><a href="#パソコンのスペック" id="toc-パソコンのスペック" class="nav-link" data-scroll-target="#パソコンのスペック">パソコンのスペック</a></li>
+  <li><a href="#処理にかかった時間" id="toc-処理にかかった時間" class="nav-link" data-scroll-target="#処理にかかった時間">処理にかかった時間</a></li>
+  </ul></li>
+  <li><a href="#関数の呼び出し方" id="toc-関数の呼び出し方" class="nav-link" data-scroll-target="#関数の呼び出し方">関数の呼び出し方</a>
+  <ul class="collapse">
+  <li><a href="#関数名が被ることがあるxxxはマスクされています" id="toc-関数名が被ることがあるxxxはマスクされています" class="nav-link" data-scroll-target="#関数名が被ることがあるxxxはマスクされています">関数名が被ることがある（xxxはマスクされています）</a></li>
+  <li><a href="#関数とパッケージの対応は覚えにくい" id="toc-関数とパッケージの対応は覚えにくい" class="nav-link" data-scroll-target="#関数とパッケージの対応は覚えにくい">関数とパッケージの対応は覚えにくい</a></li>
+  <li><a href="#gitによるコードのバージョン管理" id="toc-gitによるコードのバージョン管理" class="nav-link" data-scroll-target="#gitによるコードのバージョン管理">Gitによるコードのバージョン管理</a></li>
+  </ul></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">まとめ</a></li>
+  <li><a href="#次週までの課題" id="toc-次週までの課題" class="nav-link" data-scroll-target="#次週までの課題">次週までの課題</a></li>
+  <li><a href="#期末課題レポートについて" id="toc-期末課題レポートについて" class="nav-link" data-scroll-target="#期末課題レポートについて">期末課題レポートについて</a></li>
+  <li><a href="#参考文献-資料" id="toc-参考文献-資料" class="nav-link" data-scroll-target="#参考文献-資料">参考文献 &amp; 資料</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 15：言語研究とオープンサイエンス</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-03-23</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">2026-03-23 16:24:27</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="事前の確認" class="level2">
+<h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</section>
+<section id="今日の目標" class="level2">
+<h2 class="anchored" data-anchor-id="今日の目標">今日の目標</h2>
+<ul>
+<li>Rを使った研究の再現性を確保するための方法について理解することができる</li>
+</ul>
+<div class="infobox beg">
+<p>2024年8月に名古屋学院大で行われた外国語メディア学会全国大会でのワークショップ（外国語教育研究者のためのオープンサイエンス入門― R Markdownを用いた実践編の内容を改変したものです。</p>
+</div>
+</section>
+<section id="はじめに" class="level2">
+<h2 class="anchored" data-anchor-id="はじめに">はじめに</h2>
+<section id="研究成果や研究資料の公開共有の必要性" class="level3">
+<h3 class="anchored" data-anchor-id="研究成果や研究資料の公開共有の必要性">研究成果や研究資料の公開・共有の必要性</h3>
+<section id="再現可能な研究のために研究に使用したマテリアルの提出を推奨" class="level4">
+<h4 class="anchored" data-anchor-id="再現可能な研究のために研究に使用したマテリアルの提出を推奨">再現可能な研究のために、研究に使用したマテリアルの提出を推奨</h4>
+<ul>
+<li><p>e.g., 実験で使用した刺激文、分析に使用した生データ、分析コード</p></li>
+<li><p><a href="https://onlinelibrary.wiley.com/page/journal/14679922/homepage/ForAuthors.html#badgel">Language LearningのHPより</a></p></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Shared Research Materials and Data Policy for Accepted Articles.</strong> <mark style="background-color: orange;"><em>Language Learning</em> encourages accepted authors to upload their data collection materials and/or data to the IRIS database (<a href="http://www.iris-database.org" class="uri">http://www.iris-database.org</a>).</mark> IRIS is an online repository for data collection materials used for second language research. This includes data elicitation instruments such as <mark style="background-color: orange;">interview and observation schedules, language tests, pictures, questionnaires, software scripts, URL links, word lists, pedagogical interventions, and so on.</mark> (…) The sharing of research instrumentation benefits the research community and helps authors and journals increase the visibility of their published research.</p>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="r-markdownを使って分析結果をまとめることができる" class="level2">
+<h2 class="anchored" data-anchor-id="r-markdownを使って分析結果をまとめることができる">1. R Markdownを使って分析結果をまとめることができる</h2>
+<section id="r-studioを開いて作成する" class="level3">
+<h3 class="anchored" data-anchor-id="r-studioを開いて作成する">R Studioを開いて作成する</h3>
+<section id="r-markdownの解体新書" class="level4">
+<h4 class="anchored" data-anchor-id="r-markdownの解体新書">R Markdownの解体新書</h4>
+<ul>
+<li><p>【パーツ１】YAML（YAML　Ain’t Markup Language）ヘッダー：文章全体の体裁や情報を操作する</p>
+<ul>
+<li>タイトル、サブタイトル</li>
+<li>作成者</li>
+<li>作成した日時、更新日時も設定可能</li>
+<li>どのような形式で作成するか</li>
+</ul></li>
+</ul>
+<div class="infobox caution">
+<p><strong>注意</strong><br> ・ YAMLヘッダーは、RでもMarkdownでもないプログラム言語で記述します。</p>
+</div>
+<ul>
+<li><p>【パーツ２】コードチャンク：Rのコードを記述するところ</p></li>
+<li><p>【パーツ３】ドキュメントチャンク：<a href="https://www.jaysong.net/RBook/rmarkdown.html#rmarkdown-intro">Markdownと呼ばれるプログラム言語</a>で記述するところ</p>
+<ul>
+<li>見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="knitを押して出力" class="level3">
+<h3 class="anchored" data-anchor-id="knitを押して出力">Knit🧶を押して出力！</h3>
+<ul>
+<li>初期設定はHTMLファイル出力です</li>
+</ul>
+</section>
+</section>
+<section id="プロジェクト" class="level2">
+<h2 class="anchored" data-anchor-id="プロジェクト">プロジェクト</h2>
+<ul>
+<li>プロジェクト = ディレクトリ
+<ul>
+<li>ファイルや操作履歴を保存できる</li>
+</ul></li>
+<li>プロジェクトを作成する利点
+<ul>
+<li>研究ごとに分析に必要なファイルをまとめることができる</li>
+</ul></li>
+</ul>
+</section>
+<section id="実際に作ってみましょう" class="level2">
+<h2 class="anchored" data-anchor-id="実際に作ってみましょう">実際に作ってみましょう</h2>
+<ul>
+<li>デスクトップに新しいフォルダーを作成してください
+<ul>
+<li>名前は、英数字のみがいいです（Rが関係しそうな場合、ファイル名、フォルダ名に日本語を使わない方が安心です）</li>
+<li>作り方を解説しているサイト（<a href="https://www.jaysong.net/RBook/project.html">私たちのR</a>）</li>
+</ul></li>
+<li>デスクトップのフォルダーを指定してプロジェクトを作成しましょう</li>
+</ul>
+</section>
+<section id="ドキュメントチャンクmarkdown記法" class="level2">
+<h2 class="anchored" data-anchor-id="ドキュメントチャンクmarkdown記法">ドキュメントチャンク：Markdown記法</h2>
+<section id="覚えるのはマストではないその都度調べてよく使うものを覚えていく" class="level3">
+<h3 class="anchored" data-anchor-id="覚えるのはマストではないその都度調べてよく使うものを覚えていく">覚えるのはマストではない。その都度調べてよく使うものを覚えていく</h3>
+<ul>
+<li>Markdownなら生成AIはほぼ完ぺきに正解を教えてくれる</li>
+<li><a href="https://qiita.com/tbpgr/items/989c6badefff69377da7">必要最低限で覚えておくとよい記法</a>
+<ul>
+<li>見出し → これはマスト！
+<ul>
+<li>#の数で指定。文字との間を半角あけるのを忘れない。</li>
+</ul></li>
+<li>箇条書き
+<ul>
+<li><code>*</code>, <code>+</code>, <code>-</code>のいずれかを入れる。文字との間を半角あけるのを忘れない。</li>
+<li>半角スペースを2つ前（もしくはtab）に入れると、レベル２を作れる。さらに2ついれると、、、</li>
+</ul></li>
+<li>強調
+<ul>
+<li>*で挟むと斜体</li>
+<li>**で挟むとBold体</li>
+<li>***で挟むとどうなるでしょう</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="lets-実践" class="level2">
+<h2 class="anchored" data-anchor-id="lets-実践">Let’s 実践</h2>
+<ul>
+<li>以下の文章をMarkdownを使って再現してください。</li>
+</ul>
+<div class="infobox">
+<p>’# 名古屋飯といえば</p>
+<p>’## ひつまぶし：<em>Hitsumabushi</em></p>
+<p>おすすめは以下のお店です。</p>
+<ul>
+<li><strong>ひつまぶし花岡</strong>
+<ul>
+<li>場所：栄</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="答え合わせ" class="level2">
+<h2 class="anchored" data-anchor-id="答え合わせ">答え合わせ</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 名古屋飯といえば</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## ひつまぶし：*Hitsumabushi*</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>おすすめは以下のお店です。</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ひつまぶし花岡**</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>場所：栄</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="実はwordのように編集できます" class="level2">
+<h2 class="anchored" data-anchor-id="実はwordのように編集できます">実は、Wordのように編集できます！</h2>
+<ul>
+<li>Markdownで書かなくとも、VisualモードであればWordと似たようにできます。</li>
+<li>以下で設定ができる
+<ul>
+<li>[Tools] → [Global Options…] → [R Markdown] → [Visual]</li>
+<li>“Use visual editor by default for new documents”の項目に☑</li>
+<li>“Soft-wrap R Markdown files”にも☑を入れると、右側にアウトラインが出ます</li>
+</ul></li>
+<li>欠点として、少し動作が遅い。簡単なものはMarkdownで書く方が速い</li>
+<li>表などはVisualモードがおすすめ</li>
+</ul>
+</section>
+<section id="コードチャンクの挿入" class="level2">
+<h2 class="anchored" data-anchor-id="コードチャンクの挿入">コードチャンクの挿入</h2>
+<section id="ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" class="level3">
+<h3 class="anchored" data-anchor-id="ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac">ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</h3>
+<ul>
+<li>このコードの中はRです。Rで使う関数などを自由に指定できます。</li>
+<li>以下のチャンク内でないと、動きません。</li>
+</ul>
+<p>```{r}<br>
+```</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.666667</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="15-Week15_Repro_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>{r}の中にもいろいろな指定ができます。</p>
+<ul>
+<li>コードを非表示にして結果だけを表示させたい（オープンサイエンスではないですが）</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.666667</code></pre>
+</div>
+</div>
+<ul>
+<li><p>チャンクのオプションは沢山あるので、その都度チートシートを参照するとよいです。</p>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">チートシート</a></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="lets-実践-1" class="level2">
+<h2 class="anchored" data-anchor-id="lets-実践-1">Let’s 実践</h2>
+<ul>
+<li>以下をドキュメントチャンクとコードチャンクを使って再現してください。</li>
+</ul>
+</section>
+<section id="食費の合計" class="level2 infobox">
+<h2 class="anchored" data-anchor-id="食費の合計">食費の合計</h2>
+<ul>
+<li><p>以下は、名古屋旅行で使った食費の合計である。</p>
+<ul>
+<li><strong>注!</strong> <em>hitsu</em>はひつまぶし、<em>miso</em>は味噌カツを表す。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>hitsu <span class="ot">&lt;-</span> <span class="dv">1300</span> <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>miso <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">sum</span>(hitsu, miso)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="答え合わせ-1" class="level2">
+<h2 class="anchored" data-anchor-id="答え合わせ-1">答え合わせ</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## 食費の合計</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>以下は、名古屋旅行で使った食費の合計である。</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>**注!** *hitsu*はひつまぶし、*miso*は味噌カツを表す</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="sc">\`</span>``{r}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>hitsu &lt;- 1300 * 2</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>miso &lt;- 1000 * 2</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>total &lt;- sum(hitsu, miso)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="sc">\`</span>``</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="r-markdownでまとめた結果を共有することができる" class="level2">
+<h2 class="anchored" data-anchor-id="r-markdownでまとめた結果を共有することができる">2. R Markdownでまとめた結果を共有することができる</h2>
+<ul>
+<li>YAMLヘッダーのoutputを変更するだけ！</li>
+</ul>
+<section id="wordに出力" class="level3">
+<h3 class="anchored" data-anchor-id="wordに出力">Wordに出力</h3>
+</section>
+<section id="before" class="level3">
+<h3 class="anchored" data-anchor-id="before">Before</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2024-04-15"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="after" class="level3">
+<h3 class="anchored" data-anchor-id="after">After</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> word_document</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2024-04-15"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>テンプレートを追加することも可能。テンプレートはきちんとレベル分けの設定などを行っておく必要あり<a href="https://gedevan-aleksizde.github.io/rmarkdown-cookbook/word-template.html">（設定の仕方）</a>。</li>
+</ul>
+</section>
+<section id="power-pointに出力" class="level3">
+<h3 class="anchored" data-anchor-id="power-pointに出力">Power Pointに出力</h3>
+<ul>
+<li>図や表は必ず新しいページに表示されるなど、knitした後の修正が面倒。</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> powerpoint_presentation</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2024-04-15"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="html-slideに変更" class="level3">
+<h3 class="anchored" data-anchor-id="html-slideに変更">HTML slideに変更</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> ioslides_presentation</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2024-04-15"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><p><strong>#</strong>で定義するレベル分けでスライドの区切りが代わる</p>
+<ul>
+<li><strong>#</strong>でスライドのセクション見出し</li>
+<li><strong>##</strong>で新しいページ</li>
+<li><strong>###</strong>ページ内の太文字</li>
+</ul></li>
+<li><p>枠にとらわれない！</p>
+<ul>
+<li>以下のチャンクを先頭に入れると、スクロール可能なスライドになる（チャンク内はrではなく、<code>=html</code>にする）。</li>
+<li>注意点として、タッチパッドや、マウスホイールでスクロールできますが、スクロールバーを掴んでスクロールはできません。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  slides <span class="op">&gt;</span> slide {</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">overflow-x</span><span class="ch">:</span> <span class="bu">auto</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">overflow-y</span><span class="ch">:</span> <span class="bu">auto</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="html形式だと簡単にウェブサイトにできます" class="level2">
+<h2 class="anchored" data-anchor-id="html形式だと簡単にウェブサイトにできます">HTML形式だと、簡単にウェブサイトにできます</h2>
+<ul>
+<li>リンクで他者に共有できます。</li>
+<li>以下の二つは無料で利用できるが、無料版の場合、リンクを知る人だれもが閲覧できるので注意</li>
+</ul>
+<section id="rpubsを使う" class="level3">
+<h3 class="anchored" data-anchor-id="rpubsを使う">RPubsを使う</h3>
+<ul>
+<li>コメント機能もあるので、「発表へのコメントは匿名でこちらへ」みたいにできそう。</li>
+<li><a href="https://qiita.com/masato-terai/items/664c5ee782f690260eca#rpubs%E4%B8%80%E7%95%AA%E7%B0%A1%E5%8D%98">使い方の解説</a></li>
+</ul>
+</section>
+<section id="githubを使う" class="level3">
+<h3 class="anchored" data-anchor-id="githubを使う">Githubを使う</h3>
+<ul>
+<li>Githubとは、コードのバージョン管理をするツール。共同編集可能。</li>
+<li>今回は一番簡単な方法で実行します。しかし、Git(hub)をフルで使いこなせば、ファイルのバージョン管理、共同編集などが可能でより再現可能な資料作成に一歩近づくと思います。R Studioとの連携も可能。</li>
+<li><a href="https://qiita.com/masato-terai/items/664c5ee782f690260eca#rpubs%E4%B8%80%E7%95%AA%E7%B0%A1%E5%8D%98">使い方の解説</a></li>
+</ul>
+</section>
+</section>
+<section id="様々なパソコンで同じ分析環境を再現することができる" class="level2">
+<h2 class="anchored" data-anchor-id="様々なパソコンで同じ分析環境を再現することができる">3. 様々なパソコンで同じ分析環境を再現することができる</h2>
+<section id="パッケージのバージョン管理renvパッケージ" class="level3">
+<h3 class="anchored" data-anchor-id="パッケージのバージョン管理renvパッケージ">パッケージのバージョン管理：<code>renv</code>パッケージ</h3>
+<ul>
+<li><p><em>r</em>eproducible <em>env</em>ironments（再現性のある分析環境）の略</p></li>
+<li><p>RのプロジェクトごとにRの環境を作る。同じパソコンで、同じ名前でバージョンが異なるパッケージを使うことができる。</p></li>
+<li><p>旧バージョンを試しに使ってみたい場合が、今のバージョンも記録しておきたいときに！</p></li>
+<li><p>プロジェクトディレクトリを相手に共有できる！別のパソコンで分析したいときにも！</p></li>
+<li><p>Let’s インストール</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>install.packages("renv")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><p>使用する3つの関数</p>
+<ol type="1">
+<li><code>init</code>関数：パッケージ管理の開始を宣言</li>
+<li><code>snapshot</code>関数：パッケージ情報の保存</li>
+<li><code>restore</code>関数：パッケージ情報の復元</li>
+</ol></li>
+</ul>
+</section>
+<section id="バージョン管理の開始" class="level3">
+<h3 class="anchored" data-anchor-id="バージョン管理の開始">バージョン管理の開始</h3>
+<ul>
+<li>以下のコマンドを走らせると、<strong>プロジェクト内で</strong>使用しているパッケージを、RやRmdファイルなどから検出します。そして、そのバージョンの情報を<code>renv.lock</code>ファイルに保存します。</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>renv::init()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>最初に実行すると、以下のメッセージが表示されます。</li>
+</ul>
+<pre><code>renv: Project Environments for R
+
+Welcome to renv! It looks like this is your first time using renv.
+This is a one-time message, briefly describing some of renv's functionality.
+
+renv will write to files within the active project folder, including:
+
+  - A folder 'renv' in the project directory, and
+  - A lockfile called 'renv.lock' in the project directory.
+
+In particular, projects using renv will normally use a private, per-project
+R library, in which new packages will be installed. This project library is
+isolated from other R libraries on your system.
+
+In addition, renv will update files within your project directory, including:
+
+  - .gitignore
+  - .Rbuildignore
+  - .Rprofile
+
+Finally, renv maintains a local cache of data on the filesystem, located at:
+
+  - "C:/Users/terai-masato/AppData/Local/R/cache/R/renv"
+
+This path can be customized: please see the documentation in `?renv::paths`.
+
+Please read the introduction vignette with `vignette("renv")` for more information.
+You can browse the package documentation online at https://rstudio.github.io/renv/.
+Do you want to proceed? [y/N]: </code></pre>
+<ul>
+<li>yを押して進むと、開いているプロジェクトのあるディレクトリに<strong>renv</strong>というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、<strong>renv.lock</strong>というファイルも同じディレクトリに作成されます。<strong>新しく作成されたものは、すべて<code>renv</code>パッケージの利用に必要なので、削除しないでください。</strong></li>
+</ul>
+<pre><code>- "C:/Users/terai-masato/AppData/Local/R/cache/R/renv" has been created.
+- Linking packages into the project library ... [33/33] Done!
+- Resolving missing dependencies ... 
+# Installing packages --------------------------------------------------------
+The following package(s) will be updated in the lockfile:
+
+# CRAN -----------------------------------------------------------------------
+- base64enc     [* -&gt; 0.1-3]
+- bslib         [* -&gt; 0.5.1]
+- cachem        [* -&gt; 1.0.8]
+- cli           [* -&gt; 3.6.1]
+- digest        [* -&gt; 0.6.33]
+- ellipsis      [* -&gt; 0.3.2]
+- evaluate      [* -&gt; 0.23]
+- fastmap       [* -&gt; 1.1.1]
+- fontawesome   [* -&gt; 0.5.2]
+- fs            [* -&gt; 1.6.3]
+- glue          [* -&gt; 1.6.2]
+- highr         [* -&gt; 0.10]
+- htmltools     [* -&gt; 0.5.7]
+- jquerylib     [* -&gt; 0.1.4]
+- jsonlite      [* -&gt; 1.8.7]
+- knitr         [* -&gt; 1.45]
+- lifecycle     [* -&gt; 1.0.4]
+- magrittr      [* -&gt; 2.0.3]
+- memoise       [* -&gt; 2.0.1]
+- mime          [* -&gt; 0.12]
+- prettydoc     [* -&gt; 0.4.1]
+- R6            [* -&gt; 2.5.1]
+- rappdirs      [* -&gt; 0.3.3]
+- renv          [* -&gt; 1.0.7]
+- rlang         [* -&gt; 1.1.2]
+- rmarkdown     [* -&gt; 2.25]
+- sass          [* -&gt; 0.4.7]
+- stringi       [* -&gt; 1.7.12]
+- stringr       [* -&gt; 1.5.0]
+- tictoc        [* -&gt; 1.2]
+- tinytex       [* -&gt; 0.48]
+- vctrs         [* -&gt; 0.6.4]
+- xfun          [* -&gt; 0.41]
+- yaml          [* -&gt; 2.3.7]
+
+The version of R recorded in the lockfile will be updated:
+- R             [* -&gt; 4.3.2]
+
+- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".
+
+Restarting R session...
+
+- Project '~/LET/LET_Workshop_2024/materials_LETworkshop_2024' loaded. [renv 1.0.7]</code></pre>
+</section>
+<section id="パッケージ情報の保存" class="level3">
+<h3 class="anchored" data-anchor-id="パッケージ情報の保存">パッケージ情報の保存</h3>
+<ul>
+<li><p>パッケージの追加・更新・削除を行ったら、<code>snapshot</code>関数を使って<strong>renv.lock</strong>ファイルを更新します。これを忘れると、バージョン情報が変更されないので、注意。</p></li>
+<li><p>試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる<code>fortunes</code>パッケージをインストールしましょう。興味のある方はこちらにリストがあります(<a href="https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf">R Fortunes: Collected Wisdom</a>)。</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>install.packages("fortunes")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"fortunes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] '1.5.4'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">78</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+R is the lingua franca of statistical research. Work in all other languages
+should be discouraged.
+   -- Jan de Leeuw (as quoted by Matt Pocernich on R-help)
+      JSM 2003, San Francisco (August 2003)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">386</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+If we put in a function into rstan that dropped chains, people would use it.
+   -- Ben Goodrich (about (not) discarding selected chains from a stanfit
+      object)
+      Stan-users (December 2016)</code></pre>
+</div>
+</div>
+<ul>
+<li>今回の追加をrenv.lockファイルに追加しましょう。</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>renv::snapshot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>The following package(s) will be updated in the lockfile:
+
+# CRAN -----------------------------------------------------------------------
+- fortunes   [* -&gt; 1.5-4]
+
+Do you want to proceed? [Y/n]: </code></pre>
+<ul>
+<li>ファイルが更新される。</li>
+</ul>
+<pre><code>- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".</code></pre>
+<ul>
+<li>renvフォルダーの中の、library &gt; R-あなたのバージョン &gt; あなたのパソコンPlatformを開くと、パッケージの名前と同じフォルダ（<strong>fortunes</strong>）が追加されています（五十音順になっているので見つけやすいです）。</li>
+</ul>
+</section>
+<section id="パッケージ情報の復元" class="level3">
+<h3 class="anchored" data-anchor-id="パッケージ情報の復元">パッケージ情報の復元</h3>
+<ul>
+<li><p>記録しておくことで、１）パッケージを前のバージョンに戻したり、２）他のパソコンにプロジェクトの分析環境を整えたりすることができる。</p></li>
+<li><p>パッケージの更新では、お馴染みの<code>install.packages</code>関数や、<code>update.packages</code>関数、<code>remove.packages</code>関数を使うが、<code>renv</code>関数で管理しているプロジェクト内では、これらの関数は<code>renv</code>関数内のパッケージを呼び出している。特に、バージョンを指定したパッケージのインストールがしやすくなっている。</p></li>
+<li><p>以下のように、<a href="mailto:パッケージ名@バージョン名で指定" class="email">パッケージ名@バージョン名で指定</a></p>
+<ul>
+<li>今回は、<code>fortunes</code>パッケージの古いバージョンをインストールする。</li>
+</ul></li>
+<li><p>最初に、<code>remove.packages</code>で<strong>fortunes</strong>パッケージを削除。<br>
+</p></li>
+<li><p>注！ここで<code>renv::snapshot()</code>はやらない。やってしまうと、renv.lockからも削除され、戻らなくなってしまう。</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fortunes@1.4-0"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code># Installing packages --------------------------------------------------------
+- Installing fortunes ...                       OK [linked from cache]
+Successfully installed 1 package in 22 milliseconds.
+
+The following loaded package(s) have been updated:
+- fortunes
+Restart your R session to use the new versions.</code></pre>
+<ul>
+<li>restart（quit session）をして再度開く。</li>
+<li><strong>renv.lock</strong>ファイルは確認すると、1.5-4のまま！</li>
+<li>しかし、パッケージのバージョンは1.4.0!</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"fortunes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><a href="https://cran.r-project.org/src/contrib/Archive/fortunes/">バージョン1.4.0は2010年9月9日にリリースされている</a></li>
+<li>2016年に追加された386番目の名言はこのバージョンでは追加されていないので表示されない。</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">78</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">386</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>元に戻す場合は、<code>renv::restore()</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>renv::restore()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>The following package(s) will be updated:
+
+# CRAN -----------------------------------------------------------------------
+- fortunes   [1.4-0 -&gt; 1.5-4]
+
+Do you want to proceed? [Y/n]: </code></pre>
+<!-- - 再度quit sessionをすると、 -->
+<!-- ```{r} -->
+<!-- packageVersion("fortunes") -->
+<!-- ``` -->
+<div class="infobox caution">
+<p><strong>注意</strong><br> ・ パッケージによっては、手動でのダウンロードが必要なものがあります。その場合、エラーメッセージでどのパッケージのインストールができないのか表示されます。エラーメッセージに表示されているパッケージを見て、手動でそれをインストールします。</p>
+</div>
+</section>
+</section>
+<section id="rのバージョン管理" class="level2">
+<h2 class="anchored" data-anchor-id="rのバージョン管理">Rのバージョン管理</h2>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<ul>
+<li>[Tools] → [Global Options] → [R version]をクリックすると、過去にそのPCで使用していたRのバージョンが記録されている。</li>
+</ul>
+</section>
+<section id="mac" class="level3">
+<h3 class="anchored" data-anchor-id="mac">Mac</h3>
+<ul>
+<li>Windowsのようなセレクトボタンがない！</li>
+<li><a href="https://rud.is/rswitch/">RSwitch</a>をダウンロードする必要あり</li>
+</ul>
+</section>
+</section>
+<section id="再現性をさらに高める工夫" class="level2">
+<h2 class="anchored" data-anchor-id="再現性をさらに高める工夫">再現性をさらに高める工夫</h2>
+<section id="r-markdownに含めておきたい情報" class="level3">
+<h3 class="anchored" data-anchor-id="r-markdownに含めておきたい情報">R Markdownに含めておきたい情報</h3>
+</section>
+<section id="日付日時" class="level3">
+<h3 class="anchored" data-anchor-id="日付日時">日付、日時</h3>
+<ul>
+<li>いつ作成されたファイルで、更新はされたことあるのかを明記することが重要
+<ul>
+<li>デフォルトでは、ファイルの作成日を手動で切り替えないといけない。</li>
+</ul></li>
+<li>r Sys.Date：2022-01-20</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "`r Sys.Date()` in JST"   # ``と""で囲うのを忘れない。</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>r Sys.time：2022-01-20 21:36:36</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "`r format(Sys.time(), '%Y-%m-%d %X')`"   # ``と""で囲うのを忘れない。</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>寺井おすすめ</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "作成日:2024-05-20, 最終更新(JST): `r format(Sys.time(), '%Y-%m-%d %X')`"</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span><span class="co"> html_document</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="rのバージョン-使用したrのパッケージのバージョン" class="level3">
+<h3 class="anchored" data-anchor-id="rのバージョン-使用したrのパッケージのバージョン">Rのバージョン &amp; 使用したRのパッケージのバージョン</h3>
+<ul>
+<li>Rのバージョンやパッケージのバージョン情報など</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.2 (2023-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Japanese_Japan.utf8  LC_CTYPE=Japanese_Japan.utf8   
+[3] LC_MONETARY=Japanese_Japan.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Japanese_Japan.utf8    
+
+time zone: Asia/Tokyo
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+ [1] kableExtra_1.4.0 lubridate_1.9.5  forcats_1.0.1    stringr_1.6.0   
+ [5] dplyr_1.2.0      purrr_1.2.1      readr_2.2.0      tidyr_1.3.2     
+ [9] tibble_3.3.1     ggplot2_4.0.2    tidyverse_2.0.0 
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.3.2     renv_1.1.8        
+ [5] tidyselect_1.2.1   xml2_1.5.2         textshaping_1.0.5  systemfonts_1.3.2 
+ [9] scales_1.4.0       yaml_2.3.12        fastmap_1.2.0      R6_2.6.1          
+[13] generics_0.1.4     knitr_1.51         htmlwidgets_1.6.4  svglite_2.2.2     
+[17] tzdb_0.5.0         pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.1.7       
+[21] stringi_1.8.7      xfun_0.57          S7_0.2.1           otel_0.2.0        
+[25] viridisLite_0.4.3  timechange_0.4.0   cli_3.6.5          withr_3.0.2       
+[29] magrittr_2.0.4     digest_0.6.39      grid_4.3.2         rstudioapi_0.18.0 
+[33] fortunes_1.5-4     hms_1.1.4          lifecycle_1.0.5    vctrs_0.7.2       
+[37] evaluate_1.0.5     glue_1.8.0         farver_2.1.2       rmarkdown_2.30    
+[41] tools_4.3.2        pkgconfig_2.0.3    htmltools_0.5.9   </code></pre>
+</div>
+</div>
+</section>
+<section id="パソコンのスペック" class="level3">
+<h3 class="anchored" data-anchor-id="パソコンのスペック">パソコンのスペック</h3>
+<ul>
+<li>CPUとコア数とRAM
+<ul>
+<li>CPU</li>
+<li>コア数（論理コア）
+<ul>
+<li>「論理コア」は「スレッド」「論理プロセッサ」、「仮想コア」とも呼ばれる</li>
+<li><a href="https://wa3.i-3-i.info/diff735core.html">CPUとコアについて</a></li>
+</ul></li>
+<li>RAM (Random Access Memory)
+<ul>
+<li>ストレージ（SSDやHDD）ではなく、データを一時保存する場所</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("benchmarkme") # 入れていないかたは先にインストールしてください</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>benchmarkme<span class="sc">::</span><span class="fu">get_cpu</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$vendor_id
+[1] "GenuineIntel"
+
+$model_name
+[1] "13th Gen Intel(R) Core(TM) i9-13900K"
+
+$no_of_cores
+[1] 32</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>benchmarkme<span class="sc">::</span><span class="fu">get_ram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>137 GB</code></pre>
+</div>
+</div>
+</section>
+<section id="処理にかかった時間" class="level3">
+<h3 class="anchored" data-anchor-id="処理にかかった時間">処理にかかった時間</h3>
+<ul>
+<li>時間のかかる分析を行う人は明記する方が親切！
+<ul>
+<li>いつ終わるのか分からない見通しのつかない分析を実行するのは怖いです。コア数に加え処理にかかった時間が記載されていればおおよその見通しがつきます。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tictoc") # 入れていないかたは先にインストールしてください</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tictoc' was built under R version 4.3.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>() <span class="co">#測定開始</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span><span class="cn">NULL</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  I <span class="ot">&lt;-</span> <span class="fu">c</span>(I,  i)}</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>() <span class="co">#測定終了</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.9 sec elapsed</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="関数の呼び出し方" class="level2">
+<h2 class="anchored" data-anchor-id="関数の呼び出し方">関数の呼び出し方</h2>
+<ol type="1">
+<li><p><code>library(関数名)</code>：一番メジャー</p></li>
+<li><p><code>パッケージ名::関数名</code>：あまりメジャーじゃない</p></li>
+<li><p><code>require(関数名)</code>：<code>library()</code>とほとんど変わらないが、関数を読み込めたかどうかを論理値で返すことができる。関数が読み込めない（＝パッケージを入れていない）場合に、まずそのパッケージを読み込んで、処理に進ませるみたいな用途で使える。</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>if (require(パッケージ名) == FALSE) {</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a> install.packages(パッケージ名)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>} else {</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a> #パッケージを利用してやろうとしていたことをここに書く</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="関数名が被ることがあるxxxはマスクされています" class="level3">
+<h3 class="anchored" data-anchor-id="関数名が被ることがあるxxxはマスクされています">関数名が被ることがある（xxxはマスクされています）</h3>
+<ul>
+<li><p>グラフの透明度を設定する<code>alpha</code>関数（<code>ggplot2</code>パッケージ）と、信頼性係数を出す<code>alpha</code>関数（<code>psych</code>パッケージ）</p>
+<ul>
+<li>エラーの原因になる場合あり。<code>::</code>で定義すると回避できる。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+
+</div>
+</div>
+</section>
+<section id="関数とパッケージの対応は覚えにくい" class="level3">
+<h3 class="anchored" data-anchor-id="関数とパッケージの対応は覚えにくい">関数とパッケージの対応は覚えにくい</h3>
+<ul>
+<li>R Markdownのファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+
+</div>
+</div>
+<ul>
+<li>どのパッケージに属する関数なのか一目瞭然。ただしその都度パッケージ名を書くので、コードが長くなるという欠点も</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+
+</div>
+</div>
+</section>
+<section id="gitによるコードのバージョン管理" class="level3">
+<h3 class="anchored" data-anchor-id="gitによるコードのバージョン管理">Gitによるコードのバージョン管理</h3>
+<ul>
+<li><p>Git（ギット）：無料で使用できるバージョン管理システム。<strong>ファイルの変更履歴を記録し，変更前の状態に戻したり，別の状態と比べたり</strong>しながらファイルの管理やプログラム開発を補助するシステムのこと。</p></li>
+<li><p>基本的にRのようにコードで命令する必要があるが、RStudioと連携すれば一部の機能はクリックなどで行うことができる。</p></li>
+</ul>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">まとめ</h2>
+<div style="border: 3px solid blue; padding: 10px; background-color: #e6f7ff;">
+<ol type="1">
+<li><p>R Markdownでは、YAMLヘッダー、コードチャンク、ドキュメントチャンクを使って分析結果をまとめることができる。</p>
+<ul>
+<li>研究ごとにプロジェクトを作成しておくとよい</li>
+</ul></li>
+<li><p>作成したR Markdownファイルは、Word、HTMLファイル、Power Pointなど様々な形式に出力できる。</p>
+<ul>
+<li>RPubsやGithubを使えば、ウェブページとして共有できる</li>
+</ul></li>
+<li><p>RのパッケージやR自体のバージョンは切り替えて使うことができる。</p>
+<ul>
+<li>再現しようとする分析ファイルに記載されたバージョンに合わせて分析することでより再現性が高まる</li>
+</ul></li>
+</ol>
+</div>
+<p><br></p>
+</section>
+<section id="次週までの課題" class="level2">
+<h2 class="anchored" data-anchor-id="次週までの課題">次週までの課題</h2>
+<ul>
+<li>なし。</li>
+</ul>
+</section>
+<section id="期末課題レポートについて" class="level2">
+<h2 class="anchored" data-anchor-id="期末課題レポートについて">期末課題レポートについて</h2>
+<div style="border: 2px solid skyblue; padding: 10px;">
+<ul>
+<li><p>期末課題の詳細についてはTACTにてアナウンスします。</p>
+<ul>
+<li><p>共有されたデータを基に、分析を行い、その結果を報告してください。HTML形式での共有になります。</p>
+<ul>
+<li><p>以下の点が評価の範囲として含まれます</p>
+<ul>
+<li><p>研究課題が明記してあるか（自分自身のデータを使う方以外は、こちらで研究課題を設定しています。）</p></li>
+<li><p>記述統計、作図などメインの分析だけでなく、データの概要や特徴などがきちんと説明されているか（論文のResultsセクションをイメージしてください）</p></li>
+<li><p>分析の結果が正確に、また分かりやすく報告されているか</p>
+<ul>
+<li>先行研究との比較などは書かなくてもよいですが、今回の結果を踏まえて研究課題に対してどのような問いが得られたのかも記載してください</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>締め切りは<strong>8月8日金曜日の17時</strong>です。</p></li>
+<li><p>未提出・再提出課題についても8月8日金曜日の17時まで受け付けます。提出は<code>terai.research [at] gmail.com</code>宛てに送ってください。</p></li>
+</ul>
+</div>
+</section>
+<section id="参考文献-資料" class="level2">
+<h2 class="anchored" data-anchor-id="参考文献-資料">参考文献 &amp; 資料</h2>
+<ul>
+<li><p><a href="https://www.amazon.co.jp/R%E3%81%8C%E7%94%9F%E7%94%A3%E6%80%A7%E3%82%92%E9%AB%98%E3%82%81%E3%82%8B%E3%80%9C%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%95%E3%83%AD%E3%83%BC%E5%8A%B9%E7%8E%87%E5%8C%96%E3%81%AE%E5%AE%9F%E8%B7%B5-igjit/dp/4297125242">📚Rが生産性を高める データ分析ワークフロー効率化の実践</a></p></li>
+<li><p><a href="https://www.amazon.co.jp/%E5%86%8D%E7%8F%BE%E5%8F%AF%E8%83%BD%E6%80%A7%E3%81%AE%E3%81%99%E3%82%9D%E3%82%81-Wonderful-R-%E7%9F%B3%E7%94%B0-%E5%9F%BA%E5%BA%83/dp/4320112431">📚再現可能性のすすめ：RStudioによるデータ解析とレポート作成</a></p></li>
+<li><p><a href="https://www.jstage.jst.go.jp/article/methodologysig/17/0/17_17.3/_pdf/-char/ja">📄寺井雅人. (2024). RStudio と Git の連携によるバージョン管理. メソドロジー研究部会報告論集, 17, 35-52.</a></p></li>
+<li><p><a href="https://wa3.i-3-i.info/diff735core.html">💻「物理コア」と「論理コア」の違い</a></p></li>
+<li><p><a href="https://qiita.com/gp333/items/9ed91fc280fc6f26ef93">💻MacでのRstudio上でのR versionの切り替え方法</a></p></li>
+<li><p><a href="https://beginner-r.com/why_two_colons_are_needed_in_rlang/">💻Rで関数の前に::をつけるのなんで？</a></p></li>
+<li><p><a href="https://webbeginner.hatenablog.com/entry/2015/07/23/064441">💻R言語でパッケージから関数を呼び出す</a></p></li>
+<li><p><a href="https://bioinformatics.ccr.cancer.gov/docs/rtools/R%20and%20RStudio/2.6_switching_r_version/">💻Switching R versions in Windows</a></p></li>
+<li><p><a href="https://www.jaysong.net/RBook/renv.html">💻私たちのR</a></p></li>
+<li><p><a href="https://qiita.com/xuwenzhen/items/b01f78525626b3e87d23">💻YAMLについての基本知識</a></p></li>
+<li><p><a href="https://qiita.com/masato-terai/items/664c5ee782f690260eca">💻R Markdownでスライドを作成（ioslides）</a></p></li>
+<li><p><a href="https://gedevan-aleksizde.github.io/rmarkdown-cookbook/">💻R Markdown クックブック</a></p></li>
+<li><p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">💻R Markdown Cheat Sheet</a></p></li>
+</ul>
+<style>
+
+/* Whole document */
+body {
+  font-family: Helvetica;
+  font-size: 16pt;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 24pt;
+}
+
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./14-Week14_nonpara.html" class="pagination-link" aria-label="Week 14: ノンパラメトリック検定">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 14: ノンパラメトリック検定</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>作成者：寺井雅人（名古屋学院大学）.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>本サイトはQuartoで作成されてます。 <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

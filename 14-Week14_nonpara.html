@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-23">
+
+<title>Week 14: ノンパラメトリック検定 – 言語統計処理a</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./15-Week15_Repro.html" rel="next">
+<link href="./13-Week13_Eff_pow.html" rel="prev">
+<link href="./cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9bfc0e7d01402a0cc422ef4173aa7173.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./14-Week14_nonpara.html">Week 14: ノンパラメトリック検定</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">言語統計処理a</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/masato-terai/statslec_quarto/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">この資料について</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2：要約統計量</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3：推測統計学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: 統計的検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week5: 相関分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week12: 階層モデル</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-Week15_Repro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 15：言語研究とオープンサイエンス</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#事前の確認" id="toc-事前の確認" class="nav-link active" data-scroll-target="#事前の確認">事前の確認</a></li>
+  <li><a href="#今日の目標" id="toc-今日の目標" class="nav-link" data-scroll-target="#今日の目標">今日の目標</a></li>
+  <li><a href="#ノンパラメトリック検定" id="toc-ノンパラメトリック検定" class="nav-link" data-scroll-target="#ノンパラメトリック検定">ノンパラメトリック検定</a></li>
+  <li><a href="#名義尺度データ" id="toc-名義尺度データ" class="nav-link" data-scroll-target="#名義尺度データ">名義尺度データ</a>
+  <ul class="collapse">
+  <li><a href="#カイ二乗検定1変数" id="toc-カイ二乗検定1変数" class="nav-link" data-scroll-target="#カイ二乗検定1変数">カイ二乗検定（1変数）</a></li>
+  <li><a href="#データの読み込み" id="toc-データの読み込み" class="nav-link" data-scroll-target="#データの読み込み">データの読み込み</a></li>
+  <li><a href="#中身の確認" id="toc-中身の確認" class="nav-link" data-scroll-target="#中身の確認">中身の確認</a></li>
+  <li><a href="#クロス集計表" id="toc-クロス集計表" class="nav-link" data-scroll-target="#クロス集計表">クロス集計表</a></li>
+  <li><a href="#カイ二乗検定の実施" id="toc-カイ二乗検定の実施" class="nav-link" data-scroll-target="#カイ二乗検定の実施">カイ二乗検定の実施</a></li>
+  <li><a href="#多重比較" id="toc-多重比較" class="nav-link" data-scroll-target="#多重比較">多重比較</a></li>
+  <li><a href="#論文への記載" id="toc-論文への記載" class="nav-link" data-scroll-target="#論文への記載">論文への記載</a></li>
+  <li><a href="#分割表のカイ二乗検定" id="toc-分割表のカイ二乗検定" class="nav-link" data-scroll-target="#分割表のカイ二乗検定">3×3分割表のカイ二乗検定</a></li>
+  <li><a href="#練習用データの作成" id="toc-練習用データの作成" class="nav-link" data-scroll-target="#練習用データの作成">練習用データの作成</a></li>
+  <li><a href="#カイ二乗検定の実施-1" id="toc-カイ二乗検定の実施-1" class="nav-link" data-scroll-target="#カイ二乗検定の実施-1">カイ二乗検定の実施</a></li>
+  <li><a href="#効果量の算出" id="toc-効果量の算出" class="nav-link" data-scroll-target="#効果量の算出">効果量の算出</a></li>
+  <li><a href="#調整済み標準化残差の確認残差分析" id="toc-調整済み標準化残差の確認残差分析" class="nav-link" data-scroll-target="#調整済み標準化残差の確認残差分析">調整済み標準化残差の確認（残差分析）</a></li>
+  <li><a href="#結果の記載" id="toc-結果の記載" class="nav-link" data-scroll-target="#結果の記載">結果の記載</a></li>
+  </ul></li>
+  <li><a href="#リスク比とオッズ比" id="toc-リスク比とオッズ比" class="nav-link" data-scroll-target="#リスク比とオッズ比">リスク比とオッズ比</a>
+  <ul class="collapse">
+  <li><a href="#リスク比相対危険度" id="toc-リスク比相対危険度" class="nav-link" data-scroll-target="#リスク比相対危険度">リスク比（相対危険度）</a></li>
+  <li><a href="#オッズ比" id="toc-オッズ比" class="nav-link" data-scroll-target="#オッズ比">オッズ比</a></li>
+  </ul></li>
+  <li><a href="#対応のあるデータを比較する" id="toc-対応のあるデータを比較する" class="nav-link" data-scroll-target="#対応のあるデータを比較する">対応のあるデータを比較する</a>
+  <ul class="collapse">
+  <li><a href="#マクネマー検定" id="toc-マクネマー検定" class="nav-link" data-scroll-target="#マクネマー検定">マクネマー検定</a></li>
+  <li><a href="#論文への記載の例" id="toc-論文への記載の例" class="nav-link" data-scroll-target="#論文への記載の例">論文への記載の例</a></li>
+  <li><a href="#コクランのq検定" id="toc-コクランのq検定" class="nav-link" data-scroll-target="#コクランのq検定">コクランのQ検定</a></li>
+  <li><a href="#論文への記載の例-1" id="toc-論文への記載の例-1" class="nav-link" data-scroll-target="#論文への記載の例-1">論文への記載の例</a></li>
+  </ul></li>
+  <li><a href="#順序尺度データ" id="toc-順序尺度データ" class="nav-link" data-scroll-target="#順序尺度データ">順序尺度データ</a>
+  <ul class="collapse">
+  <li><a href="#順序尺度データを扱うノンパラメトリック検定の特徴" id="toc-順序尺度データを扱うノンパラメトリック検定の特徴" class="nav-link" data-scroll-target="#順序尺度データを扱うノンパラメトリック検定の特徴">順序尺度データを扱うノンパラメトリック検定の特徴</a></li>
+  <li><a href="#順序尺度検定の実施" id="toc-順序尺度検定の実施" class="nav-link" data-scroll-target="#順序尺度検定の実施">順序尺度検定の実施</a></li>
+  <li><a href="#対応なしの2群比較ウィルコクソンの順位和検定" id="toc-対応なしの2群比較ウィルコクソンの順位和検定" class="nav-link" data-scroll-target="#対応なしの2群比較ウィルコクソンの順位和検定">対応なしの2群比較（ウィルコクソンの順位和検定）</a></li>
+  <li><a href="#論文への記載の例-2" id="toc-論文への記載の例-2" class="nav-link" data-scroll-target="#論文への記載の例-2">論文への記載の例</a></li>
+  <li><a href="#要因の対応ある2群の比較ウィルコクソンの符号付順位検定" id="toc-要因の対応ある2群の比較ウィルコクソンの符号付順位検定" class="nav-link" data-scroll-target="#要因の対応ある2群の比較ウィルコクソンの符号付順位検定">1要因の対応ある2群の比較（ウィルコクソンの符号付順位検定）</a></li>
+  <li><a href="#論文への記載の例-3" id="toc-論文への記載の例-3" class="nav-link" data-scroll-target="#論文への記載の例-3">論文への記載の例</a></li>
+  <li><a href="#関係の強さ順序相関係数" id="toc-関係の強さ順序相関係数" class="nav-link" data-scroll-target="#関係の強さ順序相関係数">関係の強さ（順序相関係数）</a></li>
+  </ul></li>
+  <li><a href="#次週までの課題" id="toc-次週までの課題" class="nav-link" data-scroll-target="#次週までの課題">次週までの課題</a>
+  <ul class="collapse">
+  <li><a href="#課題内容" id="toc-課題内容" class="nav-link" data-scroll-target="#課題内容">課題内容</a></li>
+  <li><a href="#提出方法" id="toc-提出方法" class="nav-link" data-scroll-target="#提出方法">提出方法</a></li>
+  </ul></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 14: ノンパラメトリック検定</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-03-23</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">2026-03-23 16:23:10</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="事前の確認" class="level2">
+<h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</section>
+<section id="今日の目標" class="level2">
+<h2 class="anchored" data-anchor-id="今日の目標">今日の目標</h2>
+<ol type="1">
+<li>ノンパラメトリック分析の理論を概念的に理解できる</li>
+<li>ノンパラメトリック検定をRで実装しその結果を適切に報告できる</li>
+</ol>
+</section>
+<section id="ノンパラメトリック検定" class="level2">
+<h2 class="anchored" data-anchor-id="ノンパラメトリック検定">ノンパラメトリック検定</h2>
+<ul>
+<li><p>母集団に特定の分布を仮定しない検定に対して用いることができる手法。</p>
+<ul>
+<li>e.g., カイ二乗検定、フィッシャーの正確確率検定</li>
+</ul></li>
+<li><p>名義尺度データや順序尺度データの分析に使われる</p></li>
+</ul>
+</section>
+<section id="名義尺度データ" class="level2">
+<h2 class="anchored" data-anchor-id="名義尺度データ">名義尺度データ</h2>
+<ul>
+<li>クロス集計表などで集計結果（それぞれの度数）が示される</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">country</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1999</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2000</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">745</td>
+<td style="text-align: right;">2666</td>
+<td style="text-align: right;">3411</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">37737</td>
+<td style="text-align: right;">80488</td>
+<td style="text-align: right;">118225</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">212258</td>
+<td style="text-align: right;">213766</td>
+<td style="text-align: right;">426024</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>カイ（ <em>χ</em> ）二乗検定（chi-square test）</p>
+<ul>
+<li><p>観測された度数と期待値に偏りがあるかを検定する</p></li>
+<li><p>帰無仮説：「質的変数間の連関（関連）はない」</p>
+<ul>
+<li>質的変数については相関ではなく、<strong>連関</strong>と呼ぶ</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>期待値</strong>：「もし、どのグループにも差がなかったら、各セルにはどれくらいの人数が入るはずか？」という理論上の人数。期待値を求めるには、各セルの行合計×列合計 ÷ 全体の合計で求める</p>
+</div>
+</div>
+<ul>
+<li><p><em>χ</em> 二乗値は <em>χ</em> 二乗分布に近似的に従うという理論に基づいている</p></li>
+<li><p>2 × 2分割表の例</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">40</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(observed) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(observed) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"購入した"</span>, <span class="st">"購入しなかった"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>observed <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">購入した</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">購入しなかった</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">男性</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">女性</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 行・列・全体の合計</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>row_totals <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observed)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>col_totals <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observed)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>grand_total <span class="ot">&lt;-</span> <span class="fu">sum</span>(observed)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 期待度数の計算： E_ij = (行合計 × 列合計) / 全体合計</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">outer</span>(row_totals, col_totals) <span class="sc">/</span> grand_total</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>expected <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">購入した</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">購入しなかった</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">男性</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">女性</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p><em>χ</em> 二乗値の計算</p>
+<ul>
+<li>それぞれのセルに対し、観測度数から期待度数を引いて二乗したものを期待度数で割る。そしてそれらを合計する。</li>
+</ul></li>
+</ul>
+<p>[ ^2 = ]</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chisq_stat <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chisq_stat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.66667</code></pre>
+</div>
+</div>
+<ul>
+<li><p>自由度の計算</p>
+<ul>
+<li><p>（カテゴリー数 - 1）</p></li>
+<li><p>2 × 2の表の場合、(2 - 1) × (2 - 1) = 1</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observed) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observed) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><em>χ</em> 二乗値と自由度をもとに、棄却域から大きいければ帰無仮説を棄却する</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(chisq_stat, <span class="at">df =</span> df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.455709e-05</code></pre>
+</div>
+</div>
+<ul>
+<li><p>カイ二乗検定の前提と留意点</p>
+<ul>
+<li><p>観測データの独立性</p>
+<ul>
+<li>データを表に分類する際に、そのデータはいずれか1つのセルに1回しか入れられない</li>
+</ul></li>
+<li><p>正規分布は仮定しないが、標本が無作為抽出されていることが前提</p></li>
+<li><p>サンプルサイズ</p>
+<ul>
+<li><p>最低1つのセルの期待値が5以上</p>
+<ul>
+<li>5以下の場合はフィッシャーの正確確率検定が使用される</li>
+</ul></li>
+</ul></li>
+<li><p>対応のあるデータの分析はできない</p>
+<ul>
+<li>同じ人から複数回データを取っている（e.g., 留学前と後の比較）</li>
+</ul></li>
+<li><p>2 × 2の表（自由度 1）の場合、Type 1 Errorが大きくなる</p>
+<ul>
+<li>この場合フィッシャーの正確確率検定か、イェーツの補正をかけた <em>p</em> 値を報告する。しかし、イェーツの補正は過剰に修正されるため、フィッシャーの正確確率検定の方が推奨されている</li>
+</ul></li>
+</ul></li>
+<li><p>1変数のカイ二乗検定は<strong>適合度検定</strong>、2変数のカイ二乗検定は<strong>独立性の検定</strong>とも呼ばれる</p></li>
+<li><p>名義尺度の効果量</p>
+<ul>
+<li><p>Cohenの <em>w</em> と <em>r</em></p>
+<ul>
+<li>2 × 2の分割表で使われる</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(w = r = \sqrt{\frac{\chi^2}{N}} = \sqrt{\frac{z^2}{N}}\)</span></p>
+<ul>
+<li><p>クラメールの<em>V</em></p>
+<ul>
+<li>大きな分割表（2 × 2以上）などで使われる</li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(V = \sqrt{\frac{\chi^2}{N(k - 1)}}\)</span></p>
+<ul>
+<li><span class="math inline">\(k\)</span>：行数または列数の小さい方</li>
+</ul>
+<section id="カイ二乗検定1変数" class="level3">
+<h3 class="anchored" data-anchor-id="カイ二乗検定1変数">カイ二乗検定（1変数）</h3>
+</section>
+<section id="データの読み込み" class="level3">
+<h3 class="anchored" data-anchor-id="データの読み込み">データの読み込み</h3>
+<ul>
+<li><p>英語の授業で60名の学生に対し、歌、映画、ニュースのどれを使った授業を受講したいかのアンケートを実施。これら3つの種類の希望者の数に有意な違いがあるかを調べる。</p>
+<ul>
+<li><p>3つのカテゴリの期待値は、それぞれ <span class="math inline">\(\frac{60}{3} = 20\)</span></p></li>
+<li><p>帰無仮説：「3つの種類の度数は一様である」</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/chisq.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="中身の確認" class="level3">
+<h3 class="anchored" data-anchor-id="中身の確認">中身の確認</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Method
+1   song
+2   song
+3   song</code></pre>
+</div>
+</div>
+</section>
+<section id="クロス集計表" class="level3">
+<h3 class="anchored" data-anchor-id="クロス集計表">クロス集計表</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Method
+movie  news  song 
+   29    14    17 </code></pre>
+</div>
+</div>
+</section>
+<section id="カイ二乗検定の実施" class="level3">
+<h3 class="anchored" data-anchor-id="カイ二乗検定の実施">カイ二乗検定の実施</h3>
+<ul>
+<li><code>table()</code>の結果を保存</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>今回紹介しているカイ二乗検定を行うための関数では、データフレーム型ではなく、表形式にデータを成形する必要があります。</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tx <span class="ot">&lt;-</span> <span class="fu">table</span>(dat)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Method
+movie  news  song 
+   29    14    17 </code></pre>
+</div>
+</div>
+<ul>
+<li><p><code>chisq.test()</code>関数を実行</p></li>
+<li><p><em>p</em> 値が有意水準 .05以下になっており、受講希望に有意差がある</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  tx
+X-squared = 6.3, df = 2, p-value = 0.04285</code></pre>
+</div>
+</div>
+</section>
+<section id="多重比較" class="level3">
+<h3 class="anchored" data-anchor-id="多重比較">多重比較</h3>
+<ul>
+<li><p>3つの種類のどこに有意差があるかを検定する</p>
+<ul>
+<li><p>各カテゴリ間でカイ二乗検定を3回行う。検定を繰り返すため、ボンフェロー二の方法で有意水準の調節をする</p></li>
+<li><p>3回繰り返すため、有意水準の .05を3で割った値を基準にする（ <em>p</em> = .0167）</p></li>
+</ul></li>
+<li><p>映画 vs.&nbsp;ニュース</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">29</span>, <span class="dv">14</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  c(29, 14)
+X-squared = 5.2326, df = 1, p-value = 0.02217</code></pre>
+</div>
+</div>
+<ul>
+<li>映画 vs.&nbsp;歌</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">29</span>, <span class="dv">17</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  c(29, 17)
+X-squared = 3.1304, df = 1, p-value = 0.07684</code></pre>
+</div>
+</div>
+<ul>
+<li>歌 vs.&nbsp;ニュース</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">14</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  c(17, 14)
+X-squared = 0.29032, df = 1, p-value = 0.59</code></pre>
+</div>
+</div>
+</section>
+<section id="論文への記載" class="level3">
+<h3 class="anchored" data-anchor-id="論文への記載">論文への記載</h3>
+<p>学生60名に映画、ニュース、歌のうちどれを使った授業を受講したいか調査した結果、それぞれ29、17、14人であった。カイ二乗検定を行った結果、<span class="math inline">\(\chi^2\)</span>(2) = 6.30、<em>p</em> = .0429と5%有意水準で受講希望者が有意に異なっていた。そこで多重比較を行い、ボンフェロー二の方法で補正した有意水準（ <em>α</em> = .0167）と比較した結果、どこにも有意差は見られなかった。</p>
+<ul>
+<li><span class="math inline">\(\chi^2\)</span>(自由度)</li>
+</ul>
+</section>
+<section id="分割表のカイ二乗検定" class="level3">
+<h3 class="anchored" data-anchor-id="分割表のカイ二乗検定">3×3分割表のカイ二乗検定</h3>
+<p>高校生55名の単語テストの得点順に3グループに分けた後、「声に出す」「書き写す」あるいは、その「両方」のいずれの方法で暗記したかを尋ねた。</p>
+<ul>
+<li>帰無仮説：「単語テストの成績と暗記方法に関連はない」</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>          両方 書き写す 声に出す
+下位群(1)    4        7       10
+中位群(2)    6        4        6
+上位群(3)   13        3        2</code></pre>
+</div>
+</div>
+</section>
+<section id="練習用データの作成" class="level3">
+<h3 class="anchored" data-anchor-id="練習用データの作成">練習用データの作成</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">13</span>, <span class="dv">3</span>, <span class="dv">2</span>),</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="カイ二乗検定の実施-1" class="level3">
+<h3 class="anchored" data-anchor-id="カイ二乗検定の実施-1">カイ二乗検定の実施</h3>
+<ul>
+<li><p>期待度数が0、もしくは期待度数が5未満になるセルが全体の20%以上の場合に警告メッセージが表示される。</p></li>
+<li><p>この場合、Fisherの正確確率検定の値も確認する</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in chisq.test(x): Chi-squared approximation may be incorrect</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  x
+X-squared = 11.818, df = 4, p-value = 0.01876</code></pre>
+</div>
+</div>
+<ul>
+<li>カイ二乗検定と結果に違いはない。</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">fisher.test</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fisher's Exact Test for Count Data
+
+data:  x
+p-value = 0.01728
+alternative hypothesis: two.sided</code></pre>
+</div>
+</div>
+</section>
+<section id="効果量の算出" class="level3">
+<h3 class="anchored" data-anchor-id="効果量の算出">効果量の算出</h3>
+<ul>
+<li><p><code>vcd</code>パッケージの<code>assocstats</code>関数でCramerの <em>V</em> を算出する</p>
+<ul>
+<li>0から1の範囲を取り、1に近いほど連関が強い。</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("vcd")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'vcd' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: grid</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assocstats</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    X^2 df P(&gt; X^2)
+Likelihood Ratio 12.511  4 0.013929
+Pearson          11.818  4 0.018758
+
+Phi-Coefficient   : NA 
+Contingency Coeff.: 0.421 
+Cramer's V        : 0.328 </code></pre>
+</div>
+</div>
+</section>
+<section id="調整済み標準化残差の確認残差分析" class="level3">
+<h3 class="anchored" data-anchor-id="調整済み標準化残差の確認残差分析">調整済み標準化残差の確認（残差分析）</h3>
+<ul>
+<li><p>どのセルの観測度数が期待度数より有位にずれているかを分析する</p>
+<ul>
+<li>絶対値1.96（5%水準棄却値）より絶対値が大きいものを確認</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(table_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          両方 書き写す 声に出す
+下位群(1)    4        7       10
+中位群(2)    6        4        6
+上位群(3)   13        3        2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>stdres</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]        [,2]       [,3]
+[1,] -2.6905996  1.05418707  1.8497949
+[2,] -0.4158472 -0.04956705  0.4831714
+[3,]  3.1883928 -1.04353624 -2.3829827</code></pre>
+</div>
+</div>
+</section>
+<section id="結果の記載" class="level3">
+<h3 class="anchored" data-anchor-id="結果の記載">結果の記載</h3>
+<p>単語テストを受けた55名の単語の暗記方法とテストの成績に関連があるかをカイ2乗検定で分析した。その結果、<span class="math inline">\(\chi^2\)</span>(1) = 11.82、<em>p</em> = .018、 Cramer’ <em>V</em> = .33と、有意な関連が見られた。 クロス集計表で期待値5未満が全体の20%以上あったため、Fisherの直接法を行った。その結果、<em>p</em> = .017と5%水準で有意だった。そこで、調整済み標準化残差で判断したところ、上位群は暗記の際に声を出す方法だけを使用する場合が有意に少なく（ <em>z</em> = -2.38, <em>p</em> &lt; .05）、その方法と書き写す方法の両方を使う傾向にあることがわかった（<em>z</em> = -3.19, <em>p</em> &lt; .08）。それに対して、下位群は声を出す方法だけを使う傾向があり（ <em>z</em> = 1.85. <em>p</em> &lt;.05）、両方の方法を使うことが有意に少なかった（ <em>z</em> = -2.69, <em>p</em> &lt; .01）。中位群にはそのような顕著な傾向はみられなかった。</p>
+</section>
+</section>
+<section id="リスク比とオッズ比" class="level2">
+<h2 class="anchored" data-anchor-id="リスク比とオッズ比">リスク比とオッズ比</h2>
+<ul>
+<li>2群のカテゴリデータの効果量として使われる</li>
+</ul>
+<section id="リスク比相対危険度" class="level3">
+<h3 class="anchored" data-anchor-id="リスク比相対危険度">リスク比（相対危険度）</h3>
+<ul>
+<li><p>ある集団で「イベント（例：病気になる）」が起こる<strong>確率（割合）</strong></p></li>
+<li><p>例「海外経験がある人は英語を話すのが好きな傾向があるか」</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top table-sm small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">好き</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">嫌い</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">計</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">海外経験あり</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">海外経験なし</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">計</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">54</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>海外経験のある人で英語で話すのが好きな人の割合</li>
+</ul>
+<p>[ リスク = = = = 0.476 ]</p>
+<ul>
+<li>海外経験のない人で英語で話すのが好きな人の割合</li>
+</ul>
+<p>[ リスク = = = = 0.476 ]</p>
+<ul>
+<li><p>リスク比の算出</p></li>
+<li><p>海外経験のある人で英語を話すのが好きな人は、海外経験のない人の何倍か</p></li>
+</ul>
+<p>[ リスク比 = = = 1.964 ]</p>
+<ul>
+<li>海外経験のある人で英語を話すのが好きになる確率は、海外経験のない人の約2倍である</li>
+</ul>
+</section>
+<section id="オッズ比" class="level3">
+<h3 class="anchored" data-anchor-id="オッズ比">オッズ比</h3>
+<ul>
+<li>「イベントが起こる確率 ÷ 起こらない確率」（<strong>オッズの比</strong>）</li>
+</ul>
+<p>[ オッズ = = = 0.909 ]</p>
+<ul>
+<li>海外経験のある人は英語を話すのが好きと嫌いの比率がほぼ等しい</li>
+</ul>
+<p>[ オッズ = = = 0.320 ]</p>
+<ul>
+<li><p>海外経験のない人は英語を話すのが好きと嫌いの比率は0.320:1で、嫌いが約3倍高い</p></li>
+<li><p>オッズ比の計算 [ オッズ比 = = 2.841 ]</p>
+<ul>
+<li>海外経験のある人は、英語を話すのが好きになる確率が、海外経験のない人の2.84倍である</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>リスク比もオッズ比も、分子を何にするかで数値やその解釈が変わる。分子に大きい値の方を持ってくる方が解釈しやすい。結果が分かった後に、その原因をさかのぼって調査する研究（後ろ向き調査）では、リスク比を使うことができない。なぜならば、「全体のうち何人が○○になったか（＝リスク、割合）」という情報を得ることができないからである。リスク比の算出には、事前に調査対象を決め、その対象のうち何名が○○になったかを観察する必要がある。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="対応のあるデータを比較する" class="level2">
+<h2 class="anchored" data-anchor-id="対応のあるデータを比較する">対応のあるデータを比較する</h2>
+<section id="マクネマー検定" class="level3">
+<h3 class="anchored" data-anchor-id="マクネマー検定">マクネマー検定</h3>
+<ul>
+<li><p>2 × 2分割表で使用される</p></li>
+<li><p><em>t</em> 検定に似ている</p></li>
+<li><p>帰無仮説：「対応する2つのカテゴリ変数において、変化の方向に偏りがない」。すなわち、「両条件間で差がない（確率が等しい）」。</p>
+<ul>
+<li>例「薬を飲んで改善した人の数」と「薬を飲んで悪化した人の数」が同じであるかを比べている</li>
+</ul></li>
+<li><p>話すことへの自信に関するアンケート調査</p>
+<ul>
+<li>話す前と後で自信に統計的有意な変化があったかを分析する</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped caption-top table-sm small">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+留学前
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+留学後
+</div></th>
+</tr>
+<tr class="even">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ない</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ある</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; color: black !important;">ない</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; color: black !important;">ある</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>データの読み込み</p></li>
+<li><p>1列目と2列目のデータのみ読み込む</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/McN_Signed.csv"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Before2 After2
+1       0      0
+2       0      0
+3       0      0
+4       0      0
+5       0      0
+6       0      0</code></pre>
+</div>
+</div>
+<ul>
+<li><code>table()</code>で分割表を作成する</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Before2, dat<span class="sc">$</span>After2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+     0  1
+  0 15 21
+  1  3 11</code></pre>
+</div>
+</div>
+<ul>
+<li><code>mcnemar.test()</code>で分析を行う</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Before2, dat<span class="sc">$</span>After2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    McNemar's Chi-squared test with continuity correction
+
+data:  dat$Before2 and dat$After2
+McNemar's chi-squared = 12.042, df = 1, p-value = 0.0005202</code></pre>
+</div>
+</div>
+<ul>
+<li>効果量の算出</li>
+</ul>
+<p>[ 効果量 r = = = 0.708 ]</p>
+</section>
+<section id="論文への記載の例" class="level3">
+<h3 class="anchored" data-anchor-id="論文への記載の例">論文への記載の例</h3>
+<p>1年問の留学を経験した50名の学生に対して、留学先の言語で話す自信があるかを留学前後で尋ね、その変 化をマクネマー検定で分析した。その結果、留学前後で、「自信がない」から「自信がある」となった学生は21 名で、逆に、「自信がある」から「自信がない」に変わった学生は3名で、検定の結果、<em>p</em> &lt; .001で有意な変化が見られた。また、効果量も <em>r</em> = .71と大きく、1年問の留学は、話すことへの自信につながることが示された。</p>
+</section>
+<section id="コクランのq検定" class="level3">
+<h3 class="anchored" data-anchor-id="コクランのq検定">コクランのQ検定</h3>
+<ul>
+<li><p>対応ある3変数以上の間でそれぞれの比率に変化や差があるかを検定（フリードマン検定の2値データ版）。</p>
+<ul>
+<li><p>データは2値データ</p></li>
+<li><p>帰無仮説「1/0の比率がすべての変数間で等しい」</p></li>
+<li><p>最低でも10以上のサンプルが必要</p></li>
+</ul></li>
+<li><p>データの読み込み</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/Cochran.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Listening Reading Speaking Writing
+1         0       1        0       0
+2         1       1        0       0</code></pre>
+</div>
+</div>
+<ul>
+<li><code>nonpar</code>パッケージの<code>cochrans.q()</code>関数を使う</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("nonpar")</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nonpar)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cochrans.q</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Cochran's Q Test 
+ 
+ H0: There is no difference in the effectiveness of treatments. 
+ HA: There is a difference in the effectiveness of treatments. 
+ 
+ Q = 9.71428571428572 
+ 
+ Degrees of Freedom = 3 
+ 
+ Significance Level = 0.05 
+ The p-value is  0.0211576681477015 
+ There is enough evidence to conclude that the effectiveness of at least two treatments differ. 
+ </code></pre>
+</div>
+</div>
+<ul>
+<li><p>マクネマ―検定による多重比較</p>
+<ul>
+<li>4回行うので、<em>α</em> は 0.0125</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Listening, dat<span class="sc">$</span>Speaking)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    McNemar's Chi-squared test with continuity correction
+
+data:  dat$Listening and dat$Speaking
+McNemar's chi-squared = 2.2857, df = 1, p-value = 0.1306</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Listening, dat<span class="sc">$</span>Writing)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    McNemar's Chi-squared test with continuity correction
+
+data:  dat$Listening and dat$Writing
+McNemar's chi-squared = 0.25, df = 1, p-value = 0.6171</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Reading, dat<span class="sc">$</span>Speaking)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    McNemar's Chi-squared test with continuity correction
+
+data:  dat$Reading and dat$Speaking
+McNemar's chi-squared = 6.125, df = 1, p-value = 0.01333</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Reading, dat<span class="sc">$</span>Writing)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    McNemar's Chi-squared test with continuity correction
+
+data:  dat$Reading and dat$Writing
+McNemar's chi-squared = 1.4545, df = 1, p-value = 0.2278</code></pre>
+</div>
+</div>
+<ul>
+<li>効果量はマクネマー同様に、カイ二乗値をデータ数で割ってルートを取る</li>
+</ul>
+</section>
+<section id="論文への記載の例-1" class="level3">
+<h3 class="anchored" data-anchor-id="論文への記載の例-1">論文への記載の例</h3>
+<p>学生15人に対して、英語の4技能に対する苦手意識を調査した技能問によって得意と感じる比率に差があるかどうかを、コクランの Q検定で検証したところ、<em>Q</em>(3) = 9.714, <em>p</em> = .021と 5%水準で有意であったそこで,マクネマー検定であらかじめ関心のある技能問で4回の多重比較を行ったところ、ボンフェロー二の方法で調整した有意水準( = .05/4 = 0.0125)で判断すると、どの条件間にも有意差はなかった。</p>
+</section>
+</section>
+<section id="順序尺度データ" class="level2">
+<h2 class="anchored" data-anchor-id="順序尺度データ">順序尺度データ</h2>
+<section id="順序尺度データを扱うノンパラメトリック検定の特徴" class="level3">
+<h3 class="anchored" data-anchor-id="順序尺度データを扱うノンパラメトリック検定の特徴">順序尺度データを扱うノンパラメトリック検定の特徴</h3>
+<ul>
+<li><p>母集団から無作為抽出したデータであることを前提</p></li>
+<li><p>正規性を仮定しないが、等分散性は仮定する</p></li>
+<li><p>代表値として中央値、バラツキ度に（四分位）範囲、四分位偏差</p>
+<ul>
+<li><p>平均値は外れ値の影響を大きく受けてしまうため</p></li>
+<li><p>Week 2のまとめセクションを参照</p></li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>パラメトリック検定に比べ、外れ値が含まれるデータに頑健。しかし、サンプルサイズが極端に少ない場合や2群の散らばりが大きく偏っている場合は、正確な検定が困難になる</p>
+<ul>
+<li><p>サンプルサイズや散布度に問題がある場合</p>
+<ul>
+<li>正確確率検定：サンプルサイズがかなり小さい場合や偏りがある場合に推奨される（e.g., カイ二乗検定でのフィッシャーの正確確率検定）。サンプルサイズが大きい場合は、モンテカルロ法と呼ばれる、シミュレーションをもとにした解析法が用いられる。</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="順序尺度検定の実施" class="level3">
+<h3 class="anchored" data-anchor-id="順序尺度検定の実施">順序尺度検定の実施</h3>
+</section>
+<section id="対応なしの2群比較ウィルコクソンの順位和検定" class="level3">
+<h3 class="anchored" data-anchor-id="対応なしの2群比較ウィルコクソンの順位和検定">対応なしの2群比較（ウィルコクソンの順位和検定）</h3>
+<ul>
+<li><p>データ: 習得させたい単語を10名には句の形で、別の 10名には文の中で覚えさせ、2週間後にどちらの条件が単語の定着がより良かったかを調べたもの。</p>
+<ul>
+<li>帰無仮説：「単語提示条件の違いによって、語彙テスト得点の中央値に差はない」</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/WilcoxonRankSum.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Condition Vocabulary
+1         1          5
+2         1          8
+3         1         11</code></pre>
+</div>
+</div>
+<ul>
+<li>因子型データに変更</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>Condition <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Condition)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>描画</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>Vocabulary[dat<span class="sc">$</span>Condition <span class="sc">==</span> <span class="dv">1</span>], <span class="at">main =</span> <span class="st">"Phrase"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="14-Week14_nonpara_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>Vocabulary[dat<span class="sc">$</span>Condition <span class="sc">==</span> <span class="dv">2</span>], <span class="at">main =</span> <span class="st">"Sentence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="14-Week14_nonpara_files/figure-html/unnamed-chunk-37-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>描画（並列）</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>Vocabulary[dat<span class="sc">$</span>Condition <span class="sc">==</span> <span class="dv">1</span>], <span class="at">main =</span> <span class="st">"Phrase"</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>Vocabulary[dat<span class="sc">$</span>Condition <span class="sc">==</span> <span class="dv">2</span>], <span class="at">main =</span> <span class="st">"Sentence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="14-Week14_nonpara_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>箱ひげ図 + 蜂群図</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(dat, <span class="fu">boxplot</span>(Vocabulary <span class="sc">~</span> Condition, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"Phrase"</span>, <span class="st">"Sentence"</span>)))</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(beeswarm)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">beeswarm</span>(dat<span class="sc">$</span>Vocabulary <span class="sc">~</span> dat<span class="sc">$</span>Condition, <span class="at">add =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="14-Week14_nonpara_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'psych'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:ggplot2':
+
+    %+%, alpha</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(dat<span class="sc">$</span>Vocabulary, <span class="at">group =</span> dat<span class="sc">$</span>Condition)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Descriptive statistics by group 
+group: 1
+   vars  n mean   sd median trimmed  mad min max range skew kurtosis  se
+X1    1 10  7.5 8.54    6.5    5.75 6.67   0  29    29 1.42     1.16 2.7
+------------------------------------------------------------ 
+group: 2
+   vars  n mean    sd median trimmed  mad min max range  skew kurtosis   se
+X1    1 10 20.1 10.64   22.5   21.38 6.67   0  30    30 -0.97    -0.72 3.36</code></pre>
+</div>
+</div>
+<ul>
+<li><p>正規性がなく、データに同じ数字があるため、正確確率検定を行う</p>
+<p><code>paired = TRUE</code>にすると、符号付順位検定となる</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("exactRankTests")</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(exactRankTests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code> Package 'exactRankTests' is no longer under development.
+ Please consider using package 'coin' instead.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">wilcox.exact</span>(dat<span class="sc">$</span>Vocabulary <span class="sc">~</span> dat<span class="sc">$</span>Condition,</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact Wilcoxon rank sum test
+
+data:  dat$Vocabulary by dat$Condition
+W = 22.5, p-value = 0.03696
+alternative hypothesis: true mu is not equal to 0</code></pre>
+</div>
+</div>
+<ul>
+<li>効果量の算出</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>pval <span class="ot">&lt;-</span> res<span class="sc">$</span>p.value</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>(pval<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> z1 <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(dat<span class="sc">$</span>Vocabulary))</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>r1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4664975</code></pre>
+</div>
+</div>
+</section>
+<section id="論文への記載の例-2" class="level3">
+<h3 class="anchored" data-anchor-id="論文への記載の例-2">論文への記載の例</h3>
+<p>それぞれ10名の生徒に句または文単位で単語を覚えさせた後、30点満点の語彙テストを行った。得点が正規分布から逸脱していたため、ウィルコクソンの順位和検定を用いて、暗記条件間で語彙の定着度に差があるかを検証した。その結果、文グループ（mediam = 22.5）が5%水準で有意に句グループ（mediam = 6.5）より高いことがわかった（ <em>W</em> = 22.5, <em>p</em> = .037, <em>r</em> = .47)。また、効果量も中程度以上であった。このことから、単語を文単 位で提示された方が、句単位で提示するより効果的だと言える。</p>
+</section>
+<section id="要因の対応ある2群の比較ウィルコクソンの符号付順位検定" class="level3">
+<h3 class="anchored" data-anchor-id="要因の対応ある2群の比較ウィルコクソンの符号付順位検定">1要因の対応ある2群の比較（ウィルコクソンの符号付順位検定）</h3>
+<ul>
+<li><p>マクネマ―検定で使用したデータセットを使用する</p>
+<ul>
+<li><p>3列目と4列目のデータのみ読み込む</p></li>
+<li><p>学生50名に対し、6か月間の留学前後に、留学先の言語で話す自信度（ある[2]・少しある[1]・ない[0]）を尋ねた。順序性があるため順序尺度として扱い、留学前後でどう自信度が変化したかを分析する。</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/McN_Signed.csv"</span>)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Before3 After3
+1       0      0
+2       0      0
+3       0      0
+4       0      0
+5       0      0
+6       0      0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        vars  n mean   sd median trimmed  mad min max range  skew kurtosis   se
+Before3    1 50 0.98 0.77      1    0.98 1.48   0   2     2  0.03    -1.34 0.11
+After3     2 50 1.14 0.86      1    1.18 1.48   0   2     2 -0.26    -1.62 0.12</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">wilcox.exact</span>(dat<span class="sc">$</span>Before3, dat<span class="sc">$</span>After3, <span class="at">paired =</span> T, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact Wilcoxon signed rank test
+
+data:  dat$Before3 and dat$After3
+V = 22.5, p-value = 0.05737
+alternative hypothesis: true mu is not equal to 0</code></pre>
+</div>
+</div>
+<ul>
+<li><p>効果量の算出</p>
+<ul>
+<li>対応のあるデータのため、それぞれの条件のサンプルサイズを足す</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>pval <span class="ot">&lt;-</span> res<span class="sc">$</span>p.value</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>(pval<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> z1 <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100</span>)</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>r1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1900458</code></pre>
+</div>
+</div>
+</section>
+<section id="論文への記載の例-3" class="level3">
+<h3 class="anchored" data-anchor-id="論文への記載の例-3">論文への記載の例</h3>
+<p>50名の学生を対象に6ケ月の留学前後で,留学先の園語を話す自信にっいて変化があったかどうかを調査した。ウィルコクソンの符号付順位和検定の正確性検定で分析したところ、<em>V</em> = 22.5、<em>p</em> = .057、<em>p</em> = 0.190で有意差はなかった。</p>
+</section>
+<section id="関係の強さ順序相関係数" class="level3">
+<h3 class="anchored" data-anchor-id="関係の強さ順序相関係数">関係の強さ（順序相関係数）</h3>
+<ul>
+<li><p>スピアマンの順位相関係数、ケンドールの順位相関係数：ノンパラメトリック検定版の相関係数</p></li>
+<li><p>係数の解釈はパラメトリック検定と同じで、-1から1の間をとる</p></li>
+<li><p>関数はピアソンの時と同じ <code>cor.test()</code>。<code>method =</code>個所で指定する。</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>cor.test(変数A, 変数B, method = "spearman")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>cor.test(変数A, 変数B, method = "kendall")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>ここで紹介した以外にも、対応のない3群以上の比較で使用されるクラスカル・ウォリスの順位和検定や対応のある3条件以上の比較で使用されるフリードマン検定などがある</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>　ノンパラメトリック検定では、<strong>中央値検定</strong>、<strong>順位検定</strong>、<strong>符号検定</strong>などの種類がある。中央値検定では、中央値を超える人数と中央値以下の人数を数え、その比率を検討する。つまり、データの順番を無視し、2分割で検定を行う。順位和検定では、データのもつ順位が検定に考慮されるため、中央値検定よりもデータの持つ情報量の損失は小さい。 　符号検定では、対応のあるデータの中央値検定のような方法で、データの値が正か負かを考慮して検定しているため、こちらもデータの順位の情報は損失している。符号検定よりも順位付けを行う符号付順位検定の方がデータの情報の損失は小さい。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="次週までの課題" class="level2">
+<h2 class="anchored" data-anchor-id="次週までの課題">次週までの課題</h2>
+<section id="課題内容" class="level3">
+<h3 class="anchored" data-anchor-id="課題内容">課題内容</h3>
+<ol type="1">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>世代（第一世代、第八世代）・進化（0:進化しないポケモン、2:1回進化済のポケモン、3: 2回進化済のポケモン）ごとのポケモンの数に有意な差があるか分析を行い、その結果を報告してください。また、検定を行う前に、度数分布表や作図を行い、全体的な傾向を提示してください。</p></li>
+</ol>
+<div style="border: 2px solid skyblue; padding: 10px;">
+<p><code>pokemon_data.csv</code>を使用します。データをRStudioに読み込んだら、以下のコードで今回の分析に必要なデータを絞り込み、そのデータを対象に分析等を行ってください。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu"># datにpokemon_data.csvが入っているとします。</span></span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>include &lt;- c("1", "8")</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>dat2 &lt;- dat %&gt;%</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  filter((世代 %in% include)) %&gt;%</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  filter(進化 != 1) %&gt;%</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>  dplyr::select(進化, 世代)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="提出方法" class="level3">
+<h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
+<ul>
+<li><p>R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出</p></li>
+<li><p>締め切りは今週の木曜日23:59まで</p></li>
+</ul>
+</section>
+</section>
+<section id="参考文献" class="level2">
+<h2 class="anchored" data-anchor-id="参考文献">参考文献</h2>
+<ul>
+<li><p>📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</p></li>
+<li><p>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</p></li>
+<li><p>📚三浦（監）（2004）『英語教師のための教育データ入門―授業が変わるテスト・評価・研究―』大修館書店</p></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+</style>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./13-Week13_Eff_pow.html" class="pagination-link" aria-label="Week 13: 効果量と検定力分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 13: 効果量と検定力分析</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./15-Week15_Repro.html" class="pagination-link" aria-label="Week 15：言語研究とオープンサイエンス">
+        <span class="nav-page-text">Week 15：言語研究とオープンサイエンス</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>作成者：寺井雅人（名古屋学院大学）.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>本サイトはQuartoで作成されてます。 <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
