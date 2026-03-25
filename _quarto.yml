@@ -40,7 +40,8 @@ format:
     toc: true
     css: style.css
     theme:
-      - cosmo  
+      - cosmo
+    #embed-resources: true
  # pdf:
  #   documentclass: scrreprt
 

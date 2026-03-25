@@ -74,7 +74,7 @@
     "href": "01-week1.html#統計処理とは",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "",
-    "text": "量的研究、質的研究\n\n本講義のタイトルにある「統計処理」は、研究の目的などに応じて得られたデータをまとめたり、可視化したり解析する行為を指す。言語に関する研究の手法は大きく分けて以下の2つがある。\n\n量的研究（ quantitative research ）\n\n\n数量を用いて分析。一般化が目的。「仮説検証型」。\n\n\n質的研究（ qualitative research ）\n\n\n数量化せずに分析。一般化は目的ではない。「仮説生成型」。\n\n\n　寺井は量的な研究しか経験がないため、本講義では量的な研究を行うことを念頭に統計処理の方法について講義を行う。しかし、それらが質的研究と全く関連がないわけではない（もし質的な研究に関心がある受講生の方がいたら、関連すると思う点を教えてください）。\n\n量的研究では数量を扱うため、統計手法を用いて分析を行うことが多い。よって、量的研究を行う場合、統計に関する知識が必要不可欠。\nデータ収集の前に分析手法をある程度決めておく必要がある（Garbage in, garbage out. ）。使用する統計手法だけでなく、以下のことも十分に考えておくことが必要。\n\nどんなデータが必要？(What)\nどのようにデータを取ればいい？ (How)\nどれくらいのデータが必要？ (How many)\n誰に対してデータを取る？(Who)",
+    "text": "量的研究、質的研究\n\n本講義のタイトルにある「統計処理」は、研究の目的などに応じて得られたデータをまとめたり、可視化したり解析する行為を指す。言語に関する研究の手法は大きく分けて以下の2つがある。\n\n量的研究（ quantitative research ）\n\n\n数量を用いて分析。\n\nある現象を数え上げて要約する。\n\n仮説検証型\n\n\n質的研究（ qualitative research ）\n\n\n数量化せずに分析。\n仮説生成型\n\n\n\n\n\n\n\n\nImportant\n\n\n\n「量的 = 一般化、質的 = 一般化をしない」という区別には注意が必要です。量的な研究でも、今週以降に説明するサンプリングにバイアスがある場合、「一般化」には制限がかかる場合があります。 - 寺沢先生の一連のXのポストが参考になります：https://x.com/tera_sawa/status/1970336158015279561\n\n\n　寺井は量的な研究しか経験がないため、本講義では量的な研究を行うことを念頭に統計処理の方法について講義を行う。しかし、それらが質的研究と全く関連がないわけではない（もし質的な研究に関心がある受講生の方がいたら、関連すると思う点を教えてください）。\n\n量的研究では数量を扱うため、統計手法を用いて分析を行うことが多い。よって、量的研究を行う場合、統計に関する知識が必要不可欠。\nデータ収集の前に分析手法をある程度決めておく必要がある（Garbage in, garbage out. ）。使用する統計手法だけでなく、以下のことも十分に考えておくことが必要。\n\nどんなデータが必要？(What)\nどのようにデータを取ればいい？ (How)\nどれくらいのデータが必要？ (How many)\n誰に対してデータを取る？(Who)",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -84,7 +84,7 @@
     "href": "01-week1.html#rとは",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "Rとは",
-    "text": "Rとは\n\nRはプログラム言語の一種で、統計解析向けの言語。統計解析以外にもWebアプリを作ったり資料を作成したりすることも可能（この資料もRを使って作成しています）。Rは無料でインストール・使用することができる。\nRに備わっている機能だけで分析を行うことができるが、世界中のRユーザーが開発した機能（パッケージ）を無料でインストールすることができる。これにより、様々な分析を行うことができるが、それらのアップデートが行われるため注意が必要である（アップデートにより以前と同じように動かないということも起こりうるため）。\n\nRをiPhone本体、パッケージをXやInstagramなどのアプリとイメージするとよい\n\nExcelなどコードを書かなくても統計解析を行うことができるソフトウェアは多い。しかし、ソフトウェアは無料のものばかりではなく、また実行したい分析を機能として持っていない可能性がある。近年では生成AIなどによって、プログラミングのハードルが以前よりも低くなったと考えられる。ソフトウェアで実行するよりも、プログラミング言語を駆使して分析を行う方が、統計以外の知識にもつながる。最初は「二階から目薬」のような気持ちになるかもしれないが、根気強く、授業者、友人、先輩、そしてAIさん達に頼りながら取り組んでほしい。",
+    "text": "Rとは\n\nRはプログラム言語の一種で、統計解析向けの言語。統計解析以外にもWebアプリを作ったり資料を作成したりすることも可能（この資料もRを使って作成しています）。Rは無料でインストール・使用することができる。\n\nそのほかのプログラミング言語の例：Python、Java、C#、JavaScript、C++\n\nR言語をこの講義で扱う理由として、\n\nRは統計処理に特化している言語\n言語研究ではRを使う研究者が多い\nプログラミング初心者に優しい\n\nRに初めから備わっている機能だけで分析を行うことができる。しかし、世界中のRユーザーが開発した機能（パッケージ）を無料でインストールすることができる。これにより、最新の様々な分析を無料で行うことができる。\n\n欠点として、パッケージはその都度アップデートが行われるため注意が必要である（アップデートにより以前と同じように動かないということも起こりうるため）。\nRもアップデートは行われる。\nRをiPhone本体、パッケージをXやInstagramなどのアプリとイメージするとよい。\n\nExcelやSPSSなどコードを書かなくても統計解析を行うことができるソフトウェアは多い。しかし、ソフトウェアは無料のものばかりではなく、また実行したい分析を機能として持っていない可能性がある。近年では生成AIなどによって、プログラミングのハードルが以前よりも低くなったと考えられる。ソフトウェアで実行するよりも、プログラミング言語を駆使して分析を行う方が、統計以外のパソコンに関する知識獲得にもつながる。最初は「二階から目薬」のような気持ちになるかもしれないが、根気強く、授業者、友人、先輩、そしてAIに頼りながら取り組んでほしい。\n\n\n\n\n\n\n\nImportant\n\n\n\nRのインストールの前に、拡張子が見える設定に変更しましょう。",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -94,67 +94,77 @@
     "href": "01-week1.html#rのインストール",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "Rのインストール",
-    "text": "Rのインストール\n\n\n\n\n\n\nNote\n\n\n\nWindowsを使用している人で、DocumentsのパスにOne Driveが関係している人は教えてください。\n\n\n\nRの公式サイトにアクセス（ https://www.r-project.org/ ）\nCRANをクリック\nJapanのリンクをクリック（Yamagata University）\n自分のパソコンのOSを選択\n“install R for the first time”をクリック。全部NextでOK!\n\n\nインストールが完了したら、Rを立ち上げて以下のコードを入力する。Enterを押すと命令が実行される。\n\n\n20 + 1\n\n[1] 21\n\n20 - 1\n\n[1] 19\n\n3 * 4\n\n[1] 12\n\n4 / 2\n\n[1] 2\n\n2 ^ 2\n\n[1] 4",
+    "text": "Rのインストール\n\n\n\n\n\n\nNote\n\n\n\nWindowsを使用している人で、Documents（ドキュメント）のパスにOne Driveが関係している人は教えてください。\n\n\n\nRの公式サイトにアクセス（ https://www.r-project.org/ ）\nCRANをクリック\nJapanのリンクをクリック（Yamagata University）\n自分のパソコンのOSを選択\n“install R for the first time”をクリック。全部NextでOK!\n\n\nインストールが完了したら、Rを立ち上げて以下のコードを入力一行ずつ入力して遊んでみる。Enterを押すと命令が実行される。\n\n\n20 + 1\n\n[1] 21\n\n20 - 1\n\n[1] 19\n\n3 * 4\n\n[1] 12\n\n4 / 2\n\n[1] 2\n\n2 ^ 2\n\n[1] 4",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#rstudioとは",
-    "href": "01-week1.html#rstudioとは",
+    "objectID": "01-week1.html#positronとは",
+    "href": "01-week1.html#positronとは",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "RStudioとは",
-    "text": "RStudioとは\n\nRだけでも分析は可能だが、Rだけの解析は難しい。そこで、よりRでの解析を行いやすくする統合開発環境（RStudio）の中でRを使用する。\n注意点として、Rのインストールも必ず行う必要がある。\nRStudioはWeb版とローカル版があり、前者はオンライン上で使用するが、後者は各個人のパソコンで使用する。Web版の使用には、サーバーが必要であるため（基本有料）、ローカル版（RStudio Desktop）での使用に慣れる方がよい。",
+    "section": "Positronとは",
+    "text": "Positronとは\n\nRだけでも統計分析は可能だが、Rだけでは難しい。そこで、Rでの解析をサポートするする統合開発環境の中でRを使用する。\n\n統合開発環境：コードの執筆や、実行結果の確認を一つの画面で確認できるようにする、様々なツールの集合。\n\n注意点として、統合開発環境だけでは分析ができず、Rのインストールも必ず行う必要がある。\n\n\n\n\n\n\n\nNote「RStudioでもいいですか？」\n\n\n\nはい。RStudioを使用してもOKです。RStudioは、Positronよりも長い歴史のある統合開発環境です。どちらも同じ会社（Posit社）が開発をしていて、PositronよりもRとの相性は良いです（Rに特化して作られている）。Rとの相性が良いことは、他の言語との相性が悪いという欠点もあります。Rを使うときはRStudio、Pythonを使うときはVisual Studio Codeといったように言語に応じて統合開発環境を変えないと不便なことがあったりします。プログラミング言語を学習し始めた方にとって、いきなりバイリンガルになれとは言いません。しかし、将来プログラミングに関する仕事や作業効率化などに興味がある方は特に、複数の言語を扱うことが必要とされます。Positronは多言語の統合開発環境であり、RとPythonを併用できます。また、RStudioよりもデータ分析に特化した機能を持っており、次世代の統合開発環境として注目されています。Rに特化した統合開発環境で学習してもらうと、他の言語への学習の意欲を奪うのではないかと考え2026年度からPositronに切り替えました。詳しい二つの比較は以下のスライドを参考にしてみてください。\n\n寺井（2025）「Positron入門 Rユーザーのための次世代IDE」初心者ワークショップ@Sapporo.R",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#rstudioのインストール",
-    "href": "01-week1.html#rstudioのインストール",
+    "objectID": "01-week1.html#positronのインストール",
+    "href": "01-week1.html#positronのインストール",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "RStudioのインストール",
-    "text": "RStudioのインストール\n\nRStudioのサイトへ行く（ https://posit.co/download/rstudio-desktop/ ）\nAll Installers and Tarballsで自分自身のパソコンのOSを選び、ダウンロード",
+    "section": "Positronのインストール",
+    "text": "Positronのインストール\n\nPosit社のサイトへ行く（ https://positron.posit.co/download.html ）\nagreementに☑をいれる\nWindowsなら “x64(user level install)”、Mcなら “arm64”",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#rstudioの機能",
-    "href": "01-week1.html#rstudioの機能",
+    "objectID": "01-week1.html#positronを開く",
+    "href": "01-week1.html#positronを開く",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "RStudioの機能",
-    "text": "RStudioの機能\n\n4つのペイン：\n\nソース\n\n実行するコードのメモ帳\n\n環境・履歴\n\n読み込んだデータを表示したりや過去に実行したコマンドを記録できる\n\nコンソール\n\nR。ソースペインを実行する場所\n\nファイル・作図・パッケージ・ヘルプ\n\nワーキングディレクトリにあるファイルを表示したり、作成した図を確認したり、インストールされているパッケージを確認したり、パッケージの使い方を確認する",
+    "section": "Positronを開く",
+    "text": "Positronを開く\n\n\n\nFrom https://positron.posit.co/",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#プロジェクト機能",
-    "href": "01-week1.html#プロジェクト機能",
+    "objectID": "01-week1.html#positronの機能",
+    "href": "01-week1.html#positronの機能",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "プロジェクト機能",
-    "text": "プロジェクト機能\n\nプロジェクト = ディレクトリ\n\nファイルや操作履歴を保存できる\n\n\n\n\n\n\n\n\nNote\n\n\n\nディレクトリ（📁）とは、場所のこと。Rは一か所にしか滞在できない、移動する際も、命令してあげないと自分で勝手に移動してくれない。📁ごとが異なる場所であるため、ファイルを読み込んだりする場合も、Rがいる場所と、ファイルがある場所が異なる場合、Rを移動させるか、ファイルをRがいる箇所まで移動させないと読み込むことはできない。\n\n\n\nプロジェクトを作成する利点\n\n研究ごとに分析に必要なファイルをまとめることができる\n\n\n\nプロジェクトの作成\n\nドキュメントディレクトリに新しいフォルダーを作成\n\n名前は、絶対英数字のみ！（Rが関係しそうな場合、ファイル名、フォルダ名に日本語を使わない方が安心です）\n作り方を解説しているサイト（私たちのR）\n\n\n\nRStudioを開き、右上の[Project:]ボタンをクリック。\n[New Project]をクリックし、[Existing Directory]から、先ほど作成した名前のディレクトリを選択\n\n\n今後、この講義で配布されたファイルや、作成したファイルは全てそのディレクトリ内に入れるようにしてください\n今後、この講義でRStudioを使用する場合は必ずこのプロジェクトを開いてください",
+    "section": "Positronの機能",
+    "text": "Positronの機能\n\nActivity Bar：ファイル、Git、拡張機能、AIアシストなどを表示\nPrimary Side Bar：Activity Barの詳細。Activity Barで選んだものによって内容が異なる。\nEditor：コードを記述する\nPanel：コンソール（R本体）、ターミナルなどが表示される\nSecondary Side Bar：作成した図などが表示される",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#rstudioのカスタマイズ",
-    "href": "01-week1.html#rstudioのカスタマイズ",
+    "objectID": "01-week1.html#positronのカスタマイズ",
+    "href": "01-week1.html#positronのカスタマイズ",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "RStudioのカスタマイズ",
-    "text": "RStudioのカスタマイズ\n\nRStudioの設定変更【見た目】\n\n文字のサイズを大きくしたり、背景の色を変更することが可能\nその他にも、()の色分けをしてくれたりなど分析の補助になる機能もある",
+    "section": "Positronのカスタマイズ",
+    "text": "Positronのカスタマイズ\n\nテーマの変更：左下の⚙をクリック → [Themes] → [Color Theme]\n\n背景が白だと個人的に目が疲れます\n\nフォントの大きさの変更：左下の⚙をクリック → [Settings] → [Text Editor] → [Font Size]",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#r-markdown入門",
-    "href": "01-week1.html#r-markdown入門",
+    "objectID": "01-week1.html#この講義専用のフォルダを作成する",
+    "href": "01-week1.html#この講義専用のフォルダを作成する",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "R Markdown入門",
-    "text": "R Markdown入門\n\nRの出力結果を文字や写真、リンクなどと一緒に出力できるもの。\n左上の紙のマークを押して、R Markdownを開く\n【パーツ１】YAML（YAML　Ain’t Markup Language）ヘッダー：文章全体の体裁や情報を操作する\n\nタイトル、サブタイトル\n作成者\n作成した日時、更新日時も設定可能\nどのような形式で作成するか\n\n\n\n\n\n\n\n\nWarning\n\n\n\nYAMLヘッダーは、RでもMarkdownでもないプログラム言語で記述\n\n\n\n【パーツ２】コードチャンク：Rのコードを記述するところ\n【パーツ３】ドキュメントチャンク：Markdownと呼ばれるプログラム言語で記述するところ\n\n見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く\n\n\n\nKnit🧶を押して出力！\n\n初期設定はHTMLファイル出力",
+    "section": "この講義専用のフォルダ📁を作成する",
+    "text": "この講義専用のフォルダ📁を作成する\n\nOne DriveやGoogle Driveなどの自動同期以外の場所に作成するのがおすすめです。One DriveではないのであればDocumentsでもOKです。\nこの講義の数少ないお約束として、この講義に関連するファイルはすべて今から作成するフォルダの中に入れてください。フォルダの中で「Week1」や「material」など小分けにするのは良いです。\n\nフォルダの名前やファイル名には日本語は入れないでください（特にフォルダ名）。\n\nおすすめの場所第一位は、C:\\Users\\あなたのPCの名前です。C:\\Users\\あなたのPCの名前\\Documentsでもいいです。このPathの中にOneDriveという文字が入っていてはいけません（おすすめしません）。\n場所を決めたら、好きなフォルダ名をつけて作成してください。短い名前のほうがおすすめです（stats_2026など）。\n\n\n\n\n\n\n\nImportant重要なコンピュータ用語\n\n\n\nRでの分析で頻出するエラーは、No such directoryです。Rでの分析では、ExcelやCSVファイルを読み込んで作業します。「読み込め！」とRに命令した際に、「見つからない( ；∀；)」というRの嘆きです。ディレクトリ📁（≒フォルダ）とは、場所のことです。Rはどこかのディレクトリいます。しかし、自分のいない部屋の情報はわかりません。読み込みたいファイルがある場合、Rがどこにいるかを確認し、読み込みたいファイルの場所を命令してあげる必要があります。このことからこの講義で配布するデータなどはすべて同じ部屋に入れておくとよいです。",
+    "crumbs": [
+      "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
+    ]
+  },
+  {
+    "objectID": "01-week1.html#quarto入門",
+    "href": "01-week1.html#quarto入門",
+    "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
+    "section": "Quarto入門",
+    "text": "Quarto入門\n\nRの出力結果を文字や写真などと一緒に出力できるもの（Word + Rみたいなもの）。\n\n分析レポートを作成できる\n\n次世代のR Markdownです\n[New] -&gt; [New File….] -&gt; [Quarto Document]\n【パーツ１】YAML（YAML　Ain’t Markup Language）ヘッダー：文章全体の体裁や情報を操作する\n\nタイトル、サブタイトル\n作成者\n作成した日時、更新日時も設定可能\nどのような形式で作成するか\n\n\n\n\n\n\n\n\nWarning\n\n\n\nYAMLヘッダーは、RでもMarkdownでもないプログラム言語で記述\n\n\n\n【パーツ２】コードチャンク：Rのコードを記述するところ\n【パーツ３】ドキュメントチャンク：Markdownと呼ばれるプログラム言語で記述するところ\n\n見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く\n\n\n\nPreviewを押して出力！\n\n初期設定はHTMLファイル出力",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -174,17 +184,7 @@
     "href": "01-week1.html#lets-実践",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "Let’s 実践",
-    "text": "Let’s 実践\n\n以下の文章をR Markdownを使って再現してください。\n\n\n# 名古屋飯といえば\n## ひつまぶし：Hitsumabushi\nおすすめは以下のお店です。\n\nひつまぶし花岡\n\n場所：栄",
-    "crumbs": [
-      "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
-    ]
-  },
-  {
-    "objectID": "01-week1.html#答え合わせ",
-    "href": "01-week1.html#答え合わせ",
-    "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
-    "section": "答え合わせ",
-    "text": "答え合わせ\n\n# 名古屋飯といえば\n## ひつまぶし：*Hitsumabushi*\nおすすめは以下のお店です。\n\n- **ひつまぶし花岡**\n  - 場所：栄",
+    "text": "Let’s 実践\n\n以下の文章をQuartoで入力、Previewしてください。\n\n\n# 名古屋飯といえば\n\n## ひつまぶし：*Hitsumabushi*\n\nおすすめは以下のお店です。\n\n- **ひつまぶし花岡**\n  - 場所：栄",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -194,7 +194,7 @@
     "href": "01-week1.html#コードチャンクの挿入",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "コードチャンクの挿入",
-    "text": "コードチャンクの挿入\n\nショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）\n\nこのコードの中はR。Rで使う関数などを自由に指定できる\n以下のチャンク内でないと、動かない = Rの命令として実行してもらえない\n\n```{r}\n```\n\ndat &lt;- c(1, 4, 6)\n\nmean(dat)\n\n[1] 3.666667\n\n\n\nplot(dat)",
+    "text": "コードチャンクの挿入\n\nショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）\nこのコードの中はR。Rで使う関数などを自由に指定できる\n以下のチャンク内でないと、動かない = Rの命令として実行してもらえない\n\n```{r}\n```\n\ndat &lt;- c(1, 4, 6)\n\nmean(dat)\n\n[1] 3.666667\n\n\n\nplot(dat)",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -204,17 +204,27 @@
     "href": "01-week1.html#lets-実践-1",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "Let’s 実践",
-    "text": "Let’s 実践\n\n以下をドキュメントチャンクとコードチャンクを使って再現してください。\n\n\n## 食費の合計\n\n以下は、名古屋旅行で使った食費の合計である。\n\n注! hitsuはひつまぶし、misoは味噌カツを表す。\n\n\n\nhitsu &lt;- 1300 * 2\n\nmiso &lt;- 1000 * 2\n\ntotal &lt;- sum(hitsu, miso)",
+    "text": "Let’s 実践\n\n以下をドキュメントチャンクとコードチャンクを使って再現してください。",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
   },
   {
-    "objectID": "01-week1.html#答え合わせ-1",
-    "href": "01-week1.html#答え合わせ-1",
+    "objectID": "01-week1.html#食費の合計",
+    "href": "01-week1.html#食費の合計",
+    "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
+    "section": "食費の合計",
+    "text": "食費の合計\n\n以下は、旅行で使った食費の合計である。\n\n注! hitsuはひつまぶし、misoは味噌カツを表す。\n\n\n\nhitsu &lt;- 1300 * 2\n\nmiso &lt;- 1000 * 2\n\ntotal &lt;- sum(hitsu, miso)",
+    "crumbs": [
+      "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
+    ]
+  },
+  {
+    "objectID": "01-week1.html#答え合わせ",
+    "href": "01-week1.html#答え合わせ",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "答え合わせ",
-    "text": "答え合わせ\n\n## 食費の合計\n- 以下は、名古屋旅行で使った食費の合計である。\n\n  - **注!** *hitsu*はひつまぶし、*miso*は味噌カツを表す\n\n\\```{r}\nhitsu &lt;- 1300 * 2\n\nmiso &lt;- 1000 * 2\n\ntotal &lt;- sum(hitsu, miso)\n\\```",
+    "text": "答え合わせ\n\n はいりません\n\n\n## 食費の合計\n- 以下は、名古屋旅行で使った食費の合計である。\n\n  - **注!** *hitsu*はひつまぶし、*miso*は味噌カツを表す\n\n\\```{r}\nhitsu &lt;- 1300 * 2\n\nmiso &lt;- 1000 * 2\n\ntotal &lt;- sum(hitsu, miso)\n\\```\n\n\n作成したQuartoファイルは名前を付けて保存しましょう。\n再度以下の点を確認してください\n\n先ほど作成したフォルダの中にいれる\n英数字のみにする",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -224,7 +234,7 @@
     "href": "01-week1.html#次週までの課題",
     "title": "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto",
     "section": "次週までの課題",
-    "text": "次週までの課題\n\n課題内容\n\n本講義の内容に関する簡単な小テストを行います。配布した資料を見返しておいてください。\n自己紹介の文をR Markdownで作成し、出力したHTMLファイルをTACTへ提出してください。以下の2項目を必ず入れてください。クラスメートと公開してもいい情報だけを入れてください！\n名前、出身、研究科、自分の研究したいことを二文くらいでまとめる。\n\nレベル分け、箇条書き、強調（e.g., 下線、太字、イタリック）\n\n締め切りは今週の木曜日まで\n\n\n\n\n\n\n\nNote\n\n\n\n質問等はTACTにお願いします。",
+    "text": "次週までの課題\n\n課題内容\n\n本講義の内容に関する簡単な小テストを行います。配布した資料を見返しておいてください。\n自己紹介の文をQuartoで作成し、出力したHTMLファイルをTACTへ提出してください。以下の2項目を必ず入れてください。クラスメートと公開してもいい情報だけを入れてください！\n名前、出身、研究科、自分の研究したいことを二文くらいでまとめる。\n\nレベル分け、箇条書き、強調（e.g., 下線、太字、イタリック）\n\n締め切りは今週の木曜日まで\n\n\n\n\n\n\n\nNote\n\n\n\n質問等はTACTにお願いします。",
     "crumbs": [
       "Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto"
     ]
@@ -1294,7 +1304,7 @@
     "href": "12-Week12_GLMM.html#ハンズオンセッション",
     "title": "Week12: 階層モデル",
     "section": "ハンズオンセッション",
-    "text": "ハンズオンセッション\n\nデータの読み込み\n\n\nパッケージのインストール\n\nlme4パッケージを使用します\n\n\nlibrary(lme4)\n\n\n処理にかかる時間を計測するため、tictocパッケージを使います。\n\n\n# install.packages(\"tictoc\")\nlibrary(tictoc)\n\n\nコンピュータのスペックはこんな感じです\n\n\n\n$vendor_id\n[1] \"GenuineIntel\"\n\n$model_name\n[1] \"13th Gen Intel(R) Core(TM) i9-13900K\"\n\n$no_of_cores\n[1] 32\n\n\n\n\n137 GB\n\n\n\nTerai et al. (2024)のデータを使用します。\n\n\ndat &lt;- read.csv(\"sample_data/AJ.csv\")\n\n\ndat$Itemtype &lt;- factor(dat$Itemtype, levels = c(\"Baseline\", \"JE\", \"Eonly\"))\ncontrasts(dat$Itemtype) &lt;- contr.treatment(3)\n\ncontrasts(dat$Itemtype)\n\n         2 3\nBaseline 0 0\nJE       1 0\nEonly    0 1\n\n\n\n連続値の場合中心化します\n\n\n#install.packages(\"tidyverse\")\nlibrary(dplyr)\ndat2 &lt;- dat %&gt;%\n  group_by(subject) %&gt;%\n  mutate(across(c(\"pres.order\", \"Length\"), ~scale(.x)[,1],.names = \"z.{col}\")) %&gt;%\n  ungroup()\n\n\n切片のみ（実験項目、参加者）のモデル\n\n従属変数：正答（1: 正解、2: 不正解）\n独立変数：コロケーションの種類\n\n\n\ntic()\nres.1 &lt;- glmer(\n  res ~ Itemtype +\n  (1|subject) + (1|itemID),\n  family = binomial(link = \"logit\"),\n  data = dat2,\n  control = glmerControl(optimizer = \"bobyqa\")\n               )\ntoc()\n\n0.93 sec elapsed\n\n\n\nsummary(res.1)\n\nGeneralized linear mixed model fit by maximum likelihood (Laplace\n  Approximation) [glmerMod]\n Family: binomial  ( logit )\nFormula: res ~ Itemtype + (1 | subject) + (1 | itemID)\n   Data: dat2\nControl: glmerControl(optimizer = \"bobyqa\")\n\n      AIC       BIC    logLik -2*log(L)  df.resid \n   3601.5    3632.6   -1795.7    3591.5      3707 \n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-5.1739 -0.4177  0.3423  0.5275  2.9380 \n\nRandom effects:\n Groups  Name        Variance Std.Dev.\n itemID  (Intercept) 1.0063   1.0032  \n subject (Intercept) 0.1647   0.4059  \nNumber of obs: 3712, groups:  itemID, 116; subject, 32\n\nFixed effects:\n            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)   1.4468     0.1517   9.536  &lt; 2e-16 ***\nItemtype2     1.0938     0.2879   3.799 0.000145 ***\nItemtype3    -1.3669     0.2618  -5.222 1.77e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nCorrelation of Fixed Effects:\n          (Intr) Itmty2\nItemtype2 -0.397       \nItemtype3 -0.450  0.230\n\n\n\n切片と係数のモデル\nモデルが上手く収束しなかった\n\n\ntic()\nres.2 &lt;- glmer(\n  res ~ Itemtype +\n  (1 + pres.order|subject) + (1|itemID),\n  family = binomial(link = \"logit\"),\n  data = dat2,\n  control = glmerControl(optimizer = \"bobyqa\")\n               )\ntoc()\n\n\n出力結果：\n\n\n警告: Model failed to converge with max|grad| = 0.00228081 (tol = 0.002, component 1) 警告: Model is nearly unidentifiable: very large eigenvalue - Rescale variables?\n\n\n中心化した変数だとうまくいった\n\n\ntic()\nres.3 &lt;- glmer(\n  res ~ Itemtype +\n  (1 + z.pres.order|subject) + (1|itemID),\n  family = binomial(link = \"logit\"),\n  data = dat2,\n  control = glmerControl(optimizer = \"bobyqa\") #スムーズに推定を行うためにこれを設定します\n               )\ntoc()\n\n1.48 sec elapsed\n\n\n\nsummary(res.3)\n\nGeneralized linear mixed model fit by maximum likelihood (Laplace\n  Approximation) [glmerMod]\n Family: binomial  ( logit )\nFormula: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)\n   Data: dat2\nControl: glmerControl(optimizer = \"bobyqa\")\n\n      AIC       BIC    logLik -2*log(L)  df.resid \n   3595.6    3639.1   -1790.8    3581.6      3705 \n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-5.2004 -0.4170  0.3360  0.5232  3.6998 \n\nRandom effects:\n Groups  Name         Variance Std.Dev. Corr  \n itemID  (Intercept)  1.02492  1.0124         \n subject (Intercept)  0.16874  0.4108         \n         z.pres.order 0.06019  0.2453   -0.17 \nNumber of obs: 3712, groups:  itemID, 116; subject, 32\n\nFixed effects:\n            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)   1.4707     0.1535   9.580  &lt; 2e-16 ***\nItemtype2     1.1154     0.2900   3.846  0.00012 ***\nItemtype3    -1.3865     0.2642  -5.247 1.54e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nCorrelation of Fixed Effects:\n          (Intr) Itmty2\nItemtype2 -0.395       \nItemtype3 -0.449  0.230\n\n\n\n95% 信頼区間の算出（CI）\n\n\nse &lt;- sqrt(diag(vcov(res.3)))\n\n# table of estimates with 95% CI\ntab &lt;- cbind(\n  Est = fixef(res.3),\n  LL = fixef(res.3) - 1.96 * se,\n  UL = fixef(res.3) + 1.96 * se\n  )\n\ntab\n\n                  Est         LL         UL\n(Intercept)  1.470673  1.1697749  1.7715711\nItemtype2    1.115433  0.5469471  1.6839180\nItemtype3   -1.386501 -1.9043996 -0.8686026\n\n\n\nconfint()でも算出可能\n\nこちらは推定法の関係で時間がかかる\n\n\n\ntic()\nconfint(res.3, method = \"Wald\")\n\n                 2.5 %     97.5 %\n.sig01              NA         NA\n.sig02              NA         NA\n.sig03              NA         NA\n.sig04              NA         NA\n(Intercept)  1.1697804  1.7715656\nItemtype2    0.5469576  1.6839075\nItemtype3   -1.9043900 -0.8686121\n\ntoc()\n\n0 sec elapsed\n\n\n\nオッズ比\n\n\nexp(tab)\n\n                  Est       LL        UL\n(Intercept) 4.3521632 3.221267 5.8800845\nItemtype2   3.0508876 1.727970 5.3866193\nItemtype3   0.2499483 0.148912 0.4195374\n\n\n\nモデル比較\n\n尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった\n\n\n\nanova(res.1, res.3)\n\nData: dat2\nModels:\nres.1: res ~ Itemtype + (1 | subject) + (1 | itemID)\nres.3: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)\n      npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)   \nres.1    5 3601.5 3632.6 -1795.7    3591.5                        \nres.3    7 3595.6 3639.1 -1790.8    3581.6 9.9044  2   0.007068 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\n\n\n\n\n\n\n\n図示\n\n\n#install.packages(\"ggeffects\")\nlibrary(ggeffects)\neff &lt;- ggpredict(res.3, terms = \"Itemtype\")\nplot(eff)\n\n\n\n\n\n\n\n\n\nモデル診断\n\nperformanceパッケージが便利\nVIF（多重共線性についての指標）\n\n今回は1変数しかないので確認の必要はない\n\n\n\n\n#install.packages(\"performance\")\nlibrary(performance)\ncheck_collinearity(モデルの結果を格納した変数名)\n\n\n外れ値\np ≥ .05: 残差はモデル期待通り（≒一様分布）\np &lt; .05: 残差がモデル期待とズレている（≒モデルのミスフィット）\n\n\nlibrary(performance)\ncheck_residuals(res.3)\n\nOK: Simulated residuals appear as uniformly distributed (p = 0.149).\n\n\n\nplot(check_residuals(res.3))\n\nFor confidence bands, please install `qqplotr`.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nランダム効果を組み込んだ回帰分析を行う主な理由の一つに、縮約（shrinkage）という効果があります。縮約とは、各グループの極端な推定値が、全体の平均値（プーリングされた平均）に引き寄せられる現象を指します。この効果により、サンプル数が少ないグループや外れ値の影響が軽減され、より頑健で一般化可能な推定が可能になります。しかし、極端な推定値が実際に意味のあるものであった場合、縮約によってその効果が過小評価されてしまうという問題があります。たとえば、複数の種類の薬の効果を検証したい場合に、薬の種類をランダム効果に含めてモデルを構築すると、ある薬が他と明らかに異なる効果を示していたとしても、縮約によってその差が「なかったこと」になってしまう可能性があります。このようなケースでは、薬の種類ごとの効果を明確に比較したいという研究目的があるため、薬の種類をランダム効果としてではなく独立変数（固定効果）としてモデルに含める必要があります。つまり、何をランダム効果として設定するのかを研究課題・仮説の段階で決めておく必要があります。\n\n以下の図は、気温と参加者の交互作用のモデルです。10番の参加者のデータのみ、右肩下がりとなっています。\n\n\n\n\n\n\n\n\n\n\n\n以下の図は気温と参加者の交互作用ではなく、独立変数に気温、ランダム効果に参加者を含めたモデルです。10番の参加者が他の参加者と同じ右肩上がりの傾向に変わっていることが分かります。",
+    "text": "ハンズオンセッション\n\nデータの読み込み\n\n\nパッケージのインストール\n\nlme4パッケージを使用します\n\n\nlibrary(lme4)\n\n\n処理にかかる時間を計測するため、tictocパッケージを使います。\n\n\n# install.packages(\"tictoc\")\nlibrary(tictoc)\n\n\nコンピュータのスペックはこんな感じです\n\n\n\n$vendor_id\n[1] \"GenuineIntel\"\n\n$model_name\n[1] \"13th Gen Intel(R) Core(TM) i9-13900K\"\n\n$no_of_cores\n[1] 32\n\n\n\n\n137 GB\n\n\n\nTerai et al. (2024)のデータを使用します。\n\n\ndat &lt;- read.csv(\"sample_data/AJ.csv\")\n\n\ndat$Itemtype &lt;- factor(dat$Itemtype, levels = c(\"Baseline\", \"JE\", \"Eonly\"))\ncontrasts(dat$Itemtype) &lt;- contr.treatment(3)\n\ncontrasts(dat$Itemtype)\n\n         2 3\nBaseline 0 0\nJE       1 0\nEonly    0 1\n\n\n\n連続値の場合中心化します\n\n\n#install.packages(\"tidyverse\")\nlibrary(dplyr)\ndat2 &lt;- dat %&gt;%\n  group_by(subject) %&gt;%\n  mutate(across(c(\"pres.order\", \"Length\"), ~scale(.x)[,1],.names = \"z.{col}\")) %&gt;%\n  ungroup()\n\n\n切片のみ（実験項目、参加者）のモデル\n\n従属変数：正答（1: 正解、2: 不正解）\n独立変数：コロケーションの種類\n\n\n\ntic()\nres.1 &lt;- glmer(\n  res ~ Itemtype +\n  (1|subject) + (1|itemID),\n  family = binomial(link = \"logit\"),\n  data = dat2,\n  control = glmerControl(optimizer = \"bobyqa\")\n               )\ntoc()\n\n0.81 sec elapsed\n\n\n\nsummary(res.1)\n\nGeneralized linear mixed model fit by maximum likelihood (Laplace\n  Approximation) [glmerMod]\n Family: binomial  ( logit )\nFormula: res ~ Itemtype + (1 | subject) + (1 | itemID)\n   Data: dat2\nControl: glmerControl(optimizer = \"bobyqa\")\n\n      AIC       BIC    logLik -2*log(L)  df.resid \n   3601.5    3632.6   -1795.7    3591.5      3707 \n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-5.1739 -0.4177  0.3423  0.5275  2.9380 \n\nRandom effects:\n Groups  Name        Variance Std.Dev.\n itemID  (Intercept) 1.0063   1.0032  \n subject (Intercept) 0.1647   0.4059  \nNumber of obs: 3712, groups:  itemID, 116; subject, 32\n\nFixed effects:\n            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)   1.4468     0.1517   9.536  &lt; 2e-16 ***\nItemtype2     1.0938     0.2879   3.799 0.000145 ***\nItemtype3    -1.3669     0.2618  -5.222 1.77e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nCorrelation of Fixed Effects:\n          (Intr) Itmty2\nItemtype2 -0.397       \nItemtype3 -0.450  0.230\n\n\n\n切片と係数のモデル\nモデルが上手く収束しなかった\n\n\ntic()\nres.2 &lt;- glmer(\n  res ~ Itemtype +\n  (1 + pres.order|subject) + (1|itemID),\n  family = binomial(link = \"logit\"),\n  data = dat2,\n  control = glmerControl(optimizer = \"bobyqa\")\n               )\ntoc()\n\n\n出力結果：\n\n\n警告: Model failed to converge with max|grad| = 0.00228081 (tol = 0.002, component 1) 警告: Model is nearly unidentifiable: very large eigenvalue - Rescale variables?\n\n\n中心化した変数だとうまくいった\n\n\ntic()\nres.3 &lt;- glmer(\n  res ~ Itemtype +\n  (1 + z.pres.order|subject) + (1|itemID),\n  family = binomial(link = \"logit\"),\n  data = dat2,\n  control = glmerControl(optimizer = \"bobyqa\") #スムーズに推定を行うためにこれを設定します\n               )\ntoc()\n\n1.55 sec elapsed\n\n\n\nsummary(res.3)\n\nGeneralized linear mixed model fit by maximum likelihood (Laplace\n  Approximation) [glmerMod]\n Family: binomial  ( logit )\nFormula: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)\n   Data: dat2\nControl: glmerControl(optimizer = \"bobyqa\")\n\n      AIC       BIC    logLik -2*log(L)  df.resid \n   3595.6    3639.1   -1790.8    3581.6      3705 \n\nScaled residuals: \n    Min      1Q  Median      3Q     Max \n-5.2004 -0.4170  0.3360  0.5232  3.6998 \n\nRandom effects:\n Groups  Name         Variance Std.Dev. Corr  \n itemID  (Intercept)  1.02492  1.0124         \n subject (Intercept)  0.16874  0.4108         \n         z.pres.order 0.06019  0.2453   -0.17 \nNumber of obs: 3712, groups:  itemID, 116; subject, 32\n\nFixed effects:\n            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)   1.4707     0.1535   9.580  &lt; 2e-16 ***\nItemtype2     1.1154     0.2900   3.846  0.00012 ***\nItemtype3    -1.3865     0.2642  -5.247 1.54e-07 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nCorrelation of Fixed Effects:\n          (Intr) Itmty2\nItemtype2 -0.395       \nItemtype3 -0.449  0.230\n\n\n\n95% 信頼区間の算出（CI）\n\n\nse &lt;- sqrt(diag(vcov(res.3)))\n\n# table of estimates with 95% CI\ntab &lt;- cbind(\n  Est = fixef(res.3),\n  LL = fixef(res.3) - 1.96 * se,\n  UL = fixef(res.3) + 1.96 * se\n  )\n\ntab\n\n                  Est         LL         UL\n(Intercept)  1.470673  1.1697749  1.7715711\nItemtype2    1.115433  0.5469471  1.6839180\nItemtype3   -1.386501 -1.9043996 -0.8686026\n\n\n\nconfint()でも算出可能\n\nこちらは推定法の関係で時間がかかる\n\n\n\ntic()\nconfint(res.3, method = \"Wald\")\n\n                 2.5 %     97.5 %\n.sig01              NA         NA\n.sig02              NA         NA\n.sig03              NA         NA\n.sig04              NA         NA\n(Intercept)  1.1697804  1.7715656\nItemtype2    0.5469576  1.6839075\nItemtype3   -1.9043900 -0.8686121\n\ntoc()\n\n0.2 sec elapsed\n\n\n\nオッズ比\n\n\nexp(tab)\n\n                  Est       LL        UL\n(Intercept) 4.3521632 3.221267 5.8800845\nItemtype2   3.0508876 1.727970 5.3866193\nItemtype3   0.2499483 0.148912 0.4195374\n\n\n\nモデル比較\n\n尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった\n\n\n\nanova(res.1, res.3)\n\nData: dat2\nModels:\nres.1: res ~ Itemtype + (1 | subject) + (1 | itemID)\nres.3: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)\n      npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)   \nres.1    5 3601.5 3632.6 -1795.7    3591.5                        \nres.3    7 3595.6 3639.1 -1790.8    3581.6 9.9044  2   0.007068 **\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\n\n\n\n\n\n\n\n図示\n\n\n#install.packages(\"ggeffects\")\nlibrary(ggeffects)\neff &lt;- ggpredict(res.3, terms = \"Itemtype\")\nplot(eff)\n\n\n\n\n\n\n\n\n\nモデル診断\n\nperformanceパッケージが便利\nVIF（多重共線性についての指標）\n\n今回は1変数しかないので確認の必要はない\n\n\n\n\n#install.packages(\"performance\")\nlibrary(performance)\ncheck_collinearity(モデルの結果を格納した変数名)\n\n\n外れ値\np ≥ .05: 残差はモデル期待通り（≒一様分布）\np &lt; .05: 残差がモデル期待とズレている（≒モデルのミスフィット）\n\n\nlibrary(performance)\ncheck_residuals(res.3)\n\nOK: Simulated residuals appear as uniformly distributed (p = 0.149).\n\n\n\nplot(check_residuals(res.3))\n\nFor confidence bands, please install `qqplotr`.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nランダム効果を組み込んだ回帰分析を行う主な理由の一つに、縮約（shrinkage）という効果があります。縮約とは、各グループの極端な推定値が、全体の平均値（プーリングされた平均）に引き寄せられる現象を指します。この効果により、サンプル数が少ないグループや外れ値の影響が軽減され、より頑健で一般化可能な推定が可能になります。しかし、極端な推定値が実際に意味のあるものであった場合、縮約によってその効果が過小評価されてしまうという問題があります。たとえば、複数の種類の薬の効果を検証したい場合に、薬の種類をランダム効果に含めてモデルを構築すると、ある薬が他と明らかに異なる効果を示していたとしても、縮約によってその差が「なかったこと」になってしまう可能性があります。このようなケースでは、薬の種類ごとの効果を明確に比較したいという研究目的があるため、薬の種類をランダム効果としてではなく独立変数（固定効果）としてモデルに含める必要があります。つまり、何をランダム効果として設定するのかを研究課題・仮説の段階で決めておく必要があります。\n\n以下の図は、気温と参加者の交互作用のモデルです。10番の参加者のデータのみ、右肩下がりとなっています。\n\n\n\n\n\n\n\n\n\n\n\n以下の図は気温と参加者の交互作用ではなく、独立変数に気温、ランダム効果に参加者を含めたモデルです。10番の参加者が他の参加者と同じ右肩上がりの傾向に変わっていることが分かります。",
     "crumbs": [
       "Week12: 階層モデル"
     ]
@@ -1694,7 +1704,7 @@
     "href": "15-Week15_Repro.html#再現性をさらに高める工夫",
     "title": "Week 15：言語研究とオープンサイエンス",
     "section": "再現性をさらに高める工夫",
-    "text": "再現性をさらに高める工夫\n\nR Markdownに含めておきたい情報\n\n\n日付、日時\n\nいつ作成されたファイルで、更新はされたことあるのかを明記することが重要\n\nデフォルトでは、ファイルの作成日を手動で切り替えないといけない。\n\nr Sys.Date：2022-01-20\n\n\ntitle: \"Untitled\"\nauthor: \"Masato Terai\"\ndate: \"`r Sys.Date()` in JST\"   # ``と\"\"で囲うのを忘れない。\noutput: html_document\n\n\nr Sys.time：2022-01-20 21:36:36\n\n\ntitle: \"Untitled\"\nauthor: \"Masato Terai\"\ndate: \"`r format(Sys.time(), '%Y-%m-%d %X')`\"   # ``と\"\"で囲うのを忘れない。\noutput: html_document\n\n\n寺井おすすめ\n\n\ntitle: \"Untitled\"\nauthor: \"Masato Terai\"\ndate: \"作成日:2024-05-20, 最終更新(JST): `r format(Sys.time(), '%Y-%m-%d %X')`\"\noutput: html_document\n\n\n\nRのバージョン & 使用したRのパッケージのバージョン\n\nRのバージョンやパッケージのバージョン情報など\n\n\nsessionInfo()\n\nR version 4.3.2 (2023-10-31 ucrt)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 11 x64 (build 26200)\n\nMatrix products: default\n\n\nlocale:\n[1] LC_COLLATE=Japanese_Japan.utf8  LC_CTYPE=Japanese_Japan.utf8   \n[3] LC_MONETARY=Japanese_Japan.utf8 LC_NUMERIC=C                   \n[5] LC_TIME=Japanese_Japan.utf8    \n\ntime zone: Asia/Tokyo\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base     \n\nother attached packages:\n [1] kableExtra_1.4.0 lubridate_1.9.5  forcats_1.0.1    stringr_1.6.0   \n [5] dplyr_1.2.0      purrr_1.2.1      readr_2.2.0      tidyr_1.3.2     \n [9] tibble_3.3.1     ggplot2_4.0.2    tidyverse_2.0.0 \n\nloaded via a namespace (and not attached):\n [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.3.2     renv_1.1.8        \n [5] tidyselect_1.2.1   xml2_1.5.2         textshaping_1.0.5  systemfonts_1.3.2 \n [9] scales_1.4.0       yaml_2.3.12        fastmap_1.2.0      R6_2.6.1          \n[13] generics_0.1.4     knitr_1.51         htmlwidgets_1.6.4  svglite_2.2.2     \n[17] tzdb_0.5.0         pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.1.7       \n[21] stringi_1.8.7      xfun_0.57          S7_0.2.1           otel_0.2.0        \n[25] viridisLite_0.4.3  timechange_0.4.0   cli_3.6.5          withr_3.0.2       \n[29] magrittr_2.0.4     digest_0.6.39      grid_4.3.2         rstudioapi_0.18.0 \n[33] fortunes_1.5-4     hms_1.1.4          lifecycle_1.0.5    vctrs_0.7.2       \n[37] evaluate_1.0.5     glue_1.8.0         farver_2.1.2       rmarkdown_2.30    \n[41] tools_4.3.2        pkgconfig_2.0.3    htmltools_0.5.9   \n\n\n\n\nパソコンのスペック\n\nCPUとコア数とRAM\n\nCPU\nコア数（論理コア）\n\n「論理コア」は「スレッド」「論理プロセッサ」、「仮想コア」とも呼ばれる\nCPUとコアについて\n\nRAM (Random Access Memory)\n\nストレージ（SSDやHDD）ではなく、データを一時保存する場所\n\n\n\n\n#install.packages(\"benchmarkme\") # 入れていないかたは先にインストールしてください\nbenchmarkme::get_cpu()\n\n$vendor_id\n[1] \"GenuineIntel\"\n\n$model_name\n[1] \"13th Gen Intel(R) Core(TM) i9-13900K\"\n\n$no_of_cores\n[1] 32\n\n\n\nbenchmarkme::get_ram()\n\n137 GB\n\n\n\n\n処理にかかった時間\n\n時間のかかる分析を行う人は明記する方が親切！\n\nいつ終わるのか分からない見通しのつかない分析を実行するのは怖いです。コア数に加え処理にかかった時間が記載されていればおおよその見通しがつきます。\n\n\n\n#install.packages(\"tictoc\") # 入れていないかたは先にインストールしてください\nlibrary(tictoc)\n\nWarning: package 'tictoc' was built under R version 4.3.3\n\ntic() #測定開始\n\nI &lt;-NULL\nfor(i in 1:100000){\n  I &lt;- c(I,  i)}\n\ntoc() #測定終了\n\n7.67 sec elapsed",
+    "text": "再現性をさらに高める工夫\n\nR Markdownに含めておきたい情報\n\n\n日付、日時\n\nいつ作成されたファイルで、更新はされたことあるのかを明記することが重要\n\nデフォルトでは、ファイルの作成日を手動で切り替えないといけない。\n\nr Sys.Date：2022-01-20\n\n\ntitle: \"Untitled\"\nauthor: \"Masato Terai\"\ndate: \"`r Sys.Date()` in JST\"   # ``と\"\"で囲うのを忘れない。\noutput: html_document\n\n\nr Sys.time：2022-01-20 21:36:36\n\n\ntitle: \"Untitled\"\nauthor: \"Masato Terai\"\ndate: \"`r format(Sys.time(), '%Y-%m-%d %X')`\"   # ``と\"\"で囲うのを忘れない。\noutput: html_document\n\n\n寺井おすすめ\n\n\ntitle: \"Untitled\"\nauthor: \"Masato Terai\"\ndate: \"作成日:2024-05-20, 最終更新(JST): `r format(Sys.time(), '%Y-%m-%d %X')`\"\noutput: html_document\n\n\n\nRのバージョン & 使用したRのパッケージのバージョン\n\nRのバージョンやパッケージのバージョン情報など\n\n\nsessionInfo()\n\nR version 4.3.2 (2023-10-31 ucrt)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 11 x64 (build 26200)\n\nMatrix products: default\n\n\nlocale:\n[1] LC_COLLATE=Japanese_Japan.utf8  LC_CTYPE=Japanese_Japan.utf8   \n[3] LC_MONETARY=Japanese_Japan.utf8 LC_NUMERIC=C                   \n[5] LC_TIME=Japanese_Japan.utf8    \n\ntime zone: Asia/Tokyo\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base     \n\nother attached packages:\n [1] kableExtra_1.4.0 lubridate_1.9.5  forcats_1.0.1    stringr_1.6.0   \n [5] dplyr_1.2.0      purrr_1.2.1      readr_2.2.0      tidyr_1.3.2     \n [9] tibble_3.3.1     ggplot2_4.0.2    tidyverse_2.0.0 \n\nloaded via a namespace (and not attached):\n [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.3.2     renv_1.1.8        \n [5] tidyselect_1.2.1   xml2_1.5.2         textshaping_1.0.5  systemfonts_1.3.2 \n [9] scales_1.4.0       yaml_2.3.12        fastmap_1.2.0      R6_2.6.1          \n[13] generics_0.1.4     knitr_1.51         htmlwidgets_1.6.4  svglite_2.2.2     \n[17] tzdb_0.5.0         pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.1.7       \n[21] stringi_1.8.7      xfun_0.57          S7_0.2.1           otel_0.2.0        \n[25] viridisLite_0.4.3  timechange_0.4.0   cli_3.6.5          withr_3.0.2       \n[29] magrittr_2.0.4     digest_0.6.39      grid_4.3.2         rstudioapi_0.18.0 \n[33] fortunes_1.5-4     hms_1.1.4          lifecycle_1.0.5    vctrs_0.7.2       \n[37] evaluate_1.0.5     glue_1.8.0         farver_2.1.2       rmarkdown_2.30    \n[41] tools_4.3.2        pkgconfig_2.0.3    htmltools_0.5.9   \n\n\n\n\nパソコンのスペック\n\nCPUとコア数とRAM\n\nCPU\nコア数（論理コア）\n\n「論理コア」は「スレッド」「論理プロセッサ」、「仮想コア」とも呼ばれる\nCPUとコアについて\n\nRAM (Random Access Memory)\n\nストレージ（SSDやHDD）ではなく、データを一時保存する場所\n\n\n\n\n#install.packages(\"benchmarkme\") # 入れていないかたは先にインストールしてください\nbenchmarkme::get_cpu()\n\n$vendor_id\n[1] \"GenuineIntel\"\n\n$model_name\n[1] \"13th Gen Intel(R) Core(TM) i9-13900K\"\n\n$no_of_cores\n[1] 32\n\n\n\nbenchmarkme::get_ram()\n\n137 GB\n\n\n\n\n処理にかかった時間\n\n時間のかかる分析を行う人は明記する方が親切！\n\nいつ終わるのか分からない見通しのつかない分析を実行するのは怖いです。コア数に加え処理にかかった時間が記載されていればおおよその見通しがつきます。\n\n\n\n#install.packages(\"tictoc\") # 入れていないかたは先にインストールしてください\nlibrary(tictoc)\n\nWarning: package 'tictoc' was built under R version 4.3.3\n\ntic() #測定開始\n\nI &lt;-NULL\nfor(i in 1:100000){\n  I &lt;- c(I,  i)}\n\ntoc() #測定終了\n\n5.22 sec elapsed",
     "crumbs": [
       "Week 15：言語研究とオープンサイエンス"
     ]

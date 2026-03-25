@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-23">
+<meta name="dcterms.date" content="2026-03-25">
 
 <title>Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto – 言語統計処理a</title>
 <style>
@@ -266,30 +266,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#rとは" id="toc-rとは" class="nav-link" data-scroll-target="#rとは">Rとは</a></li>
   <li><a href="#rのインストール" id="toc-rのインストール" class="nav-link" data-scroll-target="#rのインストール">Rのインストール</a></li>
-  <li><a href="#rstudioとは" id="toc-rstudioとは" class="nav-link" data-scroll-target="#rstudioとは">RStudioとは</a></li>
-  <li><a href="#rstudioのインストール" id="toc-rstudioのインストール" class="nav-link" data-scroll-target="#rstudioのインストール">RStudioのインストール</a></li>
-  <li><a href="#rstudioの機能" id="toc-rstudioの機能" class="nav-link" data-scroll-target="#rstudioの機能">RStudioの機能</a></li>
-  <li><a href="#プロジェクト機能" id="toc-プロジェクト機能" class="nav-link" data-scroll-target="#プロジェクト機能">プロジェクト機能</a>
+  <li><a href="#positronとは" id="toc-positronとは" class="nav-link" data-scroll-target="#positronとは">Positronとは</a></li>
+  <li><a href="#positronのインストール" id="toc-positronのインストール" class="nav-link" data-scroll-target="#positronのインストール">Positronのインストール</a></li>
+  <li><a href="#positronを開く" id="toc-positronを開く" class="nav-link" data-scroll-target="#positronを開く">Positronを開く</a></li>
+  <li><a href="#positronの機能" id="toc-positronの機能" class="nav-link" data-scroll-target="#positronの機能">Positronの機能</a></li>
+  <li><a href="#positronのカスタマイズ" id="toc-positronのカスタマイズ" class="nav-link" data-scroll-target="#positronのカスタマイズ">Positronのカスタマイズ</a></li>
+  <li><a href="#この講義専用のフォルダを作成する" id="toc-この講義専用のフォルダを作成する" class="nav-link" data-scroll-target="#この講義専用のフォルダを作成する">この講義専用のフォルダ📁を作成する</a></li>
+  <li><a href="#quarto入門" id="toc-quarto入門" class="nav-link" data-scroll-target="#quarto入門">Quarto入門</a>
   <ul class="collapse">
-  <li><a href="#プロジェクトの作成" id="toc-プロジェクトの作成" class="nav-link" data-scroll-target="#プロジェクトの作成">プロジェクトの作成</a></li>
-  </ul></li>
-  <li><a href="#rstudioのカスタマイズ" id="toc-rstudioのカスタマイズ" class="nav-link" data-scroll-target="#rstudioのカスタマイズ">RStudioのカスタマイズ</a></li>
-  <li><a href="#r-markdown入門" id="toc-r-markdown入門" class="nav-link" data-scroll-target="#r-markdown入門">R Markdown入門</a>
-  <ul class="collapse">
-  <li><a href="#knitを押して出力" id="toc-knitを押して出力" class="nav-link" data-scroll-target="#knitを押して出力">Knit🧶を押して出力！</a></li>
+  <li><a href="#previewを押して出力" id="toc-previewを押して出力" class="nav-link" data-scroll-target="#previewを押して出力">Previewを押して出力！</a></li>
   </ul></li>
   <li><a href="#ドキュメントチャンクmarkdown記法" id="toc-ドキュメントチャンクmarkdown記法" class="nav-link" data-scroll-target="#ドキュメントチャンクmarkdown記法">ドキュメントチャンク：Markdown記法</a>
   <ul class="collapse">
   <li><a href="#覚えるのはマストではないその都度調べてよく使うものを覚えていく" id="toc-覚えるのはマストではないその都度調べてよく使うものを覚えていく" class="nav-link" data-scroll-target="#覚えるのはマストではないその都度調べてよく使うものを覚えていく">覚えるのはマストではない。その都度調べてよく使うものを覚えていく</a></li>
   </ul></li>
   <li><a href="#lets-実践" id="toc-lets-実践" class="nav-link" data-scroll-target="#lets-実践">Let’s 実践</a></li>
-  <li><a href="#答え合わせ" id="toc-答え合わせ" class="nav-link" data-scroll-target="#答え合わせ">答え合わせ</a></li>
-  <li><a href="#コードチャンクの挿入" id="toc-コードチャンクの挿入" class="nav-link" data-scroll-target="#コードチャンクの挿入">コードチャンクの挿入</a>
-  <ul class="collapse">
-  <li><a href="#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" id="toc-ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" class="nav-link" data-scroll-target="#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac">ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</a></li>
-  </ul></li>
+  <li><a href="#コードチャンクの挿入" id="toc-コードチャンクの挿入" class="nav-link" data-scroll-target="#コードチャンクの挿入">コードチャンクの挿入</a></li>
   <li><a href="#lets-実践-1" id="toc-lets-実践-1" class="nav-link" data-scroll-target="#lets-実践-1">Let’s 実践</a></li>
-  <li><a href="#答え合わせ-1" id="toc-答え合わせ-1" class="nav-link" data-scroll-target="#答え合わせ-1">答え合わせ</a></li>
+  <li><a href="#食費の合計" id="toc-食費の合計" class="nav-link" data-scroll-target="#食費の合計">食費の合計</a></li>
+  <li><a href="#答え合わせ" id="toc-答え合わせ" class="nav-link" data-scroll-target="#答え合わせ">答え合わせ</a></li>
   <li><a href="#次週までの課題" id="toc-次週までの課題" class="nav-link" data-scroll-target="#次週までの課題">次週までの課題</a>
   <ul class="collapse">
   <li><a href="#課題内容" id="toc-課題内容" class="nav-link" data-scroll-target="#課題内容">課題内容</a></li>
@@ -314,14 +309,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-03-23</p>
+      <p class="date">2026-03-25</p>
     </div>
   </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-03-23 13:43:27</p>
+      <p class="date-modified">2026-03-23 19:10:34</p>
     </div>
   </div>
     
@@ -342,15 +337,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>量的研究（ quantitative research ）</li>
 </ol>
 <ul>
-<li>数量を用いて分析。一般化が目的。「仮説検証型」。</li>
+<li>数量を用いて分析。
+<ul>
+<li>ある現象を数え上げて要約する。</li>
+</ul></li>
+<li>仮説検証型</li>
 </ul>
 <ol start="2" type="1">
 <li>質的研究（ qualitative research ）</li>
 </ol>
 <ul>
-<li>数量化せずに分析。一般化は目的ではない。「仮説生成型」。</li>
+<li>数量化せずに分析。</li>
+<li>仮説生成型</li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>「量的 = 一般化、質的 = 一般化をしない」という区別には注意が必要です。量的な研究でも、今週以降に説明するサンプリングにバイアスがある場合、「一般化」には制限がかかる場合があります。 - 寺沢先生の一連のXのポストが参考になります：<a href="https://x.com/tera_sawa/status/1970336158015279561">https://x.com/tera_sawa/status/1970336158015279561</a></p>
+</div>
+</div>
 <p>　寺井は量的な研究しか経験がないため、本講義では量的な研究を行うことを念頭に統計処理の方法について講義を行う。しかし、それらが質的研究と全く関連がないわけではない（もし質的な研究に関心がある受講生の方がいたら、関連すると思う点を教えてください）。</p>
 <ul>
 <li><p>量的研究では数量を扱うため、統計手法を用いて分析を行うことが多い。よって、量的研究を行う場合、統計に関する知識が必要不可欠。</p></li>
@@ -367,13 +380,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="rとは" class="level2">
 <h2 class="anchored" data-anchor-id="rとは">Rとは</h2>
 <ul>
-<li><p>Rはプログラム言語の一種で、統計解析向けの言語。統計解析以外にもWebアプリを作ったり資料を作成したりすることも可能（この資料もRを使って作成しています）。Rは無料でインストール・使用することができる。</p></li>
-<li><p>Rに備わっている機能だけで分析を行うことができるが、世界中のRユーザーが開発した機能（<strong>パッケージ</strong>）を無料でインストールすることができる。これにより、様々な分析を行うことができるが、それらのアップデートが行われるため注意が必要である（アップデートにより以前と同じように動かないということも起こりうるため）。</p>
+<li><p>Rはプログラム言語の一種で、統計解析向けの言語。統計解析以外にもWebアプリを作ったり資料を作成したりすることも可能（この資料もRを使って作成しています）。Rは無料でインストール・使用することができる。</p>
 <ul>
-<li>RをiPhone本体、パッケージをXやInstagramなどのアプリとイメージするとよい</li>
+<li>そのほかのプログラミング言語の例：Python、Java、C#、JavaScript、C++</li>
 </ul></li>
-<li><p>Excelなどコードを書かなくても統計解析を行うことができるソフトウェアは多い。しかし、ソフトウェアは無料のものばかりではなく、また実行したい分析を機能として持っていない可能性がある。近年では生成AIなどによって、プログラミングのハードルが以前よりも低くなったと考えられる。ソフトウェアで実行するよりも、プログラミング言語を駆使して分析を行う方が、統計以外の知識にもつながる。最初は「二階から目薬」のような気持ちになるかもしれないが、根気強く、授業者、友人、先輩、そしてAIさん達に頼りながら取り組んでほしい。</p></li>
+<li><p>R言語をこの講義で扱う理由として、</p>
+<ol type="1">
+<li>Rは統計処理に特化している言語</li>
+<li>言語研究ではRを使う研究者が多い</li>
+<li>プログラミング初心者に優しい</li>
+</ol></li>
+<li><p>Rに初めから備わっている機能だけで分析を行うことができる。しかし、世界中のRユーザーが開発した機能（<strong>パッケージ</strong>）を無料でインストールすることができる。これにより、最新の様々な分析を無料で行うことができる。</p>
+<ul>
+<li><p>欠点として、パッケージはその都度アップデートが行われるため注意が必要である（アップデートにより以前と同じように動かないということも起こりうるため）。</p></li>
+<li><p>Rもアップデートは行われる。</p></li>
+<li><p>RをiPhone本体、パッケージをXやInstagramなどのアプリとイメージするとよい。</p></li>
+</ul></li>
+<li><p>ExcelやSPSSなどコードを書かなくても統計解析を行うことができるソフトウェアは多い。しかし、<u>ソフトウェアは無料のものばかりではなく、また実行したい分析を機能として持っていない可能性がある</u>。近年では生成AIなどによって、プログラミングのハードルが以前よりも低くなったと考えられる。ソフトウェアで実行するよりも、プログラミング言語を駆使して分析を行う方が、統計以外のパソコンに関する知識獲得にもつながる。最初は「二階から目薬」のような気持ちになるかもしれないが、根気強く、授業者、友人、先輩、そしてAIに頼りながら取り組んでほしい。</p></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rのインストールの前に、拡張子が見える設定に変更しましょう。</p>
+</div>
+</div>
 </section>
 <section id="rのインストール" class="level2">
 <h2 class="anchored" data-anchor-id="rのインストール">Rのインストール</h2>
@@ -387,18 +424,18 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Windowsを使用している人で、DocumentsのパスにOne Driveが関係している人は教えてください。</p>
+<p>Windowsを使用している人で、Documents（ドキュメント）のパスにOne Driveが関係している人は教えてください。</p>
 </div>
 </div>
 <ol type="1">
-<li>Rの公式サイトにアクセス（ https://www.r-project.org/ ）</li>
+<li>Rの公式サイトにアクセス（ <a href="https://www.r-project.org/">https://www.r-project.org/</a> ）</li>
 <li>CRANをクリック</li>
 <li>Japanのリンクをクリック（Yamagata University）</li>
 <li>自分のパソコンのOSを選択</li>
-<li>“install R for the first time”をクリック。全部NextでOK!</li>
+<li>“install R for the first time”をクリック。<u>全部NextでOK!</u></li>
 </ol>
 <ul>
-<li>インストールが完了したら、Rを立ち上げて以下のコードを入力する。Enterを押すと命令が実行される。</li>
+<li>インストールが完了したら、Rを立ち上げて以下のコードを入力一行ずつ入力して遊んでみる。Enterを押すと命令が実行される。</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -423,106 +460,103 @@ Note
 </div>
 </div>
 </section>
-<section id="rstudioとは" class="level2">
-<h2 class="anchored" data-anchor-id="rstudioとは">RStudioとは</h2>
+<section id="positronとは" class="level2">
+<h2 class="anchored" data-anchor-id="positronとは">Positronとは</h2>
 <ul>
-<li>Rだけでも分析は可能だが、Rだけの解析は難しい。そこで、よりRでの解析を行いやすくする統合開発環境（RStudio）の中でRを使用する。</li>
-<li>注意点として、Rのインストールも必ず行う必要がある。</li>
-<li>RStudioはWeb版とローカル版があり、前者はオンライン上で使用するが、後者は各個人のパソコンで使用する。Web版の使用には、サーバーが必要であるため（基本有料）、ローカル版（RStudio Desktop）での使用に慣れる方がよい。</li>
+<li><p>Rだけでも統計分析は可能だが、Rだけでは難しい。そこで、Rでの解析をサポートするする統合開発環境の中でRを使用する。</p>
+<ul>
+<li>統合開発環境：コードの執筆や、実行結果の確認を一つの画面で確認できるようにする、様々なツールの集合。</li>
+</ul></li>
+<li><p>注意点として、統合開発環境だけでは分析ができず、Rのインストールも必ず行う必要がある。</p></li>
 </ul>
-</section>
-<section id="rstudioのインストール" class="level2">
-<h2 class="anchored" data-anchor-id="rstudioのインストール">RStudioのインストール</h2>
-<ol type="1">
-<li>RStudioのサイトへ行く（ https://posit.co/download/rstudio-desktop/ ）</li>
-<li>All Installers and Tarballsで自分自身のパソコンのOSを選び、ダウンロード</li>
-</ol>
-</section>
-<section id="rstudioの機能" class="level2">
-<h2 class="anchored" data-anchor-id="rstudioの機能">RStudioの機能</h2>
-<ul>
-<li><p>4つのペイン：</p>
-<ul>
-<li><p>ソース</p>
-<ul>
-<li>実行するコードのメモ帳</li>
-</ul></li>
-<li><p>環境・履歴</p>
-<ul>
-<li>読み込んだデータを表示したりや過去に実行したコマンドを記録できる</li>
-</ul></li>
-<li><p>コンソール</p>
-<ul>
-<li>R。ソースペインを実行する場所</li>
-</ul></li>
-<li><p>ファイル・作図・パッケージ・ヘルプ</p>
-<ul>
-<li>ワーキングディレクトリにあるファイルを表示したり、作成した図を確認したり、インストールされているパッケージを確認したり、パッケージの使い方を確認する</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="プロジェクト機能" class="level2">
-<h2 class="anchored" data-anchor-id="プロジェクト機能">プロジェクト機能</h2>
-<ul>
-<li>プロジェクト = ディレクトリ
-<ul>
-<li>ファイルや操作履歴を保存できる</li>
-</ul></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="「RStudioでもいいですか？」">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>「RStudioでもいいですか？」
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>ディレクトリ（📁）とは、場所のこと。Rは一か所にしか滞在できない、移動する際も、命令してあげないと自分で勝手に移動してくれない。📁ごとが異なる場所であるため、ファイルを読み込んだりする場合も、Rがいる場所と、ファイルがある場所が異なる場合、Rを移動させるか、ファイルをRがいる箇所まで移動させないと読み込むことはできない。</p>
+<p>はい。RStudioを使用してもOKです。RStudioは、Positronよりも長い歴史のある統合開発環境です。どちらも同じ会社（Posit社）が開発をしていて、PositronよりもRとの相性は良いです（Rに特化して作られている）。Rとの相性が良いことは、他の言語との相性が悪いという欠点もあります。Rを使うときはRStudio、Pythonを使うときはVisual Studio Codeといったように言語に応じて統合開発環境を変えないと不便なことがあったりします。プログラミング言語を学習し始めた方にとって、いきなりバイリンガルになれとは言いません。しかし、将来プログラミングに関する仕事や作業効率化などに興味がある方は特に、複数の言語を扱うことが必要とされます。<u>Positronは多言語の統合開発環境であり、RとPythonを併用できます。また、RStudioよりもデータ分析に特化した機能を持っており、次世代の統合開発環境として注目されています。</u>Rに特化した統合開発環境で学習してもらうと、他の言語への学習の意欲を奪うのではないかと考え2026年度からPositronに切り替えました。詳しい二つの比較は以下のスライドを参考にしてみてください。</p>
+<ul>
+<li><a href="https://masato-terai.github.io/Workshop_SappoRoR/#/title-slide">寺井（2025）「Positron入門 Rユーザーのための次世代IDE」初心者ワークショップ@Sapporo.R</a></li>
+</ul>
 </div>
 </div>
-<ul>
-<li>プロジェクトを作成する利点
-<ul>
-<li>研究ごとに分析に必要なファイルをまとめることができる</li>
-</ul></li>
-</ul>
-<section id="プロジェクトの作成" class="level3">
-<h3 class="anchored" data-anchor-id="プロジェクトの作成">プロジェクトの作成</h3>
-<ul>
-<li>ドキュメントディレクトリに新しいフォルダーを作成
-<ul>
-<li><p><strong>名前は、絶対英数字のみ！（Rが関係しそうな場合、ファイル名、フォルダ名に日本語を使わない方が安心です）</strong></p></li>
-<li><p>作り方を解説しているサイト（<a href="https://www.jaysong.net/RBook/project.html">私たちのR</a>）</p></li>
-</ul></li>
-</ul>
+</section>
+<section id="positronのインストール" class="level2">
+<h2 class="anchored" data-anchor-id="positronのインストール">Positronのインストール</h2>
 <ol type="1">
-<li>RStudioを開き、右上の[Project:]ボタンをクリック。</li>
-<li>[New Project]をクリックし、[Existing Directory]から、先ほど作成した名前のディレクトリを選択</li>
+<li>Posit社のサイトへ行く（ <a href="https://positron.posit.co/download.html">https://positron.posit.co/download.html</a> ）</li>
+<li>agreementに☑をいれる</li>
+<li>Windowsなら “x64(user level install)”、Mcなら “arm64”</li>
 </ol>
+</section>
+<section id="positronを開く" class="level2">
+<h2 class="anchored" data-anchor-id="positronを開く">Positronを開く</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://positron.posit.co/images/user-interface-for-rstudio-migration.jpeg" class="img-fluid figure-img"></p>
+<figcaption>From https://positron.posit.co/</figcaption>
+</figure>
+</div>
+</section>
+<section id="positronの機能" class="level2">
+<h2 class="anchored" data-anchor-id="positronの機能">Positronの機能</h2>
 <ul>
-<li><u>今後、この講義で配布されたファイルや、作成したファイルは全てそのディレクトリ内に入れるようにしてください</u></li><u>
-</u><li><u>今後、この講義でRStudioを使用する場合は必ずこのプロジェクトを開いてください</u></li>
+<li><p><strong>Activity Bar</strong>：ファイル、Git、拡張機能、AIアシストなどを表示</p></li>
+<li><p><strong>Primary Side Bar</strong>：Activity Barの詳細。Activity Barで選んだものによって内容が異なる。</p></li>
+<li><p><strong>Editor</strong>：コードを記述する</p></li>
+<li><p><strong>Panel</strong>：コンソール（R本体）、ターミナルなどが表示される</p></li>
+<li><p><strong>Secondary Side Bar</strong>：作成した図などが表示される</p></li>
 </ul>
 </section>
-</section>
-<section id="rstudioのカスタマイズ" class="level2">
-<h2 class="anchored" data-anchor-id="rstudioのカスタマイズ">RStudioのカスタマイズ</h2>
+<section id="positronのカスタマイズ" class="level2">
+<h2 class="anchored" data-anchor-id="positronのカスタマイズ">Positronのカスタマイズ</h2>
 <ul>
-<li><p><a href="https://qiita.com/masato-terai/items/4200f3817972fede2dd2">RStudioの設定変更【見た目】</a></p>
+<li><p>テーマの変更：左下の⚙をクリック → [Themes] → [Color Theme]</p>
 <ul>
-<li>文字のサイズを大きくしたり、背景の色を変更することが可能</li>
-<li>その他にも、()の色分けをしてくれたりなど分析の補助になる機能もある</li>
+<li>背景が白だと個人的に目が疲れます</li>
 </ul></li>
+<li><p>フォントの大きさの変更：左下の⚙をクリック → [Settings] → [Text Editor] → [Font Size]</p></li>
 </ul>
 </section>
-<section id="r-markdown入門" class="level2">
-<h2 class="anchored" data-anchor-id="r-markdown入門">R Markdown入門</h2>
+<section id="この講義専用のフォルダを作成する" class="level2">
+<h2 class="anchored" data-anchor-id="この講義専用のフォルダを作成する">この講義専用のフォルダ📁を作成する</h2>
 <ul>
-<li><p>Rの出力結果を文字や写真、リンクなどと一緒に出力できるもの。</p></li>
-<li><p>左上の紙のマークを押して、R Markdownを開く</p></li>
+<li><p>One DriveやGoogle Driveなどの自動同期以外の場所に作成するのがおすすめです。One DriveではないのであればDocumentsでもOKです。</p></li>
+<li><p>この講義の数少ない<strong>お約束</strong>として、<u>この講義に関連するファイルはすべて今から作成するフォルダの中に入れてください。</u>フォルダの中で「Week1」や「material」など小分けにするのは良いです。</p>
+<ul>
+<li><u>フォルダの名前やファイル名には日本語は入れないでください（特にフォルダ名）。</u></li>
+</ul></li>
+<li><p>おすすめの場所第一位は、<code>C:\Users\あなたのPCの名前</code>です。<code>C:\Users\あなたのPCの名前\Documents</code>でもいいです。このPathの中にOneDriveという文字が入っていてはいけません（おすすめしません）。</p></li>
+<li><p>場所を決めたら、好きなフォルダ名をつけて作成してください。短い名前のほうがおすすめです（<code>stats_2026</code>など）。</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="重要なコンピュータ用語">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>重要なコンピュータ用語
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rでの分析で頻出するエラーは、<code>No such directory</code>です。Rでの分析では、ExcelやCSVファイルを読み込んで作業します。「読み込め！」とRに命令した際に、「見つからない( ；∀；)」というRの嘆きです。ディレクトリ📁（≒フォルダ）とは、場所のことです。Rはどこかのディレクトリいます。しかし、自分のいない部屋の情報はわかりません。読み込みたいファイルがある場合、Rがどこにいるかを確認し、読み込みたいファイルの場所を命令してあげる必要があります。このことからこの講義で配布するデータなどはすべて同じ部屋に入れておくとよいです。</p>
+</div>
+</div>
+</section>
+<section id="quarto入門" class="level2">
+<h2 class="anchored" data-anchor-id="quarto入門">Quarto入門</h2>
+<ul>
+<li><p>Rの出力結果を文字や写真などと一緒に出力できるもの（Word + Rみたいなもの）。</p>
+<ul>
+<li>分析レポートを作成できる</li>
+</ul></li>
+<li><p>次世代のR Markdownです</p></li>
+<li><p>[New] -&gt; [New File….] -&gt; [Quarto Document]</p></li>
 <li><p>【パーツ１】YAML（YAML　Ain’t Markup Language）ヘッダー：文章全体の体裁や情報を操作する</p>
 <ul>
 <li>タイトル、サブタイトル</li>
@@ -551,8 +585,8 @@ Warning
 <li>見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く</li>
 </ul></li>
 </ul>
-<section id="knitを押して出力" class="level3">
-<h3 class="anchored" data-anchor-id="knitを押して出力">Knit🧶を押して出力！</h3>
+<section id="previewを押して出力" class="level3">
+<h3 class="anchored" data-anchor-id="previewを押して出力">Previewを押して出力！</h3>
 <ul>
 <li>初期設定はHTMLファイル出力</li>
 </ul>
@@ -588,38 +622,25 @@ Warning
 <section id="lets-実践" class="level2">
 <h2 class="anchored" data-anchor-id="lets-実践">Let’s 実践</h2>
 <ul>
-<li>以下の文章をR Markdownを使って再現してください。</li>
+<li>以下の文章をQuartoで入力、Previewしてください。</li>
 </ul>
 <div class="infobox">
-<p># 名古屋飯といえば</p>
-<p>## ひつまぶし：<em>Hitsumabushi</em></p>
-<p>おすすめは以下のお店です。</p>
-<ul>
-<li><strong>ひつまぶし花岡</strong>
-<ul>
-<li>場所：栄</li>
-</ul></li>
-</ul>
-</div>
-</section>
-<section id="答え合わせ" class="level2">
-<h2 class="anchored" data-anchor-id="答え合わせ">答え合わせ</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 名古屋飯といえば</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## ひつまぶし：*Hitsumabushi*</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>おすすめは以下のお店です。</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 名古屋飯といえば</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## ひつまぶし：*Hitsumabushi*</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ひつまぶし花岡**</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>場所：栄</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>おすすめは以下のお店です。</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ひつまぶし花岡**</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>場所：栄</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="コードチャンクの挿入" class="level2">
 <h2 class="anchored" data-anchor-id="コードチャンクの挿入">コードチャンクの挿入</h2>
-<section id="ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" class="level3">
-<h3 class="anchored" data-anchor-id="ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac">ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</h3>
 <ul>
-<li>このコードの中はR。Rで使う関数などを自由に指定できる</li>
-<li>以下のチャンク内でないと、動かない = Rの命令として実行してもらえない</li>
+<li><p>ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</p></li>
+<li><p>このコードの中はR。Rで使う関数などを自由に指定できる</p></li>
+<li><p>以下のチャンク内でないと、動かない = Rの命令として実行してもらえない</p></li>
 </ul>
 <p>```{r}<br>
 ```</p>
@@ -636,22 +657,22 @@ Warning
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="01-week1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="01-week1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
 </section>
 <section id="lets-実践-1" class="level2">
 <h2 class="anchored" data-anchor-id="lets-実践-1">Let’s 実践</h2>
 <ul>
 <li>以下をドキュメントチャンクとコードチャンクを使って再現してください。</li>
 </ul>
-<div class="infobox">
-<p>## 食費の合計</p>
+</section>
+<section id="食費の合計" class="level2 infobox">
+<h2 class="anchored" data-anchor-id="食費の合計">食費の合計</h2>
 <ul>
-<li><p>以下は、名古屋旅行で使った食費の合計である。</p>
+<li><p>以下は、旅行で使った食費の合計である。</p>
 <ul>
 <li><strong>注!</strong> <em>hitsu</em>はひつまぶし、<em>miso</em>は味噌カツを表す。</li>
 </ul></li>
@@ -663,10 +684,12 @@ Warning
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">sum</span>(hitsu, miso)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
 </section>
-<section id="答え合わせ-1" class="level2">
-<h2 class="anchored" data-anchor-id="答え合わせ-1">答え合わせ</h2>
+<section id="答え合わせ" class="level2">
+<h2 class="anchored" data-anchor-id="答え合わせ">答え合わせ</h2>
+<ul>
+<li>&nbsp;はいりません</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## 食費の合計</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>以下は、名古屋旅行で使った食費の合計である。</span>
@@ -681,14 +704,22 @@ Warning
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>total &lt;- sum(hitsu, miso)</span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="sc">\`</span>``</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<ul>
+<li><p>作成したQuartoファイルは名前を付けて保存しましょう。</p></li>
+<li><p>再度以下の点を確認してください</p>
+<ul>
+<li>先ほど作成したフォルダの中にいれる</li>
+<li>英数字のみにする</li>
+</ul></li>
+</ul>
 </section>
 <section id="次週までの課題" class="level2">
 <h2 class="anchored" data-anchor-id="次週までの課題">次週までの課題</h2>
 <section id="課題内容" class="level3">
 <h3 class="anchored" data-anchor-id="課題内容">課題内容</h3>
 <ul>
-<li><p>本講義の内容に関する簡単な小テストを行います。配布した資料を見返しておいてください。</p></li>
-<li><p>自己紹介の文をR Markdownで作成し、出力したHTMLファイルをTACTへ提出してください。以下の2項目を必ず入れてください。クラスメートと公開してもいい情報だけを入れてください！</p></li>
+<li><p>本講義の内容に関する<strong>簡単な小テスト</strong>を行います。配布した資料を見返しておいてください。</p></li>
+<li><p>自己紹介の文をQuartoで作成し、出力した<strong>HTMLファイル</strong>をTACTへ提出してください。以下の2項目を必ず入れてください。クラスメートと公開してもいい情報だけを入れてください！</p></li>
 <li><p>名前、出身、研究科、自分の研究したいことを二文くらいでまとめる。</p>
 <ul>
 <li>レベル分け、箇条書き、強調（e.g., 下線、太字、イタリック）</li>
@@ -726,13 +757,6 @@ Note
   border-radius: 10px;
   background: #f5f5f5 5px center/3em no-repeat;
 }
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
 </style>
 
 

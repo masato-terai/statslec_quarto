@@ -1,62 +1,50 @@
 {
   "index.qmd": {
-    "index.html": "ad0e7221"
-  },
-  "intro.qmd": {
-    "intro.html": "c7217ce3"
-  },
-  "summary.qmd": {
-    "summary.html": "877d45f2"
-  },
-  "references.qmd": {
-    "references.html": "52caf4e6"
+    "index.html": "851cb309"
   },
   "01-week1.qmd": {
-    "01-week1.html": "f6f36325"
+    "01-week1.html": "17762903"
   },
   "02-week2.qmd": {
-    "02-week2.html": "bea23a2b"
+    "02-week2.html": "41605e49"
   },
   "03-week3.qmd": {
-    "03-week3.html": "a43d491d"
+    "03-week3.html": "89b4f739"
   },
   "04-week4.qmd": {
-    "04-week4.html": "03334d43"
+    "04-week4.html": "e8ade59a"
   },
   "05-week5.qmd": {
-    "05-week5.html": "1a6b81ce"
+    "05-week5.html": "5a1c70a3"
   },
   "06-regression.qmd": {
-    "06-regression.html": "4d95449c"
+    "06-regression.html": "8dc4b5ff"
   },
   "07-multipleregression.qmd": {
-    "07-multipleregression.html": "5b1d2da9"
+    "07-multipleregression.html": "9ca69e7a"
   },
   "08-multiplereg_2.qmd": {
-    "08-multiplereg_2.html": "563996a7"
+    "08-multiplereg_2.html": "ace37b91"
   },
   "09-multiplereg_3.qmd": {
-    "09-multiplereg_3.html": "e8621fc3"
+    "09-multiplereg_3.html": "6125476b"
   },
   "10-Week10_logistic.qmd": {
-    "10-Week10_logistic.html": "eb8d132d"
+    "10-Week10_logistic.html": "cd61f066"
   },
   "11-Week11_tidyverse.qmd": {
-    "11-Week11_tidyverse.html": "55060fec"
+    "11-Week11_tidyverse.html": "0214789b"
   },
   "12-Week12_GLMM.qmd": {
-    "12-Week12_GLMM.html": "a5a40e9b"
+    "12-Week12_GLMM.html": "3a234cd9"
   },
   "13-Week13_Eff_pow.qmd": {
-    "13-Week13_Eff_pow.html": "d2433ca3"
+    "13-Week13_Eff_pow.html": "28c85e38"
   },
   "14-Week14_nonpara.qmd": {
-    "14-Week14_nonpara.html": "63da6e85"
-  },
-  "15-Week15_repro.qmd": {
-    "15-Week15_repro.html": "5331bb18"
+    "14-Week14_nonpara.html": "5899800e"
   },
   "15-Week15_Repro.qmd": {
-    "15-Week15_Repro.html": "e9d368ad"
+    "15-Week15_Repro.html": "364ab124"
   }
 }
