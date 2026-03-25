@@ -1,0 +1,31 @@
+# おすすめ資料
+
+::: callout-note
+完成版ではなく、随時更新していきます。それぞれのジャンル内の順番は、寺井が追加した順番です。
+:::
+
+## 書籍
+
+- [原啓介 (2025)『原理と意味から理解するベイズ統計入門講義』](https://amzn.asia/d/0g4SHyat)
+
+- [エリカ・トンプソン (2025)『数理モデルはなぜ現実世界を語れないのか：社会的な視点から科学的予測を考える』](https://amzn.asia/d/02QvxAIB)
+
+- [シャロン・バーチュ・マグレイン (2018)『異端の統計学 ベイズ』](https://amzn.asia/d/03frZyY6)
+
+## 論文
+- [寺井雅人. (2024). RStudio と Git の連携によるバージョン管理. メソドロジー研究部会報告論集, 17, 35-52.](https://www.jstage.jst.go.jp/article/methodologysig/17/0/17_17.3/_article/-char/ja/)
+
+- [寺井雅人. (2025). RStudio ユーザーのための GitHub 入門. メソドロジー研究部会報告論集, 18, 27-41.](https://www.jstage.jst.go.jp/article/methodologysig/18/0/18_18.2/_article/-char/ja/)
+
+## ウェブサイト
+
+- [無料で学ぶRと統計解析：おすすめのウェブサイト](https://qiita.com/masato-terai/items/f73cfa50fafcaf5d6f93)
+
+    - 過去に寺井がまとめたリストです
+
+- [気楽にウェブサイト　見た目を整える](https://shohei-doi.github.io/academic-website/appearance.html)
+
+    - Quartoでウェブサイトを作成する方法が紹介されています。
+
+## Xのポストなど
+- [量的、質的研究の違い by @tera_sawa](https://x.com/tera_sawa/status/1970336158015279561)

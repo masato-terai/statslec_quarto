@@ -1,4 +1,4 @@
-# Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto {.unnumbered}
+# Week 1: Rおよび開発環境のインストール、Quarto {.unnumbered}
 
 ## 「統計処理」とは
 

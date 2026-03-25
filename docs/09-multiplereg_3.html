@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-25">
+<meta name="dcterms.date" content="2026-03-23">
 
 <title>Week9: 重回帰分析 (3)：交互作用の解釈 – 言語統計処理a</title>
 <style>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-70a47bd5681a7291082a5b9f83d58762.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -150,7 +150,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-multiplereg_3.html">Week9: 重回帰分析 (3)：交互作用の解釈</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-week5.html">第二章：実践</a></li><li class="breadcrumb-item"><a href="./09-multiplereg_3.html">Week9: 重回帰分析 (3)：交互作用の解釈</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -186,99 +186,149 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">この資料について</span></a>
+ <span class="menu-text">はじめに</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第一章：イントロダクション</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 1: オリエンテーション、R、開発環境のインストールと操作、Quarto</span></a>
+ <span class="menu-text">Week 1: Rおよび開発環境のインストール、Quarto</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-week2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 2：要約統計量</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-week3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 3：推測統計学</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 4: 統計的検定</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第二章：実践</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week5: 相関分析</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week7: 重回帰分析：概要</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">第三章：発展</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week12: 階層モデル</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./15-Week15_Repro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 15：言語研究とオープンサイエンス</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">おすすめ資料</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -316,7 +366,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-week5.html">第二章：実践</a></li><li class="breadcrumb-item"><a href="./09-multiplereg_3.html">Week9: 重回帰分析 (3)：交互作用の解釈</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Week9: 重回帰分析 (3)：交互作用の解釈</h1>
 </div>
@@ -329,7 +379,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-03-25</p>
+      <p class="date">March 23, 2026</p>
     </div>
   </div>
   
@@ -446,23 +496,23 @@ window.Quarto = {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div id="lhxtvsrpgw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lhxtvsrpgw table {
+<div id="bdcoitpehv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bdcoitpehv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lhxtvsrpgw thead, #lhxtvsrpgw tbody, #lhxtvsrpgw tfoot, #lhxtvsrpgw tr, #lhxtvsrpgw td, #lhxtvsrpgw th {
+#bdcoitpehv thead, #bdcoitpehv tbody, #bdcoitpehv tfoot, #bdcoitpehv tr, #bdcoitpehv td, #bdcoitpehv th {
   border-style: none;
 }
 
-#lhxtvsrpgw p {
+#bdcoitpehv p {
   margin: 0;
   padding: 0;
 }
 
-#lhxtvsrpgw .gt_table {
+#bdcoitpehv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -488,12 +538,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_caption {
+#bdcoitpehv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lhxtvsrpgw .gt_title {
+#bdcoitpehv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -505,7 +555,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#lhxtvsrpgw .gt_subtitle {
+#bdcoitpehv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -517,7 +567,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#lhxtvsrpgw .gt_heading {
+#bdcoitpehv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -529,13 +579,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_bottom_border {
+#bdcoitpehv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_col_headings {
+#bdcoitpehv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -550,7 +600,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_col_heading {
+#bdcoitpehv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -570,7 +620,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#lhxtvsrpgw .gt_column_spanner_outer {
+#bdcoitpehv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -582,15 +632,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#lhxtvsrpgw .gt_column_spanner_outer:first-child {
+#bdcoitpehv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lhxtvsrpgw .gt_column_spanner_outer:last-child {
+#bdcoitpehv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lhxtvsrpgw .gt_column_spanner {
+#bdcoitpehv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -602,11 +652,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#lhxtvsrpgw .gt_spanner_row {
+#bdcoitpehv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lhxtvsrpgw .gt_group_heading {
+#bdcoitpehv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -632,7 +682,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#lhxtvsrpgw .gt_empty_group_heading {
+#bdcoitpehv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -647,15 +697,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#lhxtvsrpgw .gt_from_md > :first-child {
+#bdcoitpehv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lhxtvsrpgw .gt_from_md > :last-child {
+#bdcoitpehv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lhxtvsrpgw .gt_row {
+#bdcoitpehv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -674,7 +724,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#lhxtvsrpgw .gt_stub {
+#bdcoitpehv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -687,7 +737,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#lhxtvsrpgw .gt_stub_row_group {
+#bdcoitpehv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -701,15 +751,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#lhxtvsrpgw .gt_row_group_first td {
+#bdcoitpehv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lhxtvsrpgw .gt_row_group_first th {
+#bdcoitpehv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lhxtvsrpgw .gt_summary_row {
+#bdcoitpehv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -719,16 +769,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#lhxtvsrpgw .gt_first_summary_row {
+#bdcoitpehv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_first_summary_row.thick {
+#bdcoitpehv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lhxtvsrpgw .gt_last_summary_row {
+#bdcoitpehv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -738,7 +788,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_grand_summary_row {
+#bdcoitpehv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -748,7 +798,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#lhxtvsrpgw .gt_first_grand_summary_row {
+#bdcoitpehv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -758,7 +808,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_last_grand_summary_row_top {
+#bdcoitpehv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -768,11 +818,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_striped {
+#bdcoitpehv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lhxtvsrpgw .gt_table_body {
+#bdcoitpehv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -781,7 +831,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_footnotes {
+#bdcoitpehv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -795,7 +845,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_footnote {
+#bdcoitpehv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -804,7 +854,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#lhxtvsrpgw .gt_sourcenotes {
+#bdcoitpehv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -818,7 +868,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#lhxtvsrpgw .gt_sourcenote {
+#bdcoitpehv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -826,72 +876,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#lhxtvsrpgw .gt_left {
+#bdcoitpehv .gt_left {
   text-align: left;
 }
 
-#lhxtvsrpgw .gt_center {
+#bdcoitpehv .gt_center {
   text-align: center;
 }
 
-#lhxtvsrpgw .gt_right {
+#bdcoitpehv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lhxtvsrpgw .gt_font_normal {
+#bdcoitpehv .gt_font_normal {
   font-weight: normal;
 }
 
-#lhxtvsrpgw .gt_font_bold {
+#bdcoitpehv .gt_font_bold {
   font-weight: bold;
 }
 
-#lhxtvsrpgw .gt_font_italic {
+#bdcoitpehv .gt_font_italic {
   font-style: italic;
 }
 
-#lhxtvsrpgw .gt_super {
+#bdcoitpehv .gt_super {
   font-size: 65%;
 }
 
-#lhxtvsrpgw .gt_footnote_marks {
+#bdcoitpehv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lhxtvsrpgw .gt_asterisk {
+#bdcoitpehv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lhxtvsrpgw .gt_indent_1 {
+#bdcoitpehv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lhxtvsrpgw .gt_indent_2 {
+#bdcoitpehv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lhxtvsrpgw .gt_indent_3 {
+#bdcoitpehv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lhxtvsrpgw .gt_indent_4 {
+#bdcoitpehv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lhxtvsrpgw .gt_indent_5 {
+#bdcoitpehv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lhxtvsrpgw .katex-display {
+#bdcoitpehv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lhxtvsrpgw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bdcoitpehv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1053,23 +1103,23 @@ to_implement 1</code></pre>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"center"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="iqbljpmurh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iqbljpmurh table {
+<div id="uvgofjaovr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uvgofjaovr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iqbljpmurh thead, #iqbljpmurh tbody, #iqbljpmurh tfoot, #iqbljpmurh tr, #iqbljpmurh td, #iqbljpmurh th {
+#uvgofjaovr thead, #uvgofjaovr tbody, #uvgofjaovr tfoot, #uvgofjaovr tr, #uvgofjaovr td, #uvgofjaovr th {
   border-style: none;
 }
 
-#iqbljpmurh p {
+#uvgofjaovr p {
   margin: 0;
   padding: 0;
 }
 
-#iqbljpmurh .gt_table {
+#uvgofjaovr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1095,12 +1145,12 @@ to_implement 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_caption {
+#uvgofjaovr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iqbljpmurh .gt_title {
+#uvgofjaovr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1112,7 +1162,7 @@ to_implement 1</code></pre>
   border-bottom-width: 0;
 }
 
-#iqbljpmurh .gt_subtitle {
+#uvgofjaovr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1124,7 +1174,7 @@ to_implement 1</code></pre>
   border-top-width: 0;
 }
 
-#iqbljpmurh .gt_heading {
+#uvgofjaovr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1136,13 +1186,13 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_bottom_border {
+#uvgofjaovr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_col_headings {
+#uvgofjaovr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1157,7 +1207,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_col_heading {
+#uvgofjaovr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1177,7 +1227,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#iqbljpmurh .gt_column_spanner_outer {
+#uvgofjaovr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1189,15 +1239,15 @@ to_implement 1</code></pre>
   padding-right: 4px;
 }
 
-#iqbljpmurh .gt_column_spanner_outer:first-child {
+#uvgofjaovr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iqbljpmurh .gt_column_spanner_outer:last-child {
+#uvgofjaovr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iqbljpmurh .gt_column_spanner {
+#uvgofjaovr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1209,11 +1259,11 @@ to_implement 1</code></pre>
   width: 100%;
 }
 
-#iqbljpmurh .gt_spanner_row {
+#uvgofjaovr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iqbljpmurh .gt_group_heading {
+#uvgofjaovr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1239,7 +1289,7 @@ to_implement 1</code></pre>
   text-align: left;
 }
 
-#iqbljpmurh .gt_empty_group_heading {
+#uvgofjaovr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1254,15 +1304,15 @@ to_implement 1</code></pre>
   vertical-align: middle;
 }
 
-#iqbljpmurh .gt_from_md > :first-child {
+#uvgofjaovr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iqbljpmurh .gt_from_md > :last-child {
+#uvgofjaovr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iqbljpmurh .gt_row {
+#uvgofjaovr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1281,7 +1331,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#iqbljpmurh .gt_stub {
+#uvgofjaovr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1294,7 +1344,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#iqbljpmurh .gt_stub_row_group {
+#uvgofjaovr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1308,15 +1358,15 @@ to_implement 1</code></pre>
   vertical-align: top;
 }
 
-#iqbljpmurh .gt_row_group_first td {
+#uvgofjaovr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iqbljpmurh .gt_row_group_first th {
+#uvgofjaovr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iqbljpmurh .gt_summary_row {
+#uvgofjaovr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1326,16 +1376,16 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#iqbljpmurh .gt_first_summary_row {
+#uvgofjaovr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_first_summary_row.thick {
+#uvgofjaovr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iqbljpmurh .gt_last_summary_row {
+#uvgofjaovr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1345,7 +1395,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_grand_summary_row {
+#uvgofjaovr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1355,7 +1405,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#iqbljpmurh .gt_first_grand_summary_row {
+#uvgofjaovr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1365,7 +1415,7 @@ to_implement 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_last_grand_summary_row_top {
+#uvgofjaovr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1375,11 +1425,11 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_striped {
+#uvgofjaovr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iqbljpmurh .gt_table_body {
+#uvgofjaovr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1388,7 +1438,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_footnotes {
+#uvgofjaovr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1402,7 +1452,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_footnote {
+#uvgofjaovr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1411,7 +1461,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#iqbljpmurh .gt_sourcenotes {
+#uvgofjaovr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1425,7 +1475,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#iqbljpmurh .gt_sourcenote {
+#uvgofjaovr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1433,72 +1483,72 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#iqbljpmurh .gt_left {
+#uvgofjaovr .gt_left {
   text-align: left;
 }
 
-#iqbljpmurh .gt_center {
+#uvgofjaovr .gt_center {
   text-align: center;
 }
 
-#iqbljpmurh .gt_right {
+#uvgofjaovr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iqbljpmurh .gt_font_normal {
+#uvgofjaovr .gt_font_normal {
   font-weight: normal;
 }
 
-#iqbljpmurh .gt_font_bold {
+#uvgofjaovr .gt_font_bold {
   font-weight: bold;
 }
 
-#iqbljpmurh .gt_font_italic {
+#uvgofjaovr .gt_font_italic {
   font-style: italic;
 }
 
-#iqbljpmurh .gt_super {
+#uvgofjaovr .gt_super {
   font-size: 65%;
 }
 
-#iqbljpmurh .gt_footnote_marks {
+#uvgofjaovr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iqbljpmurh .gt_asterisk {
+#uvgofjaovr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iqbljpmurh .gt_indent_1 {
+#uvgofjaovr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iqbljpmurh .gt_indent_2 {
+#uvgofjaovr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iqbljpmurh .gt_indent_3 {
+#uvgofjaovr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iqbljpmurh .gt_indent_4 {
+#uvgofjaovr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iqbljpmurh .gt_indent_5 {
+#uvgofjaovr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#iqbljpmurh .katex-display {
+#uvgofjaovr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#iqbljpmurh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uvgofjaovr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1533,23 +1583,23 @@ to_implement 1</code></pre>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div id="adazhhxdpd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#adazhhxdpd table {
+<div id="trouarownv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#trouarownv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#adazhhxdpd thead, #adazhhxdpd tbody, #adazhhxdpd tfoot, #adazhhxdpd tr, #adazhhxdpd td, #adazhhxdpd th {
+#trouarownv thead, #trouarownv tbody, #trouarownv tfoot, #trouarownv tr, #trouarownv td, #trouarownv th {
   border-style: none;
 }
 
-#adazhhxdpd p {
+#trouarownv p {
   margin: 0;
   padding: 0;
 }
 
-#adazhhxdpd .gt_table {
+#trouarownv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1575,12 +1625,12 @@ to_implement 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_caption {
+#trouarownv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#adazhhxdpd .gt_title {
+#trouarownv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1592,7 +1642,7 @@ to_implement 1</code></pre>
   border-bottom-width: 0;
 }
 
-#adazhhxdpd .gt_subtitle {
+#trouarownv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1604,7 +1654,7 @@ to_implement 1</code></pre>
   border-top-width: 0;
 }
 
-#adazhhxdpd .gt_heading {
+#trouarownv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1616,13 +1666,13 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_bottom_border {
+#trouarownv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_col_headings {
+#trouarownv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1637,7 +1687,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_col_heading {
+#trouarownv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1657,7 +1707,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#adazhhxdpd .gt_column_spanner_outer {
+#trouarownv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1669,15 +1719,15 @@ to_implement 1</code></pre>
   padding-right: 4px;
 }
 
-#adazhhxdpd .gt_column_spanner_outer:first-child {
+#trouarownv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#adazhhxdpd .gt_column_spanner_outer:last-child {
+#trouarownv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#adazhhxdpd .gt_column_spanner {
+#trouarownv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1689,11 +1739,11 @@ to_implement 1</code></pre>
   width: 100%;
 }
 
-#adazhhxdpd .gt_spanner_row {
+#trouarownv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#adazhhxdpd .gt_group_heading {
+#trouarownv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1719,7 +1769,7 @@ to_implement 1</code></pre>
   text-align: left;
 }
 
-#adazhhxdpd .gt_empty_group_heading {
+#trouarownv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1734,15 +1784,15 @@ to_implement 1</code></pre>
   vertical-align: middle;
 }
 
-#adazhhxdpd .gt_from_md > :first-child {
+#trouarownv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#adazhhxdpd .gt_from_md > :last-child {
+#trouarownv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#adazhhxdpd .gt_row {
+#trouarownv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1761,7 +1811,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#adazhhxdpd .gt_stub {
+#trouarownv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1774,7 +1824,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#adazhhxdpd .gt_stub_row_group {
+#trouarownv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1788,15 +1838,15 @@ to_implement 1</code></pre>
   vertical-align: top;
 }
 
-#adazhhxdpd .gt_row_group_first td {
+#trouarownv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#adazhhxdpd .gt_row_group_first th {
+#trouarownv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#adazhhxdpd .gt_summary_row {
+#trouarownv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1806,16 +1856,16 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#adazhhxdpd .gt_first_summary_row {
+#trouarownv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_first_summary_row.thick {
+#trouarownv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#adazhhxdpd .gt_last_summary_row {
+#trouarownv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1825,7 +1875,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_grand_summary_row {
+#trouarownv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1835,7 +1885,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#adazhhxdpd .gt_first_grand_summary_row {
+#trouarownv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1845,7 +1895,7 @@ to_implement 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_last_grand_summary_row_top {
+#trouarownv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1855,11 +1905,11 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_striped {
+#trouarownv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#adazhhxdpd .gt_table_body {
+#trouarownv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1868,7 +1918,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_footnotes {
+#trouarownv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1882,7 +1932,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_footnote {
+#trouarownv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1891,7 +1941,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#adazhhxdpd .gt_sourcenotes {
+#trouarownv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1905,7 +1955,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#adazhhxdpd .gt_sourcenote {
+#trouarownv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1913,72 +1963,72 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#adazhhxdpd .gt_left {
+#trouarownv .gt_left {
   text-align: left;
 }
 
-#adazhhxdpd .gt_center {
+#trouarownv .gt_center {
   text-align: center;
 }
 
-#adazhhxdpd .gt_right {
+#trouarownv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#adazhhxdpd .gt_font_normal {
+#trouarownv .gt_font_normal {
   font-weight: normal;
 }
 
-#adazhhxdpd .gt_font_bold {
+#trouarownv .gt_font_bold {
   font-weight: bold;
 }
 
-#adazhhxdpd .gt_font_italic {
+#trouarownv .gt_font_italic {
   font-style: italic;
 }
 
-#adazhhxdpd .gt_super {
+#trouarownv .gt_super {
   font-size: 65%;
 }
 
-#adazhhxdpd .gt_footnote_marks {
+#trouarownv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#adazhhxdpd .gt_asterisk {
+#trouarownv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#adazhhxdpd .gt_indent_1 {
+#trouarownv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#adazhhxdpd .gt_indent_2 {
+#trouarownv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#adazhhxdpd .gt_indent_3 {
+#trouarownv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#adazhhxdpd .gt_indent_4 {
+#trouarownv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#adazhhxdpd .gt_indent_5 {
+#trouarownv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#adazhhxdpd .katex-display {
+#trouarownv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#adazhhxdpd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#trouarownv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2135,23 +2185,23 @@ to_implement 1</code></pre>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div id="ibgditaxnw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ibgditaxnw table {
+<div id="siqkrlspxf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#siqkrlspxf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ibgditaxnw thead, #ibgditaxnw tbody, #ibgditaxnw tfoot, #ibgditaxnw tr, #ibgditaxnw td, #ibgditaxnw th {
+#siqkrlspxf thead, #siqkrlspxf tbody, #siqkrlspxf tfoot, #siqkrlspxf tr, #siqkrlspxf td, #siqkrlspxf th {
   border-style: none;
 }
 
-#ibgditaxnw p {
+#siqkrlspxf p {
   margin: 0;
   padding: 0;
 }
 
-#ibgditaxnw .gt_table {
+#siqkrlspxf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2177,12 +2227,12 @@ to_implement 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_caption {
+#siqkrlspxf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ibgditaxnw .gt_title {
+#siqkrlspxf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2194,7 +2244,7 @@ to_implement 1</code></pre>
   border-bottom-width: 0;
 }
 
-#ibgditaxnw .gt_subtitle {
+#siqkrlspxf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2206,7 +2256,7 @@ to_implement 1</code></pre>
   border-top-width: 0;
 }
 
-#ibgditaxnw .gt_heading {
+#siqkrlspxf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2218,13 +2268,13 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_bottom_border {
+#siqkrlspxf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_col_headings {
+#siqkrlspxf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2239,7 +2289,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_col_heading {
+#siqkrlspxf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2259,7 +2309,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#ibgditaxnw .gt_column_spanner_outer {
+#siqkrlspxf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2271,15 +2321,15 @@ to_implement 1</code></pre>
   padding-right: 4px;
 }
 
-#ibgditaxnw .gt_column_spanner_outer:first-child {
+#siqkrlspxf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ibgditaxnw .gt_column_spanner_outer:last-child {
+#siqkrlspxf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ibgditaxnw .gt_column_spanner {
+#siqkrlspxf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2291,11 +2341,11 @@ to_implement 1</code></pre>
   width: 100%;
 }
 
-#ibgditaxnw .gt_spanner_row {
+#siqkrlspxf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ibgditaxnw .gt_group_heading {
+#siqkrlspxf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2321,7 +2371,7 @@ to_implement 1</code></pre>
   text-align: left;
 }
 
-#ibgditaxnw .gt_empty_group_heading {
+#siqkrlspxf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2336,15 +2386,15 @@ to_implement 1</code></pre>
   vertical-align: middle;
 }
 
-#ibgditaxnw .gt_from_md > :first-child {
+#siqkrlspxf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ibgditaxnw .gt_from_md > :last-child {
+#siqkrlspxf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ibgditaxnw .gt_row {
+#siqkrlspxf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2363,7 +2413,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#ibgditaxnw .gt_stub {
+#siqkrlspxf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2376,7 +2426,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#ibgditaxnw .gt_stub_row_group {
+#siqkrlspxf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2390,15 +2440,15 @@ to_implement 1</code></pre>
   vertical-align: top;
 }
 
-#ibgditaxnw .gt_row_group_first td {
+#siqkrlspxf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ibgditaxnw .gt_row_group_first th {
+#siqkrlspxf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ibgditaxnw .gt_summary_row {
+#siqkrlspxf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2408,16 +2458,16 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#ibgditaxnw .gt_first_summary_row {
+#siqkrlspxf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_first_summary_row.thick {
+#siqkrlspxf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ibgditaxnw .gt_last_summary_row {
+#siqkrlspxf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2427,7 +2477,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_grand_summary_row {
+#siqkrlspxf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2437,7 +2487,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#ibgditaxnw .gt_first_grand_summary_row {
+#siqkrlspxf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2447,7 +2497,7 @@ to_implement 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_last_grand_summary_row_top {
+#siqkrlspxf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2457,11 +2507,11 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_striped {
+#siqkrlspxf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ibgditaxnw .gt_table_body {
+#siqkrlspxf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2470,7 +2520,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_footnotes {
+#siqkrlspxf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2484,7 +2534,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_footnote {
+#siqkrlspxf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2493,7 +2543,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#ibgditaxnw .gt_sourcenotes {
+#siqkrlspxf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2507,7 +2557,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ibgditaxnw .gt_sourcenote {
+#siqkrlspxf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2515,72 +2565,72 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#ibgditaxnw .gt_left {
+#siqkrlspxf .gt_left {
   text-align: left;
 }
 
-#ibgditaxnw .gt_center {
+#siqkrlspxf .gt_center {
   text-align: center;
 }
 
-#ibgditaxnw .gt_right {
+#siqkrlspxf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ibgditaxnw .gt_font_normal {
+#siqkrlspxf .gt_font_normal {
   font-weight: normal;
 }
 
-#ibgditaxnw .gt_font_bold {
+#siqkrlspxf .gt_font_bold {
   font-weight: bold;
 }
 
-#ibgditaxnw .gt_font_italic {
+#siqkrlspxf .gt_font_italic {
   font-style: italic;
 }
 
-#ibgditaxnw .gt_super {
+#siqkrlspxf .gt_super {
   font-size: 65%;
 }
 
-#ibgditaxnw .gt_footnote_marks {
+#siqkrlspxf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ibgditaxnw .gt_asterisk {
+#siqkrlspxf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ibgditaxnw .gt_indent_1 {
+#siqkrlspxf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ibgditaxnw .gt_indent_2 {
+#siqkrlspxf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ibgditaxnw .gt_indent_3 {
+#siqkrlspxf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ibgditaxnw .gt_indent_4 {
+#siqkrlspxf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ibgditaxnw .gt_indent_5 {
+#siqkrlspxf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ibgditaxnw .katex-display {
+#siqkrlspxf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ibgditaxnw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#siqkrlspxf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2628,23 +2678,23 @@ to_implement 1</code></pre>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div id="rukyutkgsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rukyutkgsj table {
+<div id="lifupmtbto" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lifupmtbto table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rukyutkgsj thead, #rukyutkgsj tbody, #rukyutkgsj tfoot, #rukyutkgsj tr, #rukyutkgsj td, #rukyutkgsj th {
+#lifupmtbto thead, #lifupmtbto tbody, #lifupmtbto tfoot, #lifupmtbto tr, #lifupmtbto td, #lifupmtbto th {
   border-style: none;
 }
 
-#rukyutkgsj p {
+#lifupmtbto p {
   margin: 0;
   padding: 0;
 }
 
-#rukyutkgsj .gt_table {
+#lifupmtbto .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2670,12 +2720,12 @@ to_implement 1</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_caption {
+#lifupmtbto .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rukyutkgsj .gt_title {
+#lifupmtbto .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2687,7 +2737,7 @@ to_implement 1</code></pre>
   border-bottom-width: 0;
 }
 
-#rukyutkgsj .gt_subtitle {
+#lifupmtbto .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2699,7 +2749,7 @@ to_implement 1</code></pre>
   border-top-width: 0;
 }
 
-#rukyutkgsj .gt_heading {
+#lifupmtbto .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2711,13 +2761,13 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_bottom_border {
+#lifupmtbto .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_col_headings {
+#lifupmtbto .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2732,7 +2782,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_col_heading {
+#lifupmtbto .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2752,7 +2802,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#rukyutkgsj .gt_column_spanner_outer {
+#lifupmtbto .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2764,15 +2814,15 @@ to_implement 1</code></pre>
   padding-right: 4px;
 }
 
-#rukyutkgsj .gt_column_spanner_outer:first-child {
+#lifupmtbto .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rukyutkgsj .gt_column_spanner_outer:last-child {
+#lifupmtbto .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rukyutkgsj .gt_column_spanner {
+#lifupmtbto .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2784,11 +2834,11 @@ to_implement 1</code></pre>
   width: 100%;
 }
 
-#rukyutkgsj .gt_spanner_row {
+#lifupmtbto .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rukyutkgsj .gt_group_heading {
+#lifupmtbto .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2814,7 +2864,7 @@ to_implement 1</code></pre>
   text-align: left;
 }
 
-#rukyutkgsj .gt_empty_group_heading {
+#lifupmtbto .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2829,15 +2879,15 @@ to_implement 1</code></pre>
   vertical-align: middle;
 }
 
-#rukyutkgsj .gt_from_md > :first-child {
+#lifupmtbto .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rukyutkgsj .gt_from_md > :last-child {
+#lifupmtbto .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rukyutkgsj .gt_row {
+#lifupmtbto .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2856,7 +2906,7 @@ to_implement 1</code></pre>
   overflow-x: hidden;
 }
 
-#rukyutkgsj .gt_stub {
+#lifupmtbto .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2869,7 +2919,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#rukyutkgsj .gt_stub_row_group {
+#lifupmtbto .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2883,15 +2933,15 @@ to_implement 1</code></pre>
   vertical-align: top;
 }
 
-#rukyutkgsj .gt_row_group_first td {
+#lifupmtbto .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rukyutkgsj .gt_row_group_first th {
+#lifupmtbto .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rukyutkgsj .gt_summary_row {
+#lifupmtbto .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2901,16 +2951,16 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#rukyutkgsj .gt_first_summary_row {
+#lifupmtbto .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_first_summary_row.thick {
+#lifupmtbto .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rukyutkgsj .gt_last_summary_row {
+#lifupmtbto .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2920,7 +2970,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_grand_summary_row {
+#lifupmtbto .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2930,7 +2980,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#rukyutkgsj .gt_first_grand_summary_row {
+#lifupmtbto .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2940,7 +2990,7 @@ to_implement 1</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_last_grand_summary_row_top {
+#lifupmtbto .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2950,11 +3000,11 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_striped {
+#lifupmtbto .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rukyutkgsj .gt_table_body {
+#lifupmtbto .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2963,7 +3013,7 @@ to_implement 1</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_footnotes {
+#lifupmtbto .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2977,7 +3027,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_footnote {
+#lifupmtbto .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2986,7 +3036,7 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#rukyutkgsj .gt_sourcenotes {
+#lifupmtbto .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3000,7 +3050,7 @@ to_implement 1</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#rukyutkgsj .gt_sourcenote {
+#lifupmtbto .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3008,72 +3058,72 @@ to_implement 1</code></pre>
   padding-right: 5px;
 }
 
-#rukyutkgsj .gt_left {
+#lifupmtbto .gt_left {
   text-align: left;
 }
 
-#rukyutkgsj .gt_center {
+#lifupmtbto .gt_center {
   text-align: center;
 }
 
-#rukyutkgsj .gt_right {
+#lifupmtbto .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rukyutkgsj .gt_font_normal {
+#lifupmtbto .gt_font_normal {
   font-weight: normal;
 }
 
-#rukyutkgsj .gt_font_bold {
+#lifupmtbto .gt_font_bold {
   font-weight: bold;
 }
 
-#rukyutkgsj .gt_font_italic {
+#lifupmtbto .gt_font_italic {
   font-style: italic;
 }
 
-#rukyutkgsj .gt_super {
+#lifupmtbto .gt_super {
   font-size: 65%;
 }
 
-#rukyutkgsj .gt_footnote_marks {
+#lifupmtbto .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rukyutkgsj .gt_asterisk {
+#lifupmtbto .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rukyutkgsj .gt_indent_1 {
+#lifupmtbto .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rukyutkgsj .gt_indent_2 {
+#lifupmtbto .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rukyutkgsj .gt_indent_3 {
+#lifupmtbto .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rukyutkgsj .gt_indent_4 {
+#lifupmtbto .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rukyutkgsj .gt_indent_5 {
+#lifupmtbto .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rukyutkgsj .katex-display {
+#lifupmtbto .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rukyutkgsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lifupmtbto div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4035,7 +4085,7 @@ Note
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>作成者：寺井雅人（名古屋学院大学）.</p>
+<p>作成者：寺井雅人（名古屋学院大学）</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

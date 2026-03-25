@@ -7,28 +7,36 @@ book:
  
   chapters:
     - index.qmd
-    - 01-week1.qmd
-    - 02-week2.qmd
-    - 03-week3.qmd
-    - 04-week4.qmd
-    - 05-week5.qmd
-    - 06-regression.qmd
-    - 07-multipleregression.qmd
-    - 08-multiplereg_2.qmd
-    - 09-multiplereg_3.qmd
-    - 10-Week10_logistic.qmd
-    - 11-Week11_tidyverse.qmd
-    - 12-Week12_GLMM.qmd
-    - 13-Week13_Eff_pow.qmd
-    - 14-Week14_nonpara.qmd
-    - 15-Week15_Repro.qmd
+    - part: "第一章：イントロダクション"
+      chapters: 
+        - 01-week1.qmd
+        - 02-week2.qmd
+        - 03-week3.qmd
+        - 04-week4.qmd
+    - part: "第二章：実践"
+      chapters:
+        - 05-week5.qmd
+        - 06-regression.qmd
+        - 07-multipleregression.qmd
+        - 08-multiplereg_2.qmd
+        - 09-multiplereg_3.qmd
+        - 10-Week10_logistic.qmd
+    - part: "第三章：発展"
+      chapters: 
+        - 11-Week11_tidyverse.qmd
+        - 12-Week12_GLMM.qmd
+        - 13-Week13_Eff_pow.qmd
+        - 14-Week14_nonpara.qmd
+        - 15-Week15_Repro.qmd
+  appendices:
+    - resources.qmd
   reader-mode: true
   page-navigation: true
   cover-image: cover.png
   favicon: cover.png
   page-footer:
     left: |
-      作成者：寺井雅人（名古屋学院大学）.
+      作成者：寺井雅人（名古屋学院大学）
     right: |
       本サイトはQuartoで作成されてます。 <a href="https://quarto.org/">Quarto</a>.
   repo-url: https://github.com/masato-terai/statslec_quarto/
@@ -36,18 +44,15 @@ book:
 
 format:
   html:
-    date-format: "YYYY年M月D日"
+#    date-format: "YYYY年M月D日"
     toc: true
     css: style.css
     theme:
-      - cosmo
-    #embed-resources: true
- # pdf:
- #   documentclass: scrreprt
+      - cerulean
 
 date: 
-  value: now
-  format: "YYYY-MM-DD"
+  value: "2026-3-23"
+  #format: "YYYY-MM-DD"
 date-modified: 
   value: last-modified
   format: "YYYY-MM-DD HH:mm:ss"
