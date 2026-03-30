@@ -3,6 +3,8 @@ Hello! I am Masato Terai from Nagoya Gakuin University.
 
 This repository contains materials for a lecture in the Humanities Department of the Graduate School at Nagoya University (2025/04 - ).
 
+The link to the course materials (Website) is [here](https://masato-terai.github.io/statslec_quarto/)
+
 The contents are likely to be updated without notice.
 
 > [!WARNING]  
