@@ -1,7 +1,9 @@
 # Quarto cache / temp
 .quarto/
 *_cache/
-*_files/
+#*_files/
+!docs/*_files/
+!docs/*_files/**
 /.quarto/
 **/*.quarto_ipynb
 

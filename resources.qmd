@@ -23,11 +23,15 @@
 
 - [無料で学ぶRと統計解析：おすすめのウェブサイト](https://qiita.com/masato-terai/items/f73cfa50fafcaf5d6f93)
 
-    - 過去に寺井がまとめたリストです
+    - 過去に寺井がまとめたリストです。
 
 - [気楽にウェブサイト　見た目を整える](https://shohei-doi.github.io/academic-website/appearance.html)
 
     - Quartoでウェブサイトを作成する方法が紹介されています。
+
+- [R入門](https://sb8001at-oss.github.io/Rnyuumon.io/)
+
+    - Quartoで作成されてます。
 
 ## Xのポストなど
 - [量的、質的研究の違い by @tera_sawa](https://x.com/tera_sawa/status/1970336158015279561)
