@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-03-23">
 
-<title>Week 1: Rおよび開発環境のインストール、Quarto – 言語統計処理a</title>
+<title>Week 1：Rおよび開発環境のインストール、Quarto – 言語統計処理a</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,15 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4c1498b69564d98984da3e9f7a45d87c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -121,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-week1.html">第一章：イントロダクション</a></li><li class="breadcrumb-item"><a href="./01-week1.html">Week 1: Rおよび開発環境のインストール、Quarto</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-week1.html">第一章：イントロダクション</a></li><li class="breadcrumb-item"><a href="./01-week1.html">Week 1：Rおよび開発環境のインストール、Quarto</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-week1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 1: Rおよび開発環境のインストール、Quarto</span></a>
+ <span class="menu-text">Week 1：Rおよび開発環境のインストール、Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -190,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 4: 統計的検定</span></a>
+ <span class="menu-text">Week 4：統計的検定</span></a>
   </div>
 </li>
       </ul>
@@ -207,37 +209,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week5: 相関分析</span></a>
+ <span class="menu-text">Week 5：相関分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+ <span class="menu-text">Week 6：単回帰分析（連続型の説明変数）</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+ <span class="menu-text">Week 7：重回帰分析：概要</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+ <span class="menu-text">Week 8：重回帰分析：質的変数のコーディング</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+ <span class="menu-text">Week 9：重回帰分析 (3)：交互作用の解釈</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+ <span class="menu-text">Week 10：一般化線形モデル：ロジスティック回帰分析</span></a>
   </div>
 </li>
       </ul>
@@ -254,25 +256,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+ <span class="menu-text">Week 11：Tidyverseパッケージによるデータの加工と可視化</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week12: 階層モデル</span></a>
+ <span class="menu-text">Week 12：階層モデル</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+ <span class="menu-text">Week 13：効果量と検定力分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+ <span class="menu-text">Week 14：ノンパラメトリック検定</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -346,9 +348,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-week1.html">第一章：イントロダクション</a></li><li class="breadcrumb-item"><a href="./01-week1.html">Week 1: Rおよび開発環境のインストール、Quarto</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-week1.html">第一章：イントロダクション</a></li><li class="breadcrumb-item"><a href="./01-week1.html">Week 1：Rおよび開発環境のインストール、Quarto</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Week 1: Rおよび開発環境のインストール、Quarto</h1>
+<h1 class="title">Week 1：Rおよび開発環境のインストール、Quarto</h1>
 </div>
 
 
@@ -366,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-03-25 11:21:50</p>
+      <p class="date-modified">2026-04-13 10:17:20</p>
     </div>
   </div>
     
@@ -411,7 +413,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>「量的 = 一般化、質的 = 一般化をしない」という区別には注意が必要です。量的な研究でも、今週以降に説明するサンプリングにバイアスがある場合、「一般化」には制限がかかる場合があります。 - 寺沢先生の一連のXのポストが参考になります：<a href="https://x.com/tera_sawa/status/1970336158015279561">https://x.com/tera_sawa/status/1970336158015279561</a></p>
+<p>「量的 = 一般化、質的 = 一般化をしない」という区別には注意が必要です。量的な研究でも、今週以降に説明するサンプリングにバイアスがある場合、「一般化」には制限がかかる場合があります。*寺沢先生の一連のXのポストが参考になります：<a href="https://x.com/tera_sawa/status/1970336158015279561">https://x.com/tera_sawa/status/1970336158015279561</a></p>
 </div>
 </div>
 <p>　寺井は量的な研究しか経験がないため、本講義では量的な研究を行うことを念頭に統計処理の方法について講義を行う。しかし、それらが質的研究と全く関連がないわけではない（もし質的な研究に関心がある受講生の方がいたら、関連すると思う点を教えてください）。</p>
@@ -458,7 +460,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Rのインストールの前に、拡張子が見える設定に変更しましょう。</p>
+<p>Rのインストールの前に、ファイルの拡張子が見える設定に変更しましょう。</p>
 </div>
 </div>
 </section>
@@ -529,7 +531,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>はい。RStudioを使用してもOKです。RStudioは、Positronよりも長い歴史のある統合開発環境です。どちらも同じ会社（Posit社）が開発をしていて、PositronよりもRとの相性は良いです（Rに特化して作られている）。Rとの相性が良いことは、他の言語との相性が悪いという欠点もあります。Rを使うときはRStudio、Pythonを使うときはVisual Studio Codeといったように言語に応じて統合開発環境を変えないと不便なことがあったりします。プログラミング言語を学習し始めた方にとって、いきなりバイリンガルになれとは言いません。しかし、将来プログラミングに関する仕事や作業効率化などに興味がある方は特に、複数の言語を扱うことが必要とされます。<u>Positronは多言語の統合開発環境であり、RとPythonを併用できます。また、RStudioよりもデータ分析に特化した機能を持っており、次世代の統合開発環境として注目されています。</u>Rに特化した統合開発環境で学習してもらうと、他の言語への学習の意欲を奪うのではないかと考え2026年度からPositronに切り替えました。詳しい二つの比較は以下のスライドを参考にしてみてください。</p>
+<p>はい。RStudioを使用してもOKです。RStudioは、Positronよりも長い歴史のある統合開発環境です。どちらも同じ会社（Posit社）が開発をしていて、PositronよりもRとの相性は良いです（Rに特化して作られている）。Rとの相性が良いことは、他の言語との相性が悪いという欠点もあります。Rを使うときはRStudio、Pythonを使うときはVisual Studio Codeといったように言語に応じて統合開発環境を変えないと不便なことがあったりします。プログラミング言語を学習し始めた方にとって、いきなりバイリンガルになれとは言いません。しかし、将来プログラミングに関する仕事や作業効率化などに興味がある方は特に、複数の言語を扱うことが必要とされます。<u>Positronは<strong>多言語の</strong>統合開発環境であり、RとPythonを併用できます。また、RStudioよりもデータ分析に特化した機能を持っており、次世代の統合開発環境として注目されています。</u>Rに特化した統合開発環境で学習してもらうと、他の言語への学習の意欲を奪うのではないかと考え2026年度からPositronに切り替えました。詳しい二つの比較は以下のスライドを参考にしてみてください。</p>
 <ul>
 <li><a href="https://masato-terai.github.io/Workshop_SappoRoR/#/title-slide">寺井（2025）「Positron入門 Rユーザーのための次世代IDE」初心者ワークショップ@Sapporo.R</a></li>
 </ul>
@@ -541,7 +543,7 @@ Note
 <ol type="1">
 <li>Posit社のサイトへ行く（ <a href="https://positron.posit.co/download.html">https://positron.posit.co/download.html</a> ）</li>
 <li>agreementに☑をいれる</li>
-<li>Windowsなら “x64(user level install)”、Mcなら “arm64”</li>
+<li>Windowsなら “x64(user level install)”、Macなら “arm64”</li>
 </ol>
 </section>
 <section id="positronを開く" class="level2">
@@ -576,10 +578,10 @@ Note
 <section id="この講義専用のフォルダを作成する" class="level2">
 <h2 class="anchored" data-anchor-id="この講義専用のフォルダを作成する">この講義専用のフォルダ📁を作成する</h2>
 <ul>
-<li><p>One DriveやGoogle Driveなどの自動同期以外の場所に作成するのがおすすめです。One DriveではないのであればDocumentsでもOKです。</p></li>
+<li><p>One DriveやGoogle Driveなどの<strong>自動同期以外の場所</strong>に作成するのがおすすめです。One DriveではないのであればDocumentsでもOKです。</p></li>
 <li><p>この講義の数少ない<strong>お約束</strong>として、<u>この講義に関連するファイルはすべて今から作成するフォルダの中に入れてください。</u>フォルダの中で「Week1」や「material」など小分けにするのは良いです。</p>
 <ul>
-<li><u>フォルダの名前やファイル名には日本語は入れないでください（特にフォルダ名）。</u></li>
+<li><u>フォルダの名前やファイル名には<strong>日本語を入れない</strong>でください（特にフォルダ名）。</u></li>
 </ul></li>
 <li><p>おすすめの場所第一位は、<code>C:\Users\あなたのPCの名前</code>です。<code>C:\Users\あなたのPCの名前\Documents</code>でもいいです。このPathの中にOneDriveという文字が入っていてはいけません（おすすめしません）。</p></li>
 <li><p>場所を決めたら、好きなフォルダ名をつけて作成してください。短い名前のほうがおすすめです（<code>stats_2026</code>など）。</p></li>
@@ -594,7 +596,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Rでの分析で頻出するエラーは、<code>No such directory</code>です。Rでの分析では、ExcelやCSVファイルを読み込んで作業します。「読み込め！」とRに命令した際に、「見つからない( ；∀；)」というRの嘆きです。ディレクトリ📁（≒フォルダ）とは、場所のことです。Rはどこかのディレクトリいます。しかし、自分のいない部屋の情報はわかりません。読み込みたいファイルがある場合、Rがどこにいるかを確認し、読み込みたいファイルの場所を命令してあげる必要があります。このことからこの講義で配布するデータなどはすべて同じ部屋に入れておくとよいです。</p>
+<p>Rでの分析で頻出するエラーは、<code>No such directory</code>です。Rでの分析では、ExcelやCSVファイルを読み込んで作業します。「ファイルを読み込め！」とRに命令した際に、「見つからない( ；∀；)」というRの嘆きです。ディレクトリ📁（≒フォルダ）とは、場所のことです。Rはどこかのディレクトリいます。しかし、自分のいない部屋の情報はわかりません。読み込みたいファイルがある場合、Rがどこにいるかを確認し、読み込みたいファイルの場所を命令してあげる必要があります。このことからこの講義で配布するデータなどはすべて同じ部屋（フォルダ）に入れておくとよいです。</p>
 </div>
 </div>
 </section>
@@ -772,7 +774,7 @@ Warning
 <li><p>自己紹介の文をQuartoで作成し、出力した<strong>HTMLファイル</strong>をTACTへ提出してください。以下の2項目を必ず入れてください。クラスメートと公開してもいい情報だけを入れてください！</p></li>
 <li><p>名前、出身、研究科、自分の研究したいことを二文くらいでまとめる。</p>
 <ul>
-<li>レベル分け、箇条書き、強調（e.g., 下線、太字、イタリック）</li>
+<li>レベル分け、箇条書き、強調（e.g., 下線、太字、イタリック）などを意識して盛り込むといいでしょう。</li>
 </ul></li>
 <li><p>締め切りは<strong>今週の木曜日まで</strong></p></li>
 </ul>

@@ -1,4 +1,4 @@
-# Week12: 階層モデル {.unnumbered}
+# Week 12：階層モデル {.unnumbered}
 
 ```{r}
 #| include: false

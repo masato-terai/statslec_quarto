@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-03-23">
 
-<title>Week 11: Tidyverseパッケージによるデータの加工と可視化 – 言語統計処理a</title>
+<title>Week 11：Tidyverseパッケージによるデータの加工と可視化 – 言語統計処理a</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,15 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4c1498b69564d98984da3e9f7a45d87c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -139,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">第三章：発展</a></li><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">Week 11: Tidyverseパッケージによるデータの加工と可視化</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">第三章：発展</a></li><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">Week 11：Tidyverseパッケージによるデータの加工と可視化</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 1: Rおよび開発環境のインストール、Quarto</span></a>
+ <span class="menu-text">Week 1：Rおよび開発環境のインストール、Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -208,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 4: 統計的検定</span></a>
+ <span class="menu-text">Week 4：統計的検定</span></a>
   </div>
 </li>
       </ul>
@@ -225,37 +227,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week5: 相関分析</span></a>
+ <span class="menu-text">Week 5：相関分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+ <span class="menu-text">Week 6：単回帰分析（連続型の説明変数）</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+ <span class="menu-text">Week 7：重回帰分析：概要</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+ <span class="menu-text">Week 8：重回帰分析：質的変数のコーディング</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+ <span class="menu-text">Week 9：重回帰分析 (3)：交互作用の解釈</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+ <span class="menu-text">Week 10：一般化線形モデル：ロジスティック回帰分析</span></a>
   </div>
 </li>
       </ul>
@@ -272,25 +274,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+ <span class="menu-text">Week 11：Tidyverseパッケージによるデータの加工と可視化</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week12: 階層モデル</span></a>
+ <span class="menu-text">Week 12：階層モデル</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+ <span class="menu-text">Week 13：効果量と検定力分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+ <span class="menu-text">Week 14：ノンパラメトリック検定</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,9 +350,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">第三章：発展</a></li><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">Week 11: Tidyverseパッケージによるデータの加工と可視化</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">第三章：発展</a></li><li class="breadcrumb-item"><a href="./11-Week11_tidyverse.html">Week 11：Tidyverseパッケージによるデータの加工と可視化</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Week 11: Tidyverseパッケージによるデータの加工と可視化</h1>
+<h1 class="title">Week 11：Tidyverseパッケージによるデータの加工と可視化</h1>
 </div>
 
 
@@ -368,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-03-25 11:07:59</p>
+      <p class="date-modified">2026-04-13 10:18:57</p>
     </div>
   </div>
     
@@ -434,23 +436,23 @@ Note
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(untidy_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="ubiccstwoq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ubiccstwoq table {
+<div id="mduhynmgzh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mduhynmgzh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ubiccstwoq thead, #ubiccstwoq tbody, #ubiccstwoq tfoot, #ubiccstwoq tr, #ubiccstwoq td, #ubiccstwoq th {
+#mduhynmgzh thead, #mduhynmgzh tbody, #mduhynmgzh tfoot, #mduhynmgzh tr, #mduhynmgzh td, #mduhynmgzh th {
   border-style: none;
 }
 
-#ubiccstwoq p {
+#mduhynmgzh p {
   margin: 0;
   padding: 0;
 }
 
-#ubiccstwoq .gt_table {
+#mduhynmgzh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -476,12 +478,12 @@ Note
   border-left-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_caption {
+#mduhynmgzh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ubiccstwoq .gt_title {
+#mduhynmgzh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -493,7 +495,7 @@ Note
   border-bottom-width: 0;
 }
 
-#ubiccstwoq .gt_subtitle {
+#mduhynmgzh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -505,7 +507,7 @@ Note
   border-top-width: 0;
 }
 
-#ubiccstwoq .gt_heading {
+#mduhynmgzh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -517,13 +519,13 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_bottom_border {
+#mduhynmgzh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_col_headings {
+#mduhynmgzh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -538,7 +540,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_col_heading {
+#mduhynmgzh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -558,7 +560,7 @@ Note
   overflow-x: hidden;
 }
 
-#ubiccstwoq .gt_column_spanner_outer {
+#mduhynmgzh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -570,15 +572,15 @@ Note
   padding-right: 4px;
 }
 
-#ubiccstwoq .gt_column_spanner_outer:first-child {
+#mduhynmgzh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ubiccstwoq .gt_column_spanner_outer:last-child {
+#mduhynmgzh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ubiccstwoq .gt_column_spanner {
+#mduhynmgzh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -590,11 +592,11 @@ Note
   width: 100%;
 }
 
-#ubiccstwoq .gt_spanner_row {
+#mduhynmgzh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ubiccstwoq .gt_group_heading {
+#mduhynmgzh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -620,7 +622,7 @@ Note
   text-align: left;
 }
 
-#ubiccstwoq .gt_empty_group_heading {
+#mduhynmgzh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -635,15 +637,15 @@ Note
   vertical-align: middle;
 }
 
-#ubiccstwoq .gt_from_md > :first-child {
+#mduhynmgzh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ubiccstwoq .gt_from_md > :last-child {
+#mduhynmgzh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ubiccstwoq .gt_row {
+#mduhynmgzh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -662,7 +664,7 @@ Note
   overflow-x: hidden;
 }
 
-#ubiccstwoq .gt_stub {
+#mduhynmgzh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -675,7 +677,7 @@ Note
   padding-right: 5px;
 }
 
-#ubiccstwoq .gt_stub_row_group {
+#mduhynmgzh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -689,15 +691,15 @@ Note
   vertical-align: top;
 }
 
-#ubiccstwoq .gt_row_group_first td {
+#mduhynmgzh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ubiccstwoq .gt_row_group_first th {
+#mduhynmgzh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ubiccstwoq .gt_summary_row {
+#mduhynmgzh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -707,16 +709,16 @@ Note
   padding-right: 5px;
 }
 
-#ubiccstwoq .gt_first_summary_row {
+#mduhynmgzh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_first_summary_row.thick {
+#mduhynmgzh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ubiccstwoq .gt_last_summary_row {
+#mduhynmgzh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -726,7 +728,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_grand_summary_row {
+#mduhynmgzh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -736,7 +738,7 @@ Note
   padding-right: 5px;
 }
 
-#ubiccstwoq .gt_first_grand_summary_row {
+#mduhynmgzh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -746,7 +748,7 @@ Note
   border-top-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_last_grand_summary_row_top {
+#mduhynmgzh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -756,11 +758,11 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_striped {
+#mduhynmgzh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ubiccstwoq .gt_table_body {
+#mduhynmgzh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -769,7 +771,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_footnotes {
+#mduhynmgzh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -783,7 +785,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_footnote {
+#mduhynmgzh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -792,7 +794,7 @@ Note
   padding-right: 5px;
 }
 
-#ubiccstwoq .gt_sourcenotes {
+#mduhynmgzh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -806,7 +808,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#ubiccstwoq .gt_sourcenote {
+#mduhynmgzh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -814,72 +816,72 @@ Note
   padding-right: 5px;
 }
 
-#ubiccstwoq .gt_left {
+#mduhynmgzh .gt_left {
   text-align: left;
 }
 
-#ubiccstwoq .gt_center {
+#mduhynmgzh .gt_center {
   text-align: center;
 }
 
-#ubiccstwoq .gt_right {
+#mduhynmgzh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ubiccstwoq .gt_font_normal {
+#mduhynmgzh .gt_font_normal {
   font-weight: normal;
 }
 
-#ubiccstwoq .gt_font_bold {
+#mduhynmgzh .gt_font_bold {
   font-weight: bold;
 }
 
-#ubiccstwoq .gt_font_italic {
+#mduhynmgzh .gt_font_italic {
   font-style: italic;
 }
 
-#ubiccstwoq .gt_super {
+#mduhynmgzh .gt_super {
   font-size: 65%;
 }
 
-#ubiccstwoq .gt_footnote_marks {
+#mduhynmgzh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ubiccstwoq .gt_asterisk {
+#mduhynmgzh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ubiccstwoq .gt_indent_1 {
+#mduhynmgzh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ubiccstwoq .gt_indent_2 {
+#mduhynmgzh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ubiccstwoq .gt_indent_3 {
+#mduhynmgzh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ubiccstwoq .gt_indent_4 {
+#mduhynmgzh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ubiccstwoq .gt_indent_5 {
+#mduhynmgzh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ubiccstwoq .katex-display {
+#mduhynmgzh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ubiccstwoq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mduhynmgzh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -919,23 +921,23 @@ Note
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div id="kiipxkmgbx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kiipxkmgbx table {
+<div id="hxwdijbdil" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hxwdijbdil table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kiipxkmgbx thead, #kiipxkmgbx tbody, #kiipxkmgbx tfoot, #kiipxkmgbx tr, #kiipxkmgbx td, #kiipxkmgbx th {
+#hxwdijbdil thead, #hxwdijbdil tbody, #hxwdijbdil tfoot, #hxwdijbdil tr, #hxwdijbdil td, #hxwdijbdil th {
   border-style: none;
 }
 
-#kiipxkmgbx p {
+#hxwdijbdil p {
   margin: 0;
   padding: 0;
 }
 
-#kiipxkmgbx .gt_table {
+#hxwdijbdil .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -961,12 +963,12 @@ Note
   border-left-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_caption {
+#hxwdijbdil .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kiipxkmgbx .gt_title {
+#hxwdijbdil .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -978,7 +980,7 @@ Note
   border-bottom-width: 0;
 }
 
-#kiipxkmgbx .gt_subtitle {
+#hxwdijbdil .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -990,7 +992,7 @@ Note
   border-top-width: 0;
 }
 
-#kiipxkmgbx .gt_heading {
+#hxwdijbdil .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1002,13 +1004,13 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_bottom_border {
+#hxwdijbdil .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_col_headings {
+#hxwdijbdil .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1023,7 +1025,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_col_heading {
+#hxwdijbdil .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1043,7 +1045,7 @@ Note
   overflow-x: hidden;
 }
 
-#kiipxkmgbx .gt_column_spanner_outer {
+#hxwdijbdil .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1055,15 +1057,15 @@ Note
   padding-right: 4px;
 }
 
-#kiipxkmgbx .gt_column_spanner_outer:first-child {
+#hxwdijbdil .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kiipxkmgbx .gt_column_spanner_outer:last-child {
+#hxwdijbdil .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kiipxkmgbx .gt_column_spanner {
+#hxwdijbdil .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1075,11 +1077,11 @@ Note
   width: 100%;
 }
 
-#kiipxkmgbx .gt_spanner_row {
+#hxwdijbdil .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kiipxkmgbx .gt_group_heading {
+#hxwdijbdil .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1105,7 +1107,7 @@ Note
   text-align: left;
 }
 
-#kiipxkmgbx .gt_empty_group_heading {
+#hxwdijbdil .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1120,15 +1122,15 @@ Note
   vertical-align: middle;
 }
 
-#kiipxkmgbx .gt_from_md > :first-child {
+#hxwdijbdil .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kiipxkmgbx .gt_from_md > :last-child {
+#hxwdijbdil .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kiipxkmgbx .gt_row {
+#hxwdijbdil .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1147,7 +1149,7 @@ Note
   overflow-x: hidden;
 }
 
-#kiipxkmgbx .gt_stub {
+#hxwdijbdil .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1160,7 +1162,7 @@ Note
   padding-right: 5px;
 }
 
-#kiipxkmgbx .gt_stub_row_group {
+#hxwdijbdil .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1174,15 +1176,15 @@ Note
   vertical-align: top;
 }
 
-#kiipxkmgbx .gt_row_group_first td {
+#hxwdijbdil .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kiipxkmgbx .gt_row_group_first th {
+#hxwdijbdil .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kiipxkmgbx .gt_summary_row {
+#hxwdijbdil .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1192,16 +1194,16 @@ Note
   padding-right: 5px;
 }
 
-#kiipxkmgbx .gt_first_summary_row {
+#hxwdijbdil .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_first_summary_row.thick {
+#hxwdijbdil .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kiipxkmgbx .gt_last_summary_row {
+#hxwdijbdil .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1211,7 +1213,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_grand_summary_row {
+#hxwdijbdil .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1221,7 +1223,7 @@ Note
   padding-right: 5px;
 }
 
-#kiipxkmgbx .gt_first_grand_summary_row {
+#hxwdijbdil .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1231,7 +1233,7 @@ Note
   border-top-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_last_grand_summary_row_top {
+#hxwdijbdil .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1241,11 +1243,11 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_striped {
+#hxwdijbdil .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kiipxkmgbx .gt_table_body {
+#hxwdijbdil .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1254,7 +1256,7 @@ Note
   border-bottom-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_footnotes {
+#hxwdijbdil .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1268,7 +1270,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_footnote {
+#hxwdijbdil .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1277,7 +1279,7 @@ Note
   padding-right: 5px;
 }
 
-#kiipxkmgbx .gt_sourcenotes {
+#hxwdijbdil .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1291,7 +1293,7 @@ Note
   border-right-color: #D3D3D3;
 }
 
-#kiipxkmgbx .gt_sourcenote {
+#hxwdijbdil .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1299,72 +1301,72 @@ Note
   padding-right: 5px;
 }
 
-#kiipxkmgbx .gt_left {
+#hxwdijbdil .gt_left {
   text-align: left;
 }
 
-#kiipxkmgbx .gt_center {
+#hxwdijbdil .gt_center {
   text-align: center;
 }
 
-#kiipxkmgbx .gt_right {
+#hxwdijbdil .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kiipxkmgbx .gt_font_normal {
+#hxwdijbdil .gt_font_normal {
   font-weight: normal;
 }
 
-#kiipxkmgbx .gt_font_bold {
+#hxwdijbdil .gt_font_bold {
   font-weight: bold;
 }
 
-#kiipxkmgbx .gt_font_italic {
+#hxwdijbdil .gt_font_italic {
   font-style: italic;
 }
 
-#kiipxkmgbx .gt_super {
+#hxwdijbdil .gt_super {
   font-size: 65%;
 }
 
-#kiipxkmgbx .gt_footnote_marks {
+#hxwdijbdil .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kiipxkmgbx .gt_asterisk {
+#hxwdijbdil .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kiipxkmgbx .gt_indent_1 {
+#hxwdijbdil .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kiipxkmgbx .gt_indent_2 {
+#hxwdijbdil .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kiipxkmgbx .gt_indent_3 {
+#hxwdijbdil .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kiipxkmgbx .gt_indent_4 {
+#hxwdijbdil .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kiipxkmgbx .gt_indent_5 {
+#hxwdijbdil .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kiipxkmgbx .katex-display {
+#hxwdijbdil .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kiipxkmgbx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#hxwdijbdil div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2319,8 +2321,8 @@ Note
 <span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(gg_mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-114126b398ff9581493d" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-114126b398ff9581493d">{"x":{"data":[{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],"y":[18,21,20,21,16,18,18,18,16,20,19,15,17,17,15,22,21,21,21,16,17,21,19,28,26,19,21,21,21,22,18,18,18,24,24,26,20,20,22,20,21,19,21,21,19,33,17,15,17,21,21,19,16,23,18,18,18,21,21,19,21,21,21,23,16,19,19,19,21,19,19,18,16,22,18,18,18,18,18,18,19,17,18,17,18,17,16,18,18,13,14,13,14,9,15,13,18,11,20,15,15,14,13,17,14,11,13,11,11,20,18,11,13,14,13,14,11,11,12,12,15,16,12,13,11,14,14,13,12,11,12,19,15,11,16,9,13,11,13,14,15,14,13,11,14,13,14,12,11,15,15,16,15,15,16,16,16,17,15,17,18,11,15,16,17,16,12,16,9,15,14,13,14,14,9,13,14,13,13,14,15,11,14,13,11,11,11,13,16,13,17,15,15,11,13,15,9,11,12,23,26,25,24,19,24,20,20,17,16,17,18,25,19,19,15,18,17,16,21,19,19,35,29,21,19,20,20,21,15,15,15,14,28,24],"hoverinfo":"y","type":"box","fillcolor":"rgba(255,255,255,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"},"size":5.6692913385826778},"line":{"color":"rgba(51,51,51,1)","width":1.8897637795275593},"showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":23.305936073059364,"r":7.3059360730593621,"b":37.260273972602747,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["2seater","compact","midsize","minivan","pickup","subcompact","suv"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["2seater","compact","midsize","minivan","pickup","subcompact","suv"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"class","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[7.7000000000000002,36.299999999999997],"tickmode":"array","ticktext":["10","15","20","25","30","35"],"tickvals":[10,15,20,25,30,35],"categoryorder":"array","categoryarray":["10","15","20","25","30","35"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"cty","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"695c70121d94":{"x":{},"y":{},"type":"box"}},"cur_data":"695c70121d94","visdat":{"695c70121d94":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-70afe0b90cd7940c8dd1" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-70afe0b90cd7940c8dd1">{"x":{"data":[{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],"y":[18,21,20,21,16,18,18,18,16,20,19,15,17,17,15,22,21,21,21,16,17,21,19,28,26,19,21,21,21,22,18,18,18,24,24,26,20,20,22,20,21,19,21,21,19,33,17,15,17,21,21,19,16,23,18,18,18,21,21,19,21,21,21,23,16,19,19,19,21,19,19,18,16,22,18,18,18,18,18,18,19,17,18,17,18,17,16,18,18,13,14,13,14,9,15,13,18,11,20,15,15,14,13,17,14,11,13,11,11,20,18,11,13,14,13,14,11,11,12,12,15,16,12,13,11,14,14,13,12,11,12,19,15,11,16,9,13,11,13,14,15,14,13,11,14,13,14,12,11,15,15,16,15,15,16,16,16,17,15,17,18,11,15,16,17,16,12,16,9,15,14,13,14,14,9,13,14,13,13,14,15,11,14,13,11,11,11,13,16,13,17,15,15,11,13,15,9,11,12,23,26,25,24,19,24,20,20,17,16,17,18,25,19,19,15,18,17,16,21,19,19,35,29,21,19,20,20,21,15,15,15,14,28,24],"hoverinfo":"y","type":"box","fillcolor":"rgba(255,255,255,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"},"size":5.6692913385826778},"line":{"color":"rgba(51,51,51,1)","width":1.8897637795275593},"showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":23.305936073059364,"r":7.3059360730593621,"b":37.260273972602747,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["2seater","compact","midsize","minivan","pickup","subcompact","suv"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["2seater","compact","midsize","minivan","pickup","subcompact","suv"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"class","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[7.7000000000000002,36.299999999999997],"tickmode":"array","ticktext":["10","15","20","25","30","35"],"tickvals":[10,15,20,25,30,35],"categoryorder":"array","categoryarray":["10","15","20","25","30","35"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"cty","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"bb401d584fb9":{"x":{},"y":{},"type":"box"}},"cur_data":"bb401d584fb9","visdat":{"bb401d584fb9":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -2773,13 +2775,13 @@ Note
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./10-Week10_logistic.html" class="pagination-link" aria-label="Week10: 一般化線形モデル：ロジスティック回帰分析">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span>
+      <a href="./10-Week10_logistic.html" class="pagination-link" aria-label="Week 10：一般化線形モデル：ロジスティック回帰分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 10：一般化線形モデル：ロジスティック回帰分析</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./12-Week12_GLMM.html" class="pagination-link" aria-label="Week12: 階層モデル">
-        <span class="nav-page-text">Week12: 階層モデル</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./12-Week12_GLMM.html" class="pagination-link" aria-label="Week 12：階層モデル">
+        <span class="nav-page-text">Week 12：階層モデル</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

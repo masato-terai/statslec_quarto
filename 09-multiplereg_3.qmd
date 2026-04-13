@@ -1,4 +1,4 @@
-# Week9: 重回帰分析 (3)：交互作用の解釈 {.unnumbered}
+# Week 9：重回帰分析 (3)：交互作用の解釈 {.unnumbered}
 
 ```{r}
 #| include: false

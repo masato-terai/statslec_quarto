@@ -1,4 +1,4 @@
-# Week 14: ノンパラメトリック検定 {.unnumbered}
+# Week 14：ノンパラメトリック検定 {.unnumbered}
 
 ```{r}
 #| include: false

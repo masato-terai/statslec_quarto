@@ -1,4 +1,4 @@
-# Week 11: Tidyverseパッケージによるデータの加工と可視化 {.unnumbered}
+# Week 11：Tidyverseパッケージによるデータの加工と可視化 {.unnumbered}
 
 ```{r}
 #| include: false

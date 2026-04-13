@@ -1,4 +1,4 @@
-# Week 13: 効果量と検定力分析 {.unnumbered}
+# Week 13：効果量と検定力分析 {.unnumbered}
 
 ```{r}
 #| include: false

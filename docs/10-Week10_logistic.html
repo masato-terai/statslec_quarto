@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-03-23">
 
-<title>Week10: 一般化線形モデル：ロジスティック回帰分析 – 言語統計処理a</title>
+<title>Week 10：一般化線形モデル：ロジスティック回帰分析 – 言語統計処理a</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,15 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0687a6949ae11671cfb8b930681aab34.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4c1498b69564d98984da3e9f7a45d87c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -125,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-week5.html">第二章：実践</a></li><li class="breadcrumb-item"><a href="./10-Week10_logistic.html">Week10: 一般化線形モデル：ロジスティック回帰分析</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-week5.html">第二章：実践</a></li><li class="breadcrumb-item"><a href="./10-Week10_logistic.html">Week 10：一般化線形モデル：ロジスティック回帰分析</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -176,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-week1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 1: Rおよび開発環境のインストール、Quarto</span></a>
+ <span class="menu-text">Week 1：Rおよび開発環境のインストール、Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -194,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-week4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 4: 統計的検定</span></a>
+ <span class="menu-text">Week 4：統計的検定</span></a>
   </div>
 </li>
       </ul>
@@ -211,37 +213,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-week5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week5: 相関分析</span></a>
+ <span class="menu-text">Week 5：相関分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week6: 単回帰分析（連続型の説明変数）</span></a>
+ <span class="menu-text">Week 6：単回帰分析（連続型の説明変数）</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multipleregression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week7: 重回帰分析：概要</span></a>
+ <span class="menu-text">Week 7：重回帰分析：概要</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-multiplereg_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week8: 重回帰分析：質的変数のコーディング</span></a>
+ <span class="menu-text">Week 8：重回帰分析：質的変数のコーディング</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09-multiplereg_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week9: 重回帰分析 (3)：交互作用の解釈</span></a>
+ <span class="menu-text">Week 9：重回帰分析 (3)：交互作用の解釈</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10-Week10_logistic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week10: 一般化線形モデル：ロジスティック回帰分析</span></a>
+ <span class="menu-text">Week 10：一般化線形モデル：ロジスティック回帰分析</span></a>
   </div>
 </li>
       </ul>
@@ -258,25 +260,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11-Week11_tidyverse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span></a>
+ <span class="menu-text">Week 11：Tidyverseパッケージによるデータの加工と可視化</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./12-Week12_GLMM.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week12: 階層モデル</span></a>
+ <span class="menu-text">Week 12：階層モデル</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13-Week13_Eff_pow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 13: 効果量と検定力分析</span></a>
+ <span class="menu-text">Week 13：効果量と検定力分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14-Week14_nonpara.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 14: ノンパラメトリック検定</span></a>
+ <span class="menu-text">Week 14：ノンパラメトリック検定</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -357,9 +359,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-week5.html">第二章：実践</a></li><li class="breadcrumb-item"><a href="./10-Week10_logistic.html">Week10: 一般化線形モデル：ロジスティック回帰分析</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-week5.html">第二章：実践</a></li><li class="breadcrumb-item"><a href="./10-Week10_logistic.html">Week 10：一般化線形モデル：ロジスティック回帰分析</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Week10: 一般化線形モデル：ロジスティック回帰分析</h1>
+<h1 class="title">Week 10：一般化線形モデル：ロジスティック回帰分析</h1>
 </div>
 
 
@@ -377,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-03-23 16:23:35</p>
+      <p class="date-modified">2026-04-13 10:18:47</p>
     </div>
   </div>
     
@@ -1609,13 +1611,13 @@ MethodB     0.1349245 1.998728</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./09-multiplereg_3.html" class="pagination-link" aria-label="Week9: 重回帰分析 (3)：交互作用の解釈">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week9: 重回帰分析 (3)：交互作用の解釈</span>
+      <a href="./09-multiplereg_3.html" class="pagination-link" aria-label="Week 9：重回帰分析 (3)：交互作用の解釈">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 9：重回帰分析 (3)：交互作用の解釈</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./11-Week11_tidyverse.html" class="pagination-link" aria-label="Week 11: Tidyverseパッケージによるデータの加工と可視化">
-        <span class="nav-page-text">Week 11: Tidyverseパッケージによるデータの加工と可視化</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./11-Week11_tidyverse.html" class="pagination-link" aria-label="Week 11：Tidyverseパッケージによるデータの加工と可視化">
+        <span class="nav-page-text">Week 11：Tidyverseパッケージによるデータの加工と可視化</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

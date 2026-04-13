@@ -1,4 +1,4 @@
-# Week7: 重回帰分析：概要 {.unnumbered}
+# Week 7：重回帰分析：概要 {.unnumbered}
 
 
 ## 事前の確認

@@ -1,4 +1,4 @@
-# Week6: 単回帰分析（連続型の説明変数） {.unnumbered}
+# Week 6：単回帰分析（連続型の説明変数） {.unnumbered}
 
 ```{r}
 #| include: false

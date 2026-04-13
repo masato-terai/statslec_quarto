@@ -12,6 +12,8 @@
 
 - [シャロン・バーチュ・マグレイン (2018)『異端の統計学 ベイズ』](https://amzn.asia/d/03frZyY6)
 
+- [岩崎学 ＆ 川崎玉恵（2025）『パラドックスで学ぶ統計学: 相反する分析結果に向き合う』](https://amzn.asia/d/0g9L6R76)
+
 ## 論文
 - [寺井雅人. (2024). RStudio と Git の連携によるバージョン管理. メソドロジー研究部会報告論集, 17, 35-52.](https://www.jstage.jst.go.jp/article/methodologysig/17/0/17_17.3/_article/-char/ja/)
 
