@@ -14,6 +14,8 @@
 
 - [岩崎学 ＆ 川崎玉恵（2025）『パラドックスで学ぶ統計学: 相反する分析結果に向き合う』](https://amzn.asia/d/0g9L6R76)
 
+- [竹内啓（2018）『歴史と統計学 ――人・時代・思想』](https://amzn.asia/d/0i3xTB1u)
+
 ## 論文
 - [寺井雅人. (2024). RStudio と Git の連携によるバージョン管理. メソドロジー研究部会報告論集, 17, 35-52.](https://www.jstage.jst.go.jp/article/methodologysig/17/0/17_17.3/_article/-char/ja/)
 

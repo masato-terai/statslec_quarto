@@ -412,7 +412,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-13 10:17:30</p>
+      <p class="date-modified">2026-04-17 18:13:35</p>
     </div>
   </div>
     
@@ -426,11 +426,7 @@ window.Quarto = {
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
@@ -563,9 +559,9 @@ Note
 <li><p>大別して<strong>代表値</strong>と<strong>散布度</strong>があり、前者は大体の値、後者はばらつきを表すデータ</p></li>
 </ul>
 <section id="各統計量" class="level3">
-<h3 class="anchored" data-anchor-id="各統計量">各統計量</h3>
+<h3 class="anchored">各統計量</h3>
 <section id="代表値" class="level4">
-<h4 class="anchored" data-anchor-id="代表値">代表値</h4>
+<h4 class="anchored">代表値</h4>
 <ul>
 <li><p>平均値（mean）</p>
 <ul>
@@ -573,6 +569,37 @@ Note
 <li><p>本講義では平均は算術平均を指す</p></li>
 <li><p>算出方法：すべての数を足し合わせて、データの数で割る</p></li>
 </ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>算術平均値からの各値の差（残差）の合計はゼロになる。</p>
+<section id="平均からの偏差の和" class="level2">
+<h2 class="anchored" data-anchor-id="平均からの偏差の和">平均からの偏差の和</h2>
+<p>平均 <span class="math inline">\(\bar{x}\)</span> を <span class="math display">\[
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i
+\]</span> とすると、</p>
+<p><span class="math display">\[
+\begin{align}
+\sum_{i=1}^n (x_i - \bar{x})
+&amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n \bar{x} \\
+&amp;= \sum_{i=1}^n x_i - n\bar{x} \\
+&amp;= \sum_{i=1}^n x_i - n\left(\frac{1}{n}\sum_{i=1}^n x_i\right) \\
+&amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n x_i \\
+&amp;= 0
+\end{align}
+\]</span></p>
+</section>
+</div>
+</div>
+<ul>
 <li><p>中央値（median）</p>
 <ul>
 <li><p><strong>小さい方から並べて</strong>ちょうど真ん中にある値</p>
@@ -805,7 +832,7 @@ Note
 <h4 class="anchored" data-anchor-id="箱ひげ図boxplot">箱ひげ図（boxplot）</h4>
 <ul>
 <li><p>棒グラフよりもより多くの情報を確認できる。</p></li>
-<li><p>外れ値が含まれる場合、描画されている最大値もしくは最小値はデータの中のもっとも大きい数をではない場合がある。</p>
+<li><p>外れ値が含まれる場合、描画されている最大値もしくは最小値はデータの中のもっとも大きい数ではない場合がある。</p>
 <ul>
 <li><p>一般的に外れ値として判定される数</p>
 <ul>
@@ -929,7 +956,7 @@ Note
 <p>自由に箱（変数）に名前を付けてよいが、できるだけ自分の中で一貫したルールを持ち、第三者が見ても何が格納されているか分かりやすい名前を付けることを意識する。</p>
 </div>
 <ul>
-<li><p>変数に入れたデータは、［Environment］タブに表示される。</p></li>
+<li><p>変数に入れたデータは［VARIABLES］に表示される。</p></li>
 <li><p>変数の中身が数値の場合、数値を足したりかけたりなど計算ができる。</p>
 <ul>
 <li>numという名前の変数に1から10の数字を入れ、それらを2倍した</li>
@@ -987,7 +1014,7 @@ Note
 <li><p>パッケージに含まれている、命令を実行するのに必要なもの。<code>data.frame()</code>のような文字列とかっこの組み合わせ。かっこの中にデータを格納する。</p>
 <ul>
 <li><p>数学の関数とイメージしてもよい。例えば、Y&nbsp;=&nbsp;2x という関数は、xを2倍する関数。入れたデータが2倍されて返ってくる。</p></li>
-<li><p>使う際は呼び出す必要があり、Rのセッションが切れるまでは何回も呼び出す必要はない。Rに標準で備わっているものは呼び出す必要はない（base関数という）。</p>
+<li><p>使う際は<code>library()</code>で呼び出す必要があり、Rのセッションが切れるまでは何回も呼び出す必要はない。Rに標準で備わっているものは呼び出す必要はない（base関数という）。</p>
 <ul>
 <li>下の例では、<code>plot()</code>関数で変数の中身を描画している</li>
 </ul></li>
@@ -1045,7 +1072,7 @@ Note
 </div>
 </div>
 <ul>
-<li>データの型がどうなっているかを確認。確認する関数は様々なものがある。[Environment]タブでも表示されている。</li>
+<li>データの型がどうなっているかを確認。確認する関数は様々なものがある。［VARIABLES］でも表示されている。</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(numVector1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1086,15 +1113,15 @@ Note
 </ul></li>
 </ul></li>
 <li><p>拡張子を表示させる設定に変更する。</p></li>
-<li><p>データを読み込む場合、ファイルの種類によって読み込む際の関数が異なる。配布されたデータを、<strong>本講義用のR projectに移動させる</strong>（ = 本講義用の📁）。</p></li>
-<li><p>移動させたら、以下のコードを走らせ、データをR(Studio)に読み込む</p>
+<li><p>データを読み込む場合、ファイルの種類によって読み込む際の関数が異なる。配布されたデータを本講義用のフォルダー📁に移動。</p></li>
+<li><p>移動させたら以下のコードを走らせデータをR、Positronに読み込む</p>
 <ul>
 <li>文字化けしている場合教えてください。</li>
 </ul></li>
 <li><p>以下の処理で、csvファイル内のデータを<code>dat</code>という変数の中に格納したことになる。</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dat &lt;- read.csv()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"ファイルの名前"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="データフレーム" class="level3">
@@ -1438,7 +1465,7 @@ Attaching package: 'zoo'</code></pre>
 <h3 class="anchored" data-anchor-id="課題内容">課題内容</h3>
 <ol type="1">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
-<li><p>下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。</p></li>
+<li><p>下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。データは<a href="https://github.com/masato-terai/statslec_quarto">GitHubページ</a>の<code>sample_data</code>内の<code>pokemon_data.csv</code>。</p></li>
 </ol>
 <ul>
 <li><p>要約統計量を算出</p></li>
@@ -1474,7 +1501,7 @@ Attaching package: 'zoo'</code></pre>
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li>R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出</li>
+<li>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</li>
 <li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </section>
