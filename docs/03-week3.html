@@ -345,18 +345,19 @@ window.Quarto = {
   <li><a href="#今日の目標" id="toc-今日の目標" class="nav-link" data-scroll-target="#今日の目標">今日の目標</a></li>
   <li><a href="#母集団と標本" id="toc-母集団と標本" class="nav-link" data-scroll-target="#母集団と標本">母集団と標本</a>
   <ul class="collapse">
-  <li><a href="#母集団population" id="toc-母集団population" class="nav-link" data-scroll-target="#母集団population">母集団（population）</a></li>
+  <li><a href="#母集団population" id="toc-母集団population" class="nav-link" data-scroll-target="#母集団population">母集団（Population）</a></li>
   <li><a href="#標本sample" id="toc-標本sample" class="nav-link" data-scroll-target="#標本sample">標本（Sample）</a></li>
   </ul></li>
-  <li><a href="#確率と確率変数" id="toc-確率と確率変数" class="nav-link" data-scroll-target="#確率と確率変数">確率と確率変数</a>
-  <ul class="collapse">
-  <li><a href="#確率" id="toc-確率" class="nav-link" data-scroll-target="#確率">確率</a></li>
   <li><a href="#確率変数と確率分布" id="toc-確率変数と確率分布" class="nav-link" data-scroll-target="#確率変数と確率分布">確率変数と確率分布</a></li>
-  </ul></li>
   <li><a href="#推測統計学の考え方" id="toc-推測統計学の考え方" class="nav-link" data-scroll-target="#推測統計学の考え方">推測統計学の考え方</a>
   <ul class="collapse">
   <li><a href="#標本統計量" id="toc-標本統計量" class="nav-link" data-scroll-target="#標本統計量">標本統計量</a></li>
-  <li><a href="#標本分布" id="toc-標本分布" class="nav-link" data-scroll-target="#標本分布">標本分布</a></li>
+  <li><a href="#標本分布sampling-distribution" id="toc-標本分布sampling-distribution" class="nav-link" data-scroll-target="#標本分布sampling-distribution">標本分布（Sampling Distribution）</a></li>
+  </ul></li>
+  <li><a href="#母集団分布標本分布標本統計量の関係のまとめ" id="toc-母集団分布標本分布標本統計量の関係のまとめ" class="nav-link" data-scroll-target="#母集団分布標本分布標本統計量の関係のまとめ">母集団分布、標本分布、標本統計量の関係のまとめ</a>
+  <ul class="collapse">
+  <li><a href="#データ発生メカニズム" id="toc-データ発生メカニズム" class="nav-link" data-scroll-target="#データ発生メカニズム">データ発生メカニズム</a></li>
+  <li><a href="#推測の流れ" id="toc-推測の流れ" class="nav-link" data-scroll-target="#推測の流れ">推測の流れ</a></li>
   </ul></li>
   <li><a href="#区間推定の考え方" id="toc-区間推定の考え方" class="nav-link" data-scroll-target="#区間推定の考え方">区間推定の考え方</a>
   <ul class="collapse">
@@ -364,7 +365,8 @@ window.Quarto = {
   <li><a href="#正規分布の性質" id="toc-正規分布の性質" class="nav-link" data-scroll-target="#正規分布の性質">正規分布の性質</a></li>
   <li><a href="#確率モデルを用いた推定" id="toc-確率モデルを用いた推定" class="nav-link" data-scroll-target="#確率モデルを用いた推定">確率モデルを用いた推定</a></li>
   <li><a href="#正規分布モデルにおける標本平均の標本分布" id="toc-正規分布モデルにおける標本平均の標本分布" class="nav-link" data-scroll-target="#正規分布モデルにおける標本平均の標本分布">正規分布モデルにおける標本平均の標本分布</a></li>
-  <li><a href="#区間推定" id="toc-区間推定" class="nav-link" data-scroll-target="#区間推定">区間推定</a></li>
+  <li><a href="#信頼区間" id="toc-信頼区間" class="nav-link" data-scroll-target="#信頼区間">信頼区間</a></li>
+  <li><a href="#信頼区間の解釈" id="toc-信頼区間の解釈" class="nav-link" data-scroll-target="#信頼区間の解釈">95%信頼区間の解釈</a></li>
   </ul></li>
   <li><a href="#rの関数で95信頼区間を求める" id="toc-rの関数で95信頼区間を求める" class="nav-link" data-scroll-target="#rの関数で95信頼区間を求める">Rの関数で95%信頼区間を求める</a></li>
   <li><a href="#ハンズオンセッション" id="toc-ハンズオンセッション" class="nav-link" data-scroll-target="#ハンズオンセッション">ハンズオンセッション</a>
@@ -372,8 +374,8 @@ window.Quarto = {
   <li><a href="#データの読み込み" id="toc-データの読み込み" class="nav-link" data-scroll-target="#データの読み込み">データの読み込み</a></li>
   <li><a href="#確率分布を選ぶ" id="toc-確率分布を選ぶ" class="nav-link" data-scroll-target="#確率分布を選ぶ">確率分布を選ぶ</a></li>
   <li><a href="#母分散未知の母平均の95信頼区間を求める" id="toc-母分散未知の母平均の95信頼区間を求める" class="nav-link" data-scroll-target="#母分散未知の母平均の95信頼区間を求める">母分散未知の母平均の95%信頼区間を求める</a></li>
-  <li><a href="#ci関数" id="toc-ci関数" class="nav-link" data-scroll-target="#ci関数">ci関数</a></li>
-  <li><a href="#qt関数" id="toc-qt関数" class="nav-link" data-scroll-target="#qt関数">qt関数</a></li>
+  <li><a href="#ci関数" id="toc-ci関数" class="nav-link" data-scroll-target="#ci関数"><code>ci</code>関数</a></li>
+  <li><a href="#qt関数" id="toc-qt関数" class="nav-link" data-scroll-target="#qt関数"><code>qt</code>関数</a></li>
   </ul></li>
   <li><a href="#次週までの課題" id="toc-次週までの課題" class="nav-link" data-scroll-target="#次週までの課題">次週までの課題</a>
   <ul class="collapse">
@@ -407,7 +409,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-03-23 13:43:22</p>
+      <p class="date-modified">2026-04-23 18:03:39</p>
     </div>
   </div>
     
@@ -421,24 +423,20 @@ window.Quarto = {
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
 <h2 class="anchored" data-anchor-id="今日の目標">今日の目標</h2>
 <ol type="1">
-<li>母集団と標本の違いや確率分布が理解できる</li>
-<li>区間推定の考え方が理解できる</li>
+<li><strong>母集団</strong>と<strong>標本</strong>の違いや確率分布が理解できる</li>
+<li><strong>区間推定</strong>の考え方が理解できる</li>
 </ol>
 </section>
 <section id="母集団と標本" class="level2">
 <h2 class="anchored" data-anchor-id="母集団と標本">母集団と標本</h2>
 <ul>
-<li>推測統計学は、<strong>母集団</strong>から<strong>標本</strong>を得て、母集団の特徴を推測する手法</li>
+<li>推測統計学は標本から母集団の特徴を推測する手法のこと</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -450,13 +448,13 @@ window.Quarto = {
 </div>
 </div>
 <section id="母集団population" class="level3">
-<h3 class="anchored" data-anchor-id="母集団population">母集団（population）</h3>
+<h3 class="anchored" data-anchor-id="母集団population">母集団（Population）</h3>
 <ul>
 <li><p>調べたい対象の集団のこと</p>
 <ul>
 <li><p>例</p>
 <ul>
-<li><p>研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受ける。</p></li>
+<li><p>研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受けるか？</p></li>
 <li><p>母集団：世界中の英語を第二言語として学ぶ人</p></li>
 </ul></li>
 </ul></li>
@@ -472,48 +470,96 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="確率と確率変数" class="level2">
-<h2 class="anchored" data-anchor-id="確率と確率変数">確率と確率変数</h2>
+<section id="確率変数と確率分布" class="level2">
+<h2 class="anchored" data-anchor-id="確率変数と確率分布">確率変数と確率分布</h2>
 <ul>
-<li>推測統計学では確率が非常に重要な概念。</li>
+<li>推測統計学では「確率」が非常に重要な概念となる</li>
 </ul>
-<section id="確率" class="level3">
-<h3 class="anchored" data-anchor-id="確率">確率</h3>
-</section>
-<section id="確率変数と確率分布" class="level3">
-<h3 class="anchored" data-anchor-id="確率変数と確率分布">確率変数と確率分布</h3>
 <section id="確率変数random-variable" class="level4">
-<h4 class="anchored" data-anchor-id="確率変数random-variable">確率変数（random variable）</h4>
+<h4 class="anchored" data-anchor-id="確率変数random-variable">確率変数（Random Variable）</h4>
 <ul>
 <li><p>確率的に生じる事象に数値を割り当てたもの</p>
 <ul>
 <li>実際に得られた値のことを確率変数の<strong>実現値</strong>という</li>
 </ul></li>
-<li><p>確率変数はスロットマシーンが回っている状態。実現値はスロットマシーンが止まって値が定まった状態をイメージするとよい</p></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>確率変数はスロットマシーンが回っている状態、実現値はスロットマシーンが止まって値が定まった状態をイメージするとよいです。スロットが回っている間は、どんな数字がでるか確定していません。この状態を<strong>確率変数</strong>のイメージとして考えます。止まって具体的な値が出た瞬間が<strong>実現値</strong>です。</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-week3_files/figure-html/unnamed-chunk-3-1.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="確率分布probability-distribution" class="level4">
-<h4 class="anchored" data-anchor-id="確率分布probability-distribution">確率分布（probability distribution）</h4>
+<h4 class="anchored" data-anchor-id="確率分布probability-distribution">確率分布（Probability Distribution）</h4>
 <ul>
-<li><p>確率変数の実現値それぞれの生じやすさを確率で表したもの。統計学では、確率変数の実現値を与えると確率を返す関数のことを確率分布という</p></li>
+<li><p>確率変数の実現値それぞれの生じやすさを確率で表したもの。</p></li>
 <li><p>事象を確率変数として扱うことで、母集団を人の集団ではなく、確率変数の実現値の集合として考えることができる。</p>
 <ul>
-<li>1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる（数学の世界に現実世界を映す）。</li>
+<li>1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる<span style="background-color: yellow;">（数学の世界に現実世界を映すために必要）</span>。</li>
 </ul></li>
-<li><p>この場合、母集団の性質を標本に正確に反映させるために、<strong>単純無作為抽出（simple random sampling）</strong>を行う必要がある。</p>
+<li><p>この場合、母集団の性質を標本に正確に反映させるために、<strong>単純無作為抽出（Simple Random Sampling）</strong>を行う必要がある。</p>
 <ul>
 <li>母集団のすべての対象が偏りなく選ばれること（= 無作為に選ぶ）</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>単純無作為抽出を介在させることで、母集団分布は確率分布として解釈できるようになる。よって、統計的推測の文脈では、「確率モデル」と「母集団分布」が同じ意味で使われる。</p>
+</div>
+</div>
+<ul>
+<li><p>実際に、単純無作為抽出を行うことはかなり難しい。そこで、以下のような妥協案が採用される。</p>
+<ul>
+<li><p>抽出法の変更</p>
+<ul>
+<li><p><strong>層化抽出</strong>：任意の属性ごとに無作為抽出をする。例えば、日本の大学生に関して調査する場合、工学部から10名、理学部から10名といったように学部による偏りを抑制するために各学部から同数の学生を無作為に抽出する。</p></li>
+<li><p><strong>多段階抽出</strong>：複数回の無作為抽出を行う。例えば、地域の偏りを抑制するために、以下のステップで抽出をする。</p>
+<ol type="1">
+<li><p>47都道府県からランダムに都道府県をいくつか選ぶ</p></li>
+<li><p>選んだ各都道府県からランダムにいくつか大学を選ぶ</p></li>
+<li><p>各大学から数人ずつランダムに選ぶ</p></li>
+</ol></li>
+</ul></li>
+</ul></li>
+<li><p>母集団の範囲を限定する</p>
+<ul>
+<li>「日本人大学生」は母集団として大きすぎる。そこで、「A大学に在籍している学生」のように母集団を限定することで無作為抽出を現実的にする。</li>
 </ul></li>
 </ul>
 </section>
 <section id="確率分布の種類" class="level4">
 <h4 class="anchored" data-anchor-id="確率分布の種類">確率分布の種類</h4>
 <ul>
-<li>離散型確率分布：確率質量関数
+<li><strong>離散型確率分布</strong>：確率質量関数
 <ul>
-<li>とびとびの値をとる（e.g., 裏、表）</li>
-<li>ベルヌーイ分布、二項分布、ポアソン分布</li>
+<li>とびとびの値をとる変数のことを<strong>離散</strong>型変数という（e.g., 裏、表）</li>
 </ul></li>
+<li>ベルヌーイ分布、二項分布、ポアソン分布</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -525,9 +571,9 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li>連続確率分布：確率密度関数
+<li><strong>連続確率分布</strong>：確率密度関数
 <ul>
-<li>連続した値をとる（e.g., 身長）</li>
+<li>連続した値をとる変数を<strong>連続</strong>型変数という（e.g., 身長、重さ）</li>
 <li>正規分布、<em>t</em> 分布、カイ二乗分布</li>
 </ul></li>
 </ul>
@@ -542,7 +588,6 @@ window.Quarto = {
 </div>
 </section>
 </section>
-</section>
 <section id="推測統計学の考え方" class="level2">
 <h2 class="anchored" data-anchor-id="推測統計学の考え方">推測統計学の考え方</h2>
 <section id="標本統計量" class="level3">
@@ -555,17 +600,42 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-<section id="標本分布" class="level3">
-<h3 class="anchored" data-anchor-id="標本分布">標本分布</h3>
+<section id="標本分布sampling-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="標本分布sampling-distribution">標本分布（Sampling Distribution）</h3>
 <ul>
-<li><p>標本統計量が確率的に変動することを表した確率分布のこと</p>
+<li><p>標本統計量（e.g., 平均値）が確率的に変動することを表した確率分布のこと</p></li>
+<li><p>同じことを何度も繰り返したらどうなるかについての仮想的な分布</p>
 <ul>
-<li>標本を沢山抽出した場合であって、1つのデータの分布ではない</li>
+<li>標本分布は「特定の標本におけるデータの度数分布」とは全く意味の異なるもの</li>
 </ul></li>
-<li><p>標本サイズ（ <em>k</em> ）が大きくなるにつれ、標本分布の散らばりはどんどん小さくなる</p>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sampling Distributionの訳としては、「標本抽出分布」などがより正確である。しかし、標本分布という訳語の定着によって、「標本におけるデータの度数分布」との違いが用語から見えにくくなっている。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="母集団分布標本分布標本統計量の関係のまとめ" class="level2">
+<h2 class="anchored" data-anchor-id="母集団分布標本分布標本統計量の関係のまとめ">母集団分布、標本分布、標本統計量の関係のまとめ</h2>
+<section id="データ発生メカニズム" class="level3">
+<h3 class="anchored" data-anchor-id="データ発生メカニズム">データ発生メカニズム</h3>
 <ul>
-<li><p>以下の図では100ほどのデータがあれば母平均（0.7）の ± 0.1にほとんどのデータが集まることが分かる</p></li>
-<li><p>しかし、これは母平均を事前に把握している場合を例であり、事前に母平均を知っていることは基本的にない。</p></li>
+<li><p>日本人英語学習者の英語のテスト得点（100点）の母集団分布</p>
+<ul>
+<li><p>通常、母集団分布を直接知ることはできない</p>
+<ul>
+<li>神の視点で考える</li>
+</ul></li>
+<li><p>推測の際は、母集団分布の形を知るよりも（大変）、母集団分布の特定の統計量（e.g., 平均値）を推測するのが普通</p></li>
 </ul></li>
 </ul>
 <div class="cell">
@@ -577,6 +647,42 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<ul>
+<li><p>標本平均（実際のデータ）</p>
+<ul>
+<li>無作為に抽出した200名の学習者の標本から平均値を計算（抽出回数は1回）</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\bar{x} = 49
+\]</span></p>
+<ul>
+<li><p>標本分布（可能性）</p>
+<ul>
+<li><p>繰り返すが、特定の標本の度数分布ではない。</p>
+<ul>
+<li>標本<strong>統計量の</strong>分布</li>
+</ul></li>
+<li><p>200名の学習者を無作為に抽出し、200名の平均値を計算。それを1,000回繰り返した結果の平均値のヒストグラムを描画（仮想的な平均値の分布）。</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-week3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="推測の流れ" class="level3">
+<h3 class="anchored" data-anchor-id="推測の流れ">推測の流れ</h3>
+<ol type="1">
+<li>無作為抽出から得られた標本から平均値などの標本統計量を計算する</li>
+<li>得られた標本統計量がどれくらいブレるかを考える（標本分布に照らし合わせる）</li>
+<li>その標本分布を使って母集団における統計量（母数）について推測する</li>
+</ol>
 </section>
 </section>
 <section id="区間推定の考え方" class="level2">
@@ -584,12 +690,12 @@ window.Quarto = {
 <section id="母集団分布に確率分布を仮定する" class="level3">
 <h3 class="anchored" data-anchor-id="母集団分布に確率分布を仮定する">母集団分布に確率分布を仮定する</h3>
 <ul>
-<li><p>母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率が。よく知られた確率分布に従うと仮定する。</p>
+<li><p>母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率がよく知られた確率分布に従うと仮定する。</p>
 <ul>
-<li><p>統計モデル（statistical model）や確率モデル（probabilistic model）と呼ぶ</p></li>
-<li><p>よく知られたモデルとして、<strong>正規分布（normal distribution）</strong>が挙げられる</p></li>
+<li><p>統計モデル（Statistical Model）や確率モデル（Probabilistic Model）と呼ぶ</p></li>
+<li><p>よく知られたモデルとして、<strong>正規分布（Normal distribution）</strong>が挙げられる</p></li>
 </ul></li>
-<li><p>適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。</p>
+<li><p>適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。適切な確率モデルを設定する方法として以下があげられる。</p>
 <ul>
 <li><p>ある程度大きいデータを取り、そのヒストグラムを描画して形状を確認する</p></li>
 <li><p>データの発生メカニズムから選ぶ</p>
@@ -612,32 +718,20 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-week3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li><p>確率変数が離散的な値をとる場合、確率変数の実現値と確率は一対一対応している（例 1か0のデータ）。</p>
-<ul>
-<li><p>例）下記図のように10回繰り返した場合、</p>
-<ul>
-<li><p>成功数（5回） =&gt; 確率10%</p></li>
-<li><p>成功数（6回） =&gt; 確率20%</p></li>
-</ul></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
 <p><img src="03-week3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <ul>
-<li>確率変数が連続的な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の<strong>面積が確率と対応する</strong>（数値積分をして求めないといけない）。</li>
+<li><p>確率変数が<span style="background-color: yellow;">離散的</span>な値をとる場合、確率変数の実現値と確率は一対一対応している。</p>
+<ul>
+<li><p>例）下記図のように10回繰り返した場合、</p>
+<ul>
+<li><p>成功数が5回 =&gt; 確率10%（X軸の5のデータのY軸を確認）</p></li>
+<li><p>成功数が6回 =&gt; 確率20%（X軸の5のデータのY軸を確認）</p></li>
+</ul></li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -649,16 +743,40 @@ window.Quarto = {
 </div>
 </div>
 <ul>
+<li>確率変数が<span style="background-color: yellow;">連続的</span>な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の<strong>面積が確率と対応する</strong>（数値積分をして求めないといけない）。</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-week3_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
 <li>積分する関数<code>integrate</code>を用いて、平均0、分散1の正規分布の実現値が0から1の範囲を求める。その結果はおよそ34.1%になる。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">integrate</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0.3413447 with absolute error &lt; 3.8e-15</code></pre>
 </div>
 </div>
-<div class="infobox">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>absolute errorは、計算における誤差です。<code>integrate</code>関数は<strong>数値積分</strong>を行いますが、この方法で積分された結果は理論上正しい結果とズレ（誤差）があります。このズレが正負無視してどれくらいあるかの数値です。</p>
+</div>
 </div>
 <ul>
 <li><p>平均値 ± <strong>1.96</strong> × 標準偏差で、標本分布の95%の範囲になる。</p></li>
@@ -671,7 +789,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-week3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-week3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -710,23 +828,17 @@ SE = \frac{\sigma}{\sqrt{n}}
 </ul></li>
 </ul>
 </section>
-<section id="区間推定" class="level3">
-<h3 class="anchored" data-anchor-id="区間推定">区間推定</h3>
+<section id="信頼区間" class="level3">
+<h3 class="anchored" data-anchor-id="信頼区間">信頼区間</h3>
 <ul>
-<li><p><strong>点推定（point estimation）</strong>：平均値のように1つの値によって母数（母平均など）を推定すること</p>
+<li><p><strong>点推定（Point Estimation）</strong>：平均値のように1つの値によって母数（母平均など）を推定すること</p>
 <ul>
 <li>標本サイズがどれだけ大きくても、標本平均は確率的に変動するため、ずばり母数を当てることは難しい</li>
 </ul></li>
-</ul>
-<section id="信頼区間" class="level4">
-<h4 class="anchored" data-anchor-id="信頼区間">信頼区間</h4>
+<li><p><strong>区間推定（Interval Estimation）</strong>：区間による推定を行うこと</p>
 <ul>
-<li><p><strong>区間推定（interval estimation）</strong>：区間による推定を行うこと</p>
-<ul>
-<li><p>必ずこの区間に当てはまることは主張できない。そのため、区間推定では、<strong>信頼度（degree of confidence）</strong>を設定する。これを<strong>信頼区間（confidence interval）</strong>という。</p>
-<ul>
-<li>言語研究の分野では95%が一般的</li>
-</ul></li>
+<li><p>推定値を点推定値 ± ブレ幅で表現する</p></li>
+<li><p>必ずこの区間に母数の真値が入っていることは主張できない。そのため、区間推定では、<strong>信頼度（Degree of Confidence）</strong>を設定する。これを<strong>信頼区間（Confidence Interval）</strong>という。言語研究の分野では95%が一般的。</p></li>
 </ul></li>
 </ul>
 <section id="母分散を事前に知っている場合" class="level5">
@@ -746,7 +858,7 @@ SE = \frac{\sigma}{\sqrt{n}}
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-week3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-week3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -763,7 +875,9 @@ SE = \frac{\sigma}{\sqrt{n}}
 <ul>
 <li><strong><em>t</em> 値</strong>：下記の式から算出できる値。<em>t</em>分布に従う。</li>
 </ul>
-<p>[ t = ]</p>
+<p><span class="math display">\[
+t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
+\]</span></p>
 <ul>
 <li><p><em>t</em>分布には、<strong>自由度（degree of freedom）</strong>と呼ばれるパラメータがある。<em>t</em>分布の自由度は、標本サイズによって変わる。自由度は、 <em>n</em> - 1で計算できる。</p></li>
 <li><p>自由度が100くらいになると、標準正規分布（平均0, 標準偏差1の正規分布）と同じような形になる。</p></li>
@@ -781,21 +895,38 @@ SE = \frac{\sigma}{\sqrt{n}}
 </div>
 </div>
 <p>以下の式をもとに算出する</p>
-<p>[ ( {x} - t_{/2, , n-1} , {x} + t_{/2, , n-1} ) ]</p>
+<p><span class="math display">\[
+\left( \bar{x} - t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}}, \quad \bar{x} + t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}} \right)
+\]</span></p>
 <ul>
 <li><em>u^2</em>は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、<em>n</em>に25、<em>S</em>に2.24を代入する。しかし、標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。</li>
 </ul>
-<p>[ s^2 = S^2 ]</p>
-<ul>
-<li><p>上限：99.46 + 2.06 * sqrt{}</p></li>
-<li><p>下限：99.46 - 2.06 * sqrt{}</p>
+<p><span class="math display">\[
+s^2 = \frac{1}{n-1}S^2
+\]</span></p>
+<p><span class="math display">\[
+上限：99.46 + 2.06 \times \sqrt{\frac{5.23}{25}}
+\]</span> <span class="math display">\[
+下限：99.46 - 2.06 \times \sqrt{\frac{5.23}{25}}
+\]</span></p>
 <ul>
 <li>98.52 - 100.40の間に母平均があると推定された</li>
-</ul></li>
 </ul>
 </section>
 </section>
 </section>
+<section id="信頼区間の解釈" class="level3">
+<h3 class="anchored" data-anchor-id="信頼区間の解釈">95%信頼区間の解釈</h3>
+<ul>
+<li><p>「仮に母集団からの無作為抽出と区間の算出という操作を<strong>無限回繰り返したとした場合に</strong>、そのようにして算出された区間のうち、95%の割合で真の母数の値を含むことになる」ように構成された区間</p>
+<ul>
+<li><p>「母数がその区間に含まれる確率が95%」という解釈は間違い</p>
+<ul>
+<li>実際にデータをとって計算した場合は、その95%信頼区間に母数を含むか、含まないのかしか分からない</li>
+</ul></li>
+</ul></li>
+<li><p>つまり、実際の研究データをもとに計算された95%信頼区間に実質的な意味はない。「この95%信頼区間内に母数がきっとあるのかもな」くらいの解釈</p></li>
+</ul>
 </section>
 </section>
 <section id="rの関数で95信頼区間を求める" class="level2">
@@ -812,7 +943,7 @@ calcuation.</code></pre>
 </div>
 </div>
 <ul>
-<li>ci関数と一致した</li>
+<li><code>ci</code>関数と一致した</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -824,8 +955,18 @@ calcuation.</code></pre>
 <pre><code>[1] 22.26357</code></pre>
 </div>
 </div>
-<div class="infobox">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><strong>不偏分散の不偏とは</strong> 　推測統計学では<strong>一致性（consistency）</strong>、<strong>不偏性（unbiasedness）</strong>、<strong>有効性（efficiency）</strong>という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。</p>
+</div>
 </div>
 </section>
 <section id="ハンズオンセッション" class="level2">
@@ -910,7 +1051,7 @@ calcuation.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-week3_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-week3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -935,7 +1076,7 @@ calcuation.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03-week3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03-week3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -947,15 +1088,15 @@ calcuation.</code></pre>
 <ul>
 <li><p>母平均を得られたデータから推定しよう</p>
 <ul>
-<li><p>ポケモンのデータを読み込み、ci関数とqt関数で95%信頼区間求めてみよう。</p>
+<li><p>ポケモンのデータを読み込み、<code>ci</code>関数と<code>qt</code>関数で95%信頼区間求めてみよう。</p>
 <ul>
-<li>qt関数では、<em>t</em>値を使い、式を作って計算する必要があります</li>
+<li><code>qt</code>関数では、<em>t</em>値を使い、式を作って計算する必要があります</li>
 </ul></li>
 </ul></li>
 </ul>
 </section>
 <section id="ci関数" class="level3">
-<h3 class="anchored" data-anchor-id="ci関数">ci関数</h3>
+<h3 class="anchored" data-anchor-id="ci関数"><code>ci</code>関数</h3>
 <ul>
 <li>今回の警告メッセージは無視してOK（<a href="https://stackoverflow.com/questions/64507040/calculating-confidence-interval-using-ci-function">参考</a>）</li>
 </ul>
@@ -977,11 +1118,11 @@ calcuation.</code></pre>
 </div>
 </section>
 <section id="qt関数" class="level3">
-<h3 class="anchored" data-anchor-id="qt関数">qt関数</h3>
+<h3 class="anchored" data-anchor-id="qt関数"><code>qt</code>関数</h3>
 <ul>
 <li><p>必要なパーツ：平均値、<em>t</em>値、標本標準偏差（本当は<span class="math inline">\(\sqrt{\text{不偏分散}}\)</span> = 不偏標準偏差）、サンプル数</p>
 <ul>
-<li>sd関数は、標準偏差を算出する関数だが、分母をn-1した値を返している（= 不偏標準偏差）</li>
+<li><code>sd</code>関数は、標準偏差を算出する関数だが、分母をn-1した値を返している（= 不偏標準偏差）</li>
 </ul></li>
 </ul>
 <div class="cell">
@@ -1025,19 +1166,19 @@ calcuation.</code></pre>
 <li><p>下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。ただし、データには連続と離散のデータがあることに注意。また、ポケモンidの箱ひげ図を求めても意味がないなど、データの特徴を踏まえて分析すること。</p></li>
 </ol>
 <ul>
-<li><p>データ内のどの変数（こうげき、ぼうぎょなど）でもよいので、箱ひげ図とヒストグラムでデータを可視化する</p></li>
-<li><p>ヒストグラムに正規分布をあてはめた図を描画する</p></li>
-<li><p>ci関数とqt関数でこうげき以外の変数の95%信頼区間を算出する</p>
+<li><p>データ内のどの変数（こうげき、ぼうぎょなど）でもよいので、箱ひげ図とヒストグラムでデータを可視化する。</p></li>
+<li><p>ヒストグラムに正規分布をあてはめた図を描画する。</p></li>
+<li><p><code>ci</code>関数と<code>qt</code>関数でこうげき<strong>以外</strong>の変数の95%信頼区間を算出する</p>
 <ul>
 <li>どちらの関数も値は一致します</li>
 </ul></li>
-<li><p><strong>データの詳細は前の章の「次週までの課題」セクションを参照</strong></p></li>
+<li><p><strong>データの詳細はWeek 2の「次週までの課題」セクションを参照</strong></p></li>
 </ul>
 </section>
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li>R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出</li>
+<li>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</li>
 <li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </section>
@@ -1046,25 +1187,11 @@ calcuation.</code></pre>
 <h2 class="anchored" data-anchor-id="参考文献">参考文献</h2>
 <ul>
 <li>📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会</li>
-<li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
+<li>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</li>
+<li>📚平井・岡・草薙（編著）（2022）『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
+<li>📚分寺（2025）『芯まで身につくはじめての統計学』近代科学社Digital</li>
 <li>💻<a href="https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6">ポケモンで学ぶデータ分析｜データの中身を知ろう</a></li>
 </ul>
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
 
 
 </section>

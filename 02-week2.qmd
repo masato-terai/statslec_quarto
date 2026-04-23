@@ -461,7 +461,7 @@ survey_data %>%
   count() %>%
   arrange(desc(Like)) %>%
   tidyr::pivot_wider(names_from = Like, values_from = n) %>%
-  kableExtra::kbl(align = "c", caption = "Do you like Pikachu and Eevee?") %>%
+  kableExtra::kbl(align = "c", caption = "Do you like Pikachu?") %>%
   kableExtra::kable_styling(
     bootstrap_options = c("striped"),
                 full_width = T)
@@ -558,7 +558,6 @@ str(dat)
         -   下の例では、`plot()`関数で変数の中身を描画している
 
 ```{r}
-
 dat.2 <- 1:10
 
 plot(dat.2)

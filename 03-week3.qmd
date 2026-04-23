@@ -10,18 +10,15 @@ library(gganimate)
 
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
-
-  - .Rでも.Rmdでもどちらでも大丈夫です。
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
 ## 今日の目標
 
-1. 母集団と標本の違いや確率分布が理解できる
-2. 区間推定の考え方が理解できる
+1. **母集団**と**標本**の違いや確率分布が理解できる
+2. **区間推定**の考え方が理解できる
 
 ## 母集団と標本
-- 推測統計学は、**母集団**から**標本**を得て、母集団の特徴を推測する手法
+- 推測統計学は標本から母集団の特徴を推測する手法のこと
 
 ```{r}
 #| echo: false
@@ -44,13 +41,13 @@ ggplot() +
   theme(axis.text.y = element_blank())
 ```
 
-### 母集団（population）
+### 母集団（Population）
 
 - 調べたい対象の集団のこと
   
   - 例
 
-    - 研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受ける。
+    - 研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受けるか？
     
     - 母集団：世界中の英語を第二言語として学ぶ人
 
@@ -59,103 +56,122 @@ ggplot() +
 
   - 選ぶことを標本抽出（sampling）と呼ぶ
 
-## 確率と確率変数
-- 推測統計学では確率が非常に重要な概念。
+## 確率変数と確率分布
+- 推測統計学では「確率」が非常に重要な概念となる
 
-### 確率
-
-### 確率変数と確率分布
-
-#### 確率変数（random variable）
+#### 確率変数（Random Variable）
 - 確率的に生じる事象に数値を割り当てたもの
 
   - 実際に得られた値のことを確率変数の**実現値**という
-  
-- 確率変数はスロットマシーンが回っている状態。実現値はスロットマシーンが止まって値が定まった状態をイメージするとよい
 
+::: callout-note
+確率変数はスロットマシーンが回っている状態、実現値はスロットマシーンが止まって値が定まった状態をイメージするとよいです。スロットが回っている間は、どんな数字がでるか確定していません。この状態を**確率変数**のイメージとして考えます。止まって具体的な値が出た瞬間が**実現値**です。
 ```{r}
-#| include: false
-
+#| echo: false
+#| cache: true
 set.seed(123)
 df <- expand.grid(frame = 1:7, slot = factor(1:3)) %>%
   mutate(value = sample(1:7, n(), replace = TRUE))  # 1-7のランダム値
 
-# スロットマシンの回転アニメーション
 p<- ggplot(df, aes(x = slot, y = 1, label = value)) +
   geom_text(size = 15, fontface = "bold", color = "skyblue") +
-  ylim(0.5, 1.5) +
-  theme_minimal() +
   theme(
     axis.title = element_blank(),
     axis.text = element_blank(),
     axis.ticks = element_blank()
   ) +
-  ggtitle("スロットマシン") +
-  gganimate::transition_states(frame, transition_length = 1, state_length = 0.5) +
-  gganimate::enter_fade() + 
-  gganimate::exit_fade()
+  gganimate::transition_states(frame, transition_length = 1, state_length = 0.5) 
 
 p
 ```
 
-#### 確率分布（probability distribution）
-- 確率変数の実現値それぞれの生じやすさを確率で表したもの。統計学では、確率変数の実現値を与えると確率を返す関数のことを確率分布という
+:::
+
+#### 確率分布（Probability Distribution）
+- 確率変数の実現値それぞれの生じやすさを確率で表したもの。
 
 - 事象を確率変数として扱うことで、母集団を人の集団ではなく、確率変数の実現値の集合として考えることができる。
 
-  - 1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる（数学の世界に現実世界を映す）。
+  - 1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる<span style="background-color: yellow;">（数学の世界に現実世界を映すために必要）</span>。
 
-- この場合、母集団の性質を標本に正確に反映させるために、**単純無作為抽出（simple random sampling）**を行う必要がある。
+- この場合、母集団の性質を標本に正確に反映させるために、**単純無作為抽出（Simple Random Sampling）**を行う必要がある。
 
   - 母集団のすべての対象が偏りなく選ばれること（= 無作為に選ぶ）
 
+::: callout-note
+単純無作為抽出を介在させることで、母集団分布は確率分布として解釈できるようになる。よって、統計的推測の文脈では、「確率モデル」と「母集団分布」が同じ意味で使われる。
+::: 
+
+- 実際に、単純無作為抽出を行うことはかなり難しい。そこで、以下のような妥協案が採用される。
+
+  - 抽出法の変更
+
+    - **層化抽出**：任意の属性ごとに無作為抽出をする。例えば、日本の大学生に関して調査する場合、工学部から10名、理学部から10名といったように学部による偏りを抑制するために各学部から同数の学生を無作為に抽出する。
+
+    - **多段階抽出**：複数回の無作為抽出を行う。例えば、地域の偏りを抑制するために、以下のステップで抽出をする。
+
+      1. 47都道府県からランダムに都道府県をいくつか選ぶ
+
+      2. 選んだ各都道府県からランダムにいくつか大学を選ぶ
+
+      3. 各大学から数人ずつランダムに選ぶ
+
+- 母集団の範囲を限定する
+
+  - 「日本人大学生」は母集団として大きすぎる。そこで、「A大学に在籍している学生」のように母集団を限定することで無作為抽出を現実的にする。
+
 #### 確率分布の種類
-- 離散型確率分布：確率質量関数
-  - とびとびの値をとる（e.g., 裏、表）
-  - ベルヌーイ分布、二項分布、ポアソン分布
+- **離散型確率分布**：確率質量関数
+  - とびとびの値をとる変数のことを**離散**型変数という（e.g., 裏、表）
+- ベルヌーイ分布、二項分布、ポアソン分布
 
 ```{r}
 #| echo: false
 
 # データを作成
-# ベルヌーイ分布 (成功確率 p = 0.5)
+# ベルヌーイ分布 (成功確率 p = 0.7)
 bernoulli <- data.frame(x = 0:1, y = dbinom(0:1, size = 1, prob = 0.7))
 
 # 二項分布 (n = 10, p = 0.5)
 binomial <- data.frame(x = 0:10, y = dbinom(0:10, size = 10, prob = 0.5))
 
 # ポアソン分布 (λ = 3)
-poisson <- data.frame(x = 0:10, y = dpois(0:10, lambda = 3))
+poisson <- data.frame(x = 0:15, y = dpois(0:15, lambda = 3))
 
 # ベルヌーイ分布、二項分布、ポアソン分布をそれぞれプロット
 p1 <- ggplot(bernoulli, aes(factor(x), y)) + 
-  geom_bar(stat = "identity") + 
+  geom_col() + 
   ggtitle("Bernoulli Distribution") +
+  xlab("x") +
+  ylab("Probability") +
   theme_minimal()
 
 p2 <- ggplot(binomial, aes(x, y)) + 
-  geom_bar(stat = "identity") + 
+  geom_col() + 
   ggtitle("Binomial Distribution") +
-  theme_minimal() + scale_x_continuous(breaks = 0:10)
+  xlab("x") +
+  ylab("Probability") +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:10)
 
 p3 <- ggplot(poisson, aes(x, y)) + 
-  geom_bar(stat = "identity") + 
+  geom_col() + 
   ggtitle("Poisson Distribution") +
-  theme_minimal() + scale_x_continuous(breaks = 0:10)
+  xlab("x") +
+  ylab("Probability") +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:15)
 
 # 3つのプロットを横に並べて表示
 gridExtra::grid.arrange(p1, p2, p3, ncol = 3)
 ```
 
-
-- 連続確率分布：確率密度関数
-  - 連続した値をとる（e.g., 身長）
+- **連続確率分布**：確率密度関数
+  - 連続した値をとる変数を**連続**型変数という（e.g., 身長、重さ）
   - 正規分布、*t* 分布、カイ二乗分布
 
 ```{r}
 #| echo: false
-
-
 # 正規分布 (平均 0, 標準偏差 1)
 normal <- data.frame(x = seq(-4, 4, length.out = 100), 
                      y = dnorm(seq(-4, 4, length.out = 100), mean = 0, sd = 1))
@@ -197,54 +213,111 @@ grid.arrange(p1, p2, p3, ncol = 3)
 - **標本平均**：母集団から得た標本のデータの平均値
   - **母平均**：母集団の平均値
 
-### 標本分布
+### 標本分布（Sampling Distribution）
 
-- 標本統計量が確率的に変動することを表した確率分布のこと
+- 標本統計量（e.g., 平均値）が確率的に変動することを表した確率分布のこと
 
-  - 標本を沢山抽出した場合であって、1つのデータの分布ではない
+- 同じことを何度も繰り返したらどうなるかについての仮想的な分布
+
+  - 標本分布は「特定の標本におけるデータの度数分布」とは全く意味の異なるもの
   
-- 標本サイズ（ *k* ）が大きくなるにつれ、標本分布の散らばりはどんどん小さくなる
+::: callout-note
+Sampling Distributionの訳としては、「標本抽出分布」などがより正確である。しかし、標本分布という訳語の定着によって、「標本におけるデータの度数分布」との違いが用語から見えにくくなっている。
+:::
 
-  - 以下の図では100ほどのデータがあれば母平均（0.7）の ± 0.1にほとんどのデータが集まることが分かる
-  
-  - しかし、これは母平均を事前に把握している場合を例であり、事前に母平均を知っていることは基本的にない。
+## 母集団分布、標本分布、標本統計量の関係のまとめ
+
+### データ発生メカニズム
+
+- 日本人英語学習者の英語のテスト得点（100点）の母集団分布
+
+  - 通常、母集団分布を直接知ることはできない
+
+    - 神の視点で考える
+
+  - 推測の際は、母集団分布の形を知るよりも（大変）、母集団分布の特定の統計量（e.g., 平均値）を推測するのが普通
 
 ```{r}
 #| echo: false
+#| warning: false
 
+mu <- 50
+sigma <- 15
+
+# 正規分布から乱数生成
 set.seed(123)
-n <- 10000
-theta <- 0.7
-k_values <- c(1, 10, 50, 100)
-plots <- list()
+dat <- data.frame(
+  x = rnorm(1000, mean = mu, sd = sigma)
+)
 
-for (k in k_values) {
-  data <- rbinom(n = n, size = k, prob = theta)
-  
-  p <- ggplot(data.frame(x = data/k), aes(x)) + 
-    geom_histogram(aes(y = after_stat(count / sum(count))), bins = 30, 
-                   fill = "skyblue", color = "black", alpha = 0.7) +
-    ggtitle(paste("Binomial Distribution (k =", k, ")")) +
-    theme_minimal() +
-    scale_x_continuous(labels = scales::label_comma()) +
-    scale_y_continuous(labels = scales::percent_format(accuracy = 1)) # ← %表示にする
-  plots[[length(plots) + 1]] <- p
-}
-
-# 4つを並べて表示
-plots[[1]] + plots[[2]] + plots[[3]] + plots[[4]]
+ggplot(dat, aes(x = x)) +
+  geom_histogram(binwidth = 5, fill = "grey", color = "black") +
+  scale_x_continuous(limits = c(20, 80), breaks = seq(20, 80, 10)) +
+  labs(
+    title = "母集団分布",
+    x = "Test Score",
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(axis.text.y = element_blank())
 ```
 
+- 標本平均（実際のデータ）
+
+  - 無作為に抽出した200名の学習者の標本から平均値を計算（抽出回数は1回）
+
+$$
+\bar{x} = 49
+$$
+
+- 標本分布（可能性）
+
+  - 繰り返すが、特定の標本の度数分布ではない。
+
+    - 標本**統計量の**分布
+
+  - 200名の学習者を無作為に抽出し、200名の平均値を計算。それを1,000回繰り返した結果の平均値のヒストグラムを描画（仮想的な平均値の分布）。
+
+```{r}
+#| echo: false
+#| warning: false
+
+mu <- 48
+sigma <- 4.5
+
+# 正規分布から乱数生成
+set.seed(123)
+dat <- data.frame(
+  x = rnorm(1000, mean = mu, sd = sigma)
+)
+
+ggplot(dat, aes(x = x)) +
+  geom_histogram(binwidth = 5, fill = "grey50", color = "black") +
+  scale_x_continuous(limits = c(20, 80), breaks = seq(20, 80, 10)) +
+  labs(
+    title = "標本平均値の標本分布",
+    x = "標本平均値",
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(axis.text.y = element_blank())
+```
+
+### 推測の流れ
+
+  1. 無作為抽出から得られた標本から平均値などの標本統計量を計算する
+  2. 得られた標本統計量がどれくらいブレるかを考える（標本分布に照らし合わせる）
+  3. その標本分布を使って母集団における統計量（母数）について推測する
 
 ## 区間推定の考え方
 ### 母集団分布に確率分布を仮定する
-- 母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率が。よく知られた確率分布に従うと仮定する。
+- 母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率がよく知られた確率分布に従うと仮定する。
 
-  - 統計モデル（statistical model）や確率モデル（probabilistic model）と呼ぶ
+  - 統計モデル（Statistical Model）や確率モデル（Probabilistic Model）と呼ぶ
   
-  - よく知られたモデルとして、**正規分布（normal distribution）**が挙げられる
+  - よく知られたモデルとして、**正規分布（Normal distribution）**が挙げられる
 
-- 適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。
+- 適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。適切な確率モデルを設定する方法として以下があげられる。
 
   - ある程度大きいデータを取り、そのヒストグラムを描画して形状を確認する
   
@@ -290,13 +363,13 @@ ggplot(data, aes(x = x, y = y, linetype = distribution)) +
   theme_minimal() 
 ```
 
-- 確率変数が離散的な値をとる場合、確率変数の実現値と確率は一対一対応している（例 1か0のデータ）。
+- 確率変数が<span style="background-color: yellow;">離散的</span>な値をとる場合、確率変数の実現値と確率は一対一対応している。
 
   - 例）下記図のように10回繰り返した場合、
 
-    - 成功数（5回） => 確率10%
+    - 成功数が5回 => 確率10%（X軸の5のデータのY軸を確認）
 
-    - 成功数（6回） => 確率20%
+    - 成功数が6回 => 確率20%（X軸の5のデータのY軸を確認）
 
 ```{r}
 #| echo: false
@@ -317,13 +390,13 @@ ggplot(data.frame(x = data), aes(x = x)) +
   geom_histogram(binwidth = 1, fill = "skyblue", color = "black", aes(y = ..density..)) + 
   labs(title = "Binomial Distribution (Size = 10, p = 0.7)",
        x = "Number of Successes",
-       y = "Density (Probability)") +
+       y = "Probability") +
   theme_minimal() +
   scale_x_continuous(breaks = seq(0, size, by = 1)) 
 
 ```
 
-- 確率変数が連続的な値をとる場合、実現値の値ではなく、その**範囲と確率**が対応する。つまり、確率分布の**面積が確率と対応する**（数値積分をして求めないといけない）。
+- 確率変数が<span style="background-color: yellow;">連続的</span>な値をとる場合、実現値の値ではなく、その**範囲と確率**が対応する。つまり、確率分布の**面積が確率と対応する**（数値積分をして求めないといけない）。
 
 ```{r}
 #| echo: false
@@ -353,10 +426,12 @@ ggplot(density_df, aes(x = x, y = y)) +
 - 積分する関数```integrate```を用いて、平均0、分散1の正規分布の実現値が0から1の範囲を求める。その結果はおよそ34.1%になる。
 
 ```{r}
-stats::integrate(f = dnorm, lower = 0, upper = 1)
+stats::integrate(
+  f = dnorm, lower = 0, upper = 1
+  )
 ```
 
-::: infobox
+::: callout-note
 absolute errorは、計算における誤差です。```integrate```関数は**数値積分**を行いますが、この方法で積分された結果は理論上正しい結果とズレ（誤差）があります。このズレが正負無視してどれくらいあるかの数値です。
 :::
 
@@ -413,18 +488,16 @@ $$
 
   - 標本サイズが大きいほど標準誤差は小さくなり、標本平均は母平均に近づく（分母に標本サイズ）
 
-### 区間推定
-- **点推定（point estimation）**：平均値のように1つの値によって母数（母平均など）を推定すること
+### 信頼区間
+- **点推定（Point Estimation）**：平均値のように1つの値によって母数（母平均など）を推定すること
 
   - 標本サイズがどれだけ大きくても、標本平均は確率的に変動するため、ずばり母数を当てることは難しい
 
-#### 信頼区間
+- **区間推定（Interval Estimation）**：区間による推定を行うこと
 
-- **区間推定（interval estimation）**：区間による推定を行うこと
+  - 推定値を点推定値 ± ブレ幅で表現する 
 
-  - 必ずこの区間に当てはまることは主張できない。そのため、区間推定では、**信頼度（degree of confidence）**を設定する。これを**信頼区間（confidence interval）**という。
-  
-    - 言語研究の分野では95%が一般的
+  - 必ずこの区間に母数の真値が入っていることは主張できない。そのため、区間推定では、**信頼度（Degree of Confidence）**を設定する。これを**信頼区間（Confidence Interval）**という。言語研究の分野では95%が一般的。
 
 ##### 母分散を事前に知っている場合
 
@@ -509,9 +582,9 @@ x + y - z + plot_layout(ncol = 1)
 ###### *t* 値を用いた信頼区間の計算
 - ***t* 値**：下記の式から算出できる値。*t*分布に従う。
 
-\[
+$$
 t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
-\]
+$$
 
 
   - *t*分布には、**自由度（degree of freedom）**と呼ばれるパラメータがある。*t*分布の自由度は、標本サイズによって変わる。自由度は、 *n* - 1で計算できる。
@@ -527,21 +600,34 @@ qt(.025, df = 24)
 
 以下の式をもとに算出する
   
-\[
+$$
 \left( \bar{x} - t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}}, \quad \bar{x} + t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}} \right)
-\]
+$$
 
 
 - *u^2*は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、*n*に25、*S*に2.24を代入する。しかし、標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。
 
-\[
+$$
 s^2 = \frac{1}{n-1}S^2
-\]
+$$
 
-- 上限：99.46 + 2.06 * sqrt\left\{\frac{5.23}{25}\right\}
-- 下限：99.46 - 2.06 * sqrt\left\{\frac{5.23}{25}\right\}
+$$
+上限：99.46 + 2.06 \times \sqrt{\frac{5.23}{25}}
+$$
+$$
+下限：99.46 - 2.06 \times \sqrt{\frac{5.23}{25}}
+$$
 
   - 98.52 - 100.40の間に母平均があると推定された
+
+### 95%信頼区間の解釈
+- 「仮に母集団からの無作為抽出と区間の算出という操作を**無限回繰り返したとした場合に**、そのようにして算出された区間のうち、95%の割合で真の母数の値を含むことになる」ように構成された区間
+
+  - 「母数がその区間に含まれる確率が95%」という解釈は間違い
+
+    - 実際にデータをとって計算した場合は、その95%信頼区間に母数を含むか、含まないのかしか分からない
+
+- つまり、実際の研究データをもとに計算された95%信頼区間に実質的な意味はない。「この95%信頼区間内に母数がきっとあるのかもな」くらいの解釈
 
 ## Rの関数で95%信頼区間を求める
 
@@ -549,13 +635,13 @@ s^2 = \frac{1}{n-1}S^2
 gmodels::ci(mtcars$mpg)
 ```
 
-- ci関数と一致した
+- ```ci```関数と一致した
 ```{r}
 mean(mtcars$mpg) + qt(df = (nrow(mtcars)-1), .025) * sd(mtcars$mpg)/sqrt(nrow(mtcars))
 mean(mtcars$mpg) + qt(df = (nrow(mtcars)-1), .975) * sd(mtcars$mpg)/sqrt(nrow(mtcars))
 ```
 
-::: infobox
+::: callout-note
 
 **不偏分散の不偏とは**
 　推測統計学では**一致性（consistency）**、**不偏性（unbiasedness）**、**有効性（efficiency）**という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。
@@ -606,11 +692,11 @@ lines(x, dnorm(x, mean = mean(dat$こうげき), sd = sd(dat$こうげき)), lwd
 
 - 母平均を得られたデータから推定しよう
 
-  - ポケモンのデータを読み込み、ci関数とqt関数で95%信頼区間求めてみよう。
+  - ポケモンのデータを読み込み、```ci```関数と```qt```関数で95%信頼区間求めてみよう。
   
-    - qt関数では、*t*値を使い、式を作って計算する必要があります
+    - ```qt```関数では、*t*値を使い、式を作って計算する必要があります
 
-### ci関数
+### ```ci```関数
 - 今回の警告メッセージは無視してOK（[参考](https://stackoverflow.com/questions/64507040/calculating-confidence-interval-using-ci-function)）
 ```{r}
 #install.packages("gmodels")
@@ -618,10 +704,10 @@ library(gmodels)
 ci(dat$こうげき)
 ```
 
-### qt関数
+### ```qt```関数
 - 必要なパーツ：平均値、*t*値、標本標準偏差（本当は$\sqrt{\text{不偏分散}}$ = 不偏標準偏差）、サンプル数
 
-  - sd関数は、標準偏差を算出する関数だが、分母をn-1した値を返している（= 不偏標準偏差）
+  - ```sd```関数は、標準偏差を算出する関数だが、分母をn-1した値を返している（= 不偏標準偏差）
 ```{r}
 n <-  nrow(dat) #サンプル数
 m <- mean(dat$こうげき) #平均値
@@ -651,42 +737,25 @@ lower2
 
 2.  下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。ただし、データには連続と離散のデータがあることに注意。また、ポケモンidの箱ひげ図を求めても意味がないなど、データの特徴を踏まえて分析すること。
 
--   データ内のどの変数（こうげき、ぼうぎょなど）でもよいので、箱ひげ図とヒストグラムでデータを可視化する
+-   データ内のどの変数（こうげき、ぼうぎょなど）でもよいので、箱ひげ図とヒストグラムでデータを可視化する。
 
-- ヒストグラムに正規分布をあてはめた図を描画する
+- ヒストグラムに正規分布をあてはめた図を描画する。
 
-- ci関数とqt関数でこうげき以外の変数の95%信頼区間を算出する
+- ```ci```関数と```qt```関数でこうげき**以外**の変数の95%信頼区間を算出する
 
   - どちらの関数も値は一致します
 
-- **データの詳細は前の章の「次週までの課題」セクションを参照**
+- **データの詳細はWeek 2の「次週までの課題」セクションを参照**
 
 ### 提出方法
 
--   R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
 -   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
 
 - 📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会
-- 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書
+- 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
+- 📚平井・岡・草薙（編著）（2022）『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書
+- 📚分寺（2025）『芯まで身につくはじめての統計学』近代科学社Digital
 - 💻[ポケモンで学ぶデータ分析｜データの中身を知ろう](https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6)
-
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
