@@ -409,7 +409,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-23 18:03:39</p>
+      <p class="date-modified">2026-04-24 17:02:01</p>
     </div>
   </div>
     
@@ -516,7 +516,7 @@ Note
 </ul></li>
 <li><p>この場合、母集団の性質を標本に正確に反映させるために、<strong>単純無作為抽出（Simple Random Sampling）</strong>を行う必要がある。</p>
 <ul>
-<li>母集団のすべての対象が偏りなく選ばれること（= 無作為に選ぶ）</li>
+<li>無作為に選ぶ：母集団のすべての対象が偏りなく選ばれること</li>
 </ul></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -555,7 +555,7 @@ Note
 <section id="確率分布の種類" class="level4">
 <h4 class="anchored" data-anchor-id="確率分布の種類">確率分布の種類</h4>
 <ul>
-<li><strong>離散型確率分布</strong>：確率質量関数
+<li><strong>離散型確率分布</strong>
 <ul>
 <li>とびとびの値をとる変数のことを<strong>離散</strong>型変数という（e.g., 裏、表）</li>
 </ul></li>
@@ -571,7 +571,7 @@ Note
 </div>
 </div>
 <ul>
-<li><strong>連続確率分布</strong>：確率密度関数
+<li><strong>連続確率分布</strong>
 <ul>
 <li>連続した値をとる変数を<strong>連続</strong>型変数という（e.g., 身長、重さ）</li>
 <li>正規分布、<em>t</em> 分布、カイ二乗分布</li>
@@ -604,7 +604,7 @@ Note
 <h3 class="anchored" data-anchor-id="標本分布sampling-distribution">標本分布（Sampling Distribution）</h3>
 <ul>
 <li><p>標本統計量（e.g., 平均値）が確率的に変動することを表した確率分布のこと</p></li>
-<li><p>同じことを何度も繰り返したらどうなるかについての仮想的な分布</p>
+<li><p>同じことを何度も繰り返したらどうなるかについての<strong>仮想的</strong>な分布</p>
 <ul>
 <li>標本分布は「特定の標本におけるデータの度数分布」とは全く意味の異なるもの</li>
 </ul></li>
@@ -783,9 +783,6 @@ Note
 <li><p>白い部分は二か所合わせてデータの5%</p></li>
 </ul>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.055362</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -794,11 +791,12 @@ Note
 </div>
 </div>
 </div>
-<ul>
-<li><code>mean(density_data$x) ± 1.96</code>となっているのは、標準偏差が1であるため。</li>
-</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">f =</span> dnorm, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0.9489619 with absolute error &lt; 9.2e-12</code></pre>
 </div>
@@ -815,7 +813,7 @@ Note
 <ul>
 <li><p><strong>標準誤差（Standard Error: <em>SE</em>）</strong></p>
 <ul>
-<li>標本分布の標準偏差</li>
+<li><strong>標本分布の標準偏差</strong>のこと</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[
@@ -881,15 +879,15 @@ t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
 <ul>
 <li><p><em>t</em>分布には、<strong>自由度（degree of freedom）</strong>と呼ばれるパラメータがある。<em>t</em>分布の自由度は、標本サイズによって変わる。自由度は、 <em>n</em> - 1で計算できる。</p></li>
 <li><p>自由度が100くらいになると、標準正規分布（平均0, 標準偏差1の正規分布）と同じような形になる。</p></li>
-<li><p>母平均が分からない場合、上記の<em>t</em>値を計算することはできない。しかし、母平均の信頼区間を求める場合、<em>t</em>分布の95%の面積にああるような範囲を考えればいい。自由度25の時、上側と下側それぞれ2.5%（5% ÷ 2）となるような<em>t</em>値を求める（表から値を探したりして値を見つける）。</p></li>
+<li><p>母平均が分からない場合、上記の<em>t</em>値を計算することはできない。しかし、母平均の信頼区間を求める場合、<em>t</em>分布の95%の面積にあるような範囲を考えればいい。自由度25の時、上側と下側それぞれ2.5%（5% ÷ 2）となるような<em>t</em>値を求める（表から値を探したりして値を見つける）。</p></li>
 <li><p>Rの標準的な関数で求めることも可能</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.063899</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -2.063899</code></pre>
 </div>
@@ -899,8 +897,24 @@ t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
 \left( \bar{x} - t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}}, \quad \bar{x} + t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}} \right)
 \]</span></p>
 <ul>
-<li><em>u^2</em>は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、<em>n</em>に25、<em>S</em>に2.24を代入する。しかし、標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。</li>
+<li><p><span class="math inline">\(u^2\)</span> は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、<em>n</em>に25、<em>S</em>に2.24を代入する。</p>
+<ul>
+<li>標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。</li>
+</ul></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>不偏分散の不偏とは</strong><br> 推測統計学では<strong>一致性（consistency）</strong>、<strong>不偏性（unbiasedness）</strong>、<strong>有効性（efficiency）</strong>という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。</p>
+</div>
+</div>
 <p><span class="math display">\[
 s^2 = \frac{1}{n-1}S^2
 \]</span></p>
@@ -910,7 +924,7 @@ s^2 = \frac{1}{n-1}S^2
 下限：99.46 - 2.06 \times \sqrt{\frac{5.23}{25}}
 \]</span></p>
 <ul>
-<li>98.52 - 100.40の間に母平均があると推定された</li>
+<li>上記の計算から、98.52 - 100.40の間に母平均があると推測される。</li>
 </ul>
 </section>
 </section>
@@ -922,17 +936,20 @@ s^2 = \frac{1}{n-1}S^2
 <ul>
 <li><p>「母数がその区間に含まれる確率が95%」という解釈は間違い</p>
 <ul>
-<li>実際にデータをとって計算した場合は、その95%信頼区間に母数を含むか、含まないのかしか分からない</li>
+<li><p>実際にデータをとって計算した場合は、その95%信頼区間に母数を含むか、含まないかしか分からない</p>
+<ul>
+<li>信頼区間の計算式の確率変数が実数値に代わる</li>
 </ul></li>
 </ul></li>
-<li><p>つまり、実際の研究データをもとに計算された95%信頼区間に実質的な意味はない。「この95%信頼区間内に母数がきっとあるのかもな」くらいの解釈</p></li>
+</ul></li>
+<li><p>つまり、実際の研究データをもとに計算された95%信頼区間に実質的な意味はない。「この95%信頼区間内に母数がきっとあるのかもな」くらいの解釈。</p></li>
 </ul>
 </section>
 </section>
 <section id="rの関数で95信頼区間を求める" class="level2">
 <h2 class="anchored" data-anchor-id="rの関数で95信頼区間を求める">Rの関数で95%信頼区間を求める</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">ci</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">ci</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in ci.numeric(mtcars$mpg): No class or unkown class.  Using default
 calcuation.</code></pre>
@@ -946,26 +963,26 @@ calcuation.</code></pre>
 <li><code>ci</code>関数と一致した</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 17.91768</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22.26357</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>不偏分散の不偏とは</strong> 　推測統計学では<strong>一致性（consistency）</strong>、<strong>不偏性（unbiasedness）</strong>、<strong>有効性（efficiency）</strong>という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。</p>
+<p>まとめると、標準誤差は標本分布の広がりを表し、広がりの度合いをもとに（95%）信頼区間が計算される。</p>
 </div>
 </div>
 </section>
@@ -977,12 +994,12 @@ Note
 <li>先週の講義で配布。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/pokemon_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/pokemon_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="データの中身を確認" class="level4">
 <h4 class="anchored" data-anchor-id="データの中身を確認">データの中身を確認</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       id          名前             タイプ1               高さ       
  Min.   :  1   Length:897         Length:897         Min.   : 0.100  
@@ -1015,7 +1032,7 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id       名前 タイプ1 高さ  重さ 世代 ステータス HP こうげき ぼうぎょ
 1  1 フシギダネ    くさ  0.7   6.9    1        318 45       49       49
@@ -1047,7 +1064,7 @@ Note
 <section id="データの可視化" class="level4">
 <h4 class="anchored" data-anchor-id="データの可視化">データの可視化</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1060,19 +1077,19 @@ Note
 <section id="正規分布をあてはめてみる" class="level4">
 <h4 class="anchored" data-anchor-id="正規分布をあてはめてみる">正規分布をあてはめてみる</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x軸の範囲を決定</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>こうげき), <span class="fu">max</span>(dat<span class="sc">$</span>こうげき), <span class="at">length.out =</span> <span class="fu">nrow</span>(dat)) </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#min(dat$こうげき) から max(dat$こうげき) まで、データの数 (nrow(dat)) だけ 等間隔 に区切った値を x に入れる。これを使って、なめらかな曲線を描画するための基準点を作る</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ヒストグラムを確率密度で描画</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき, <span class="at">probability =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#probability = TRUE を指定すると、ヒストグラムの y軸が「確率密度」になる。分布をあてはめるときは、この設定をしないと当てはまらない。デフォルト（probability = FALSE）では「度数」（データの数）になる</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 正規分布の確率密度関数を描画</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#「データの分布が もし正規分布に従っていたら どんな形になるか？」を、ヒストグラムの上に描く。</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#dnorm() は 正規分布 の確率密度関数を計算する。</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#平均 (mean(dat$こうげき)) と 標準偏差 (sd(dat$こうげき)) を使って 「理想的な正規分布」 の形を作る。lwd = 2で線の太さを少し太くする</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき), <span class="at">sd =</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x軸の範囲を決定</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>こうげき), <span class="fu">max</span>(dat<span class="sc">$</span>こうげき), <span class="at">length.out =</span> <span class="fu">nrow</span>(dat)) </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#min(dat$こうげき) から max(dat$こうげき) まで、データの数 (nrow(dat)) だけ 等間隔 に区切った値を x に入れる。これを使って、なめらかな曲線を描画するための基準点を作る</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ヒストグラムを確率密度で描画</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき, <span class="at">probability =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#probability = TRUE を指定すると、ヒストグラムの y軸が「確率密度」になる。分布をあてはめるときは、この設定をしないと当てはまらない。デフォルト（probability = FALSE）では「度数」（データの数）になる</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 正規分布の確率密度関数を描画</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#「データの分布が もし正規分布に従っていたら どんな形になるか？」を、ヒストグラムの上に描く。</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#dnorm() は 正規分布 の確率密度関数を計算する。</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#平均 (mean(dat$こうげき)) と 標準偏差 (sd(dat$こうげき)) を使って 「理想的な正規分布」 の形を作る。lwd = 2で線の太さを少し太くする</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき), <span class="at">sd =</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1101,12 +1118,12 @@ Note
 <li>今回の警告メッセージは無視してOK（<a href="https://stackoverflow.com/questions/64507040/calculating-confidence-interval-using-ci-function">参考</a>）</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("gmodels")</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("gmodels")</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'gmodels' was built under R version 4.3.3</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ci</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ci</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in ci.numeric(dat$こうげき): No class or unkown class.  Using default
 calcuation.</code></pre>
@@ -1126,19 +1143,19 @@ calcuation.</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span>  <span class="fu">nrow</span>(dat) <span class="co">#サンプル数</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき) <span class="co">#平均値</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>, .<span class="dv">975</span>) <span class="co">#t値</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)<span class="co">#標本標準偏差</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> m <span class="sc">-</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#下限</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#上限</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>lower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span>  <span class="fu">nrow</span>(dat) <span class="co">#サンプル数</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき) <span class="co">#平均値</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>, .<span class="dv">975</span>) <span class="co">#t値</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)<span class="co">#標本標準偏差</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> m <span class="sc">-</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#下限</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#上限</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>lower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 74.59564</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>upper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>upper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 78.48574</code></pre>
 </div>
@@ -1147,10 +1164,10 @@ calcuation.</code></pre>
 <li>下限はこっちでも同じ値になる</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_value_low <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span><span class="dv">1</span>, .<span class="dv">025</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>lower2 <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value_low <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>lower2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>t_value_low <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span><span class="dv">1</span>, .<span class="dv">025</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lower2 <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value_low <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>lower2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 74.59564</code></pre>
 </div>
@@ -1161,6 +1178,19 @@ calcuation.</code></pre>
 <h2 class="anchored" data-anchor-id="次週までの課題">次週までの課題</h2>
 <section id="課題内容" class="level3">
 <h3 class="anchored" data-anchor-id="課題内容">課題内容</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>qmdファイルのYAMLヘッダーには以下のコードを加えてください。HTMLファイルを作成した際に、作図したデータをHTMLファイルの中に埋め込むので、フォルダーが作られるのを防ぎます。 <code>self-contained: true</code></p>
+</div>
+</div>
 <ol type="1">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
 <li><p>下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。ただし、データには連続と離散のデータがあることに注意。また、ポケモンidの箱ひげ図を求めても意味がないなど、データの特徴を踏まえて分析すること。</p></li>
