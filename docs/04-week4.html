@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-4c1498b69564d98984da3e9f7a45d87c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -354,7 +354,6 @@ window.Quarto = {
   <li><a href="#p-値" id="toc-p-値" class="nav-link" data-scroll-target="#p-値"><em>p</em> 値</a></li>
   <li><a href="#統計的検定の誤りと検出力" id="toc-統計的検定の誤りと検出力" class="nav-link" data-scroll-target="#統計的検定の誤りと検出力">統計的検定の誤りと検出力</a></li>
   <li><a href="#有意性検定-統計的検定の問題点" id="toc-有意性検定-統計的検定の問題点" class="nav-link" data-scroll-target="#有意性検定-統計的検定の問題点">有意性検定（≒ 統計的検定）の問題点</a></li>
-  <li><a href="#頻度論的統計学とベイズ統計学" id="toc-頻度論的統計学とベイズ統計学" class="nav-link" data-scroll-target="#頻度論的統計学とベイズ統計学">頻度論的統計学とベイズ統計学</a></li>
   </ul></li>
   <li><a href="#ハンズオンセッション" id="toc-ハンズオンセッション" class="nav-link" data-scroll-target="#ハンズオンセッション">ハンズオンセッション</a>
   <ul class="collapse">
@@ -396,7 +395,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-13 10:17:43</p>
+      <p class="date-modified">2026-05-08 16:54:08</p>
     </div>
   </div>
     
@@ -410,11 +409,7 @@ window.Quarto = {
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
@@ -433,25 +428,37 @@ window.Quarto = {
 </ul></li>
 <li><p>大別して2種類ある</p>
 <ul>
-<li><strong>パラメトリック検定</strong>： 母数（パラメータ）に特定の確率分布の仮定を設ける検定（例 <em>t</em> 検定、分散分析）
-<ul>
-<li>注：確率分布の形状を決める値（正規分布の平均と標準偏差など）もパラメータと呼ぶ。本講義ではパラメータは母数ではなく、確率分布を規定する値を指す。</li>
-</ul></li>
-<li><strong>ノンパラメトリック検定</strong>：母集団に特定の確率分布を仮定しない検定（例 カイ二乗検定）</li>
+<li><p><strong>パラメトリック検定</strong>： 母数（パラメータ）に特定の確率分布の仮定を設ける検定（例 <em>t</em> 検定、分散分析、回帰分析）</p></li>
+<li><p><strong>ノンパラメトリック検定</strong>：母集団に特定の確率分布を仮定しない検定（例 カイ二乗検定）</p></li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>確率分布の形状を決める値（正規分布における平均と標準偏差など）もパラメータと呼ぶ。本講義ではパラメータは母数ではなく、確率分布を規定する値を指す。</p>
+</div>
+</div>
 <section id="統計的検定の論理" class="level3">
 <h3 class="anchored" data-anchor-id="統計的検定の論理">統計的検定の論理</h3>
 <ul>
-<li><p>母集団からサンプリングした標本から、母数についての推定が合っているかを議論できない。しかし、確率的な範囲であれば、推定が間違っているかを確かめることができる。</p>
+<li><p>母集団からサンプリングした標本からは、母数についての推定が合っているかを議論できない。しかし、<strong>確率的な範囲</strong>であれば、推定が間違っているかを確かめることができる。</p>
 <ul>
-<li>標本から計算した95%信頼区間が160 cmから167cmだった場合、母数は170cmよりも小さい（推定は誤り）</li>
-<li>標本から計算した95%信頼区間が167 cmから175cmだった場合、推定が合っているか誤りなのか分からない（信頼区間が170 cmを含んでいるから）</li>
+<li>標本から計算した95%信頼区間が160 cmから167 cmだった場合、母数は170 cmよりも小さい（推定は誤り）</li>
+<li>標本から計算した95%信頼区間が167 cmから175 cmだった場合、推定が合っているか誤りなのか分からない（信頼区間が170 cmを含んでいるから）</li>
 </ul></li>
-<li><p>推測統計学における統計的検定の論理では、「母数についての等号（ = ）の仮説」が偽であることは言えるが、正しいとは言えない。</p></li>
+<li><p>推測統計学における統計的検定の論理では、「母数についての等号（ = ）の仮説」が間違っていることは言えるが、正しいとは言えない。</p></li>
 <li><p>「母数の等号についての仮説」を<strong>帰無仮説（null hypothesis）</strong>と呼ぶ</p>
 <ul>
-<li><p>帰無仮説は以下のように表す（<em>H</em>はhypothesisの頭文字）[H_0: u = 170]</p></li>
+<li><p>帰無仮説は以下のように表す（<em>H</em>はhypothesisの頭文字） <span class="math display">\[
+H_0: u = 170
+\]</span></p></li>
 <li><p>統計的検定では、帰無仮説が偽であるかを検定する。</p>
 <ul>
 <li><p><strong>背理法</strong>に似た方法であり、証明したい主張の否定の仮説を立て、得られた結果から主張できる結論が「矛盾」であることを示すことで、主張が正しいことを証明する。</p>
@@ -467,10 +474,12 @@ window.Quarto = {
 </ul></li>
 <li><p><strong>対立仮説</strong>：帰無仮説の否定</p></li>
 </ul>
-<p>[H_1: u ≠ 170]</p>
+<p><span class="math display">\[
+H_1: u ≠ 170
+\]</span></p>
 <ul>
 <li><p>帰無仮説が否定されれば、対立仮説が真となる</p></li>
-<li><p>帰無仮説が偽であると判断できない場合、帰無仮説は保留になる（= 分からない）。</p>
+<li><p><span style="background-color: yellow;">帰無仮説が偽であると判断できない場合、帰無仮説は保留になる（= 分からない）。</span></p>
 <ul>
 <li>帰無仮説は真であるということはできない。</li>
 </ul></li>
@@ -479,24 +488,40 @@ window.Quarto = {
 <section id="統計検定の具体的な考え方" class="level3">
 <h3 class="anchored" data-anchor-id="統計検定の具体的な考え方">統計検定の具体的な考え方</h3>
 <ul>
-<li><p>帰無仮説が正しいと仮定する。標本から計算された統計量の実現値が、標本分布から考えて<strong>十分低い</strong>確率でしか生じないような値であれば、帰無仮説が偽であると判断する</p>
+<li>帰無仮説が正しいと仮定する。標本から計算された統計量の実現値が、標本分布から考えて<strong>十分低い</strong>確率でしか生じないような値であれば、帰無仮説が偽であると判断する</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>選んだ確率モデル（確率分布）が妥当でない場合、検定の結果も妥当ではなくなる。以下の例では、母集団からの標本抽出が正規分布で近似できるという仮定のもと行う。</p>
+</div>
+</div>
 <ul>
-<li>注意点として、選んだ確率モデル（確率分布）が妥当でない場合、検定の結果も妥当ではなくなる。以下の例では、母集団からの標本抽出が正規分布で近似できるという仮定のもと行う。</li>
-</ul></li>
-<li><p>例： 2025年度にT先生のクラス（40人）で実施された英語テストの平均点は60点であった。昨年度の平均点は55点であり、2025年度の平均点は、昨年度の平均点に比べ十分に高い得点であるかを検定する。</p>
+<li><p>例：<br> 2025年度にM先生のクラス（40人）で実施された英語テストの平均点は60点であった。昨年度の平均点は55点であり、2025年度の平均点は、昨年度の平均点に比べ十分に高い得点であるかを検定する。</p>
 <ul>
-<li>帰無仮説 <em>u</em> = 55の下で、得点が平均パラメータ <em>u</em> = 50の正規分布に従うと仮定。</li>
-<li>クラス平均は60点、標準偏差は3であると分かった。</li>
-<li>母分散が分からない場合、<em>t</em> 統計量を用いる。</li>
+<li>帰無仮説 <em>u</em> = 55が正しいと仮定すると、標本平均は55付近を中心にばらつくはず。</li>
+<li>母集団の各データが正規分布に従うと仮定すると、標本平均も正規分布に従うと考えられる。</li>
+<li>母分散が分からない場合は、標本標準偏差を用いて <em>t</em> 統計量を計算する。帰無仮説の下では、この <em>t</em> 検定量は <em>t</em> 分布に従う。</li>
 </ul></li>
 </ul>
-<p>[t = ]</p>
+<p><span class="math display">\[
+t = \frac{\overline{x} - \mu_0}{\frac{u}{\sqrt{n}}}
+\]</span></p>
 <ul>
 <li>上記の値を代入し、</li>
 </ul>
-<p>[t = ]</p>
+<p><span class="math display">\[
+t = \frac{\overline{60} - 55}{\frac{3}{\sqrt{40}}}
+\]</span></p>
 <ul>
-<li>計算すると、 <em>t</em> = 10.54となる。このような検定のための統計量を<strong>検定統計量</strong>という。</li>
+<li>計算すると、 <em>t</em> = 10.54となる。</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">60-55</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">40</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -505,8 +530,7 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li>自由度が39（40-1）で95%の範囲は0±2.02であるため、得られた<em>t</em>値がこの絶対値より大きいと棄却域に（青く塗られた箇所）に入ることになる。帰無仮説が真であると仮定したときの検定統計量の標本分布のことを<strong>帰無分布（null distribution）</strong>という。</li>
-<li>棄却域が占める割合を<strong>有意水準（significance level）</strong>と言い、<em>α</em>と表記する。慣例的に、両側合わせて0.05が用いられる。</li>
+<li>自由度が39（40-1）で95%の範囲は0±2.02である。</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> (<span class="dv">40-1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -514,6 +538,27 @@ window.Quarto = {
 <pre><code>[1] 2.022691</code></pre>
 </div>
 </div>
+<ul>
+<li>したがって得られた <em>t</em> 値がこの絶対値より大きい場合に<strong>棄却域</strong>に（下記図の青く塗られた範囲）に入る。</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>下記図のような帰無仮説が真であると仮定したときの検定統計量の標本分布のことを<strong>帰無分布（null distribution）</strong>という。</p>
+</div>
+</div>
+<ul>
+<li><p>図の分布の点線で囲まれた白い部分は0を中心とした95%の確率を表し、<strong>「よく得られそうな値の範囲」</strong>を示している。</p></li>
+<li><p>棄却域の青く塗られた箇所は、 <strong>「めったに得られなさそうな範囲」</strong>を示している。</p></li>
+<li><p>棄却域が占める割合を<strong>有意水準（significance level）</strong>と言い、<em>α</em>と表記する。慣例的に、両側合わせて0.05が用いられる。</p></li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -524,12 +569,21 @@ window.Quarto = {
 </div>
 </div>
 <ul>
-<li><p>得られた<em>t</em>値は2.02よりも大きく、棄却域に入る。従って、帰無仮説が真であると考えると、非常に小さい確率でしか起きない結果が得られたという帰無仮説が真であるという仮定と矛盾した結果となっている。この場合、<strong>統計的に有意</strong>であると表現する。</p>
+<li><p>今回得られた <em>t</em> 値は2.02よりも大きく、棄却域に入る。帰無仮説が真であると考えると、非常に低い確率でしか起きない結果が得られたことになる。つまり、帰無仮説が真であるという仮定と矛盾した結果となっている。</p>
 <ul>
-<li>つまり、「2025年度の平均点60点は、昨年度よりも統計的有意に高い得点である。」と主張できる。</li>
+<li>この場合、<strong>統計的に有意</strong>であると表現する。つまり、「2025年度の平均点60点は、昨年度よりも統計的有意に高い得点である。」と主張できる。</li>
 </ul></li>
 </ul>
-<div class="infobox">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>2025年度の得点が昨年度よりも統計的有意に高いことは、<strong>全員の得点が昨年度よりも高いことを必ずしも意味しない</strong>ということに注意。比較しているのはあくまでも<strong>平均点</strong>。以下のどちらのデータでも統計的有意差が得られる。</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -556,12 +610,13 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</div>
 </section>
 </section>
 <section id="統計的検定の手順" class="level2">
 <h2 class="anchored" data-anchor-id="統計的検定の手順">統計的検定の手順</h2>
 <ol type="1">
-<li>確率モデルの設定</li>
+<li><strong>確率モデルの設定</strong></li>
 </ol>
 <ul>
 <li><p>母数について仮説を立てる。この母数は確率モデル（確率分布）のパラメータと対応しているという仮定が必要。</p>
@@ -570,7 +625,7 @@ window.Quarto = {
 </ul></li>
 </ul>
 <ol start="2" type="1">
-<li>帰無仮説の設定</li>
+<li><strong>帰無仮説の設定</strong></li>
 </ol>
 <ul>
 <li><p>例えば、映画を見ると英単語の学習に効果的だということを調べる場合、映画を見る群と、映画を見ない群を用意する。二つの群の平均値の差が0でなければ、映画を見ることに何らかな効果があると主張できる。この場合、以下のような帰無仮説を立てる。</p>
@@ -579,40 +634,39 @@ window.Quarto = {
 </ul></li>
 </ul>
 <ol start="3" type="1">
-<li>検定統計量の設定</li>
+<li><strong>検定統計量の設定</strong></li>
 </ol>
 <ul>
 <li>母分散が分からないため、<em>t</em> 統計量を用いるなど</li>
 </ul>
 <ol start="4" type="1">
-<li>有意水準（ <em>α</em> ）の設定</li>
+<li><strong>有意水準（ <em>α</em> ）の設定</strong></li>
 </ol>
 <ul>
-<li><p>慣例的に言語研究の分野では5%が用いられる。</p></li>
-<li><p>帰無仮説を偽とする場合でも、最大5%程度はそれが間違えている可能性を表す。</p>
+<li><p>慣例的に言語研究の分野では 5% が用いられる。</p></li>
+<li><p>帰無仮説を偽とする場合でも、最大 5% 程度はそれが間違えている可能性を表す。</p>
 <ul>
-<li>結果を見て有意水準を大きくするのは、研究倫理に反するとみられる可能性が大いにある。
-<ul>
-<li>分析の前に0.05よりも大きくすることはよい。</li>
-</ul></li>
+<li>分析結果を見て有意水準を変えることは、研究倫理に反するとみられる可能性が大いにある。</li>
 </ul></li>
 </ul>
 <ol start="5" type="1">
-<li>検定統計量の実現値の計算</li>
+<li><strong>検定統計量の実現値の計算</strong></li>
 </ol>
+<ul>
+<li>Rなどを使って計算を行う。その結果をもとに帰無仮説に対する判断を行う。</li>
+</ul>
 </section>
 <section id="統計的検定で必要な知識" class="level2">
 <h2 class="anchored" data-anchor-id="統計的検定で必要な知識">統計的検定で必要な知識</h2>
 <section id="p-値" class="level3">
 <h3 class="anchored" data-anchor-id="p-値"><em>p</em> 値</h3>
 <ul>
-<li><p>帰無仮説が正しいと仮定したときに、現在観察されたデータと同じか、より稀にしか起こらないようなデータが観察される確率</p>
-<ul>
-<li><em>P</em> 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、<em>p</em> 値の計算に用いられる分布は、有意水準に基づく<strong>棄却域（臨界値）</strong>の設定にも使われるため、<em>p</em> 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。</li>
-</ul></li>
+<li><p>帰無仮説が正しいと仮定したとき、得られた標本から計算された検定統計量と同じか、より稀にしか起こらない値が得られる確率</p></li>
 <li><p>検定統計量を変換し、有意水準と比較しやすくしたもの</p>
 <ul>
-<li>検定統計量の実現値が大きいほど <em>p</em> 値は小さくなる</li>
+<li><p>仮説の真偽の確率を表しているわけではない</p></li>
+<li><p>検定統計量の値が大きいほど <em>p</em> 値は小さくなる</p></li>
+<li><p><em>p</em> 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、<em>p</em> 値と有意水準はどちらも同じ帰無分布に基づいて計算されるため、<em>p</em> 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。</p></li>
 </ul></li>
 <li><p>上記の手順では、検定統計量の実現値と棄却域の範囲を確認して、帰無仮説が棄却されるかを判断していた。しかし、コンピュータソフトウェアでは、<em>p</em> 値が表示され、この値が事前に設定した有意水準よりも大きいかもしくは小さいかを確認して棄却の有無を判断する。</p></li>
 </ul>
@@ -631,26 +685,21 @@ sample estimates:
 mean of x 
  60.15955 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
-
-data:  df$Data2
-t = 4.4932, df = 39, p-value = 6.106e-05
-alternative hypothesis: true mean is not equal to 55
-95 percent confidence interval:
- 56.70752 59.50353
-sample estimates:
-mean of x 
- 58.10553 </code></pre>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<div class="infobox">
+<div class="callout-body-container callout-body">
 <p>e-やe+は指数的記法。6.106e-05であれば、6.106 × 10^(-5)なので、0.を合わせて0が5つ6の前につく。6.106e+05であれば6.106 × 10^5。Rでは<code>options</code>関数で通常の値に戻して表示可能。</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -666,6 +715,7 @@ mean of x
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="統計的検定の誤りと検出力" class="level3">
 <h3 class="anchored" data-anchor-id="統計的検定の誤りと検出力">統計的検定の誤りと検出力</h3>
@@ -675,7 +725,7 @@ mean of x
 <li><p>帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）</p></li>
 <li><p>有意水準 <em>α</em> の値と一致</p>
 <ul>
-<li>統計的検定では、限界点として、100%正しいことは保証されない。有意水準が5%であれば、5%の誤った主張を許すことになる。</li>
+<li>統計的検定の限界点として、100%正しいことは保証されない。有意水準が 5% であれば、 5% の誤った主張を許すことになる。</li>
 </ul></li>
 </ul></li>
 <li><p>第二種の誤り（type Ⅱ error）</p>
@@ -703,8 +753,18 @@ mean of x
 </ul></li>
 </ul></li>
 </ul>
-<div class="infobox">
-<p>サンプルサイズ・検定力・有意水準に加え、<strong>効果量（effect size）</strong>も連動している。効果量は後の講義で詳しく扱うが、簡単に説明すると、関心を持つ事柄の大きさである。4つのうち、3つが分かれば、自動的に残りの1つの値を特定できる。これを利用したのが<strong>検定力分析（power analysis）</strong>である。これを<strong>実験前に</strong>使うことで、どれくらいの標本を収集すべきかを検討できる。近年の研究では、参加者の数を検定力分析で決めているかを重視する（査読で！）動きがある。</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>サンプルサイズ・検定力・有意水準に加え、<strong>効果量（effect size）</strong>も連動している。効果量は後の講義で詳しく扱うが、簡単に説明すると、関心を持つ事柄の大きさである。4つのうち、3つが分かれば、自動的に残りの1つの値を特定できる。これを利用したのが<strong>検定力分析（power analysis）</strong>である。これを<strong>実験前に</strong>使うことで、どれくらいの標本を収集すべきかを検討できる。近年の研究では、参加者の数を検定力分析で決めているかを重視する動きがある。</p>
+</div>
 </div>
 </section>
 <section id="有意性検定-統計的検定の問題点" class="level3">
@@ -726,17 +786,24 @@ mean of x
 <!-- ::: infobox -->
 <!-- 言語研究における効果量は、Neyman-Pearson流の理論に基づくことがほとんど。 -->
 <!-- ::: -->
-</section>
-<section id="頻度論的統計学とベイズ統計学" class="level3">
-<h3 class="anchored" data-anchor-id="頻度論的統計学とベイズ統計学">頻度論的統計学とベイズ統計学</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>頻度論的統計学とベイズ統計学
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li><p>ここまで説明してきた話 + この講義のほとんどの説明における統計学は、頻度論的統計学（frequentist statistics）と呼ばれる枠組み。</p>
 <ul>
-<li><p>検定において用いる数学的手法が異なる。頻度 vs.&nbsp;ベイズのような「主義の違いによる対立構造」は避けた方がよい</p>
+<li><p>この二つは検定において用いる数学的手法が異なる。頻度 vs.&nbsp;ベイズのような「主義の違いによる対立構造」は避けた方がよい</p>
 <ul>
 <li><a href="https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/">参考: Bayesians are frequentists.</a></li>
 </ul></li>
-<li><p>母集団からサンプリングする（標本を抽出する）のは繰り返すことができる試行において起こる事象の相対頻度（frequency）をもとに行われる。例えば、サイコロを14回降って、1の目が3回出た場合、1が出る確率は <span class="math inline">\(\frac{3}{14}\)</span> になる。これを<strong>頻度論的確率</strong>と呼び、人間の主観や信念に依存しない客観的な確率である。</p>
+<li><p>頻度論的統計学では母集団からサンプリングする（標本を抽出する）のは繰り返すことができる試行において起こる事象の相対頻度（frequency）をもとに行われる。例えば、サイコロを14回降って、1の目が3回出た場合、1が出る確率は <span class="math inline">\(\frac{3}{14}\)</span> になる。これを<strong>頻度論的確率</strong>と呼び、人間の主観や信念に依存しない客観的な確率である。</p>
 <ul>
 <li><p>確率とは無限回試行を行ったときの割合</p></li>
 <li><p>仮説の評価を <em>p</em> 値を用いて行う</p>
@@ -746,19 +813,15 @@ mean of x
 <li><p>データを追加して再度分析する際、、適切な方法を用いないと、計算された<em>p</em> 値と有意水準が当初の値から変わってしまう（検定力分析が重要な理由）</p></li>
 </ul></li>
 </ul></li>
-<li><p><strong>ベイズ統計学</strong>では、<strong>主観確率</strong>（「明日は30%で晴れるだろう」）と客観確率（「10日3日晴れたから明日は晴れるだろう」）の両方を検定に使用する。</p>
+<li><p>ベイズ統計学では、<strong>主観確率</strong>（「明日は30%で晴れるだろう」）と客観確率（「10日3日晴れたから明日は晴れるだろう」）の両方を検定に使用する。</p>
 <ul>
 <li><p>ベイズ統計学では <em>p</em> 値は使わない</p></li>
 <li><p>ベイズ統計では、データを追加して再度分析することはOK（データの二度漬けをしない限り）</p></li>
 </ul></li>
-<li><p>頻度論的統計学、ベイズ統計学どちらにおいても、「無作為抽出により標本が母集団を代表している」「母集団からのサンプリングを近似していること」という前提が重要</p>
-<ul>
-<li>ベイズ統計学の方が道具的に使いやすいと考えることもできる</li>
-</ul></li>
+<li><p>頻度論的統計学、ベイズ統計学どちらにおいても、「無作為抽出により標本が母集団を代表している」「母集団からのサンプリングを近似していること」という前提が重要</p></li>
 </ul>
-<!-- ::: infobox -->
-<!-- フローチャート的な統計分析は推奨されません。分析の前に、分析するデータの母集団がどのような形状なのか、この分析方が正しいのかなど十分検討することが重要です。 -->
-<!-- ::: -->
+</div>
+</div>
 </section>
 </section>
 <section id="ハンズオンセッション" class="level2">
@@ -799,8 +862,18 @@ mean of x
 <ol start="5" type="1">
 <li>（対応なしの場合のみ）観測値の独立性：データがお互いに影響し合い相関が高い場合、第一種の過誤が起こりやすくなる</li>
 </ol>
-<div class="alert alert-info">
-<p><strong>重要</strong> <br> 正規性の検定や等分散性の検定を行うことを推奨されることがあるが、このような事前テストは第一種&amp;第二種の過誤の確率を高めることが報告されている（e.g., Rasch et al.&nbsp;[2011]）。そのため、そのような検定を行わず、ウェルチの<em>t</em> 検定を行う方がよい。</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>正規性の検定や等分散性の検定を行うことを推奨されることがあるが、このような事前テストは第一種&amp;第二種の過誤の確率を高めることが報告されている（e.g., Rasch et al.&nbsp;[2011]）。そのため、そのような検定を行わず、ウェルチの<em>t</em> 検定を行う方がよい。</p>
+</div>
 </div>
 </section>
 <section id="t-値の算出" class="level3">
@@ -808,12 +881,16 @@ mean of x
 <ul>
 <li><p><em>t</em> 検定は、その誤差が偶然にしてはどの程度大きいかを調べる検定</p></li>
 <li><p>標本平均の標本誤差：差がどれだけ偶然の誤差によって起きるかを推定</p></li>
-<li><p><em>t</em> 値を求めて、設定した有意水準と自由度（ <em>df</em> : Degree of Freedom）から、 <em>t</em> 値の棄却域を求める。求めた値より <em>t</em> 値が大きければ、帰無仮説を棄却する。</p></li>
+<li><p><em>t</em> 値を求めて、設定した有意水準と自由度（ <em>df</em> : degree of freedom）から、 <em>t</em> 値の棄却域を求める。求めた値より <em>t</em> 値が大きければ、帰無仮説を棄却する。</p></li>
 </ul>
-<p>[t&nbsp;=&nbsp;]</p>
+<p><span class="math display">\[
+t\ =\ \frac{観測された標本平均の差}{標本平均の差の標準誤差}
+\]</span></p>
 <section id="対応なし-t-検定サンプルサイズが等しい" class="level4">
 <h4 class="anchored" data-anchor-id="対応なし-t-検定サンプルサイズが等しい">対応なし <em>t</em> 検定（サンプルサイズが等しい）</h4>
-<p>[ t = (df = n_1 + n_2 - 2) ]</p>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \hspace{3pc} (df = n_1 + n_2 - 2)
+\]</span></p>
 <ul>
 <li><span class="math inline">\(\bar{x}_1, \bar{x}_2\)</span>：グループ1および2の標本平均<br>
 </li>
@@ -824,8 +901,12 @@ mean of x
 </section>
 <section id="対応なし-t-検定サンプルサイズが異なる" class="level4">
 <h4 class="anchored" data-anchor-id="対応なし-t-検定サンプルサイズが異なる">対応なし <em>t</em> 検定（サンプルサイズが異なる）</h4>
-<p>[ s_p^2 = ]</p>
-<p>[ t = ]</p>
+<p><span class="math display">\[
+s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
+\]</span></p>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_p^2}{n_1} + \frac{s_p^2}{n_2}}}
+\]</span></p>
 <ul>
 <li><span class="math inline">\(s_p^2\)</span>：プールされた（まとめた）分散の推定値<br>
 </li>
@@ -838,7 +919,9 @@ mean of x
 </section>
 <section id="対応あり-t-検定" class="level4">
 <h4 class="anchored" data-anchor-id="対応あり-t-検定">対応あり <em>t</em> 検定</h4>
-<p>[ t = (df = n - 1) ]</p>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
+\]</span></p>
 <ul>
 <li><span class="math inline">\(\bar{x}_1 - \bar{x}_2\)</span>：ペアごとの差の平均<br>
 </li>
@@ -856,10 +939,10 @@ mean of x
 <li>データの読み込み</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dat_t_ind <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/ttest_inde.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dat_t_ind <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/ttest_inde.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_t_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_t_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID Class English
 1  1     A      85
@@ -871,13 +954,13 @@ mean of x
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 80</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -887,7 +970,7 @@ mean of x
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'psych'</code></pre>
@@ -897,7 +980,7 @@ Attaching package: 'psych'</code></pre>
 
     %+%, alpha</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Descriptive statistics by group 
@@ -911,7 +994,7 @@ X1    1 40 60.48 5.73     60   60.44 7.41  50  70    20 0.05    -1.25 0.91</code
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -933,8 +1016,18 @@ mean in group A mean in group B
 <li>異なる指導法を実施したクラス A とクラス B の英語テストの平均点は、83.03 (<em>SD</em> = 4.3)と 60.48 (<em>SD</em> = 5.73 でクラス A の平均の方が高かった。 <em>t</em> 検定を使って比較した結果、<em>t</em>(72.353) = 19.911, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、クラスAのほうが統計的有意に英語テストの成績が高いことがわかった。</li>
 </ul></li>
 </ul>
-<div class="infobox">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><em>p</em> 値は原則実数値報告である（ <em>p</em> = .046）。しかし、値が0.01よりも小さい場合は、<em>p</em> &lt; .001のように報告する。</p>
+</div>
 </div>
 </section>
 <section id="対応あり" class="level4">
@@ -943,10 +1036,10 @@ mean in group A mean in group B
 <li>データの読み込み</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dat_t_rep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/ttest_rep.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dat_t_rep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/ttest_rep.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_t_rep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_t_rep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID English Math
 1  1      85   78
@@ -958,13 +1051,13 @@ mean in group A mean in group B
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 40</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"English"</span>, <span class="st">"Math"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"English"</span>, <span class="st">"Math"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -974,12 +1067,12 @@ mean in group A mean in group B
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
 X1    1 40 82.22 8.65     82   82.16 11.86  70  96    26 0.04    -1.67 1.37</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>Math)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>Math)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
 X1    1 40 75.85 10.02   75.5   75.56 13.34  61  94    33 0.15    -1.47 1.59</code></pre>
@@ -989,9 +1082,9 @@ X1    1 40 75.85 10.02   75.5   75.56 13.34  61  94    33 0.15    -1.47 1.59</co
 <li><code>paired = T</code>を設定する</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math,</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">paired =</span> T</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">paired =</span> T</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Paired t-test
@@ -1024,12 +1117,15 @@ mean difference
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
 <li><p>配布されたデータセット（<code>pokemon_data_ttest.csv</code>）をもとに、任意のデータに対して<em>t</em> 検定を行い、その解釈を本講義内で確認した書き方報告する。また、データの中身の確認や記述統計、データの可視化なども含めること。</p></li>
 </ol>
+<ul>
+<li>データは<a href="https://github.com/masato-terai/statslec_quarto">GitHubページ</a>の<code>sample_data</code>内にある。</li>
+</ul>
 </section>
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li>TACT上で提出。</li>
-<li>締め切りは今週の木曜日まで</li>
+<li>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</li>
+<li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </section>
 </section>
@@ -1047,22 +1143,6 @@ mean difference
 <li>💻<a href="https://www.note.kanekoshobo.co.jp/n/nf836d37b7f10#61a8e679-85a4-411c-96dd-5a1a37335572">ベイズ統計学と再現性の危機（テンプル大学統計科学部助教授：マクリン謙一郎）</a></li>
 <li>💻<a href="https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/">Bayesians are frequentists.</a></li>
 </ul>
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
 
 
 </section>
