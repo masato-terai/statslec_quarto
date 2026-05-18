@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-4c1498b69564d98984da3e9f7a45d87c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -110,6 +110,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -359,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-13 10:17:51</p>
+      <p class="date-modified">2026-05-18 10:02:48</p>
     </div>
   </div>
     
@@ -373,18 +402,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
 <h2 class="anchored" data-anchor-id="今日の目標">今日の目標</h2>
 <ol type="1">
 <li>相関分析に関する統計理論を数学的・概念的に理解できる。</li>
-<li>相関分析をRで行い、その結果を解釈し報告することができる。</li>
+<li>相関分析をRで行い、その結果を解釈し報告できる。</li>
 </ol>
 </section>
 <section id="相関分析correlation-analysisとは" class="level2">
@@ -394,31 +419,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>相関関係を確認する際、散布図で視覚的に確認、数値的に<strong>相関係数</strong>（Correlation coefficienct）が用いられる。</p>
 <ul>
-<li>通常、<strong>ピアソンの（積率）相関係数（Pearson’s correlation coefficient, <em>r</em>）</strong>を指す。値は (-1r ) をとる。</li>
+<li>通常、<strong>ピアソンの（積率）相関係数（Pearson’s correlation coefficient, <em>r</em>）</strong>を指す。値は <span class="math inline">\(-1\leq r \leq1\)</span> をとる。</li>
 </ul></li>
-<li><p>相関係数は2変数の関係が線形になっている場合のみ使用できる。</p></li>
+<li><p>相関係数は2変数の関係が線形になっていない場合、その関係性を適切に評価できない。</p>
+<ul>
+<li>下記の図の右では明確にU字型の関係が確認できるが、相関係数はかなり小さい値となっている。</li>
 </ul></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-week5_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
 <li><p>相関係数の重要なパーツ</p>
 <ul>
 <li><strong>共分散（covariance）</strong>：各変数の平均からの偏差の積を平均したもの</li>
 </ul></li>
 </ul>
-<p>[ s_{xy} = _{i=1}^{n} (x_i - {x})(y_i - {y}) ]</p>
-<ul>
-<li><strong>不偏共分散</strong>は以下の通り。相関係数を算出するRパッケージの<code>cor</code>は計算する際に、不偏分散を使用している。</li>
-</ul>
-<p>[ s_{xy} = _{i=1}^{n} (x_i - {x})(y_i - {y}) ]</p>
-<pre><code>The denominator *n* − 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations. </code></pre>
+<p><span class="math display">\[
+s_{xy} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+\]</span></p>
 <ul>
 <li>相関係数を求める式</li>
 </ul>
-<p>[ r_{xy} = ]</p>
+<p><span class="math display">\[
+r_{xy} = \frac{S_{xy}}{S_xS_y}
+\]</span></p>
 <ul>
-<li><p>共分散（(S_{xy})）を2変数それぞれの標準偏差の積で割ったもの（共分散を基準化している）</p>
+<li><p>共分散（<span class="math inline">\(S_{xy}\)</span>）を2変数それぞれの標準偏差の積で割ったもの（共分散を基準化している）</p>
 <ul>
 <li>基準化の理由として、定数倍などすると、値の大きさが変わってしまうため</li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>相関係数を算出する際によく使われるRパッケージの<code>cor</code>は計算する際に、共分散ではなく、<strong>不偏</strong>共分散を使用している（下記は<code>help(cor)</code>の結果）。</li>
+</ul>
+<blockquote class="blockquote">
+<p>The denominator <em>n</em> − 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations.</p>
+</blockquote>
+<ul>
+<li>不偏共分散とは以下の式で定義されるように、分母を -1 調整した共分散である（不偏推定量）。分母の値（標本サイズ）を1減らすことで、減らさない場合に比べ、値が大きくなる。標本から計算した（共）分散は一致性を持つが、不偏性を持たないとされている。そのため分母を調整した不偏（共）分散が使用されている。</li>
+</ul>
+<p><span class="math display">\[
+s'_{xy} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+\]</span></p>
+</div>
+</div>
 <section id="相関関係の種類" class="level3">
 <h3 class="anchored" data-anchor-id="相関関係の種類">相関関係の種類</h3>
 <ul>
@@ -435,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-week5_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-week5_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -448,7 +510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-week5_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-week5_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -457,11 +519,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>右側の図の相関係数がわずか2つの外れ値によって大きくなっていることが分かる</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data2<span class="sc">$</span>x, data2<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data2<span class="sc">$</span>x, data2<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7351905</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data4<span class="sc">$</span>x, data4<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data4<span class="sc">$</span>x, data4<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9108736</code></pre>
 </div>
@@ -472,19 +534,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>ほとんどの場合、母相関係数 <em>ρ</em> が0という帰無仮説を立てて行われる。</li>
 </ul>
-<p>[ H_0 : ρ = 0 ]</p>
+<p><span class="math display">\[
+H_0 : ρ = 0
+\]</span></p>
 <ul>
-<li>検定統計量は <em>t</em> 分布に従うことを利用して検定が行われる。</li>
-</ul>
-<p>[ t = ]</p>
+<li><p>検定統計量は <em>t</em> 分布に従うことを利用して検定が行われる。</p>
 <ul>
+<li>効果の大きさとサンプルの大きさの積で計算されていることが分かる。 <span class="math display">\[
+t = \frac{r}{\sqrt{1-r^2}} × \sqrt{N-2}
+\]</span></li>
+</ul></li>
 <li><p>統計的に有意である場合、「母相関係数は0である」という帰無仮説を棄却し、「母相関係数は0ではない」という対立仮説を採択する。<strong>無相関検定</strong>とも呼ぶ。</p>
 <ul>
 <li>母相関が0以外である帰無仮説を立てることもできるが、この場合検定統計量 <em>t</em> は <strong>非心 <em>t</em> 分布</strong>に従い、 <em>t</em> 分布には従わない。</li>
 </ul></li>
 </ul>
-<div class="alert alert-info">
-<p><strong>重要</strong> 無相関検定で有意差が得られても、母相関係数が0ではないということを示すだけであり、相関の強弱を示していないことに注意が必要。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>無相関検定で有意差が得られても、母相関係数が0ではないということを示すだけであり、相関の<strong>強弱を示していない</strong>ことに注意が必要。</p>
+</div>
 </div>
 </section>
 </section>
@@ -493,10 +569,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="データの読み込み" class="level3">
 <h3 class="anchored" data-anchor-id="データの読み込み">データの読み込み</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/cor.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sample_data/cor.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID English Math Japanese
 1  1      56   63       53
@@ -508,7 +584,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'psych'</code></pre>
@@ -518,17 +594,17 @@ Attaching package: 'psych'</code></pre>
 
     %+%, alpha</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>English)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>English)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
 X1    1 40 49.45 13.19     49   49.31 11.86  24  87    63 0.31     0.27 2.09</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Math)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Math)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vars  n mean    sd median trimmed   mad min max range  skew kurtosis   se
 X1    1 40 49.5 14.09   51.5   50.34 14.83  15  72    57 -0.49    -0.31 2.23</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Japanese)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Japanese)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vars  n  mean    sd median trimmed   mad min max range  skew kurtosis   se
 X1    1 40 49.35 13.41   49.5   49.62 14.08  20  74    54 -0.19    -0.61 2.12</code></pre>
@@ -538,29 +614,29 @@ X1    1 40 49.35 13.41   49.5   49.62 14.08  20  74    54 -0.19    -0.61 2.12</c
 <section id="散布図の作成" class="level3">
 <h3 class="anchored" data-anchor-id="散布図の作成">散布図の作成</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-week5_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-week5_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Japanese)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Japanese)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-week5_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-week5_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-week5_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05-week5_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -572,7 +648,7 @@ X1    1 40 49.35 13.41   49.5   49.62 14.08  20  74    54 -0.19    -0.61 2.12</c
 <li><code>corr.test</code>関数は、上述の<code>cor</code>関数を使用している。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:psych::corr.test(x = dat[, 2:4], method = "pearson")
 Correlation matrix 
@@ -595,8 +671,8 @@ Japanese       0 0.01     0.00
 <li><code>cor.test</code>を使用するとより詳細な結果が返ってくる</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -631,7 +707,7 @@ sample estimates:
 <p>“For correlation coefficients, we suggest that rs close to .25 be considered small, .40 medium, and .60 large. These values correspond roughly to the 25th, 50th, and 75th percentiles in our primary and meta-analytic samples.” (Plonsky &amp; Oswald, 2014)</p>
 </blockquote>
 <ul>
-<li>相関係数が小さい研究は査読の段階で削除されていたり、そもそも出版されずお蔵入りになっている場合もあるので注意。</li>
+<li>相関係数が小さい研究は査読の段階で削除されていたり、そもそも出版されずお蔵入りになっている場合もあるので、それらを含めると上記の値よりも小さくなる可能性もあることに注意。</li>
 </ul>
 </section>
 <section id="因果関係の主張" class="level4">
@@ -722,7 +798,7 @@ sample estimates:
 <ol type="1">
 <li><p>小テストに向けて今回の内容を復習する。</p></li>
 <li><p>配布されたデータセット（<code>pokemon_data.csv</code>）をもとに、任意のデータに対して相関分析を行い、その解釈を本講義内で確認した書き方報告する。データの中身の確認や記述統計、データの可視化なども含めること。相関分析の結果をまとめた表は、必ずしも記載しなくてもよい。</p></li>
-<li><p>（再来週までに提出でOK）現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。<strong>2の宿題とは別のR Markdownファイルにまとめて提出。</strong></p></li>
+<li><p><strong>（再来週までに提出でOK）</strong>現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。<strong>2の宿題とは別のHTMLファイルにまとめて提出。</strong></p></li>
 </ol>
 <ul>
 <li><p>研究のキーワード3つ</p></li>
@@ -755,8 +831,8 @@ sample estimates:
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li>TACT上で提出。</li>
-<li>締め切りは今週の木曜日まで</li>
+<li>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</li>
+<li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </section>
 </section>
@@ -768,6 +844,7 @@ sample estimates:
 <li>📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房</li>
 <li>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</li>
 <li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
+<li>📚武藤（2026）『入門これからの心理統計 ー推定と検定の統一的理解をめざしてー』</li>
 <li>📄Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. <em>N Engl J Med, 367</em>(16), 1562-1564.</li>
 <li>📄Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. <em>Language Learning, 64</em>(4), 878-912.</li>
 <li>💻<a href="https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html">おもしろ統計・120　疑似相関って知っていますか?</a></li>

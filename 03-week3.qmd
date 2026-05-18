@@ -401,7 +401,6 @@ ggplot(data.frame(x = data), aes(x = x)) +
 ```{r}
 #| echo: false
 
-
 set.seed(123)
 n <- 100000  # 乱数の個数
 
@@ -578,7 +577,6 @@ z <- ggplot(data, aes(x = x, y = y, color = distribution, linetype = distributio
 
 x + y - z + plot_layout(ncol = 1)
 ```
-
 
 ##### 母分散を知らない場合
 

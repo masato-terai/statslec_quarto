@@ -10,15 +10,12 @@ library(patchwork)
 
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
-
-  - .Rでも.Rmdでもどちらでも大丈夫です。
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
 ## 今日の目標
 
 1. 相関分析に関する統計理論を数学的・概念的に理解できる。
-2. 相関分析をRで行い、その結果を解釈し報告することができる。
+2. 相関分析をRで行い、その結果を解釈し報告できる。
 
 ## 相関分析（Correlation analysis）とは
 
@@ -26,39 +23,115 @@ library(patchwork)
 
   - 相関関係を確認する際、散布図で視覚的に確認、数値的に**相関係数**（Correlation coefficienct）が用いられる。
   
-    - 通常、**ピアソンの（積率）相関係数（Pearson's correlation coefficient, *r*）**を指す。値は \(-1\leq r \leq1\) をとる。
+    - 通常、**ピアソンの（積率）相関係数（Pearson's correlation coefficient, *r*）**を指す。値は $-1\leq r \leq1$ をとる。
   
-  - 相関係数は2変数の関係が線形になっている場合のみ使用できる。
+  - 相関係数は2変数の関係が線形になっていない場合、その関係性を適切に評価できない。
+
+    - 下記の図の右では明確にU字型の関係が確認できるが、相関係数はかなり小さい値となっている。
+
+```{r}
+#| echo: false
+
+set.seed(123)
+
+# 線形データ
+x1 <- seq(-3, 3, length.out = 100)
+y1 <- x1 + rnorm(100, 0, 1)
+
+# U字型データ
+x2 <- seq(-3, 3, length.out = 100)
+y2 <- x2^2 + rnorm(100, 0, 1)
+
+# 相関係数
+cor1 <- cor(x1, y1)
+cor2 <- cor(x2, y2)
+
+# 横並び
+par(mfrow = c(1, 2))
+
+plot(
+  x1, y1,
+  pch = 19,
+  main = "Linear Relationship",
+  xlab = "X",
+  ylab = "Y"
+)
+
+abline(lm(y1 ~ x1), lwd = 2)
+
+text(
+  x = min(x1),
+  y = max(y1),
+  labels = paste0("r = ", round(cor1, 2)),
+  pos = 4,
+  cex = 1.2
+)
+
+plot(
+  x2, y2,
+  pch = 19,
+  main = "U-shaped Relationship",
+  xlab = "X",
+  ylab = "Y"
+)
+
+# 2次回帰モデル
+fit2 <- lm(y2 ~ x2 + I(x2^2))
+
+# 曲線描画用データ
+new_x <- seq(min(x2), max(x2), length.out = 200)
+pred_y <- predict(
+  fit2,
+  newdata = data.frame(x2 = new_x)
+)
+
+# U字型の曲線
+lines(new_x, pred_y, lwd = 2)
+
+text(
+  x = min(x2),
+  y = max(y2),
+  labels = paste0("r = ", round(cor2, 2)),
+  pos = 4,
+  cex = 1.2
+)
+
+# レイアウトを戻す
+par(mfrow = c(1, 1))
+```
+
 
 - 相関係数の重要なパーツ
 
   - **共分散（covariance）**：各変数の平均からの偏差の積を平均したもの
 
-\[
+$$
 s_{xy} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
-\]
-
-- **不偏共分散**は以下の通り。相関係数を算出するRパッケージの```cor```は計算する際に、不偏分散を使用している。
-
-
-\[
-s_{xy} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
-\]
-
-```
-The denominator *n* − 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations. 
-```
+$$
 
 - 相関係数を求める式
 
-\[
+$$
 r_{xy} = \frac{S_{xy}}{S_xS_y}
-\]
+$$
 
-- 共分散（\(S_{xy}\)）を2変数それぞれの標準偏差の積で割ったもの（共分散を基準化している）
+- 共分散（$S_{xy}$）を2変数それぞれの標準偏差の積で割ったもの（共分散を基準化している）
   
   - 基準化の理由として、定数倍などすると、値の大きさが変わってしまうため
-  
+
+::: callout-note
+- 相関係数を算出する際によく使われるRパッケージの```cor```は計算する際に、共分散ではなく、**不偏**共分散を使用している（下記は```help(cor)```の結果）。
+
+> The denominator *n* − 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations. 
+
+- 不偏共分散とは以下の式で定義されるように、分母を -1 調整した共分散である（不偏推定量）。分母の値（標本サイズ）を1減らすことで、減らさない場合に比べ、値が大きくなる。標本から計算した（共）分散は一致性を持つが、不偏性を持たないとされている。そのため分母を調整した不偏（共）分散が使用されている。
+
+$$
+s'_{xy} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+$$
+
+:::
+
 ### 相関関係の種類
 
   - **正の相関**（positive correlation）：右上がり。1つの変数が増加すると、もう片方も増加する
@@ -154,23 +227,24 @@ cor(data4$x, data4$y, method = "pearson")
 ### 相関係数の検定
 - ほとんどの場合、母相関係数 *ρ* が0という帰無仮説を立てて行われる。
 
-\[
+$$
 H_0 : ρ = 0
-\]
+$$
 
 - 検定統計量は *t* 分布に従うことを利用して検定が行われる。
 
-\[
-t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
-\]
+  - 効果の大きさとサンプルの大きさの積で計算されていることが分かる。
+$$
+t = \frac{r}{\sqrt{1-r^2}} × \sqrt{N-2}
+$$
 
 - 統計的に有意である場合、「母相関係数は0である」という帰無仮説を棄却し、「母相関係数は0ではない」という対立仮説を採択する。**無相関検定**とも呼ぶ。
 
   - 母相関が0以外である帰無仮説を立てることもできるが、この場合検定統計量 *t* は **非心 *t* 分布**に従い、 *t* 分布には従わない。
-  
-<div class="alert alert-info">
-  <strong>重要</strong> 無相関検定で有意差が得られても、母相関係数が0ではないということを示すだけであり、相関の強弱を示していないことに注意が必要。
-</div>
+
+::: callout-note  
+無相関検定で有意差が得られても、母相関係数が0ではないということを示すだけであり、相関の**強弱を示していない**ことに注意が必要。
+:::
 
 ## ハンズオンセッション
 
@@ -233,7 +307,7 @@ cor.test(dat$English, dat$Math, method = "pearson")
   
 >"For correlation coefficients, we suggest that rs close to .25 be considered small, .40 medium, and .60 large. These values correspond roughly to the 25th, 50th, and 75th percentiles in our primary and meta-analytic samples." (Plonsky & Oswald, 2014)
 
-- 相関係数が小さい研究は査読の段階で削除されていたり、そもそも出版されずお蔵入りになっている場合もあるので注意。
+- 相関係数が小さい研究は査読の段階で削除されていたり、そもそも出版されずお蔵入りになっている場合もあるので、それらを含めると上記の値よりも小さくなる可能性もあることに注意。
 
 #### 因果関係の主張
 - 相関分析では関係の強さの程度しか分からない。相関があることは必ずしも因果関係があることを示しているわけではない。
@@ -299,7 +373,7 @@ sjPlot::tab_corr(data = dat, corr.method = "pearson")
 
 2. 配布されたデータセット（```pokemon_data.csv```）をもとに、任意のデータに対して相関分析を行い、その解釈を本講義内で確認した書き方報告する。データの中身の確認や記述統計、データの可視化なども含めること。相関分析の結果をまとめた表は、必ずしも記載しなくてもよい。
 
-3. （再来週までに提出でOK）現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。**2の宿題とは別のR Markdownファイルにまとめて提出。**
+3. **（再来週までに提出でOK）**現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。**2の宿題とは別のHTMLファイルにまとめて提出。**
 
   - 研究のキーワード3つ
   
@@ -328,8 +402,8 @@ sjPlot::tab_corr(data = dat, corr.method = "pearson")
     - e.g., Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. *Language Learning, 64*(4), 878-912.
     
 ### 提出方法
-- TACT上で提出。
-- 締め切りは今週の木曜日まで
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
+-   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
 - 📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会
@@ -337,6 +411,7 @@ sjPlot::tab_corr(data = dat, corr.method = "pearson")
 - 📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房
 - 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
 - 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書 
+- 📚武藤（2026）『入門これからの心理統計 ー推定と検定の統一的理解をめざしてー』
 - 📄Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. *N Engl J Med, 367*(16), 1562-1564.
 - 📄Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. *Language Learning, 64*(4), 878-912.
 - 💻[おもしろ統計・120　疑似相関って知っていますか?](https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html)
