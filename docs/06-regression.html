@@ -110,6 +110,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -365,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-13 10:18:03</p>
+      <p class="date-modified">2026-05-25 10:41:15</p>
     </div>
   </div>
     
@@ -379,11 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
@@ -440,7 +465,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="最小二乗法" class="level3">
 <h3 class="anchored" data-anchor-id="最小二乗法">最小二乗法</h3>
 <p>以下の一次式で表される</p>
-<p>[ = a + bx ]</p>
+<p><span class="math display">\[
+\hat{y} = a + bx
+\]</span></p>
 <ul>
 <li><p>傾き（ <em>b</em> ）：変数 <em>x</em> の<u>1単位の差異</u>に対応する <em>y</em> の予測値の差異の大きさ。<strong>回帰係数（regression coefficient）</strong> とも呼ばれる。</p>
 <ul>
@@ -449,13 +476,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>切片（ <em>a</em> ）</p></li>
 <li><p>回帰直線が実際のデータに最もよく適合するように計算される。計算方法として<strong>最小2乗法（least squares method）</strong>が1例としてあげられる。</p></li>
 </ul>
-<p>[ b = r ]</p>
-<p>[ a = - b{x} ]</p>
+<p><span class="math display">\[
+b = r\frac{S_y}{S_x}
+\]</span></p>
+<p><span class="math display">\[
+a = \hat{y} - b\bar{x}
+\]</span></p>
 <ul>
-<li>回帰直線の式に上記の式を代入。<em>x</em> が平均 ({x}) に等しいとき、 <em>y</em> の予測値 () は <em>y</em> の平均 ({y}) に等しくなる。= 回帰直線は、点（({x}), ({y})）を通る傾き <em>b</em> の直線</li>
+<li>回帰直線の式に上記の式を代入。<em>x</em> が平均 ${x}$ に等しいとき、 <em>y</em> の予測値 <span class="math inline">\(\hat{y}\)</span> は <em>y</em> の平均 <span class="math inline">\(\bar{y}\)</span> に等しくなる。= 回帰直線は、点（<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>）を通る傾き <em>b</em> の直線</li>
 </ul>
-<p>[ = ({y} - b{x}) + bx\ = {y} + b(x - {x}) ]</p>
-<div class="infobox">
+<p><span class="math display">\[
+\hat{y} = (\bar{y} - b\bar{x}) + bx\\
+\hspace{0em} = \bar{y} + b(x - \bar{x})
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>最小2乗法以外にも最尤推定法があり、前者は手元のデータに当てはめることを考え、後者はこのデータが出てくる確率が一番高くなるように、確率分布のパラメータを考える。どちらの基準を用いても推定値はほぼ同じ値になる。誤差が独立していて、正規分布していれば、最小二乗法と最尤推定は等価になる。最尤推定法は正規分布以外の確率分布にも適用できるため、最尤推定法の方がより用いられる（最小2乗法は2つの変数の直接的な関係を仮定するため、線形ではない回帰モデルでは最小2乗法が使えない場合がある）。</p>
 <ul>
 <li>最小二乗法：<code>lm</code>関数</li>
@@ -625,23 +668,22 @@ For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure
 </div>
 </div>
 </div>
-<div class="alert alert-info">
-<p><strong>注</strong> 事前分布を狭く指定しない場合、頻度統計の結果もベイズ統計の結果も近似する。</p>
-</div>
 <ul>
-<li>ベイズ推定では、事前分布の設定を行ったり、サンプリングが適切に行われたかを確認する手順が必要である。今回は推定の紹介だけで、今後詳しい設定法などに言及する。</li>
+<li><p>事前分布を狭く指定しない場合、頻度統計の結果もベイズ統計の結果も近似する。</p></li>
+<li><p>ベイズ推定では、事前分布の設定を行ったり、サンプリングが適切に行われたかを確認する手順が必要である。今回は推定の紹介だけで、今後詳しい設定法などに言及する。</p></li>
 </ul>
 </section>
+</div>
 </div>
 </section>
 <section id="回帰分析における予測値と残差" class="level3">
 <h3 class="anchored" data-anchor-id="回帰分析における予測値と残差">回帰分析における予測値と残差</h3>
 <ul>
-<li><p><strong>残差（residual）</strong>：予測の誤差ともいう。それぞれの観測値と直線の差のこと。つまり、(e = y - ) 。</p>
+<li><p><strong>残差（residual）</strong>：予測の誤差ともいう。それぞれの観測値と直線の差のこと。つまり、<span class="math inline">\(e = y - \hat{y}\)</span> 。</p>
 <ul>
 <li><p>残差の平均は0</p></li>
 <li><p>残差と変数 <em>x</em> の相関は0</p></li>
-<li><p>予測値 () と残差の相関は0</p>
+<li><p>予測値 <span class="math inline">\(\hat{y}\)</span> と残差の相関は0</p>
 <ul>
 <li>予測値は変数 <em>x</em> を線形下もので、相関係数の絶対値は変わらないから</li>
 </ul></li>
@@ -705,8 +747,18 @@ F-statistic: 236.7 on 1 and 895 DF,  p-value: &lt; 0.00000000000000022</code></p
 <pre><code>[1] 0.000000000000000144472</code></pre>
 </div>
 </div>
-<div class="infobox">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>R で計算すると、理論的には 0 になるはずの値が<strong>浮動小数点演算の誤差</strong>により完全に 0 にならないことがあります(<a href="https://stackoverflow.com/questions/23992032/sum-of-residuals-using-lm-is-non-zero">参考</a>)。</p>
+</div>
 </div>
 </section>
 <section id="変数の直行分解と残差の意義" class="level4">
@@ -714,7 +766,9 @@ F-statistic: 236.7 on 1 and 895 DF,  p-value: &lt; 0.00000000000000022</code></p
 <ul>
 <li>残差の式は以下のように書き換えられる。</li>
 </ul>
-<p>[ y = + e ]</p>
+<p><span class="math display">\[
+y = \hat{y} + e
+\]</span></p>
 <ul>
 <li><p>前のセクションで示したように、右辺の二つは無相関である。従って、従属変数を無相関の成分に分解する式であると言える（相関がない2変数を「互いに直交する」ともいう）。つまり、上記の式は、<strong>直行分解</strong>の式である。</p>
 <ul>
@@ -839,12 +893,14 @@ Note
 <section id="回帰直線の当てはまりの良さ" class="level3">
 <h3 class="anchored" data-anchor-id="回帰直線の当てはまりの良さ">回帰直線の当てはまりの良さ</h3>
 <ul>
-<li>相関係数の2乗のことを<strong>分散説明率</strong>とよぶことがある。また、独立変数がどれだけ従属変数の値を決定するかを表していることから、<strong>決定係数（coefficient of determination: (R^{2})）</strong>とも呼ばれる。高いほどよい（高すぎても予測の点から問題はある）。</li>
+<li>相関係数の2乗のことを<strong>分散説明率</strong>とよぶことがある。また、独立変数がどれだけ従属変数の値を決定するかを表していることから、<strong>決定係数（coefficient of determination: <span class="math inline">\(R^{2}\)</span>）</strong>とも呼ばれる。高いほどよい（高すぎても予測の点から問題はある）。</li>
 </ul>
-<p>[ R^{2} = 1 - ]</p>
+<p><span class="math display">\[
+R^{2} = 1 - \frac{SS_e}{SS_y}
+\]</span>]$$</p>
 <ul>
-<li><p>(SS_e)：残差の2乗和</p></li>
-<li><p>(SS_y)：目的変数の偏差2乗和</p></li>
+<li><p><span class="math inline">\(SS_e\)</span>：残差の2乗和</p></li>
+<li><p><span class="math inline">\(SS_y\)</span>：目的変数の偏差2乗和</p></li>
 <li><p>0-1（0-100%）の間の値をとる</p></li>
 <li><p>調整済決定係数（Adjusted R-squared）：独立変数の数が多い場合、その影響の大きさに関わらず、決定係数が大きくなる。その欠点を補ったもの</p></li>
 </ul>
@@ -1153,7 +1209,9 @@ Number of Fisher Scoring iterations: 2</code></pre>
 <ul>
 <li>自由度調整済決定係数</li>
 </ul>
-<p>[ 1 - (1-R^2) ]</p>
+<p><span class="math display">\[
+1 - \frac{n-1}{n-p}(1-R^2)
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat<span class="fl">.3</span>)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(model.mlm)) <span class="sc">-</span><span class="dv">1</span> <span class="co"># 切片を抜いた変数の数</span></span>
@@ -1366,7 +1424,7 @@ Autocorrelations of series 'model.mlm$residuals', by lag
 </div>
 <ul>
 <li><p>論文への記載</p>
-<p>中間試験の得点から学期末試験の得点を予測するため、回帰分析を行った。その結果、係数は統計的に有意であった（<em>b</em> = 0.73 [0.60, 0.85], <em>SE</em> = 0.07, <em>p</em> &lt; .001）。係数は分散の57 %を説明していた（( R^2) = 56.7 %, 調整 ( R^2) = 56.2 %）。</p>
+<p>中間試験の得点から学期末試験の得点を予測するため、回帰分析を行った。その結果、係数は統計的に有意であった（<em>b</em> = 0.73 [0.60, 0.85], <em>SE</em> = 0.07, <em>p</em> &lt; .001）。係数は分散の57 %を説明していた（<span class="math inline">\(R^2\)</span> = 56.7 %, 調整 <span class="math inline">\(R^2\)</span> = 56.2 %）。</p>
 <ul>
 <li><p><u>（結果に対し謙虚）</u><strong>平均して、</strong>中間試験の得点が1点差の学生を比較した際、中間試験の得点が1点高い学生は、低い学生に比べ、期末試験の得点が0.73点高い。</p></li>
 <li><p><u>（因果関係を匂わせており不正確）</u>中間試験の得点が1点高くなるほど、期末試験の得点は0.73点高くなる</p></li>
@@ -1385,12 +1443,15 @@ Autocorrelations of series 'model.mlm$residuals', by lag
 <ul>
 <li><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></li>
 </ul>
+<ol start="3" type="1">
+<li>現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。<strong>2の宿題とは別のHTMLファイルで提出。</strong></li>
+</ol>
 </section>
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li>TACT上で提出。</li>
-<li>締め切りは今週の木曜日まで</li>
+<li>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</li>
+<li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </section>
 </section>
