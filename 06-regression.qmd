@@ -359,7 +359,7 @@ dat$こうげき[pok2]
 
 $$
 R^{2} = 1 - \frac{SS_e}{SS_y}
-$$\]$$
+$$
 
   - $SS_e$：残差の2乗和
   - $SS_y$：目的変数の偏差2乗和
@@ -445,7 +445,7 @@ subset(dat.2, complete.cases(dat.2) == FALSE)
 ```
 
 ```{r}
-summary(dat)
+summary(dat.2)
 ```
 
 - 散布図で外れ値がないかを確認。```par(pty="s")```を実行することで、正方形の図として描画される。

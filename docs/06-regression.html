@@ -394,7 +394,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-05-25 11:23:11</p>
+      <p class="date-modified">2026-05-25 18:03:36</p>
     </div>
   </div>
     
@@ -906,7 +906,7 @@ Note
 </ul>
 <p><span class="math display">\[
 R^{2} = 1 - \frac{SS_e}{SS_y}
-\]</span>]$$</p>
+\]</span></p>
 <ul>
 <li><p><span class="math inline">\(SS_e\)</span>：残差の2乗和</p></li>
 <li><p><span class="math inline">\(SS_y\)</span>：目的変数の偏差2乗和</p></li>
@@ -1040,16 +1040,15 @@ F-statistic: 236.7 on 1 and 895 DF,  p-value: &lt; 0.00000000000000022</code></p
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat<span class="fl">.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   student               mid             end             quiz      
- Length:100         Min.   :16.00   Min.   : 5.00   Min.   : 3.00  
- Class :character   1st Qu.:46.75   1st Qu.:46.50   1st Qu.:20.00  
+ Length:99          Min.   :16.00   Min.   : 5.00   Min.   : 3.00  
+ Class :character   1st Qu.:46.50   1st Qu.:46.50   1st Qu.:20.00  
  Mode  :character   Median :57.00   Median :57.00   Median :26.00  
-                    Mean   :56.91   Mean   :54.21   Mean   :26.61  
-                    3rd Qu.:68.25   3rd Qu.:64.50   3rd Qu.:33.25  
-                    Max.   :92.00   Max.   :92.00   Max.   :49.00  
-                                    NA's   :1                      </code></pre>
+                    Mean   :56.71   Mean   :54.21   Mean   :26.52  
+                    3rd Qu.:68.00   3rd Qu.:64.50   3rd Qu.:32.50  
+                    Max.   :92.00   Max.   :92.00   Max.   :49.00  </code></pre>
 </div>
 </div>
 <ul>
