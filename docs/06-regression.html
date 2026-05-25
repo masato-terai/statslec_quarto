@@ -394,7 +394,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-05-25 10:41:15</p>
+      <p class="date-modified">2026-05-25 11:23:11</p>
     </div>
   </div>
     
@@ -469,24 +469,33 @@ window.Quarto = {
 \hat{y} = a + bx
 \]</span></p>
 <ul>
+<li><p>切片（ <em>a</em> ）</p></li>
 <li><p>傾き（ <em>b</em> ）：変数 <em>x</em> の<u>1単位の差異</u>に対応する <em>y</em> の予測値の差異の大きさ。<strong>回帰係数（regression coefficient）</strong> とも呼ばれる。</p>
 <ul>
 <li>変数 <em>x</em> の単位を把握しておくことが重要。標準化すると、1標準偏差あたりに変換できる</li>
 </ul></li>
-<li><p>切片（ <em>a</em> ）</p></li>
 <li><p>回帰直線が実際のデータに最もよく適合するように計算される。計算方法として<strong>最小2乗法（least squares method）</strong>が1例としてあげられる。</p></li>
 </ul>
 <p><span class="math display">\[
-b = r\frac{S_y}{S_x}
+\begin{aligned}
+b &amp;= r_{xy}\frac{S_{y}}{S_{x}} \\
+r_{xy} &amp;: \text{相関係数} \\
+S &amp;: \text{標準偏差}
+\end{aligned}
 \]</span></p>
 <p><span class="math display">\[
 a = \hat{y} - b\bar{x}
 \]</span></p>
 <ul>
-<li>回帰直線の式に上記の式を代入。<em>x</em> が平均 ${x}$ に等しいとき、 <em>y</em> の予測値 <span class="math inline">\(\hat{y}\)</span> は <em>y</em> の平均 <span class="math inline">\(\bar{y}\)</span> に等しくなる。= 回帰直線は、点（<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>）を通る傾き <em>b</em> の直線</li>
+<li><p>回帰直線の式に上記の式を代入。<em>x</em> が平均 <span class="math inline">\(\bar{x}\)</span> に等しいとき、 <em>y</em> の予測値 <span class="math inline">\(\hat{y}\)</span> は <em>y</em> の平均 <span class="math inline">\(\bar{y}\)</span> に等しくなる。つまり、回帰直線は、点（<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>）を通る傾き <em>b</em> の直線</p>
+<ul>
+<li>また、回帰直線が平均を基準にどれだけズレているか、そのズレに応じてyの予測値がどれくらい変化するかを表していることもわかる。</li>
+</ul></li>
 </ul>
 <p><span class="math display">\[
-\hat{y} = (\bar{y} - b\bar{x}) + bx\\
+\hat{y} = (\bar{y} - b\bar{x}) + bx
+\]</span></p>
+<p><span class="math display">\[
 \hspace{0em} = \bar{y} + b(x - \bar{x})
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -685,7 +694,7 @@ For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure
 <li><p>残差と変数 <em>x</em> の相関は0</p></li>
 <li><p>予測値 <span class="math inline">\(\hat{y}\)</span> と残差の相関は0</p>
 <ul>
-<li>予測値は変数 <em>x</em> を線形下もので、相関係数の絶対値は変わらないから</li>
+<li>予測値は変数 <em>x</em> を線形変換したもので、相関係数の絶対値は変わらないから</li>
 </ul></li>
 </ul></li>
 <li><p>前のセクションで述べた <strong>最小2乗法</strong>は残差を2乗して足し合わせた残差平方和が最小になるように計算を行う</p></li>
