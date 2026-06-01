@@ -372,6 +372,7 @@ window.Quarto = {
   <li><a href="#相関関係の確認" id="toc-相関関係の確認" class="nav-link" data-scroll-target="#相関関係の確認">相関関係の確認</a></li>
   <li><a href="#重回帰分析の実施強制投入法" id="toc-重回帰分析の実施強制投入法" class="nav-link" data-scroll-target="#重回帰分析の実施強制投入法">重回帰分析の実施（強制投入法）</a></li>
   <li><a href="#外れ値の診断" id="toc-外れ値の診断" class="nav-link" data-scroll-target="#外れ値の診断">外れ値の診断</a></li>
+  <li><a href="#モデルの診断" id="toc-モデルの診断" class="nav-link" data-scroll-target="#モデルの診断">モデルの診断</a></li>
   <li><a href="#多重共線性の確認" id="toc-多重共線性の確認" class="nav-link" data-scroll-target="#多重共線性の確認">多重共線性の確認</a></li>
   <li><a href="#重回帰分析の実施ステップワイズ法" id="toc-重回帰分析の実施ステップワイズ法" class="nav-link" data-scroll-target="#重回帰分析の実施ステップワイズ法">重回帰分析の実施（ステップワイズ法）</a></li>
   <li><a href="#結果の報告の仕方" id="toc-結果の報告の仕方" class="nav-link" data-scroll-target="#結果の報告の仕方">結果の報告の仕方</a></li>
@@ -408,7 +409,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-04-13 10:18:12</p>
+      <p class="date-modified">2026-06-01 11:00:37</p>
     </div>
   </div>
     
@@ -422,11 +423,7 @@ window.Quarto = {
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
@@ -441,11 +438,15 @@ window.Quarto = {
 <ul>
 <li>単回帰分析：変数が1つ</li>
 </ul>
-<p>[ = a + bx ]</p>
+<p><span class="math display">\[
+\hat{y} = a + bx
+\]</span></p>
 <ul>
 <li>重回帰分析：変数が2つ以上</li>
 </ul>
-<p>[ = a + {b_1}{x_1} + {b_2}{x_2} + {b_3}{x_3} ]</p>
+<p><span class="math display">\[
+\hat{y} = a + {b_1}{x_1} + {b_2}{x_2} + {b_3}{x_3}
+\]</span></p>
 <section id="偏回帰係数" class="level3">
 <h3 class="anchored" data-anchor-id="偏回帰係数">偏回帰係数</h3>
 <ul>
@@ -458,8 +459,18 @@ window.Quarto = {
 </ul></li>
 </ul></li>
 </ul>
-<div class="infobox">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>偏回帰係数は、単回帰のような、当該の独立変数と従属変数の関係を表していない。2つの独立変数の重回帰分析を例に挙げると、<span class="math inline">\(x_2\)</span>の係数は、<span class="math inline">\(x_2\)</span>から<span class="math inline">\(x_1\)</span>の影響を除いた残差変数との関係を表す。従って、単なる<span class="math inline">\(x_2\)</span>の影響ではなく、<span class="math inline">\(x_1\)</span>から予測される<span class="math inline">\(x_2\)</span>に対して、実際の<span class="math inline">\(x_2\)</span>がどれだけ大きいかもしくは小さかったかを表す（<span class="math inline">\(x_1\)</span>の値のわりにどの程度<span class="math inline">\(x_2\)</span>の値が大きいか）。つまり、モデル内の他の変数との関係を踏まえて係数を解釈する必要がある。</p>
+</div>
 </div>
 <ul>
 <li><p>変数間で単位が異なる場合、従属変数、独立変数をすべて標準化することで、<strong>標準化偏回帰係数（standardized partial regression coefficient）</strong>を算出し、変数間の影響力を比較する</p></li>
@@ -496,7 +507,7 @@ window.Quarto = {
 <ul>
 <li><p><strong>すべての</strong>偏回帰係数は0であるという帰無仮説を立て、 <em>F</em> 値をもとに検定を行う</p>
 <ul>
-<li><em>F</em> 値（分散比）：モデルの分散を自由度で割った値（平均平方和）÷ モデルの誤差分散を自由度で割った値（平均誤差分散）。( R^2 ) は決定係数（coefficient of determination）、( k ) は説明変数（独立変数）の数、( n ) はサンプルサイズ（観測数）を表す。</li>
+<li><em>F</em> 値（分散比）：モデルの分散を自由度で割った値（平均平方和）÷ モデルの誤差分散を自由度で割った値（平均誤差分散）。<span class="math inline">\(R^2\)</span> は決定係数（coefficient of determination）、<span class="math inline">\(k\)</span> は説明変数（独立変数）の数、<span class="math inline">\(n\)</span> はサンプルサイズ（観測数）を表す。</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[
@@ -514,17 +525,30 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 <ul>
 <li><p>明確な基準はなく、目標とする効果量や実験項目の数などによって異なる</p>
 <ul>
-<li>検定力分析を行い、実験や調査を行う前に事前に決定することが望まれる</li>
+<li>検定力分析（Week 13で扱います）を行い、実験や調査を行う前に事前に決定することが望まれる</li>
 </ul></li>
 </ul>
 </section>
 <section id="多重共線性multicolinearity" class="level3">
 <h3 class="anchored" data-anchor-id="多重共線性multicolinearity">多重共線性（multicolinearity）</h3>
 <ul>
-<li>独立変数間の相関関係が高いと、偏回帰係数を正しく推定することができない</li>
+<li><p>独立変数間の相関関係が高いと、偏回帰係数を正しく推定することができない。</p>
+<ul>
+<li>係数の正負が直感と逆になったりする。</li>
+</ul></li>
 </ul>
-<div class="infobox">
-<p><strong>注</strong> “Multicollinearity should not be confused with a raw strong correlation between predictors. What matters is the association between one or more predictor variables, conditional on the other variables in the model.”<br> (From: https://rdrr.io/cran/performance/man/check_collinearity.html)</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Multicollinearity should not be confused with a raw strong correlation between predictors. What matters is the association between one or more predictor variables, conditional on the other variables in the model.”<br> (From: https://rdrr.io/cran/performance/man/check_collinearity.html)</p>
+</div>
 </div>
 <ul>
 <li><p>多重共線性の問題がないかを確認するための3指標。分析前に閾値を設定し、論文内でも多重共線性の判断をどのようにするか明記しておくとよい</p>
@@ -534,6 +558,19 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 <li>条件指数（condition index）：15以上で強い多重共線性があると判断</li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ダミー変数（名義尺度のデータなどを数値に置き換えたもの。詳しくは来週）の分析を行うと、変数の数マイナス１の係数しか表示されない。これは完全な多重共線性を避けるためである。すべての変数を投入すると、説明変数行列の列が線形独立ではなくなり、フルランクの仮定が崩れてしまい、回帰係数を推定できなくなる。</p>
+</div>
+</div>
 </section>
 <section id="外れ値" class="level3">
 <h3 class="anchored" data-anchor-id="外れ値">外れ値</h3>
@@ -547,17 +584,33 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 <ul>
 <li>平均てこ比：独立変数の数 + 1 ÷ サンプルサイズ</li>
 </ul></li>
-<li><p>マハラノビス距離：複数の独立変数における各データの平均と各ケースのデータの距離を示す指標。マハラノビスの表を参考に判断する（マハラノビスとてこ比を両方使う必要はない）。</p></li>
+<li><p>マハラノビス距離：複数の独立変数における各データの平均と各ケースのデータの距離を示す指標。この値が大きいデータは外れ値である可能性がある。マハラノビスの表を参考に判断する（マハラノビスとてこ比を両方使う必要はない）。</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="残差の独立性正規性等分散線形性" class="level3">
 <h3 class="anchored" data-anchor-id="残差の独立性正規性等分散線形性">残差の独立性、正規性、等分散、線形性</h3>
 <ul>
-<li><p>残差の独立性：どの独立変数の残差間にも相関がないという前提。</p></li>
-<li><p>残差の正規性：残差の散布図やヒストグラムなどで確認できる</p></li>
-<li><p>残差の等分散性：独立変数がどの値の場合でも残差分散が同じである必要がある</p></li>
-<li><p>残差の線形性：残差と予測値には線形関係がある必要がある。散布図などで確認</p></li>
+<li><p>残差の独立性</p>
+<ul>
+<li><p>残差同士に相関がないという前提。ダービン・ワトソン検定で調べることができる。</p></li>
+<li><p>この仮定が崩れても係数の解釈は可能であるが、標準誤差の計算式が狂うため、<em>t</em>検定の結果が信頼できなくなる。</p></li>
+</ul></li>
+<li><p>残差の正規性</p>
+<ul>
+<li><p>残差がおおよそ正規分布に従うという前提。残差の散布図やヒストグラムなどで確認できる。この前提が満たされていない場合、データを変換したり、非線形回帰分析へ切り替えたりなどで対処する。</p></li>
+<li><p>この仮定が崩れても係数の解釈は可能であるが、標準誤差の計算式が狂うため、<em>t</em>検定の結果が信頼できなくなる。</p></li>
+</ul></li>
+<li><p>残差の等分散性</p>
+<ul>
+<li><p>予測値や独立変数の値にかかわらず、残差の分散が一定であることを仮定する。残差が0を中心に同程度の幅でランダムに散らばっていることが望ましい。かなり異なっている場合、分散が大きい群と小さい群が混在していたり、測定誤差が水準によって異なっていることが考えられる。</p></li>
+<li><p>この仮定が崩れても係数の解釈は可能であるが、標準誤差の計算式が狂うため、<em>t</em>検定の結果が信頼できなくなる。</p></li>
+</ul></li>
+<li><p>残差の線形性：</p>
+<ul>
+<li><p>従属変数の期待値と独立変数の関係が線形であることを仮定する。散布図などで標準化残差（regression standardized residual）と標準化予測値（regression standardized predicted value）の関係を確認。これが満たされていない場合、得られた結果が一般化できない。曲線的なパターンが見られる場合には非線形回帰分析などへの切り替えを検討する。</p></li>
+<li><p><u><strong>この仮定の破綻はモデル自体の誤りを示すため、推定された係数の解釈が不適切になる。</strong></u></p></li>
+</ul></li>
 </ul>
 </section>
 </section>
@@ -832,25 +885,33 @@ F-statistic: 104.3 on 4 and 115 DF,  p-value: &lt; 2.2e-16</code></pre>
 X1    1 120    0  1   0.03    0.01 0.95 -2.56 3.33   5.9 -0.03     0.45 0.09</code></pre>
 </div>
 </div>
+</section>
+<section id="モデルの診断" class="level3">
+<h3 class="anchored" data-anchor-id="モデルの診断">モデルの診断</h3>
 <ul>
-<li><code>olsrr</code>関数を使うと、様々な図を一度に表示可能</li>
+<li><p>Residuals vs Fitted</p>
+<ul>
+<li>線形性、等分散性を診断</li>
+<li>0を中心にランダムに散らばっていることが望ましい</li>
+</ul></li>
+<li><p>Q-Q Residuals</p>
+<ul>
+<li>正規性を診断</li>
+<li>点が対角線上にほぼ並んでいることが望ましい</li>
+</ul></li>
+<li><p>Scale-Location</p>
+<ul>
+<li>等分散性を診断</li>
+<li>点が水平方向に均一に分布していることが望ましい。</li>
+</ul></li>
+<li><p>Residuals vs Leverage</p>
+<ul>
+<li>影響力の大きい観測値（外れ値など）を診断</li>
+<li>ほとんどの点は中央付近に集まることが望ましい。</li>
+</ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("olsrr")</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'olsrr' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'olsrr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:datasets':
-
-    rivers</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ols_plot_diagnostics</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -879,67 +940,38 @@ Attaching package: 'olsrr'</code></pre>
 </figure>
 </div>
 </div>
+</div>
+<ul>
+<li><p>自己相関係数</p>
+<ul>
+<li>棒が信頼区間に収まっているのが望ましい</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(output_forced))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-6.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-8.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-9.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-10.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-11.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-12.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="07-multipleregression_files/figure-html/unnamed-chunk-14-13.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="callout-body-container callout-body">
+<p><code>olsrr</code>関数を使うと、様々な図を一度に表示可能</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("olsrr")</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ols_plot_diagnostics</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -955,7 +987,8 @@ Attaching package: 'olsrr'</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ols_coll_diag</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ols_coll_diag</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tolerance and Variance Inflation Factor
 ---------------------------------------
@@ -994,7 +1027,7 @@ Eigenvalue and Condition Index
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>output_step <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">step</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>output_step <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">step</span>(output_forced)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Start:  AIC=599.41
 EndT ~ Placement + FirstT + MidT + LastT
@@ -1020,7 +1053,7 @@ EndT ~ FirstT + MidT + LastT
 <li>Placementを抜いたモデルの結果</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(output_step)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(output_step)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1047,7 +1080,7 @@ F-statistic: 139.4 on 3 and 116 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="結果の報告の仕方" class="level3">
 <h3 class="anchored" data-anchor-id="結果の報告の仕方">結果の報告の仕方</h3>
-<p>プレイスメントテスト、前期試験、中間模試、および後期試験の得点から年度末試験の得点を予測するために、ステップワイズ法による重回帰分析を行った。その結果、中間模試、後期試験、および前期試験の得点が予測に有意で、この3つの変数のモデルは従属変数の分散の78% ( (R^2) = .783.調整 (R^2) = .777)を説明しており、かなり予測率が高いといえる。</p>
+<p>プレイスメントテスト、前期試験、中間模試、および後期試験の得点から年度末試験の得点を予測するために、ステップワイズ法による重回帰分析を行った。その結果、中間模試、後期試験、および前期試験の得点が予測に有意で、この3つの変数のモデルは従属変数の分散の78% ( <span class="math inline">\(R^2\)</span> = .783.調整 <span class="math inline">\(R^2\)</span> = .777)を説明しており、かなり予測率が高いといえる。</p>
 </section>
 </section>
 <section id="次週までの課題" class="level2">
@@ -1061,12 +1094,25 @@ F-statistic: 139.4 on 3 and 116 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul>
 <li>注. 従属変数、独立変数ともに<strong>連続値</strong>の変数を選んでください</li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>HTMLファイルのみを提出する場合は、画像・CSS・JavaScriptなどをHTML内に埋め込む必要があります。そのため、YAMLヘッダーに <code>self-contained: true</code> または<code>embed-resources: true</code>を必ず設定してください。設定していない場合、HTMLファイルを開いても画像などが表示されないことがあります。</p>
+</div>
+</div>
 </section>
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li>TACT上で提出。</li>
-<li>締め切りは今週の木曜日まで</li>
+<li>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</li>
+<li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </section>
 </section>
@@ -1079,23 +1125,9 @@ F-statistic: 139.4 on 3 and 116 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><p>📚Gelman, Hill, &amp; Vehtari (2020) <em>Regression and Other Stories</em>, Cambridge University Press</p></li>
 <li><p>📄<a href="https://www.jstage.jst.go.jp/article/jjpsy/advpub/0/advpub_92.19226/_pdf/-char/ja">吉田・村井 (2021) 心理学的研究における重回帰分析の適用に関わる諸問題， 心理学研究, 92(3), 178-187.</a></p></li>
 <li><p>💻<a href="https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV">回帰の有意性の検定</a></p></li>
+<li><p>💻<a href="https://zenn.dev/green_tea/articles/0bce4d47ab0674">回帰分析って知ってる？―完全に理解した人へ贈る絶望の谷</a></p></li>
+<li><p>💻<a href="https://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials/">Linear Regression Assumptions and Diagnostics in R: Essentials</a></p></li>
 </ul>
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
 
 
 </section>

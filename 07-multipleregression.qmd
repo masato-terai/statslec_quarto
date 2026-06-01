@@ -3,10 +3,7 @@
 
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
-
-  - .Rでも.Rmdでもどちらでも大丈夫です。
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
 ## 今日の目標
 
@@ -16,15 +13,15 @@
 ## 重回帰分析とは
 - 単回帰分析：変数が1つ
 
-\[
+$$
 \hat{y} = a + bx
-\]
+$$
 
 - 重回帰分析：変数が2つ以上
 
-\[
+$$
 \hat{y} = a + {b_1}{x_1} + {b_2}{x_2} + {b_3}{x_3}
-\]
+$$
 
 ### 偏回帰係数
 - 重回帰式における回帰係数：偏回帰係数（partial regression coefficient）
@@ -35,7 +32,7 @@
 
     - e.g., "When comparing two children whose mother have the same level of education, the child whose mother is *x* IQ points higher is predicted to have a test score is 6*x* higher, **on average.** (Gelman et al., 2020, pp. 134)
 
-::: infobox
+::: callout-important
 偏回帰係数は、単回帰のような、当該の独立変数と従属変数の関係を表していない。2つの独立変数の重回帰分析を例に挙げると、$x_2$の係数は、$x_2$から$x_1$の影響を除いた残差変数との関係を表す。従って、単なる$x_2$の影響ではなく、$x_1$から予測される$x_2$に対して、実際の$x_2$がどれだけ大きいかもしくは小さかったかを表す（$x_1$の値のわりにどの程度$x_2$の値が大きいか）。つまり、モデル内の他の変数との関係を踏まえて係数を解釈する必要がある。
 :::
 
@@ -63,7 +60,7 @@
 ### 回帰式の有意性（ *F* 検定）
 - **すべての**偏回帰係数は0であるという帰無仮説を立て、 *F* 値をもとに検定を行う
 
-  - *F* 値（分散比）：モデルの分散を自由度で割った値（平均平方和）÷ モデルの誤差分散を自由度で割った値（平均誤差分散）。\( R^2 \) は決定係数（coefficient of determination）、\( k \) は説明変数（独立変数）の数、\( n \) はサンプルサイズ（観測数）を表す。
+  - *F* 値（分散比）：モデルの分散を自由度で割った値（平均平方和）÷ モデルの誤差分散を自由度で割った値（平均誤差分散）。$R^2$ は決定係数（coefficient of determination）、$k$ は説明変数（独立変数）の数、$n$ はサンプルサイズ（観測数）を表す。
   
 
 $$
@@ -78,16 +75,17 @@ $$
 ### サンプルサイズ
 - 明確な基準はなく、目標とする効果量や実験項目の数などによって異なる
 
-  - 検定力分析を行い、実験や調査を行う前に事前に決定することが望まれる
+  - 検定力分析（Week 13で扱います）を行い、実験や調査を行う前に事前に決定することが望まれる
   
 ### 多重共線性（multicolinearity）
 
-- 独立変数間の相関関係が高いと、偏回帰係数を正しく推定することができない
+- 独立変数間の相関関係が高いと、偏回帰係数を正しく推定することができない。
 
-::: infobox
-**注** "Multicollinearity should not be confused with a raw strong correlation between predictors. What matters is the association between one or more predictor variables, conditional on the other variables in the model."<br>
+  - 係数の正負が直感と逆になったりする。
+
+::: callout-important
+"Multicollinearity should not be confused with a raw strong correlation between predictors. What matters is the association between one or more predictor variables, conditional on the other variables in the model."<br>
 (From: https://rdrr.io/cran/performance/man/check_collinearity.html)
-
 :::
 
 - 多重共線性の問題がないかを確認するための3指標。分析前に閾値を設定し、論文内でも多重共線性の判断をどのようにするか明記しておくとよい
@@ -95,6 +93,10 @@ $$
   - 許容度（tolerance）：値が 0.1以下で多重共線性があると判断される
   - VIF（variance inflation factor）： 論文でよく見る指標。許容度の逆数で、5-10以上だと多重共線性だと判断。
   - 条件指数（condition index）：15以上で強い多重共線性があると判断
+
+::: callout-note
+ダミー変数（名義尺度のデータなどを数値に置き換えたもの。詳しくは来週）の分析を行うと、変数の数マイナス１の係数しか表示されない。これは完全な多重共線性を避けるためである。すべての変数を投入すると、説明変数行列の列が線形独立ではなくなり、フルランクの仮定が崩れてしまい、回帰係数を推定できなくなる。
+:::
 
 ### 外れ値
 - 回帰直線は外れ値に大きく影響する
@@ -109,18 +111,33 @@ $$
 
     - 平均てこ比：独立変数の数 + 1 ÷ サンプルサイズ
 
-  - マハラノビス距離：複数の独立変数における各データの平均と各ケースのデータの距離を示す指標。マハラノビスの表を参考に判断する（マハラノビスとてこ比を両方使う必要はない）。
+  - マハラノビス距離：複数の独立変数における各データの平均と各ケースのデータの距離を示す指標。この値が大きいデータは外れ値である可能性がある。マハラノビスの表を参考に判断する（マハラノビスとてこ比を両方使う必要はない）。
 
 ### 残差の独立性、正規性、等分散、線形性
 
-- 残差の独立性：どの独立変数の残差間にも相関がないという前提。
+- 残差の独立性
 
-- 残差の正規性：残差の散布図やヒストグラムなどで確認できる
+  - 残差同士に相関がないという前提。ダービン・ワトソン検定で調べることができる。
 
-- 残差の等分散性：独立変数がどの値の場合でも残差分散が同じである必要がある
+  - この仮定が崩れても係数の解釈は可能であるが、標準誤差の計算式が狂うため、*t*検定の結果が信頼できなくなる。
 
-- 残差の線形性：残差と予測値には線形関係がある必要がある。散布図などで確認
+- 残差の正規性
 
+  - 残差がおおよそ正規分布に従うという前提。残差の散布図やヒストグラムなどで確認できる。この前提が満たされていない場合、データを変換したり、非線形回帰分析へ切り替えたりなどで対処する。
+
+  - この仮定が崩れても係数の解釈は可能であるが、標準誤差の計算式が狂うため、*t*検定の結果が信頼できなくなる。
+
+- 残差の等分散性
+
+  - 予測値や独立変数の値にかかわらず、残差の分散が一定であることを仮定する。残差が0を中心に同程度の幅でランダムに散らばっていることが望ましい。かなり異なっている場合、分散が大きい群と小さい群が混在していたり、測定誤差が水準によって異なっていることが考えられる。
+
+  - この仮定が崩れても係数の解釈は可能であるが、標準誤差の計算式が狂うため、*t*検定の結果が信頼できなくなる。
+
+- 残差の線形性：
+
+  - 従属変数の期待値と独立変数の関係が線形であることを仮定する。散布図などで標準化残差（regression standardized residual）と標準化予測値（regression standardized predicted value）の関係を確認。これが満たされていない場合、得られた結果が一般化できない。曲線的なパターンが見られる場合には非線形回帰分析などへの切り替えを検討する。
+
+  - <u>**この仮定の破綻はモデル自体の誤りを示すため、推定された係数の解釈が不適切になる。**</u>
 
 ## 投入方
 - 重回帰分析の場合、独立変数を入れる順序でそれぞれの独立変数の有意性や偏回帰係数が変化する。
@@ -194,6 +211,7 @@ beeswarm(dat[, 2:6],
 
 ### 相関関係の確認
 - 高い相関関係を示す独立変数はない
+
 ```{r}
 psych::corr.test(dat[, 2:6])
 ```
@@ -242,13 +260,51 @@ boxplot(z.res)
 describe(z.res)
 ```
 
-- ```olsrr```関数を使うと、様々な図を一度に表示可能
+### モデルの診断
+
+- Residuals vs Fitted
+
+  - 線形性、等分散性を診断
+  - 0を中心にランダムに散らばっていることが望ましい
+
+- Q-Q Residuals
+
+  - 正規性を診断
+  - 点が対角線上にほぼ並んでいることが望ましい
+
+- Scale-Location
+
+  - 等分散性を診断
+  - 点が水平方向に均一に分布していることが望ましい。
+
+- Residuals vs Leverage
+
+  - 影響力の大きい観測値（外れ値など）を診断
+  - ほとんどの点は中央付近に集まることが望ましい。
 
 ```{r}
+plot(output_forced)
+```
+
+- 自己相関係数
+
+  - 棒が信頼区間に収まっているのが望ましい
+
+```{r}
+acf(residuals(output_forced))
+```
+
+::: callout-note
+```olsrr```関数を使うと、様々な図を一度に表示可能
+
+```{r}
+#| eval: false
 #install.packages("olsrr")
 library(olsrr)
 ols_plot_diagnostics(output_forced)
 ```
+
+:::
 
 ### 多重共線性の確認
 - 多重共線性の問題はなさそう
@@ -257,6 +313,8 @@ ols_plot_diagnostics(output_forced)
   - 許容度：0.1以下のものもない
   - 条件指数（Condirion Index）：全て15以下
 ```{r}
+#| warning: false
+library(olsrr)
 ols_coll_diag(output_forced)
 ```
 
@@ -279,7 +337,7 @@ summary(output_step)
 
 
 ### 結果の報告の仕方
-プレイスメントテスト、前期試験、中間模試、および後期試験の得点から年度末試験の得点を予測するために、ステップワイズ法による重回帰分析を行った。その結果、中間模試、後期試験、および前期試験の得点が予測に有意で、この3つの変数のモデルは従属変数の分散の78% ( \(R^2\) = .783.調整 \(R^2\) = .777)を説明しており、かなり予測率が高いといえる。
+プレイスメントテスト、前期試験、中間模試、および後期試験の得点から年度末試験の得点を予測するために、ステップワイズ法による重回帰分析を行った。その結果、中間模試、後期試験、および前期試験の得点が予測に有意で、この3つの変数のモデルは従属変数の分散の78% ( $R^2$ = .783.調整 $R^2$ = .777)を説明しており、かなり予測率が高いといえる。
 
 ## 次週までの課題
 ### 課題内容
@@ -290,9 +348,13 @@ summary(output_step)
 
 - 注. 従属変数、独立変数ともに**連続値**の変数を選んでください
 
+::: callout-important
+HTMLファイルのみを提出する場合は、画像・CSS・JavaScriptなどをHTML内に埋め込む必要があります。そのため、YAMLヘッダーに ```self-contained: true``` または```embed-resources: true```を必ず設定してください。設定していない場合、HTMLファイルを開いても画像などが表示されないことがあります。
+:::
+
 ### 提出方法
-- TACT上で提出。
-- 締め切りは今週の木曜日まで
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
+-   締め切りは今週の木曜日23:59まで
 
 
 ## 参考文献
@@ -309,22 +371,6 @@ summary(output_step)
 
 - 💻[回帰の有意性の検定](https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV)
 
+- 💻[回帰分析って知ってる？―完全に理解した人へ贈る絶望の谷](https://zenn.dev/green_tea/articles/0bce4d47ab0674)
 
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
+- 💻[Linear Regression Assumptions and Diagnostics in R: Essentials](https://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials/)

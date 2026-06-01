@@ -35,5 +35,10 @@
 
     - Quartoで作成されてます。
 
+## オンライン資料
+- [データサイエンス概論I＆II　データ間の距離と類似度](https://mdsc.kyushu-u.ac.jp/wp/wp-content/uploads/2023/07/458290da747eff72c614ee500e1baa27.pdf)
+
+- [回帰分析って知ってる？―完全に理解した人へ贈る絶望の谷](https://zenn.dev/green_tea/articles/0bce4d47ab0674)
+
 ## Xのポストなど
 - [量的、質的研究の違い by @tera_sawa](https://x.com/tera_sawa/status/1970336158015279561)
