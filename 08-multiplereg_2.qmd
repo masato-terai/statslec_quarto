@@ -31,7 +31,7 @@
     
 - 検定における有意水準
 
-  - 検定結果は、5 %（有意水準 5%と設定する場合）の間違いの可能性を含む（第一種の誤り）
+  - 検定結果は、5 %（有意水準 5 %と設定する場合）の間違いの可能性を含む（第一種の誤り）
 
     - 帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）
   
@@ -61,11 +61,10 @@
 
     - 留学から帰ってきた学生に質問紙（100項目）を配布し、留学前と留学後でどの項目に差がみられるか確認する
 
-\[
+$$
 1 - (1 - 0.05)^{100}
 = 99.4 %
-\] 
-
+$$ 
 
 ::: callout-note
 「AとBの比較を行う。正規性の確認のために正規分布かを検定し、その後、等分散性を検定でさらに確認し、 *t* 検定を行った。」も検定の多重性の問題に該当する。この場合、AもBのデータもそれぞれ正規分布に従うという二つの帰無仮説を成立させる必要がある。またいくつかの検定を通過させ、条件（都合）に合う検定を選ぶことにもなる。
@@ -104,7 +103,7 @@
   
     - 分散分析に、量的変数（共変量）を加える：共分散分析
 
-## 分散分析は今回扱いません
+## 分散分析という言葉は今回登場しません
 
 ### 理由 1
 - 当該分野で分散分析を行っている論文をほとんど見なくなったから
@@ -125,7 +124,9 @@
   - 分散分析と同じような平均値の比較を行うことが可能
   
     - 質的変数のコーディング
-  
+
+- 分散分析は一般線形モデルの一つとも考えられます。*t* 検定も一つのダミー変数を投入した一般線形モデルです。
+
 ::: callout-note
 分散分析は統計学の教科書であれば必ず登場します。それほど学習する必要性のある内容で、今後説明する回帰モデルでの質的変数の扱いでも、分散分析の考え方を理解しておくと理解しやすいです。しかし、本講義は統計学以外にプログラミング言語の習得まで扱うため、時間的制約があります。そのため、やむを得ずシラバスから削除しました(´;ω;｀)。自分が使わなくても以前の研究を読む際に必要になることもあり得ますよね。
 :::
@@ -158,7 +159,6 @@ print(df)
 
 ```
 
-
   - トリートメント・コントラスト（treatment contrasts）
 
     - 別名ダミーコーディング
@@ -176,7 +176,7 @@ contrasts(df$Method) <- contr.treatment(3)
 
   - 指導法AとB、指導法AとCの比較
 ```{r}
-df$Method
+contrasts(df$Method)
 ```
 
 - 係数の方向（正/負）も重要
@@ -194,7 +194,11 @@ results$coefficients
 
 ```{r}
 # 各指導法の平均を確認
-stats::aggregate(Score ~ Method, data = df, FUN = mean)
+stats::aggregate(
+  Score ~ Method,  #Scoreが従属、Methodが独立変数
+  data = df,       #データ
+  FUN = mean       #どの統計量を計算するか
+  )
 ```
 
   - サム・コントラスト（sum contrasts）
@@ -300,12 +304,15 @@ df$Method <- factor(df$Method,
                     levels = c("C", "A", "B"))
 ```
 
-::: infobox
+::: callout-important
 - 研究課題に合わせてコーディング法を選ぶ必要があり、またどのコーディングを使用したか、どの数値をどのデータにあてはめたのかを報告する必要がある。
-- 参加者内/参加者間のデータかは関係ない。
+- 参加者内/参加者間のデータかはコーディングには関係ない。
 - 以上のどのコーディング法でも、水準数 - 1が計算される
 :::
 
+::: callout-note
+ダミー変数（名義尺度のデータなどを数値に置き換えたもの。詳しくは来週）の分析を行うと、変数の数マイナス１の係数しか表示されない。これは完全な多重共線性を避けるためである。すべての変数を投入すると、説明変数行列の列が線形独立ではなくなり、フルランクの仮定が崩れてしまい、回帰係数を推定できなくなる。
+:::
 
 ## ハンズオン・セッション
 - ポケモンのデータセットの中身を減らしたもの
@@ -511,62 +518,23 @@ summary(results_sum)[["coefficients"]][,4]
 - 補正では第2種の誤りが大きくなるのを防げないというシミュレーション結果もある
 
 ### ベイズ統計
-- 検定の繰り返しは、帰無仮説検定を行う頻度統計における問題。
+- 検定の繰り返しは、帰無仮説検定を行う頻度統計においてよく指摘される問題だが、「95%信用区間に0を含むか」を判断基準とするとType 1 Errorは上がるという結果がある
 
-  - 以前使用した```brm()```関数を使用。
-
-```{r}
-contrasts(dat$タイプ1) <- contr.sum(2)
-```
-
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-
-#install.packages("brms")
-library(brms)
-options(rstan.show_progress = FALSE)
-```
-
-
-```{r}
-#| cache: true
-
-results_sum_bayes <- brm(
-  重さ ~ タイプ1,  # 応答変数「重さ」と説明変数「タイプ1」の回帰モデル
-  data = dat,  # データフレーム dat を使用
-  family = gaussian(),  # 正規分布（ガウス分布）を仮定
-  prior = prior(normal(0, 10)),  # 事前分布として平均0、標準偏差10の正規分布を設定
-  chains = 4,  # MCMCの独立した4つのチェーンを使用
-  iter = 5000,  # 総サンプリング回数（各チェーンあたり5000回）
-  warmup = 500,  # ウォームアップ（バーンイン）期間として最初の500回を破棄
-  thin = 2,  # 2回ごとに1つのサンプルを取得（間引き）
-  seed = 123,  # 乱数シードを設定し、再現性を確保
-  refresh = 0,
-  silent = 2
-)
-
-```
-
-```{r}
-summary(results_sum_bayes)
-```
+    - 参考：[https://masato-terai.github.io/Metho_2025/#/title-slide](https://masato-terai.github.io/Metho_2025/#/title-slide)
 
 
 ## 次週までの課題
-
-- 来週は休講です！
 
 ### 課題内容
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. ```week8_data.csv```のデータを用いて今回の講義のハンズオンセッションの内容を再度自分のRプログラム上で実行する。**2水準のコーディングは、反復コントラストで行うこと。また3水準のコーディングはトリートメント・コントラストコーディングで行うこと。**
+2. ```week8_data.csv```のデータを用いて今回の講義のハンズオンセッションの内容を再度自分で実行する。**2水準のコーディングは、反復コントラストで行うこと。また3水準のコーディングはトリートメント・コントラストコーディングで行うこと。**結果の説明も付け加えてください。
 
 ### 提出方法
-- TACT上で提出。
-- 締め切りは今週の木曜日まで
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
+
+-   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
 
@@ -588,21 +556,4 @@ summary(results_sum_bayes)
 
 - 💻[多重決定問題](https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/)
 
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
+- 💻[帰無仮説検定をもとにした回帰分析の検定の多重性についてーメソドロジー研究部会　2025年度第1回研究会](https://masato-terai.github.io/Metho_2025/#/title-slide)
