@@ -390,7 +390,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-06-15 18:08:59</p>
+      <p class="date-modified">2026-06-15 18:18:25</p>
     </div>
   </div>
     
@@ -3572,10 +3572,27 @@ Attaching package: 'sjPlot'</code></pre>
 \frac{{2(60 - 70.2) + (45.2 - 19.8) + (49.8 - 40)}}{6}
 \]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">60</span> <span class="sc">-</span> <span class="fl">70.2</span>) <span class="sc">+</span> (<span class="fl">45.2</span> <span class="sc">-</span> <span class="fl">19.8</span>) <span class="sc">+</span> (<span class="fl">49.8</span> <span class="sc">-</span> <span class="dv">40</span>) <span class="sc">/</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">2</span> <span class="sc">*</span> (<span class="dv">60</span> <span class="sc">-</span> <span class="fl">70.2</span>)) <span class="sc">+</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">45.2</span> <span class="sc">-</span> <span class="fl">19.8</span>) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">49.8</span> <span class="sc">-</span> <span class="dv">40</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">/</span> </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.633333</code></pre>
+<pre><code>[1] 2.466667</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rでは掛け算・割り算が足し算・引き算より先に計算される。式全体を割りたい場合は括弧 () で囲む必要がある。</p>
 </div>
 </div>
 <ul>
@@ -3596,10 +3613,14 @@ Attaching package: 'sjPlot'</code></pre>
 \frac{{(70.2 - 60) + 2(19.8 - 45.2) + (49.8 - 40)}}{6}
 \]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">70.2</span> <span class="sc">-</span> <span class="dv">60</span>) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="fl">19.8</span> <span class="sc">-</span> <span class="fl">45.2</span>) <span class="sc">+</span> (<span class="fl">49.8</span> <span class="sc">-</span> <span class="dv">40</span>) <span class="sc">/</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">70.2</span> <span class="sc">-</span> <span class="dv">60</span>) <span class="sc">+</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">2</span> <span class="sc">*</span> (<span class="fl">19.8</span> <span class="sc">-</span> <span class="fl">45.2</span>)) <span class="sc">+</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">49.8</span> <span class="sc">-</span> <span class="dv">40</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a> ) <span class="sc">/</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -38.96667</code></pre>
+<pre><code>[1] -5.133333</code></pre>
 </div>
 </div>
 </section>
