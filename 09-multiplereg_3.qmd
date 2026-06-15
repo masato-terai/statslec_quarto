@@ -373,7 +373,7 @@ cbind(new_data_3, res3) %>%
   tab_options(table.width = pct(100))
 ```
 
-#### 下位検定
+## 下位検定
 - 交互作用が有意だった場合に、交互作用の中身を詳しく検討するために単純主効果の検定を行う（検定の多重性に注意）。
 
   - 単純主効果
@@ -471,7 +471,9 @@ table(dat$Learning)
 
 ```{r}
 dat$Grade <- factor(dat$Grade)
-dat$Learning <- factor(dat$Learning, levels = c("List", "Context", "KeyWord"))
+dat$Learning <- factor(dat$Learning, 
+  levels = c("List", "Context", "KeyWord") #Wは大文字なので注意
+  )
 ```
 
 - 各群ごとの平均
@@ -484,7 +486,11 @@ stats::aggregate(Post ~ Learning, data = dat, FUN = mean)
 ```
 
 ```{r}
-res <- stats::aggregate(Post ~ Grade*Learning , data = dat, FUN = mean)
+res <- stats::aggregate(
+  Post ~ Grade * Learning,
+  data = dat, 
+  FUN = mean)
+
 res
 ```
 
@@ -524,22 +530,57 @@ plot_model(
 
 ### 係数の解釈
 - 記述統計の値を参照して考えると分かりやすい
-  - Intercept: grand mean (47.5)
-  - GradeSecond: First - grand mean (39.93333 - 47.5)
-  - Learning1: List - grand mean (65.1 - 47.5)
-  - Learning2: Context - grand mean (32.5 - 47.5)
-  - GradeSecond:Learning1: {2 * (60 - 70.2) + (45.2 - 19.8) + (49.8 - 40)} ÷ 6
-  
+  - **(Intercept):** Grand Mean (47.5)
+  - **Grade1:** First - grand mean (39.93333 - 47.5)
+  - **Learning1:** List - grand mean (65.1 - 47.5)
+  - **Learning2:** Context - grand mean (32.5 - 47.5)
+  - **Grade1:Learning1:** 
+
+$$
+\frac{
+  2M_{\text{リスト1}} - M_{\text{文脈1}}
+  - M_{\text{キー1}} - 2M_{\text{リスト2}}
+  + M_{\text{文脈2}} + M_{\text{キー2}}
+  }
+  {6}
+$$
+
 $$
 \frac{2(M_{\text{リスト1}} - M_{\text{リスト2}}) + (M_{\text{文脈2}} - M_{\text{文脈1}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
 $$
 
-  
-    - GradeSecond:Learning2: {(70.2-60) + 2 * (19.8-45.2) + (49.8 - 40)} ÷ 6
+$$
+\frac{{2(60 - 70.2) + (45.2 - 19.8) + (49.8 - 40)}}{6}
+$$
+
+```{r}
+2 * (60 - 70.2) + (45.2 - 19.8) + (49.8 - 40) /
+  6
+```
+
+  - **Grade1:Learning2:** 
+
+$$
+\frac{
+  - M_{\text{リスト1}} + 2M_{\text{文脈1}}
+  - M_{\text{キー1}} + M_{\text{リスト2}}
+  - 2M_{\text{文脈2}} + M_{\text{キー2}}
+  }
+  {6}
+$$
 
 $$
 \frac{(M_{\text{リスト2}} - M_{\text{リスト1}}) + 2(M_{\text{文脈1}} - M_{\text{文脈2}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
 $$
+
+$$
+\frac{{(70.2 - 60) + 2(19.8 - 45.2) + (49.8 - 40)}}{6}
+$$
+
+```{r}
+(70.2 - 60) + 2 * (19.8 - 45.2) + (49.8 - 40) /
+  6
+```
 
 ### 質的 × 質的（反復コントラスト）
 
@@ -564,14 +605,41 @@ summary(model_rep)
 ```
 
 ### 係数の解釈
-- 記述統計の値を参照して考えると分かりやすい
-  - Intercept: grand mean
-  - Grade2-1: Second - First
-  - Learning2-1: Context - List
-  - Learning3-2: Keyword - Context
-  - Grade2-1:Learning2-1: (ContextにおけるSecond-First) -  (ListにおけるSecond-First) = (45.2 - 19.8) - (70.2 - 60)
-  - Grade2-1:Learning3-2: (KeywordにおけるSecond-First) -  (ContextにおけるSecond-First) = (49.8 - 40) - (45.2 - 19.8)
+- **(Intercept):** grand mean
+- **Grade2-1:** Second - First
+- **Learning2-1:** Context - List
+- **Learning3-2:** Keyword - Context
+- **Grade2-1:Learning2-1:**
 
+$$
+(M_{\text{リスト1}} + M_{\text{文脈2}}) 
+- (M_{\text{文脈1}} + M_{\text{リスト2}})
+$$
+
+$$
+(M_{\text{文脈2}}-M_{\text{文脈1}}) 
+- (M_{\text{リスト2}} - M_{\text{リスト1}})
+$$
+
+```{r}
+(45.2 - 19.8) - (70.2 - 60)
+```
+
+- **Grade2-1:Learning3-2:**
+
+$$
+(M_{\text{文脈1}} + M_{\text{キー2}}) 
+- (M_{\text{キー1}} + M_{\text{文脈2}})
+$$
+
+$$
+(M_{\text{キー2}}-M_{\text{キー1}}) 
+- (M_{\text{文脈2}} - M_{\text{文脈1}})
+$$
+
+```{r}
+(49.8 - 40) - (45.2 - 19.8)
+```
 
 - ```emmeans()```関数で下位検定を行う場合も、どのコーディングをあてはめても結果は同じになります。
 
