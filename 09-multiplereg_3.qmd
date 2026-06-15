@@ -24,10 +24,138 @@ options(mc.cores = parallel::detectCores())
 
 ## 交互作用
 - 2つ以上の独立変数の組み合わせが従属変数にもたらす影響
-
-  - 質的変数は**トリートメント・コーディング**を行ったと仮定
   
   - 一般化線形モデルでは、「説明変数同士の積」を説明変数として加えることで、交互作用を表現する
+
+::: callout-caution
+以下の交互作用に関する図の結果は、パターンを分かりやすく表示するため、意図的に効果を操作している。よって、実際のデータのパターンとは結果が異なる。
+:::
+
+```{r}
+#| echo = FALSE
+dat <- tribble(
+  ~Pattern, ~Type, ~Evolution, ~HP,
+  
+  # ① タイプ差あり・進化差あり
+  "タイプ差あり\n進化差あり", "水", "進化前",  8,
+  "タイプ差あり\n進化差あり", "雷", "進化前", 12,
+  "タイプ差あり\n進化差あり", "水", "進化後", 12,
+  "タイプ差あり\n進化差あり", "雷", "進化後", 16,
+  
+  # ② タイプ差あり・進化差なし
+  "タイプ差あり\n進化差なし", "水", "進化前", 10,
+  "タイプ差あり\n進化差なし", "雷", "進化前", 14,
+  "タイプ差あり\n進化差なし", "水", "進化後", 10,
+  "タイプ差あり\n進化差なし", "雷", "進化後", 14,
+  
+  # ③ タイプ差なし・進化差あり
+  "タイプ差なし\n進化差あり", "水", "進化前", 10,
+  "タイプ差なし\n進化差あり", "雷", "進化前", 10,
+  "タイプ差なし\n進化差あり", "水", "進化後", 14,
+  "タイプ差なし\n進化差あり", "雷", "進化後", 14,
+  
+  # ④ 主効果なし
+  "主効果なし", "水", "進化前", 12,
+  "主効果なし", "雷", "進化前", 12,
+  "主効果なし", "水", "進化後", 12,
+  "主効果なし", "雷", "進化後", 12
+)
+
+dat$Pattern <- factor(dat$Pattern,
+               levels = c(
+                "主効果なし", "タイプ差なし\n進化差あり",
+                "タイプ差あり\n進化差なし", "タイプ差あり\n進化差あり"
+               ))
+
+ggplot(
+  dat,
+  aes(
+    x = Type,
+    y = HP,
+    group = Evolution,
+    color = Evolution,
+    linetype = Evolution
+  )
+) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  facet_wrap(~ Pattern, nrow = 1) +
+  scale_y_continuous(
+    limits = c(1, 20),
+    breaks = seq(0, 20, 5)
+  ) +
+  labs(
+    x = "ポケモンのタイプ",
+    y = "HP得点",
+    color = "",
+    linetype = ""
+  ) +
+  theme_bw(base_size = 14) +
+  theme(
+    legend.position = "top"
+  ) +
+  ggtitle("交互作用なし")
+
+dat_interaction <- tribble(
+  ~Pattern, ~Type, ~Evolution, ~HP,
+  
+  # ① 交差する
+  "交差する", "水", "進化前",  8,
+  "交差する", "雷", "進化前", 16,
+  "交差する", "水", "進化後", 16,
+  "交差する", "雷", "進化後",  8,
+  
+  # ② 差が広がる
+  "差が広がる", "水", "進化前", 10,
+  "差が広がる", "雷", "進化前", 12,
+  "差が広がる", "水", "進化後", 10,
+  "差が広がる", "雷", "進化後", 18,
+  
+  # ③ 差が縮まる
+  "差が縮まる", "水", "進化前",  8,
+  "差が縮まる", "雷", "進化前", 16,
+  "差が縮まる", "水", "進化後", 12,
+  "差が縮まる", "雷", "進化後", 14,
+  
+  # ④ 片方だけ変化
+  "片方だけ変化", "水", "進化前", 10,
+  "片方だけ変化", "雷", "進化前", 10,
+  "片方だけ変化", "水", "進化後", 10,
+  "片方だけ変化", "雷", "進化後", 17
+)
+
+ggplot(
+  dat_interaction,
+  aes(
+    x = Type,
+    y = HP,
+    group = Evolution,
+    color = Evolution,
+    linetype = Evolution
+  )
+) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  facet_wrap(~ Pattern, nrow = 1) +
+  scale_y_continuous(
+    limits = c(1, 20),
+    breaks = seq(0, 20, 5)
+  ) +
+  labs(
+    x = "ポケモンのタイプ",
+    y = "HP得点",
+    color = "",
+    linetype = ""
+  ) +
+  theme_bw(base_size = 14) +
+  theme(
+    legend.position = "top"
+  ) +
+  ggtitle("交互作用あり")
+```
+
+### 量的変数 × 量的変数
+
 
 ```{r}
 #| include: false
@@ -35,7 +163,6 @@ options(mc.cores = parallel::detectCores())
 dat <- read.csv("sample_data/3-10-3-interaction-3.csv")
 ```
 
-### 量的変数 × 量的変数
 ```{r}
 #| cache: true
 
