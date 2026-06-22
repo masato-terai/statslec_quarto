@@ -15,10 +15,7 @@ options(mc.cores = parallel::detectCores())
 
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
-
-  - .Rでも.Rmdでもどちらでも大丈夫です。
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
 ## 今日の目標
 
@@ -36,11 +33,13 @@ options(mc.cores = parallel::detectCores())
     
     - 信頼できる友達の数
 
+::: callout-tip
 - ```glm()```関数で使用できる分布
 
   - 外国語研究、言語研究では、正規分布、二項分布、対数正規分布などが用いられる
 
-```{markdown}
+```{r}
+#| eval: false
 binomial(link = "logit")
 gaussian(link = "identity")
 Gamma(link = "inverse")
@@ -51,64 +50,60 @@ quasibinomial(link = "logit")
 quasipoisson(link = "log")
 ```
 
-::: callout-note
-使用するRの関数によって、使用できる確率分布が異なります。```glm```関数には対数正規分布は含まれていません。
+- 使用するRの関数によって、使用できる確率分布が異なります。```glm```関数には対数正規分布は含まれていません。
 :::
 
 ## 二項分布
 - ある試行を *N* 回行った際の成功回数 *k* が発生する確率 *q*
 
-\[
+$$
 p(k \mid N, q) = \binom{N}{k} q^k (1 - q)^{N - k}
-\]
+$$
 
-\[
+$$
 \binom{N}{k} = \frac{N!}{k!(N-k)!}
-\]
+$$
 
 ### 身近な例
 
   - 寺井と雅人がじゃんけんを10回する。寺井が雅人に *K* 回勝つ確率を求める（勝つ可能性は50 %）
 
-  - 寺井が2回勝つ場合 (\( k = 2 \))
+  - 寺井が2回勝つ場合 ( *k* = 2 )
 
-\[
+$$
 P(X = 2) = \binom{10}{2} (0.5)^2 (0.5)^{10-2} = \binom{10}{2} (0.5)^{10}
-\]
+$$
 
 ここで、二項係数は次のように計算（8!をまとめて消している）：
 
-\[
+$$
 \binom{10}{2} = \frac{10 \times 9}{2 \times 1} = 45
-\]
+$$
 
-したがって、確率は：
+したがって、2回勝つ確率は約 **0.0439**
 
-\[
+$$
 P(X = 2) = 45 \times (0.5)^{10} = 45 \times \frac{1}{1024} \approx 0.043945
-\]
+$$
+ 
 
-2回勝つ確率は約 **0.0439** 
+- 寺井が4回勝つ場合 ( *k* = 4 )
 
-  - 寺井が4回勝つ場合 (\( k = 4 \))
-
-\[
+$$
 P(X = 4) = \binom{10}{4} (0.5)^4 (0.5)^{10-4} = \binom{10}{4} (0.5)^{10}
-\]
+$$
 
-
-\[
+$$
 \binom{10}{4} = \frac{10 \times 9 \times 8 \times 7}{4 \times 3 \times 2 \times 1} = 210
-\]
+$$
 
-したがって、確率は：
+したがって、 4回勝つ確率は約 **0.2051**
 
-\[
+$$
 P(X = 4) = 210 \times (0.5)^{10} = 210 \times \frac{1}{1024} \approx 0.205078
-\]
+$$
 
-  - 4回勝つ確率は約 **0.2051**
-
+- Rでの計算方法の例：
 ```{r}
 # パラメータ
 N <- 10  # 試行回数
@@ -120,9 +115,9 @@ prob <- dbinom(k, size = N, prob = p)
 print(prob)
 ```
 
-- 線形回帰を2値のデータに当てはめたモデルは、予測値（直線）が1以上であったり0以下であったりしている（本来は1 = 合格、0 = 不合格）
+### 二項分布への線形回帰
 
-  - 予測値を0から1に収まるようにする必要がある。これを行うための関数がロジスティック関数
+- 線形回帰を2値のデータに当てはめたモデルは、本来は1（合格）もしくは0（不合格）しかとらないはずだが、予測値（直線）が1以上であったり0以下になっている。
 
 ```{r}
 #| echo: false
@@ -147,6 +142,9 @@ p1
 ```
 
 - 切片の値はマイナスとなっており、0-1という確率の範囲を超えている。
+
+  - よりよいモデルでは、予測値が0から1に収まることが期待される。
+
 ```{r}
 res <- lm(Pass ~ Years_of_Study, data = dat)
 sjPlot::tab_model(res)
@@ -158,32 +156,64 @@ sjPlot::tab_model(res)
 ## ロジット関数
 - 0か1しかとらない従属変数が1になる確率（確率は0と1ではなく、0から1の間をとる）を *P* とすると、0になる確率は 1 - *P*。この二つの比を**オッズ比**という。
 
-
-\[
+$$
 \text{odds ratio} = \frac{P}{1 - P}
-\]
+$$
 
-- 確率（ *P* ）を対数オッズに変換（ロジット変換という）
+::: callout-note
+**オッズ**とはある事象が「起こる確率」を「起こらない確率」で割った値。例えば、ドジャースが勝つ確率が75%であれば、負ける確率は25%（100% - 75%）。つまり、勝つオッズは3:1。
+**オッズ比**とは、一方の群のオッズを、もう一方の群のオッズで割った値。2群で事象の起こりやすさが等しい場合には、オッズ比は1、ある群（分子の群）における事象の起こりやすさが別の群（分母の群）よりも大きい場合は、1より大きくなる。例えば、ドジャースが勝つ確率が75%（オッズは3:1）、ホワイトソックスが勝つ確率が10%（オッズは1:9）である場合、ドジャースの勝利オッズをホワイトソックスの勝利オッズで割ったオッズ比は、
+
+$$
+\begin{aligned}
+&=
+\frac{\text{ドジャースが勝つオッズ}}
+{\text{ホワイトソックスが勝つオッズ}} \\[8pt]
+&=
+\frac{0.75 / (1 - 0.75)}
+{0.10 / (1 - 0.10)} \\[8pt]
+&=
+\frac{0.75 / 0.25}
+{0.10 / 0.90} \\[8pt]
+&=
+\frac{3}
+{1/9} \\[8pt]
+&=
+27
+\end{aligned}
+$$
+
+つまり、この例では、ドジャースが勝つオッズは、ホワイトソックスが勝つオッズの27倍。
+
+<u>注意点として、競馬などのかけ事のオッズと統計学のオッズは意味合いが異なる。例えば、JRAの定義するオッズは、[「勝馬投票券が的中した場合の概算払戻率」](https://www.jra.go.jp/kouza/yougo/w406.html)を指す。</u>
+
+:::
+
+- 確率（ *P* ）を対数オッズ（オッズに対数を取ったもの）に変換。ロジット変換という。
   
   - 対数オッズのことをロジットという
   
   - 0から1しかとらない値を、-∞ ~ ∞を取る連続値のデータに変換する関数がロジット関数
 
-\[
+$$
 \text{logit}(P) = \log \left( \frac{P}{1 - P} \right)
-\]
+$$
 
 - ロジット関数により、
 
-  - この変換で、従属変数の値が0か1かという制約がなくなり、線形モデルとして偏回帰係数を推定できる
+  - 従属変数の値が0か1かという制約がなくなり、線形モデルとして偏回帰係数を推定できる。
     
-    - 線形モデルで当てはめる方が計算などの都合がいいから
+    - <u>線形モデルを当てはめる方が計算などの都合がいい。</u>
 
-- **線**形モデルとは異なり、**曲線**であるため、1単位の変化量が異なる
+- 注意点として、**線**形モデルとは異なり、**曲線**であるため、ロジットスケールでは同じ差でも、元の確率スケールでは場所によって意味が（1単位の変化量が）異なる。
 
-  - logit(0.5) = 0、logit(0.6) = 0.4 => ロジットスケールでの0.4の変換は変換前の単位での50%から60%の変更に対応
+  - logit(0.5) = 0、logit(0.6) ≈ 0.4 
   
-  - logit(0.9) = 2.2、logit(0.93) = 2.6 => ロジットスケールでの0.4の変換は変換前の単位での90%から93%の変更に対応
+    - ロジットスケールでの0.4の変換は変換前の単位での50%から60%の変更に対応
+  
+  - logit(0.9) ≈ 2.2、logit(0.93) ≈ 2.6
+  
+    - ロジットスケールでの0.4の変換は変換前の単位での90%から93%の変更に対応
 
 ```{r}
 #| echo: false
@@ -197,35 +227,68 @@ logit_values <- log(p_values / (1 - p_values))
 
 # データフレーム作成
 logit_data <- data.frame(
-  Before_Logit = p_values,  # 変換前の値 (0〜1)
-  After_Logit = logit_values # 変換後の値
+  Before_Logit = p_values,
+  After_Logit = logit_values
+)
+# 注目する点
+point_data <- data.frame(
+  x = c(0.50, 0.60, 0.90, 0.93),
+  y = qlogis(c(0.50, 0.60, 0.90, 0.93)),
+  label = c("50%", "60%", "90%", "93%")
+)
+# 矢印で示す区間
+arrow_data <- data.frame(
+  x_start = c(0.50, 0.90),
+  x_end   = c(0.60, 0.93),
+  y       = c(-3.2, 1.8),   # 矢印を置く高さ（見やすいように調整）
+  label   = c("0.50 → 0.60", "0.90 → 0.93")
 )
 
-# グラフ描画
 ggplot(logit_data, aes(x = Before_Logit, y = After_Logit)) +
-  geom_line(color = "blue", size = 1) +
-  labs(title = "ロジット変換の可視化",
-       x = "ロジット変換前 (0から1の値)",
-       y = "ロジット変換後")
+  geom_line(color = "blue", linewidth = 1) +
+  
+  geom_vline(xintercept = c(0.50, 0.60),
+             linetype = "dashed", color = "red") +
+  geom_vline(xintercept = c(0.90, 0.93),
+             linetype = "dashed", color = "darkgreen") +
+  
+  geom_point(data = point_data, aes(x = x, y = y), size = 2) +
+  
+  labs(
+    title = "ロジット変換の可視化",
+    x = "ロジット変換前（確率）",
+    y = "ロジット変換後"
+  ) +
+  coord_cartesian(xlim = c(0, 1), ylim = c(-4, 4)) +
+   # 点のラベル
+  geom_text(
+    data = point_data,
+    aes(x = x, y = y, label = label),
+    vjust = 0.95,
+    hjust = -0.075,
+    size = 5
+  )
 ```
 
 ## ロジスティック関数
-- この関数を使うことで、説明変数の集まり（線形予測子：線形結合した説明変数）がどの範囲に合っても、0 ~ 1の範囲に収まる（確率を表すのに最適！）。
+- この関数を使うことで、説明変数の集まり（線形予測子：線形結合した説明変数）がどの範囲に合っても、0 ~ 1の範囲に収まる。つまり、確率を表すのに最適！。
 
   - ロジスティック回帰ではリンク関数にロジット関数をおき、確率を線形予測子に変換
 
   - ロジスティック関数は逆リンク関数として使われ、線形予測子から確率を復元する
   
-    - リンク関数：従属変数を変換し、独立変数関数につなげる変換関数、独立変数を変換する場合は「逆」リンク関数
+    - リンク関数：従属変数を変換し、独立変数関数につなげる変換関数。
+      
+      - **逆**リンク関数：独立変数を変換
 
-
-\[
+$$
 \text{logistic}(x) = \frac{1}{1 + e^{-x}}
-\]
+$$
 
 
 ```{r}
 #| echo: false
+#| warning: false
 
 # ロジスティック関数の定義
 logistic <- function(x) {
@@ -274,8 +337,7 @@ p3 <- ggplot(dat, aes(x = Years_of_Study, y = Pass)) +
   labs(title = "3) ロジスティック回帰（曲線）",
        x = "Years of Study", y = "Probability of Passing (0 to 1)")
 
-gridExtra::grid.arrange(p1, p2, ncol = 2)
-gridExtra::grid.arrange(p2, p3, ncol = 2)
+gridExtra::grid.arrange(p1, p2, p3, ncol = 2)
 ```
 
 
@@ -289,19 +351,20 @@ gridExtra::grid.arrange(p2, p3, ncol = 2)
 
   - 変換係数を経由して、説明変数の変化が影響を受けている
   
-    - 回帰分析：ある独立変数Aが1単位変化すると、従属変数はBだけ変化
+    - 線形モデル：ある独立変数Aが1単位変化すると、従属変数はBだけ変化
     
     - ロジスティック回帰：ある独立変数Aが1単位変化すると、従属変数はexp(B)だけ変化
+
+      - ```exp```：指数
 
 - ロジスティック関数はロジット関数の逆関数のこと
 
   - 逆関数：戻してあげる関数のこと
   
-    - e.g., log(3) -> exp(log(3)) = 3
+    - e.g., ```log(3)``` -> ```exp(log(3))``` = 3
     
   - リンク関数としてロジット関数を使っているため、ロジット関数の逆関数であるロジスティック関数で戻してあげている。
   
-
 ## ハンズオンセッション
 ### 疑似データの用意
 - Pass： テストの合否。1なら合格、0なら不合格
@@ -343,17 +406,19 @@ res <- glm(
 )
 ```
 
-- Estimate: 偏回帰係数
+- **Estimate:** （偏）回帰係数。
 
-- Std. Error (Standard Error): 標準誤差
+::: callout-important
+```glm```では、**Estimate**は従属変数そのものの尺度での変化量ではなく、リンク関数で変換した後の尺度での係数である。例えばロジスティック回帰では、目的変数は0/1のデータであるが、Estimateは確率そのものの変化量ではない。Estimateはロジット、つまり対数オッズの変化量を表す。よって、Estimateが1増えるということは、「確率が1%増える」という意味ではなく、「対数オッズが1増える」という意味である。
+:::
 
-  - かなり重要。どれくらい推定に誤差があるかを示す指標。「同じ調査法で同じ数のデータをとりなおしてみると、推定値も結構変わるので、そのバラツキ度合い」
+- **Std. Error (Standard Error):** 標準誤差。推定値の不確実性を表す。どれくらい推定に誤差があるかを示す指標。「同じ調査法で同じ数のデータをとりなおしてみると、推定値も結構変わるので、そのバラツキ度合い」
 
-- *z* value：z値と呼ばれる統計量（Wald統計量とも言われる）。Estimate ÷ SE で算出。この値で、Wald信頼区間を算出し、その値がゼロから十分に離れているかの目安になる。
+- ***z* value：**z値と呼ばれる統計量（Wald統計量とも言われる）。Estimate ÷ SE で算出。推定値がゼロから標準誤差何個分離れているかを表す。絶対値が大きいほど、「係数がゼロ」という帰無仮説から離れていると考えられる。
 
-- Pr(>|z|): 平均が z値の絶対値で、標準偏差が1の正規分布において、マイナス無限大からゼロまでの値をとる確率。この確率が大きいほどZ値がゼロに近くなり、Estimateがゼロに近い。
+- **Pr(>|z|):** z値に対応する、Wald検定の両側　*p*　値。帰無仮説として「係数が0である」と仮定したときに、今回得られたz値と同じか、それ以上に極端な値が得られる確率。
 
-- *p* 値（アスタリスク）：95%信頼区間（CI）に0を含まない場合、有意とされる
+- ***p* 値（アスタリスク）：***p*値の大きさを記号であらわしている。Wald型の95%信頼区間に0を含まない場合、対応するWald検定ではおおむね *p* < .05となる。
 
 ```{r}
 summary(res)
@@ -367,6 +432,7 @@ stats::confint(res)
 ```
 
 ### 作図
+- ```predict```関数に、```type = "response"```を指定することで、確率の単位が確認できる。
 
 ```{r}
 # 年齢（Years_of_Study）の範囲を設定
@@ -396,22 +462,12 @@ axis(1, at = seq(0, 10, by = 1), labels = seq(0, 10, by = 1))
 - オッズ比：オッズの変化量。ロジスティック回帰モデルの回帰係数に指数関数を適用すると算出できる。
 
   - 指数関数をとると、その値は必ず正の値になる
-  
-```{r}
-#| echo: false
 
-# データ作成
-data <- data.frame(
-  `Estimate` = c("正（> 0）", "0", "負（< 0）"),
-  `オッズ比` = c("> 1", "= 1", "< 1"),
-  `解釈` = c("オッズが 増加",
-             "オッズは 変化なし",
-             "オッズが 減少")
-)
-
-kable(data, booktabs = TRUE, escape = FALSE) %>%
-  kable_styling(latex_options = c("striped", "hold_position"))
-```
+| Estimate | オッズ比 | 解釈 |
+|---|---:|---|
+| 正（> 0） | > 1 | オッズが増加 |
+| 0 | = 1 | オッズは変化なし |
+| 負（< 0） | < 1 | オッズが減少 |
 
 - 係数がマイナスだったので、 オッズ比 < 1となっている点に注意
 ```{r}
@@ -429,7 +485,7 @@ exp(stats::confint(res))
 
 - もし係数が0.21だった場合、オッズ比は```exp(0.21) = 1.23```。この場合、
 
-  - 英語学習歴が1年増えると、テストに合格する**オッズが1.23倍になる。つまり、テストに合格するオッズは（不合格となる場合に比べ）（1.23 - 1 = 0.23）23%増加すると予測される。
+  - 英語学習歴が1年増えると、テストに合格するオッズが1.23倍になる。つまり、テストに合格するオッズは（不合格となる場合に比べ）（1.23 - 1 = 0.23）23%増加すると予測される。
 
 - しかし、オッズやオッズ比で結果を言われても解釈が少し難しい。```predict```関数で具体的な合格する確率を算出する方が分かりやすい。
 
@@ -438,10 +494,12 @@ exp(stats::confint(res))
 years_range <- seq(0, 10)
 
 # 各年数に対する予測確率を計算
-pred_probs <- predict(res, newdata = data.frame(Starting_age = years_range), type = "response")
+pred_probs <- predict(res, newdata = data.frame(Starting_age = years_range), 
+                      type = "response") #"response"にすると、予測確率が返される
+
 ```
 
-- 100を書けて%単位に変換
+- 100をかけて、パーセント単位に変換
 ```{r}
 pred_probs * 100
 ```
@@ -459,12 +517,12 @@ plot(pred_probs * 100)
 new <- data.frame(Starting_age = 25)
 pred_probs <- predict(res, newdata = new, type = "link")
 ```
+
 - オッズ比を計算
 ```{r}
 exp(pred_probs)
 ```
 
-- ```type = "response"```にすると、予測確率が返される
 ```{r}
 pred_probs <- predict(res, newdata = new, type = "response")
 ```
@@ -612,8 +670,9 @@ ggplot(new_data, aes(x = Starting_age, y = 1, fill = factor(pred_class))) +
   - 従属変数は「進化」にしてください。
 
 ### 提出方法
-- TACT上で提出。
-- 締め切りは今週の木曜日まで
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
+
+-   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
 
@@ -629,25 +688,8 @@ ggplot(new_data, aes(x = Starting_age, y = 1, fill = factor(pred_class))) +
 
 - 📄[Terai, M., Fukuta, J., & Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. *International Review of Applied Linguistics in Language Teaching, 62*(4), 1959-1983.](https://www.degruyterbrill.com/document/doi/10.1515/iral-2022-0234/html)
 
+- 💻[オッズ比1](https://bellcurve.jp/statistics/course/26726.html)
+
 - 💻[ロジスティック回帰](https://hkawabata.github.io/technical-note/note/ML/logistic-regression.html)
 
 - 💻[ロジスティック回帰分析1](https://bellcurve.jp/statistics/course/26934.html?srsltid=AfmBOorwQsuSpgEx3zQ8gVhrS2zSP50-PUvuzRlNqNP-rxWB2J_XBwyf)
-
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
