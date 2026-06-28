@@ -9,15 +9,20 @@ library(tidyverse)
 
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
-  - .Rでも.Rmdでもどちらでも大丈夫です。
 
 ## 今日の目標
 
 1. ```tidyverse```パッケージを使い、データの加工が出来る
 2. ```ggplot2```パッケージを使い、データの描画をすることができる
+
+## 分析可能なデータ（セット）の作成
+- 分析用のコードを書く不可は生成AIの登場で各段に下がりました。しかし、分析の前に、分析ができるデータを用意しないといけません。記録した参加者の答えなどをそのまま分析に使用できることはほとんどありません（e.g., 個人情報を変えたり）。つまり、分析のためには、データを分析可能な形に加工するプロセスがあります。このプロセスは生成AIが登場しても今だ手間のかかるプロセスです。
+
+- データを分析可能な形に加工する場合、手動でコピーや削除をする方が大勢います。しかしこれはかなり危険です。なぜならば加工のプロセスは自動的に記録されないからです。また、加工にミスがあってもそれに気づくのがかなり難しいです。
+
+- しかし、これらの処理をプログラミング言語を使って行えば、加工のプロセスがすべてコードとして記録されます。間違った加工をしていても、コードを見ればどこが間違っているのか特定できます。したがって、元データと加工したデータの往復が自由です。「手でやる方が早い！」と思うかもしれませんが、長期的な目で見ればこちらの方が効率が良いです。また、研究の透明性という観点でも当然こちらの方が良いです。
 
 ## データの加工
 
@@ -261,7 +266,9 @@ mpg %>%
 
   - 指定した列以外を絞り込む
   
-```{markdown}
+```{r}
+#| eval: false
+
 mpg %>%
   select(-year)
 
@@ -350,7 +357,7 @@ mpg %>%
   head(5)
 ```
 
-::: infobox
+::: callout-note
 ```group_by```関数を使用したら、必ず```summarise```関数の中で```.groups = "drop"```を指定してグループ化を解除すること。そうしないと予期せぬエラーにつながったりもする。
 :::
 
@@ -440,7 +447,6 @@ scores
 ```{r}
 students %>%
   dplyr::inner_join(scores, by = "id")
-
 ```
 
 #### そのほかの```join```
@@ -680,10 +686,10 @@ plotly::ggplotly(gg_mpg)
 
 - ```esquisser(viewer = "browser")```を実行すると、ウィンドウが開き、GUIで作図ができる。また、作成した図をRで作成するためのコードも出力することができる。
 
-```{markdown}
+```{r}
 #install.packages("esquisse")
-library(esquisse)
-esquisser(viewer = "browser")
+#library(esquisse)
+#esquisser(viewer = "browser")
 ```
 
 
@@ -697,22 +703,3 @@ esquisser(viewer = "browser")
 - 💻[疫学のための R ハンドブック　39  動的な図の作成](https://epirhandbook.com/jp/new_pages/interactive_plots.jp.html)
 
 - 💻[Rで解析：GUI操作でggplot2！！「esquisse」パッケージ](https://www.karada-good.net/analyticsr/r-808/)
-
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
