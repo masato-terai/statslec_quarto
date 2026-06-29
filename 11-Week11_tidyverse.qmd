@@ -476,6 +476,37 @@ students %>%
 データの加工や結合を行い（新しい）変数に保存した後は必ずその中身を確認する必要があります。
 :::
 
+## 変数のエクスポート
+
+- R 内で作成・加工した変数は.csv、.xlsx、.txtの形式でエクスポート可能
+
+- .csvの例
+
+```{r}
+#| eval: false
+
+library(readr)
+write_csv(
+  x,              #エクスポートする変数
+  "mtcars.csv",   #ファイル名
+  na = "NA"       #欠損値をどの文字で出力するか
+)
+```
+
+- .txtの例
+
+```{r}
+#| eval: false
+
+write.table(
+  x,                 #エクスポートする変数
+  "mtcars.txt",      #ファイル名
+  sep = "\t",        #区切り文字。カンマなら","
+  row.names = FALSE, #データの一列目に行番号を含めるか
+  quote = FALSE      #文字列を引用符 " " で囲むか
+)
+```
+
 ## ```ggplot2```によるデータの可視化
 
 - このパッケージも```tidyverse```パッケージに含まれる。従って、```library(tidyverse)```で```ggplot2```パッケージも使用できる。
@@ -503,18 +534,21 @@ mpg %>%
   geom_histogram(mapping = aes(x = displ)) 
 ```
 
-#### 散布図 + 直線
+### 散布図 + 直線
 
   - 第一段階：散布図
   
 ```{r}
 ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
   geom_point()
+```
 
-# どちらでもOK
-#mpg %>%
-#  ggplot(mapping = aes(x = displ, y = cty)) +
-#  geom_point()
+- こちらでもOK
+```{r}
+#| eval: false
+mpg %>%
+  ggplot(mapping = aes(x = displ, y = cty)) +
+  geom_point()
 ```
 
 - 第二段階：直線を重ねる
@@ -553,7 +587,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
 ```ggplot2```パッケージに限りませんが、いろいろな関数を試して、失敗してという遊びが必要になります。色々なでーたで様々な関数で作図をして遊んでください。
 :::
 
-#### 統計的処理
+### 統計的処理
 
   - 車のサイズごとに燃費の平均を計算する
 
@@ -592,7 +626,7 @@ mean_mpg %>%
   geom_bar(stat = "identity")
 ```
 
-#### 箱ひげ図
+### 箱ひげ図
 
 ```{r}
 mpg %>%
@@ -600,7 +634,7 @@ mpg %>%
   geom_boxplot()
 ```
 
-#### フォントサイズや向き
+### フォントサイズや向き
 
 - 図の文字サイズなどは```theme```
 
@@ -665,7 +699,32 @@ ggplot(mpg, aes(x = class, y = cty)) +
   )
 ```
 
-#### ```ggplotly```でインタラクティブな図を作成
+### 作成した図をエクスポート
+
+- ```ggsave()```を使用すると、綺麗に```.png```形式で保存可能
+
+- 事前に作成した図を変数に格納する必要がある。
+
+  - e.g., ```p <- ggplot(mpg, aes(x = class, y = cty)) + geom_boxplot()```
+
+```{r}
+#| eval: false
+
+ggsave(
+  "R-plot.png", #ファイルの名前を指定
+  plot = p,     #エクスポートしたい図を格納している変数名
+  dpi = 300,    #解像度の指定。初期値は300
+  unit = "cm",  #保存する画像の大きさの単位（縦横の単位を定義）
+                #"in", "cm", "mm", "px"
+  width = 5,    #横幅
+  height = 5,   #縦幅
+  bg = "white"  #これを指定しない場合、背景が透明になる。初期値はNULL
+)
+
+```
+
+
+### ```ggplotly```でインタラクティブな図を作成
 
 - ```ggplot2```の図を作成し変数に保存し、```ggplotly```関数で描画する
 
@@ -680,7 +739,7 @@ gg_mpg <- mpg %>%
 plotly::ggplotly(gg_mpg)
 ```
 
-## GUIでggplotでの作図
+### GUIでggplotでの作図
 
 - ```esquisse```パッケージを使用
 
@@ -703,3 +762,5 @@ plotly::ggplotly(gg_mpg)
 - 💻[疫学のための R ハンドブック　39  動的な図の作成](https://epirhandbook.com/jp/new_pages/interactive_plots.jp.html)
 
 - 💻[Rで解析：GUI操作でggplot2！！「esquisse」パッケージ](https://www.karada-good.net/analyticsr/r-808/)
+
+- 💻[ggsave()で高画質かつ高解像度のグラフを保存する](https://say.boo.jp/277/#toc2)
