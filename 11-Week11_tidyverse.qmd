@@ -51,6 +51,7 @@ untidy_data <- data.frame(
   Math = c(75, 88, 92)
 )
 
+#install.packages("gt")
 gt::gt(untidy_data)
 ```
 
@@ -74,7 +75,8 @@ gt(tidy_data)
 
 ```{r}
 #| comment: NA
-#install.packages("tidyverse")
+##install.packages("tidyverse")
+library(tidyverse)
 tidyverse_logo()
 ```
 
@@ -88,9 +90,6 @@ untidy_data
 
 
 ```{r}
-#install.packages("tidyverse")
-library(tidyverse)
-
 tidy <- pivot_longer(
   untidy_data,               #データ
   cols = c(Japanese, Math),　#変形する列
