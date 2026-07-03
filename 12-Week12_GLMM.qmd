@@ -18,17 +18,12 @@ options(mc.cores = parallel::detectCores())
 
 
 ## 事前の確認
-
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
-
-  - .Rでも.Rmdでもどちらでも大丈夫です。
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
 ## 今日の目標
 
 1. 階層モデルについて理論的背景やその仮定について理解する
 2. 階層モデルをRで実装し、分析の結果を報告することができる
-
 
 
 ## 一般化線形モデルからの発展
@@ -37,11 +32,11 @@ options(mc.cores = parallel::detectCores())
 
   - Week 4 - Week 9
 
-- 一般**化**線形モデル：正規分布以外の分布を扱う
+- 一般<u>化</u>線形モデル：正規分布に限らない
 
   - Week 10
   
-- 一般化線形混合効果モデル（Genealized Linewr **Mixed** Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む => 本日
+- 一般化線形<u>混合効果</u>モデル（Genealized Linewr **Mixed** Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む => 本日
 
   - マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる
 
@@ -57,9 +52,11 @@ options(mc.cores = parallel::detectCores())
 
   - 基本的に最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。
 
-<p class="comment">
+
+::: callout-note
 どのように高度な手法を使う場合でも、分析の前に平均や分散などの記述統計・図示をもとに、立てた仮説や予測と一致しているかなどの確認が必要です。また、分析に入れる変数も、理論や仮説などから妥当なものを原則入れるべきです。
-</p>
+:::
+
 
 ## ランダム効果とは
 
@@ -256,52 +253,77 @@ library(lme4)
 library(tictoc)
 ```
 
-- コンピュータのスペックはこんな感じです
-
-```{r}
-#| echo: false
-
-benchmarkme::get_cpu()
-```
-
-```{r}
-#| echo: false
-
-benchmarkme::get_ram()
-```
-
-
-- Terai et al. (2024)のデータを使用します。
+- [Terai et al. (2024)](https://www.degruyterbrill.com/document/doi/10.1515/iral-2022-0234/html)のデータを使用します。
 
 ```{r}
 dat <- read.csv("sample_data/AJ.csv")
 ```
 
+- コロケーションの種類の水準を指定します（その際に因子型へデータの型を指定しています）。
 ```{r}
-dat$Itemtype <- factor(dat$Itemtype, levels = c("Baseline", "JE", "Eonly"))
-contrasts(dat$Itemtype) <- contr.treatment(3)
+dat$Itemtype <- factor(dat$Itemtype, 
+                        levels = c("Baseline", "JE", "Eonly"))
+```
 
+- トリートメントコントラスト・コーディングを行います、
+```{r}
+contrasts(dat$Itemtype) <- contr.treatment(3)
 contrasts(dat$Itemtype)
 ```
 
-- 連続値の場合中心化します
+- 連続値の場合は、必要に応じて中心化または標準化を行います。これにより係数の解釈がしやすくなり、特に交互作用項を含むモデルでは多重共線性を緩和しやすくなる
+
+  - 中心化：平均が0になるように変換
+
+$$
+x_{\text{centered}} = x - \bar{x}
+$$
+
+  - 標準化は平均が0、標準偏差が1になるように変換
+
+$$
+z = \frac{x - \bar{x}}{SD}
+$$
+
+
+- 以下のコードでは、二つの変数を同時に標準化しています。```scale```関数は、何も指定しない場合、平均を0、標準偏差を1に変換します。つまり、中心化と標準偏差によるスケーリングを同時に行います。一方、。```scale = FALSE```標準偏差で割る処理は行われず、平均を引く中心化のみが行われます。
+
 ```{r}
 #| warning: false
 #| message: false
 
 #install.packages("tidyverse")
+
 library(dplyr)
 dat2 <- dat %>%
   group_by(subject) %>%
-  mutate(across(c("pres.order", "Length"), ~scale(.x)[,1],.names = "z.{col}")) %>%
+  mutate(
+    across(
+      c("pres.order", "Length"), 
+      ~scale(.x)[,1],
+      .names = "z.{col}"         #z.変数名という形の変数を作成します
+      )
+      ) %>%
   ungroup()
 ```
 
-- 切片のみ（実験項目、参加者）のモデル
+- モデルの実行
 
   - 従属変数：正答（1: 正解、2: 不正解）
   
   - 独立変数：コロケーションの種類
+
+  - ランダム効果：
+
+    - 参加者（切片、傾き【標準化したトライアル番号】）
+    
+      - 切片：参加者ごとに切片が異なることを許容する指定。参加者によって全体的に正答しやすい人・しにくい人がいることを考慮
+
+      - 傾き：試行順序の影響の受け方も参加者によって異なることを考慮
+
+    - 実験項目（切片）
+
+      - 切片：項目ごとに切片が異なることを許容する指定。項目によって全体的に正答されやすい項目・されにくい項目があることを考慮
 
 ```{r}
 #| cache: true
@@ -309,10 +331,10 @@ dat2 <- dat %>%
 tic()
 res.1 <- glmer(
   res ~ Itemtype +
-  (1|subject) + (1|itemID),
+  (1 + z.pres.order|subject) + (1|itemID),
   family = binomial(link = "logit"),
   data = dat2,
-  control = glmerControl(optimizer = "bobyqa")
+  control = glmerControl(optimizer = "bobyqa") #スムーズに推定を行うためのおまじない
                )
 toc()
 ```
@@ -321,58 +343,61 @@ toc()
 summary(res.1)
 ```
 
-- 切片と係数のモデル
+::: callout-important
+**モデルの解釈**
 
-- モデルが上手く収束しなかった
+- <u>モデル適合度の指標</u>
 
-```{markdown}
-tic()
-res.2 <- glmer(
-  res ~ Itemtype +
-  (1 + pres.order|subject) + (1|itemID),
-  family = binomial(link = "logit"),
-  data = dat2,
-  control = glmerControl(optimizer = "bobyqa")
-               )
-toc()
-```
+  - モデル全体の当てはまりの指標。```AIC```、```BIC```は値が小さいほど相対的に良いモデルとされる。他のモデルとの比較で使用される。```logLik```は対数尤度。値が大きいほど、モデルがデータをよく説明していると判断する。```-2*log(L)``` は、対数尤度に基づく指標。```df.resid```は残差の自由度。
 
-- **出力結果：**
+- <u>スケール化残差（Scaled residuals）</u>
 
-> 警告:  Model failed to converge with max|grad| = 0.00228081 (tol = 0.002, component 1) 警告:  Model is nearly unidentifiable: very large eigenvalue
-> - Rescale variables?
+  - 残差（モデルの予測と実際のデータとの差の分布）を要約したもの。標準化されていることを考えると、最小値、最大値の値は大きな残差である。
 
+- <u>ランダム効果（Random effects）</u>
 
-- 中心化した変数だとうまくいった
-```{r}
-#| cache: true
+  - ランダム効果に指定した変数の分散とその標準偏差。分散や標準偏差が０より大きいほど、ばらつきが大きい。分散が0に非常に近い場合、そのランダム効果によるばらつきはほとんど推定されていない。よって、そのランダム効果がデータ上あまり必要でない可能性がある。
 
-tic()
-res.3 <- glmer(
-  res ~ Itemtype +
-  (1 + z.pres.order|subject) + (1|itemID),
-  family = binomial(link = "logit"),
-  data = dat2,
-  control = glmerControl(optimizer = "bobyqa") #スムーズに推定を行うためにこれを設定します
-               )
-toc()
-```
+  - ```Corr```は相関を表す。今回のデータでは、参加者ごとの切片と傾きの相関が負である。したがって、全体的に反応が生じやすい参加者ほど、z.pres.order の効果がやや小さい傾向がある可能性がある。絶対値が1の場合は、ランダム効果の構造がデータに対して複雑すぎる、またはモデルの推定が不安定になっている可能性がある。
+  - ```Number of obs:```は、分析に使われた観測数を示す。
+
+- <u>独立変数の相関（Correlation of Fixed Effects:）</u>
+:::
+
+- ランダム効果なしのモデルとの比較
 
 ```{r}
-summary(res.3)
+#| echo: false
+
+tic()
+res.0 <- stats::glm(
+  res ~ Itemtype,
+  family = binomial(link = "logit"),
+  data = dat2
+               )
+toc()
+
+sjPlot::tab_model(
+  res.1, res.0,
+  show.r2 = F,
+  dv.labels = c("With Random", "Without Random"),
+  show.aic = T,
+  show.obs = F
+)
 ```
+
 
 - 95% 信頼区間の算出（CI）
 ```{r}
 #| cache: true
 
-se <- sqrt(diag(vcov(res.3)))
+se <- sqrt(diag(vcov(res.1)))
 
 # table of estimates with 95% CI
 tab <- cbind(
-  Est = fixef(res.3),
-  LL = fixef(res.3) - 1.96 * se,
-  UL = fixef(res.3) + 1.96 * se
+  Est = fixef(res.1),
+  LL = fixef(res.1) - 1.96 * se,
+  UL = fixef(res.1) + 1.96 * se
   )
 
 tab
@@ -384,10 +409,7 @@ tab
 
 ```{r}
 #| cache: true
-
-tic()
-confint(res.3, method = "Wald")
-toc()
+confint(res.1, method = "Wald")
 ```
 
 - オッズ比
@@ -398,25 +420,23 @@ exp(tab)
 
 - モデル比較
 
-  - 尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった
+  - 尤度比検定の結果、ランダム効果に傾きを考慮したモデルの方がよりAICが有意に低かった
 
 ```{r}
-anova(res.1, res.3)
+tic()
+res.2 <- glmer(
+  res ~ Itemtype +
+  (1|subject) + (1|itemID),
+  family = binomial(link = "logit"),
+  data = dat2,
+  control = glmerControl(optimizer = "bobyqa") #スムーズに推定を行うためのおまじない
+               )
+toc()
 ```
 
-
-<!-- - ```performance```パッケージでモデルの当てはまり度合いを確認 -->
-
-<!-- ```{r, warning=FALSE, message=FALSE} -->
-<!-- #install.packages("performance") -->
-<!-- library(performance) -->
-<!-- compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE) -->
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)) -->
-<!-- ``` -->
+```{r}
+anova(res.1, res.2)
+```
 
 - 図示
 ```{r}
@@ -425,7 +445,7 @@ anova(res.1, res.3)
 
 #install.packages("ggeffects")
 library(ggeffects)
-eff <- ggpredict(res.3, terms = "Itemtype")
+eff <- ggpredict(res.1, terms = "Itemtype")
 plot(eff)
 ```
 
@@ -437,13 +457,13 @@ plot(eff)
 
     - 今回は1変数しかないので確認の必要はない
 
-```{markdown}
+```{r}
 #install.packages("performance")
 library(performance)
-check_collinearity(モデルの結果を格納した変数名)
+#check_collinearity(モデルの結果を格納した変数名)
 ```
 
-  - 外れ値
+- 外れ値
 
   - *p* ≥ .05: 残差はモデル期待通り（≒一様分布）
   
@@ -451,13 +471,12 @@ check_collinearity(モデルの結果を格納した変数名)
 
 ```{r}
 library(performance)
-check_residuals(res.3)
+check_residuals(res.1)
 ```
 
 ```{r}
-plot(check_residuals(res.3))
+plot(check_residuals(res.1))
 ```
-
 
 <!--   - 自己相関（Auto-correlation） -->
 
@@ -548,8 +567,9 @@ plot(eff_2, points = TRUE)
 2. 今回の講義のハンズオンセッションの内容を再度自分のRプログラム上で実行する。**分析の最後に、結果の報告を行うこと。**
 
 ### 提出方法
-- TACT上で提出。
-- 締め切りは今週の木曜日まで
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
+
+-   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
 - 📚久保（2012）『データ解析のための統計モデリング入門』岩波書店
@@ -575,32 +595,3 @@ plot(eff_2, points = TRUE)
 - 💻[Mixed Effects Logistic Regression | R Data Analysis Examples](https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/)
 
 - 💻[Crossed vs nested random effects: how do they differ and how are they specified correctly in lme4?](https://stats.stackexchange.com/questions/228800/crossed-vs-nested-random-effects-how-do-they-differ-and-how-are-they-specified)
-
-
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-
-p.comment {
-background-color: #DBDBDB;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: italic;
-}
-
-</style>
-```
