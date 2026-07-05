@@ -418,9 +418,13 @@ library(emmeans)
 ```{r}
 #| cache: true
 
-emmeans::contrast(
-  emmeans(model4, pairwise ~ bargen | publicity), 
-  adjust = "bonferroni"
+emmeans::emmeans(
+  model4,
+  ~ bargen | publicity
+) %>%
+  emmeans::contrast(
+    method = "pairwise",
+    adjust = "bonferroni"
   )
 ```
 
