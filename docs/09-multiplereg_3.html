@@ -390,7 +390,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-06-15 18:18:25</p>
+      <p class="date-modified">2026-07-06 09:49:55</p>
     </div>
   </div>
     
@@ -3327,22 +3327,22 @@ See '? untidy'</code></pre>
 <li><p>publicityがnotの場合もto_implementの場合も条件間の差は有意</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">"bonferroni"</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">emmeans</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  model4,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> bargen <span class="sc">|</span> publicity</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjust =</span> <span class="st">"bonferroni"</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>publicity = not:
- contrast            estimate   SE df t.ratio p.value
- not effect             -13.6 2.57 96  -5.297 &lt;0.0001
- to_implement effect     13.6 2.57 96   5.297 &lt;0.0001
+ contrast           estimate   SE df t.ratio p.value
+ not - to_implement    -27.3 5.15 96  -5.297 &lt;0.0001
 
 publicity = to_implement:
- contrast            estimate   SE df t.ratio p.value
- not effect             -24.0 2.57 96  -9.335 &lt;0.0001
- to_implement effect     24.0 2.57 96   9.335 &lt;0.0001
-
-P value adjustment: bonferroni method for 2 tests </code></pre>
+ contrast           estimate   SE df t.ratio p.value
+ not - to_implement    -48.1 5.15 96  -9.335 &lt;0.0001</code></pre>
 </div>
 </div>
 <ul>
@@ -3351,30 +3351,31 @@ P value adjustment: bonferroni method for 2 tests </code></pre>
 <li><p>bargenがto_implementの場合のみ条件間の差は有意</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">"bonferroni"</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">emmeans</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  model4,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> publicity <span class="sc">|</span> bargen</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjust =</span> <span class="st">"bonferroni"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>bargen = not:
- contrast            estimate   SE df t.ratio p.value
- not effect             -4.97 2.57 96  -1.930  0.1132
- to_implement effect     4.97 2.57 96   1.930  0.1132
+ contrast           estimate   SE df t.ratio p.value
+ not - to_implement    -9.94 5.15 96  -1.930  0.0566
 
 bargen = to_implement:
- contrast            estimate   SE df t.ratio p.value
- not effect            -15.37 2.57 96  -5.968 &lt;0.0001
- to_implement effect    15.37 2.57 96   5.968 &lt;0.0001
-
-P value adjustment: bonferroni method for 2 tests </code></pre>
+ contrast           estimate   SE df t.ratio p.value
+ not - to_implement   -30.73 5.15 96  -5.968 &lt;0.0001</code></pre>
 </div>
 </div>
 <ul>
 <li>報告の例</li>
 </ul>
 <p>宣伝と安売りの有無、そしてそれらの交互作用が売り上げに与える影響を調べるため、回帰分析を行った。宣伝と安売りはトリートメント・コントラストでコーディングし、いずれも「なし」を0、「あり」を1とした。分析の結果、安売りおよび宣伝×安売りの交互作用の係数が有意であった（安売り: <em>b</em> = 27.27, 95% CI [17.05, 37.49], <em>SE</em> = 5.15, <em>t</em> = 5.30, <em>p</em> &lt; .001；交互作用: <em>b</em> = 20.80, 95% CI [6.34, 35.25], <em>SE</em> = 7.28, <em>t</em> = 2.86, <em>p</em> = .005）。</p>
-<p>交互作用が有意であったため、単純主効果の検定を行った。その結果、安売りがある条件では、宣伝の効果が有意であった（<em>b</em> = 15.37, <em>SE</em> = 2.57, <em>t</em> = 5.96, <em>p</em> &lt; .001）。一方、安売りがない条件では、宣伝の効果は有意ではなかった（<em>b</em> = 4.97, <em>SE</em> = 2.57, <em>t</em> = 1.93, <em>p</em> = .113）。</p>
-<p>また、安売りの単純主効果は、宣伝の有無にかかわらず有意であった（宣伝なし: <em>b</em> = 13.60, <em>SE</em> = 2.57, <em>t</em> = 5.29, <em>p</em> &lt; .001；宣伝あり: <em>b</em> = 24.00, <em>SE</em> = 2.57, <em>t</em> = 9.33, <em>p</em> &lt; .001）。これにより、宣伝の有無にかかわらず、安売りは売上向上に寄与する可能性が示唆された。</p>
+<p>交互作用が有意であったため、単純主効果の検定を行った。</p>
+<p>安売りの単純主効果は、宣伝の有無にかかわらず有意であった（宣伝なし: <em>b</em> = -27.3, <em>SE</em> = 5.15, <em>t</em> = -5.30, <em>p</em> &lt; .001；宣伝あり: <em>b</em> = -48.1, <em>SE</em> = 5.15, <em>t</em> = -9.34, <em>p</em> &lt; .001）。これにより、宣伝の有無にかかわらず、安売りは売上向上に寄与する可能性が示唆された。</p>
+<p>また、安売りがある条件では、宣伝の効果が有意であった（<em>b</em> = -30.73, <em>SE</em> = 5.15, <em>t</em> = -5.97, <em>p</em> &lt; .001）。一方、安売りがない条件では、宣伝の効果は有意ではなかった（<em>b</em> = -9.94, <em>SE</em> = 5.15, <em>t</em> = -1.93, <em>p</em> = .057）。</p>
 </section>
 <section id="ハンズオンセッション" class="level2">
 <h2 class="anchored" data-anchor-id="ハンズオンセッション">ハンズオンセッション</h2>
