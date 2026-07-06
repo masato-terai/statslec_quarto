@@ -345,8 +345,17 @@ window.Quarto = {
   <li><a href="#今日の目標" id="toc-今日の目標" class="nav-link" data-scroll-target="#今日の目標">今日の目標</a></li>
   <li><a href="#一般化線形モデルからの発展" id="toc-一般化線形モデルからの発展" class="nav-link" data-scroll-target="#一般化線形モデルからの発展">一般化線形モデルからの発展</a></li>
   <li><a href="#ランダム効果とは" id="toc-ランダム効果とは" class="nav-link" data-scroll-target="#ランダム効果とは">ランダム効果とは</a></li>
+  <li><a href="#階層構造の種類crossed-vs.-nested" id="toc-階層構造の種類crossed-vs.-nested" class="nav-link" data-scroll-target="#階層構造の種類crossed-vs.-nested">階層構造の種類（Crossed vs.&nbsp;Nested）</a>
+  <ul class="collapse">
+  <li><a href="#交差構造crossed-random-effects" id="toc-交差構造crossed-random-effects" class="nav-link" data-scroll-target="#交差構造crossed-random-effects">交差構造（Crossed Random Effects）</a></li>
+  <li><a href="#入れ子構造nested-random-effects" id="toc-入れ子構造nested-random-effects" class="nav-link" data-scroll-target="#入れ子構造nested-random-effects">入れ子構造（Nested Random Effects）</a></li>
+  </ul></li>
+  <li><a href="#データの階層性を無視してもよいか" id="toc-データの階層性を無視してもよいか" class="nav-link" data-scroll-target="#データの階層性を無視してもよいか">データの階層性を無視してもよいか</a></li>
+  <li><a href="#ランダム効果の種類" id="toc-ランダム効果の種類" class="nav-link" data-scroll-target="#ランダム効果の種類">ランダム効果の種類</a>
+  <ul class="collapse">
   <li><a href="#ランダム切片モデル" id="toc-ランダム切片モデル" class="nav-link" data-scroll-target="#ランダム切片モデル">ランダム切片モデル</a></li>
-  <li><a href="#ランダム係数モデル" id="toc-ランダム係数モデル" class="nav-link" data-scroll-target="#ランダム係数モデル">ランダム係数モデル</a></li>
+  <li><a href="#ランダム係数傾きモデル" id="toc-ランダム係数傾きモデル" class="nav-link" data-scroll-target="#ランダム係数傾きモデル">ランダム係数（傾き）モデル</a></li>
+  </ul></li>
   <li><a href="#ランダム切片-係数モデル" id="toc-ランダム切片-係数モデル" class="nav-link" data-scroll-target="#ランダム切片-係数モデル">ランダム切片 &amp; 係数モデル</a></li>
   <li><a href="#glmmを行うときの留意点" id="toc-glmmを行うときの留意点" class="nav-link" data-scroll-target="#glmmを行うときの留意点">GLMMを行うときの留意点</a>
   <ul class="collapse">
@@ -391,7 +400,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-07-06 09:17:30</p>
+      <p class="date-modified">2026-07-06 13:23:12</p>
     </div>
   </div>
     
@@ -426,17 +435,24 @@ window.Quarto = {
 <ul>
 <li>Week 10</li>
 </ul></li>
-<li><p>一般化線形<u>混合効果</u>モデル（Genealized Linewr <strong>Mixed</strong> Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む =&gt; 本日</p>
+<li><p>一般化線形<u>混合効果</u>モデル（Genealized Linewr <strong>Mixed</strong> Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む =&gt; <u>本日の内容</u></p>
 <ul>
 <li><p>マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる</p></li>
-<li><p>混合効果：これまでの講義で扱ってきた独立変数（固定効果）とランダム効果を1つのモデルで表す</p></li>
-<li><p>得られたデータには、研究目的とは関係のないノイズが含まれる</p></li>
+<li><p>混合効果（Mixed-Effect）：これまでの講義で扱ってきた独立変数（固定効果）とランダム効果を1つのモデルで表す</p></li>
+<li><p>基本的に最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="ランダム効果とは" class="level2">
+<h2 class="anchored" data-anchor-id="ランダム効果とは">ランダム効果とは</h2>
+<ul>
+<li><p>データにばらつきをもたらす、人間が測定できない・測定しなかった（または原因不明の）個体差の効果</p>
+<ul>
 <li><p>例.</p>
 <ul>
 <li><p>項目を提示する順番の影響</p></li>
 <li><p>項目や参加者が持つ特性</p></li>
 </ul></li>
-<li><p>基本的に最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。</p></li>
 </ul></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -449,17 +465,15 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>どのように高度な手法を使う場合でも、分析の前に平均や分散などの記述統計・図示をもとに、立てた仮説や予測と一致しているかなどの確認が必要です。また、分析に入れる変数も、理論や仮説などから妥当なものを原則入れるべきです。</p>
-</div>
-</div>
-</section>
-<section id="ランダム効果とは" class="level2">
-<h2 class="anchored" data-anchor-id="ランダム効果とは">ランダム効果とは</h2>
 <ul>
-<li>データにばらつきをもたらす、人間が測定できない・測定しなかった（または原因不明の）個体差の効果</li>
+<li><p>GLMMでは個体差を表すパラメータが何かしらの確率分布に従うと仮定する。</p>
+<ul>
+<li><p>標準的なGLMMでは、ランダム効果は通常、平均0の正規分布に従うと仮定する。平均が0なのは、母集団全体の平均を固定効果が表し、ランダム効果をそこからのずれとして定義するためである。</p></li>
+<li><p>ランダム効果が正規分布に従うことが常に理論的に保証されているわけではない。しかし、正規分布は数学的・計算的に扱いやすいため、標準的な仮定として用いられている。</p></li>
+</ul></li>
 </ul>
-<!-- - GLMMでは個体差を表すパラメータが何かしらの確率分布に従うと仮定する。 -->
-<!--   - この個体差を表すパラメータは平均ゼロの正規分布に従うと仮定される。これには明確な根拠がある訳ではなく、観測できない個体差はどのような確率分布に従うか分からないため、とりあえず便利だから正規分布を仮定している。 -->
+</div>
+</div>
 <ul>
 <li><p>ランダム効果を設定するべきか否かの判断は、<strong>「同じ個体（参加者）や場所から何度もサンプリングしているか」</strong></p>
 <ul>
@@ -469,6 +483,10 @@ Note
 <li><p>4つの学校の複数の学生からデータを取得する</p></li>
 </ul></li>
 </ul></li>
+<li><p>性別や出身地など、参加者ごとに一つの値しかなく、参加者内で変化しない変数は、参加者ごとのランダム効果には指定できない。</p>
+<ul>
+<li>学校単位では複数の生徒がいるため、学校ごとのランダム効果では性別や出身地を指定できる。</li>
+</ul></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -481,27 +499,95 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>「個体から複数のデータを取る」という実験操作を疑似反復という</p>
+<li><p>「個体から複数のデータを取る」という実験操作を疑似反復という。</p>
 <ul>
 <li>「疑似」がつく理由：個体差を消すほどの反復にはなっていないため。個体差などを打ち消すような実験操作ができている場合「反復」とみなせる（個体差や場所差を打ち消すために反復を行う）。</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<!-- ### 階層の種類：Nested vs. Crossed -->
-<!-- （ややこしいから入れるか検討） -->
-<!-- - 階層のパターンは大別して以下の二種類ある。分析をする際にはこの二つを書き分けなければならないため、データの構造をきちんと把握しておく必要がある。言語系の研究では、入れ子構造が多いため、この講義では入れ子構造のランダム効果の分析法を行う。 -->
-<!-- - 入れ子構造（Nested Random Effects） -->
-<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータには属していない。 -->
-<!--     - e.g., 参加者がそれぞれ複数の項目を提示される、学校単位の学力調査 -->
-<!-- （図を挿入） -->
-<!-- - 交差構造（Crossed Random Effects） -->
-<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータにも属す。 -->
-<!--     - e.g., 3人の生徒が3人の教師それぞれに教わる -->
-<!-- （図を挿入） -->
+<ul>
+<li>2段階以上のサンプリングで得たデータを、<span style="background-color: yellow;">階層的データ</span>という。</li>
+</ul>
 </section>
-<section id="ランダム切片モデル" class="level2">
-<h2 class="anchored" data-anchor-id="ランダム切片モデル">ランダム切片モデル</h2>
+<section id="階層構造の種類crossed-vs.-nested" class="level2">
+<h2 class="anchored" data-anchor-id="階層構造の種類crossed-vs.-nested">階層構造の種類（Crossed vs.&nbsp;Nested）</h2>
+<ul>
+<li><p>ランダム効果の構造は、大きく<strong>交差構造</strong>と<strong>入れ子構造</strong>に分けられる。</p>
+<ul>
+<li>どちらの構造を指定するかは、実験や調査デザインによって決まる。</li>
+</ul></li>
+</ul>
+<section id="交差構造crossed-random-effects" class="level3">
+<h3 class="anchored" data-anchor-id="交差構造crossed-random-effects">交差構造（Crossed Random Effects）</h3>
+<ul>
+<li><p>二つ以上のグループ化変数の組合せが、複数の水準にまたがって観測される構造を交差構造という。</p>
+<ul>
+<li>例えば、複数の参加者が同じ実験項目に回答する場合、それぞれの参加者は複数の項目に回答し、それぞれの項目も複数の参加者によって回答される。この場合、参加者と項目は交差している。</li>
+</ul></li>
+<li><p>例：</p>
+<ul>
+<li>複数の参加者に共通の単語や文を提示する言語実験</li>
+</ul></li>
+<li><p>言語実験では、同じ単語や文を複数の参加者に提示することが多いため、参加者と項目を交差したランダム効果として扱うことが多い。</p></li>
+</ul>
+</section>
+<section id="入れ子構造nested-random-effects" class="level3">
+<h3 class="anchored" data-anchor-id="入れ子構造nested-random-effects">入れ子構造（Nested Random Effects）</h3>
+<ul>
+<li><p>あるグループが、一つの上位グループにのみ属している構造を入れ子構造という。</p>
+<ul>
+<li>例えば、各生徒が一つのクラスにのみ所属し、各クラスが一つの学校にのみ所属している場合、生徒はクラスに、クラスは学校に入れ子になっている。</li>
+</ul></li>
+<li><p>例：</p>
+<ul>
+<li>参加者Aと参加者Bに異なる単語や文を提示する実験</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>これらの区別は、Rで階層モデルの分析をする際の、ランダム効果の指定に関わります。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="データの階層性を無視してもよいか" class="level2">
+<h2 class="anchored" data-anchor-id="データの階層性を無視してもよいか">データの階層性を無視してもよいか</h2>
+<ul>
+<li><p>データの階層性がある場合に、マルチモデルを使わず、従来の回帰モデルなどで分析する場合、以下の問題が生じる</p>
+<ol type="1">
+<li>サンプルの独立性仮定への違反</li>
+</ol>
+<ul>
+<li><p>全国からランダムに40人を選ぶ場合と全国から40人クラスのある学校を一つ選ぶ場合（階層データ）、後者のデータは偏っている可能性がある（たまたま優秀/できない学校が選ばれる可能性がある）。</p>
+<ul>
+<li><p>完全なランダムサンプリングではないため、完全なランダムサンプリングを前提にした分析手法を適用すべきではない。</p>
+<ul>
+<li><em>t</em> 検定など多くの統計手法でサンプルの独立性の仮定がある</li>
+</ul></li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>個人レベルと集団レベルの分析結果が矛盾する場合、どちらで結果を解釈すればよいか分からない</li>
+</ol>
+<ul>
+<li><p>集団レベルで見られた関係性が、個人レベルにもそのまま当てはまるかどうかは保証されない</p>
+<p>-　個人レベルと集団ごとの分析結果に全く異なる結論が導き出されることをシンプソンのパラドックスという。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="ランダム効果の種類" class="level2">
+<h2 class="anchored" data-anchor-id="ランダム効果の種類">ランダム効果の種類</h2>
+<section id="ランダム切片モデル" class="level3">
+<h3 class="anchored" data-anchor-id="ランダム切片モデル">ランダム切片モデル</h3>
 <ul>
 <li><p>切片の値が個体差（e.g., 参加者）によって異なることを仮定したモデル</p>
 <ul>
@@ -518,12 +604,13 @@ Note
 </div>
 </div>
 </section>
-<section id="ランダム係数モデル" class="level2">
-<h2 class="anchored" data-anchor-id="ランダム係数モデル">ランダム係数モデル</h2>
+<section id="ランダム係数傾きモデル" class="level3">
+<h3 class="anchored" data-anchor-id="ランダム係数傾きモデル">ランダム係数（傾き）モデル</h3>
 <ul>
-<li><p>モデル内の独立変数の係数が個体差によって異なることを仮定したモデル</p>
+<li><p>モデル内の独立変数の係数（傾き）が個体差によって異なることを仮定したモデル</p>
 <ul>
-<li>例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、指導法の効果は生徒の個人差によって異なる仮定</li>
+<li><p>例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、指導法の効果は生徒の個人差によって異なる仮定</p></li>
+<li><p><u>点線は全体平均</u></p></li>
 </ul></li>
 </ul>
 <div class="cell">
@@ -535,6 +622,7 @@ Note
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="ランダム切片-係数モデル" class="level2">
 <h2 class="anchored" data-anchor-id="ランダム切片-係数モデル">ランダム切片 &amp; 係数モデル</h2>
@@ -600,7 +688,10 @@ Note
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li>処理にかかる時間を計測するため、<code>tictoc</code>パッケージを使います。</li>
+<li><p>処理にかかる時間を計測するため、<code>tictoc</code>パッケージを使います。</p>
+<ul>
+<li><code>tic()</code>と<code>toc()</code>の間に挟んだコードの処理時間を計算します。</li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tictoc")</span></span>
@@ -670,7 +761,7 @@ z = \frac{x - \bar{x}}{SD}
 <ul>
 <li><p>従属変数：正答（1: 正解、2: 不正解）</p></li>
 <li><p>独立変数：コロケーションの種類</p></li>
-<li><p>ランダム効果：</p>
+<li><p>ランダム効果（<strong>交差構造</strong>）：</p>
 <ul>
 <li><p>参加者（切片、傾き【標準化したトライアル番号】）</p>
 <ul>
@@ -684,18 +775,41 @@ z = \frac{x - \bar{x}}{SD}
 </ul></li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>ランダム効果の指定</strong></p>
+<ul>
+<li><p>ランダム切片とランダム傾きの相関を推定するか、しないかによっても指定（<code>|</code>）が異なります。ランダム切片とランダム傾きの相関を仮定する場合、<code>|</code>は一つ、仮定しない場合は二つ挿入します。相関を仮定しない方がモデルとしてはシンプルですが、相関を指定することで、切片と傾きの相関関係を算出することができます。平均的な参加者同士の違いに加え、試行数が与える影響がどの程度大きいのかなどを検証できます。もし二つに正しい相関関係がある場合、基準値（切片の推定値）が高いほど、試行数による変化が大きい傾向があると解釈できます。</p>
+<ul>
+<li>交差構造（subjectの切片・傾きの相関あり）：<code>(1 + z.pres.order|subject) + (1|item)</code></li>
+<li>交差構造（subjectの切片・傾きの相関なし）：<code>(1 + z.pres.order||subject) + (1|item)</code></li>
+<li>入れ子構造（subjectの切片・傾きの相関あり）：<code>(1 + z.pres.order | subject) + (1 | subject:item)</code></li>
+<li>入れ子構造（subjectの切片・傾きの相関なし）：<code>(1 + z.pres.order || subject) + (1 | subject:item)</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> z.pres.order<span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">"bobyqa"</span>) <span class="co">#スムーズに推定を行うためのおまじない</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>               )</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> z.pres.order<span class="sc">|</span>subject) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">"bobyqa"</span>) <span class="co">#スムーズに推定を行うためのおまじない</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.59 sec elapsed</code></pre>
+<pre><code>1.63 sec elapsed</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -771,7 +885,7 @@ Important
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>0.02 sec elapsed</code></pre>
+<pre><code>0.01 sec elapsed</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: contrasts dropped from factor Itemtype</code></pre>
@@ -941,7 +1055,7 @@ Itemtype3   0.2499483 0.148912 0.4195374</code></pre>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>               )</span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.42 sec elapsed</code></pre>
+<pre><code>0.75 sec elapsed</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1093,6 +1207,7 @@ Note
 <li><p>💻<a href="https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2">glmやglmerによるパラメータ推定値と信頼区間をggplot2で描画する (easystats)</a></p></li>
 <li><p>💻<a href="https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/">Mixed Effects Logistic Regression | R Data Analysis Examples</a></p></li>
 <li><p>💻<a href="https://stats.stackexchange.com/questions/228800/crossed-vs-nested-random-effects-how-do-they-differ-and-how-are-they-specified">Crossed vs nested random effects: how do they differ and how are they specified correctly in lme4?</a></p></li>
+<li><p>💻<a href="http://www2.kobe-u.ac.jp/~bunji/files/lecture/MVA/html/chapters/09_multilevel_model.html#sec-Chap09-multilevel-data">9 マルチレベルモデル</a></p></li>
 </ul>
 
 
