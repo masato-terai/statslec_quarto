@@ -8,10 +8,8 @@ library(tidyverse)
 
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+-   この講義用のフォルダ－📁をPositronで開いていますか？
 
-  - .Rでも.Rmdでもどちらでも大丈夫です。
 
 ## 今日の目標
 
@@ -74,14 +72,11 @@ $$
 
 - 統計的帰無仮説検定を行う場合、事前に必要なサンプルサイズを見積もる必要がある（次セクションの検定力）
 
-  - 検定力分析には効果量が必要となり、その場合、最小関心効果量を決定する。最小である理由は、効果量を大きく設定するほど、必要サンプル数が減るため、謙虚な値で推定するため。
+  - 検定力分析には効果量が必要となり、その場合、（Smallest Effect Size of Interest: SESOI）を決定する。最小である理由は、効果量を大きく設定するほど、必要サンプル数が減るため、謙虚な値で推定するため。
   
     - 先行研究などこれまでの知見などをもとに最小関心効果量を設定する必要がある
 
 ## 検定力分析
-<div style="border: 2px solid skyblue; padding: 10px;">
-手元のRでコードを動かしながらやってみましょう。データの読み込みなどはいりません。
-</div>
 
 - 統計的帰無仮説検定では、第一種の過誤、第二種の過誤、サンプルサイズ、そして効果量によってその結果が決まる。つまり、4つのうち3つが決まれば、残りの一つは自動的に決まる。この関係性を利用し、サンプルサイズを推定する。
 
@@ -325,13 +320,13 @@ results %>%
   - 検定力：90%
   
   - 危険率：5%
-  
 </div>
 
 
 ### 提出方法
 
--   R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出
+-   Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）
+
 -   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
@@ -346,22 +341,3 @@ results %>%
 - 📄[水本・ 竹内 (2010). 「効果量と検定力分析入門―統計的検定を正しく使うために―」 『メソドロジー研究部会報告論集』 47-73.](https://www.mizumot.com/method/mizumoto-takeuchi.pdf)
 
 - 📄[Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. *Language Learning, 64*(4), 878-912.](https://onlinelibrary.wiley.com/doi/abs/10.1111/lang.12079)
-
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
