@@ -418,7 +418,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-06-07 17:48:52</p>
+      <p class="date-modified">2026-07-19 15:58:24</p>
     </div>
   </div>
     
@@ -432,11 +432,7 @@ window.Quarto = {
 <section id="事前の確認" class="level2">
 <h2 class="anchored" data-anchor-id="事前の確認">事前の確認</h2>
 <ul>
-<li><p>この講義のRプロジェクトを開いていますか？</p></li>
-<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
-<ul>
-<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
-</ul></li>
+<li>この講義用のフォルダ－📁をPositronで開いていますか？</li>
 </ul>
 </section>
 <section id="今日の目標" class="level2">
@@ -598,7 +594,9 @@ Note
 <li>それぞれのセルに対し、観測度数から期待度数を引いて二乗したものを期待度数で割る。そしてそれらを合計する。</li>
 </ul></li>
 </ul>
-<p>[ ^2 = ]</p>
+<p><span class="math display">\[
+\chi^2 = \sum \frac{(観測度数 - 期待度数)^2}{期待度数}
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chisq_stat <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chisq_stat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -974,36 +972,46 @@ Cramer's V        : 0.328 </code></pre>
 <ul>
 <li>海外経験のある人で英語で話すのが好きな人の割合</li>
 </ul>
-<p>[ リスク = = = = 0.476 ]</p>
+<p><span class="math display">\[
+リスク = \frac{10}{10 + 11} = \frac{\text{海外経験あり群で英語を話すのが好き}}{\text{海外経験あり群全体}} = \frac{10}{21} = 0.476
+\]</span></p>
 <ul>
 <li>海外経験のない人で英語で話すのが好きな人の割合</li>
 </ul>
-<p>[ リスク = = = = 0.476 ]</p>
+<p><span class="math display">\[
+リスク = \frac{8}{8 + 25} = \frac{\text{海外経験なし群で英語を話すのが好き}}{\text{海外経験なし群全体}} = \frac{10}{21} = 0.476
+\]</span></p>
 <ul>
 <li><p>リスク比の算出</p></li>
 <li><p>海外経験のある人で英語を話すのが好きな人は、海外経験のない人の何倍か</p></li>
 </ul>
-<p>[ リスク比 = = = 1.964 ]</p>
-<ul>
-<li>海外経験のある人で英語を話すのが好きになる確率は、海外経験のない人の約2倍である</li>
-</ul>
+<p><span class="math display">\[
+リスク比 = \frac{0.4762}{0.2424} = \frac{\text{海外経験のある人で英語で話すのが好きな人の割合}}{\text{海外経験のない人で英語で話すのが好きな人の割合}} = 1.964
+\]</span> - 海外経験のある人で英語を話すのが好きになる確率は、海外経験のない人の約2倍である</p>
 </section>
 <section id="オッズ比" class="level3">
 <h3 class="anchored" data-anchor-id="オッズ比">オッズ比</h3>
 <ul>
 <li>「イベントが起こる確率 ÷ 起こらない確率」（<strong>オッズの比</strong>）</li>
 </ul>
-<p>[ オッズ = = = 0.909 ]</p>
+<p><span class="math display">\[
+オッズ = \frac{\text{海外経験あり群で英語を話すのが好き}}{\text{海外経験あり群で英語を話すのが嫌い}} = \frac{10}{11} = 0.909
+\]</span></p>
 <ul>
 <li>海外経験のある人は英語を話すのが好きと嫌いの比率がほぼ等しい</li>
 </ul>
-<p>[ オッズ = = = 0.320 ]</p>
+<p><span class="math display">\[
+オッズ = \frac{\text{海外経験なし群で英語を話すのが好き}}{\text{海外経験なし群で英語を話すのが嫌い}} = \frac{8}{25} = 0.320
+\]</span></p>
 <ul>
 <li><p>海外経験のない人は英語を話すのが好きと嫌いの比率は0.320:1で、嫌いが約3倍高い</p></li>
-<li><p>オッズ比の計算 [ オッズ比 = = 2.841 ]</p>
+<li><p>オッズ比の計算</p></li>
+</ul>
+<p><span class="math display">\[
+オッズ比 =  \frac{0.909}{0.320} = 2.841
+\]</span></p>
 <ul>
 <li>海外経験のある人は、英語を話すのが好きになる確率が、海外経験のない人の2.84倍である</li>
-</ul></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1121,7 +1129,9 @@ McNemar's chi-squared = 12.042, df = 1, p-value = 0.0005202</code></pre>
 <ul>
 <li>効果量の算出</li>
 </ul>
-<p>[ 効果量 r = = = 0.708 ]</p>
+<p><span class="math display">\[
+効果量 r = \sqrt\frac{{χ^2}}{N} = \sqrt\frac{12.04}{21 + 3} = 0.708
+\]</span></p>
 </section>
 <section id="論文への記載の例" class="level3">
 <h3 class="anchored" data-anchor-id="論文への記載の例">論文への記載の例</h3>
@@ -1478,12 +1488,8 @@ alternative hypothesis: true mu is not equal to 0</code></pre>
 <li><p>係数の解釈はパラメトリック検定と同じで、-1から1の間をとる</p></li>
 <li><p>関数はピアソンの時と同じ <code>cor.test()</code>。<code>method =</code>個所で指定する。</p></li>
 </ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>cor.test(変数A, 変数B, method = "spearman")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>cor.test(変数A, 変数B, method = "kendall")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<pre><code>cor.test(変数A, 変数B, method = "spearman")</code></pre>
+<pre><code>cor.test(変数A, 変数B, method = "kendall")</code></pre>
 <ul>
 <li>ここで紹介した以外にも、対応のない3群以上の比較で使用されるクラスカル・ウォリスの順位和検定や対応のある3条件以上の比較で使用されるフリードマン検定などがある</li>
 </ul>
@@ -1512,23 +1518,22 @@ Note
 </ol>
 <div style="border: 2px solid skyblue; padding: 10px;">
 <p><code>pokemon_data.csv</code>を使用します。データをRStudioに読み込んだら、以下のコードで今回の分析に必要なデータを絞り込み、そのデータを対象に分析等を行ってください。</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu"># datにpokemon_data.csvが入っているとします。</span></span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>include &lt;- c("1", "8")</span>
-<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>dat2 &lt;- dat %&gt;%</span>
-<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  filter((世代 %in% include)) %&gt;%</span>
-<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  filter(進化 != 1) %&gt;%</span>
-<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>  dplyr::select(進化, 世代)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<pre><code>library(tidyverse)
+
+# datにpokemon_data.csvが入っているとします。
+
+include &lt;- c("1", "8")
+dat2 &lt;- dat %&gt;%
+  filter((世代 %in% include)) %&gt;%
+  filter(進化 != 1) %&gt;%
+  dplyr::select(進化, 世代)
+</code></pre>
 </div>
 </section>
 <section id="提出方法" class="level3">
 <h3 class="anchored" data-anchor-id="提出方法">提出方法</h3>
 <ul>
-<li><p>R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出</p></li>
+<li><p>Quartoファイルで作成し、HTMLファイルに変換しTACTへ提出（Quartoファイルも提出すること）</p></li>
 <li><p>締め切りは今週の木曜日23:59まで</p></li>
 </ul>
 </section>
