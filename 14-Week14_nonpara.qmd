@@ -301,6 +301,7 @@ assocstats(x)
   - 絶対値1.96（5%水準棄却値）より絶対値が大きいものを確認
 
 ```{r}
+#| echo: false
 print(table_data)
 ```
 
