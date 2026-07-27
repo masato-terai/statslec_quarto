@@ -105,25 +105,14 @@ Week 1の復習です。
 
 ## 答え合わせ
 
-```{markdown}
+```{}
 # 名古屋飯といえば
 ## ひつまぶし：*Hitsumabushi*
 おすすめは以下のお店です。
 
 - **ひつまぶし花岡**
   - 場所：栄
-
 ```
-
-## 実は、Wordのように編集できます！
-
--   Markdownで書かなくとも、VisualモードであればWordと似たようにできます。
--   以下で設定ができる
-    -   [Tools] → [Global Options...] → [R Markdown] → [Visual]
-    -   "Use visual editor by default for new documents"の項目に☑
-    -   "Soft-wrap R Markdown files"にも☑を入れると、右側にアウトラインが出ます
--   欠点として、少し動作が遅い。簡単なものはMarkdownで書く方が速い
--   表などはVisualモードがおすすめ
 
 ## コードチャンクの挿入
 
@@ -148,7 +137,9 @@ plot(dat)
 
 -   {r}の中にもいろいろな指定ができます。
 
-    -   コードを非表示にして結果だけを表示させたい（オープンサイエンスではないですが）
+  -   コードを非表示にして結果だけを表示させたい（オープンサイエンスではないですが）
+
+  - Rチャンクの中に```#| echo: false```を加える
 
 ```{r}
 #| echo: false
@@ -184,7 +175,7 @@ total <- sum(hitsu, miso)
 
 ## 答え合わせ
 
-```{markdown}
+```{}
 ## 食費の合計
 - 以下は、名古屋旅行で使った食費の合計である。
 
@@ -200,47 +191,45 @@ total <- sum(hitsu, miso)
 
 ```
 
-## 2. R Markdownでまとめた結果を共有することができる
+## 2. 結果を共有することができる
 
 -   YAMLヘッダーのoutputを変更するだけ！
+
+- Quartoでは様々な形式に出力可能！[参考](https://quarto.org/docs/output-formats/all-formats.html)
 
 ### Wordに出力
 
 ### Before
 
-```{markdown}         
+```{}         
 title: "Untitled"
-output: html_document
-date: "2024-04-15"
+format: docx
 ```
 
 ### After
 
-```{markdown}         
+```{}         
 title: "Untitled"
-output: word_document
-date: "2024-04-15"
+format: docx
 ```
 
--   テンプレートを追加することも可能。テンプレートはきちんとレベル分けの設定などを行っておく必要あり[（設定の仕方）](https://gedevan-aleksizde.github.io/rmarkdown-cookbook/word-template.html)。
+- テンプレートを追加することも可能。formatに```reference-doc```を指定する。テンプレートはきちんとレベル分けの設定などを行っておく必要あり。
 
 ### Power Pointに出力
 
--   図や表は必ず新しいページに表示されるなど、knitした後の修正が面倒。
-
 ```{markdown}         
 title: "Untitled"
-output: powerpoint_presentation
-date: "2024-04-15"
+format: pptx
 ```
 
 ### HTML slideに変更
 
 ```{markdown}         
 title: "Untitled"
-output: ioslides_presentation
-date: "2024-04-15"
+format: revealjs
 ```
+
+::: callout-important
 
 -   **\#**で定義するレベル分けでスライドの区切りが代わる
 
@@ -248,34 +237,17 @@ date: "2024-04-15"
     -   **\##**で新しいページ
     -   **\###**ページ内の太文字
 
--   枠にとらわれない！
-
-    -   以下のチャンクを先頭に入れると、スクロール可能なスライドになる（チャンク内はrではなく、`=html`にする）。
-    -   注意点として、タッチパッドや、マウスホイールでスクロールできますが、スクロールバーを掴んでスクロールはできません。
-
-```{markdown}         
-<style>
-  slides > slide {
-    overflow-x: auto !important;
-    overflow-y: auto !important;
-}
-</style>
-```
+:::
 
 ## HTML形式だと、簡単にウェブサイトにできます
 
--   リンクで他者に共有できます。
--   以下の二つは無料で利用できるが、無料版の場合、リンクを知る人だれもが閲覧できるので注意
-
-### RPubsを使う
-
--   コメント機能もあるので、「発表へのコメントは匿名でこちらへ」みたいにできそう。
--   [使い方の解説](https://qiita.com/masato-terai/items/664c5ee782f690260eca#rpubs%E4%B8%80%E7%95%AA%E7%B0%A1%E5%8D%98)
+-   無料で利用できるが、無料版の場合、リンクを知る人だれもが閲覧できるので注意
 
 ### Githubを使う
 
 -   Githubとは、コードのバージョン管理をするツール。共同編集可能。
--   今回は一番簡単な方法で実行します。しかし、Git(hub)をフルで使いこなせば、ファイルのバージョン管理、共同編集などが可能でより再現可能な資料作成に一歩近づくと思います。R Studioとの連携も可能。
+-   今回は一番簡単な方法で実行します。しかし、Git(hub)をフルで使いこなせば、ファイルのバージョン管理、共同編集などが可能でより再現可能な資料作成に一歩近づくと思います。
+
 -   [使い方の解説](https://qiita.com/masato-terai/items/664c5ee782f690260eca#rpubs%E4%B8%80%E7%95%AA%E7%B0%A1%E5%8D%98)
 
 ## 3. 様々なパソコンで同じ分析環境を再現することができる
@@ -292,7 +264,7 @@ date: "2024-04-15"
 
 -   Let's インストール
 
-```{markdown}         
+```{}         
 install.packages("renv")
 ```
 
@@ -306,7 +278,7 @@ install.packages("renv")
 
 -   以下のコマンドを走らせると、**プロジェクト内で**使用しているパッケージを、RやRmdファイルなどから検出します。そして、そのバージョンの情報を`renv.lock`ファイルに保存します。
 
-```{markdown}         
+```{}         
 renv::init()
 ```
 
@@ -344,7 +316,7 @@ You can browse the package documentation online at https://rstudio.github.io/ren
 Do you want to proceed? [y/N]: 
 ```
 
--   yを押して進むと、開いているプロジェクトのあるディレクトリに**renv**というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、**renv.lock**というファイルも同じディレクトリに作成されます。**新しく作成されたものは、すべて`renv`パッケージの利用に必要なので、削除しないでください。**
+-  yを押して進むと、開いているプロジェクトのあるディレクトリに**renv**というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、**renv.lock**というファイルも同じディレクトリに作成されます。**新しく作成されたものは、すべて`renv`パッケージの利用に必要なので、削除しないでください。**
 
 ```         
 - "C:/Users/terai-masato/AppData/Local/R/cache/R/renv" has been created.
@@ -405,7 +377,7 @@ Restarting R session...
 
 -   試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる`fortunes`パッケージをインストールしましょう。興味のある方はこちらにリストがあります([R Fortunes: Collected Wisdom](https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf))。
 
-```{markdown}         
+```{}         
 install.packages("fortunes")
 ```
 
@@ -424,7 +396,7 @@ fortunes::fortune(which = 386)
 
 -   今回の追加をrenv.lockファイルに追加しましょう。
 
-```{markdown}         
+```{}         
 renv::snapshot()
 ```
 
@@ -501,7 +473,7 @@ fortunes::fortune(which = 386)
 
 -   元に戻す場合は、`renv::restore()`
 
-```{markdown}         
+```{}         
 renv::restore()
 ```
 
@@ -522,55 +494,25 @@ Do you want to proceed? [Y/n]:
 
 <!-- ``` -->
 
-::: {.infobox .caution data-latex="{caution}"}
-**注意**<br>
-・ パッケージによっては、手動でのダウンロードが必要なものがあります。その場合、エラーメッセージでどのパッケージのインストールができないのか表示されます。エラーメッセージに表示されているパッケージを見て、手動でそれをインストールします。
+::: callout-important
+パッケージによっては、手動でのダウンロードが必要なものがあります。その場合、エラーメッセージでどのパッケージのインストールができないのか表示されます。エラーメッセージに表示されているパッケージを見て、手動でそれをインストールします。
 :::
-
-## Rのバージョン管理
-
-### Windows
-
--   [Tools] → [Global Options] → [R version]をクリックすると、過去にそのPCで使用していたRのバージョンが記録されている。
-
-### Mac
-
--   Windowsのようなセレクトボタンがない！
--   [RSwitch](https://rud.is/rswitch/)をダウンロードする必要あり
 
 ## 再現性をさらに高める工夫
 
-### R Markdownに含めておきたい情報
+### Quartoに含めておきたい情報
 ### 日付、日時
 - いつ作成されたファイルで、更新はされたことあるのかを明記することが重要
     -   デフォルトでは、ファイルの作成日を手動で切り替えないといけない。
 
--   r Sys.Date：2022-01-20
-
-```{markdown}         
+```{}         
 title: "Untitled"
 author: "Masato Terai"
-date: "`r Sys.Date()` in JST"   # ``と""で囲うのを忘れない。
-output: html_document
+format: html
+date:
+  value: now
+  format: "YYYY-MM-DD HH:mm:ss"
 ```
-
--   r Sys.time：2022-01-20 21:36:36
-
-```{markdown}         
-title: "Untitled"
-author: "Masato Terai"
-date: "`r format(Sys.time(), '%Y-%m-%d %X')`"   # ``と""で囲うのを忘れない。
-output: html_document
-```
-
-- 寺井おすすめ
-```{markdown}         
-title: "Untitled"
-author: "Masato Terai"
-date: "作成日:2024-05-20, 最終更新(JST): `r format(Sys.time(), '%Y-%m-%d %X')`"
-output: html_document
-```
-
 
 ### Rのバージョン & 使用したRのパッケージのバージョン
 - Rのバージョンやパッケージのバージョン情報など
@@ -625,7 +567,7 @@ toc() #測定終了
 
 3.  `require(関数名)`：`library()`とほとんど変わらないが、関数を読み込めたかどうかを論理値で返すことができる。関数が読み込めない（＝パッケージを入れていない）場合に、まずそのパッケージを読み込んで、処理に進ませるみたいな用途で使える。
 
-```{markdown}
+```{}
 if (require(パッケージ名) == FALSE) {
  install.packages(パッケージ名)
 } else {
@@ -639,7 +581,7 @@ if (require(パッケージ名) == FALSE) {
 
     -   エラーの原因になる場合あり。`::`で定義すると回避できる。
 
-```{markdown masa, include = F}         
+```{}         
 > library(ggplot2)
 Need help getting started? Try the R Graphics
 Cookbook: https://r-graphics.org
@@ -651,71 +593,37 @@ Cookbook: https://r-graphics.org
     %+%, alpha
 ```
 
-
-```{r}
-#| echo: false
-#| warning: false
-
-library(flair)
-decorate("masa") %>% 
-  flair("以下のオブジェクトは ‘package:psych’ からマスクされています:", background = "#FDB933") %>%
-  flair("%+%, alpha", background = "#FDB933")
-```
-
 ### 関数とパッケージの対応は覚えにくい
 
--   R Markdownのファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。
+-   Quartoファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。
 
-```{markdown ex, include =F}         
+```{}         
 library(dplyr)
 library(stats)
 ```
-
-
-```{r}
-#| echo: false
-#| warning: false
-
-library(flair)
-decorate("ex") %>% 
-  flair("dplyr", background = "#FDB933") %>%
-  flair("stats", background = "#FDB933")
-```
-
 -   どのパッケージに属する関数なのか一目瞭然。ただしその都度パッケージ名を書くので、コードが長くなるという欠点も
 
-```{markdown example, include = F}         
+```{}         
 data |>
   dplyr::select() |>
   stats::lm(formula = cyl ~ am)
 ```
 
-```{r}
-#| echo: false
-#| warning: false
-
-library(flair)
-decorate("example") %>% 
-  flair("dplyr::", background = "#FDB933") %>%
-  flair("stats::", background = "#FDB933")
-```
-
-
 ### Gitによるコードのバージョン管理
 
 - Git（ギット）：無料で使用できるバージョン管理システム。**ファイルの変更履歴を記録し，変更前の状態に戻したり，別の状態と比べたり**しながらファイルの管理やプログラム開発を補助するシステムのこと。
 
-- 基本的にRのようにコードで命令する必要があるが、RStudioと連携すれば一部の機能はクリックなどで行うことができる。
+- 基本的にRのようにコードで命令する必要があるが、Positronでは様々な機能がクリック操作で実行可能。
 
 ## まとめ
 <div style="border: 3px solid blue; padding: 10px; background-color: #e6f7ff;">
-1.  R Markdownでは、YAMLヘッダー、コードチャンク、ドキュメントチャンクを使って分析結果をまとめることができる。
+1.  Quartoでは、YAMLヘッダー、コードチャンク、ドキュメントチャンクを使って分析結果をまとめることができる。
 
     -   研究ごとにプロジェクトを作成しておくとよい
 
-2.  作成したR Markdownファイルは、Word、HTMLファイル、Power Pointなど様々な形式に出力できる。
+2.  作成したQuartoファイルは、Word、HTMLファイル、Power Pointなど様々な形式に出力できる。
 
-    -   RPubsやGithubを使えば、ウェブページとして共有できる
+    -   Githubなどを使えば、ウェブページとして共有できる
 
 3.  RのパッケージやR自体のバージョンは切り替えて使うことができる。
 
