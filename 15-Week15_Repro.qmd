@@ -7,22 +7,13 @@ library(tidyverse)
 library(kableExtra)
 ```
 
-
 ## 事前の確認
 
-- この講義のRプロジェクトを開いていますか？
-- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
-
-  - .Rでも.Rmdでもどちらでも大丈夫です。
+- この講義用のフォルダ－📁をPositronで開いていますか？
 
 ## 今日の目標
 
 - Rを使った研究の再現性を確保するための方法について理解することができる
-
-::: {.infobox .beg data-latex="{beg}"}
-2024年8月に名古屋学院大で行われた外国語メディア学会全国大会でのワークショップ（外国語教育研究者のためのオープンサイエンス入門― R Markdownを用いた実践編の内容を改変したものです。
-:::
-
 
 ## はじめに
 
@@ -32,17 +23,19 @@ library(kableExtra)
 
 -   e.g., 実験で使用した刺激文、分析に使用した生データ、分析コード
 
--   [Language LearningのHPより](https://onlinelibrary.wiley.com/page/journal/14679922/homepage/ForAuthors.html#badgel)
+-   [Language LearningのHPより（2026年7月24日現在）](https://onlinelibrary.wiley.com/page/journal/14679922/homepage/ForAuthors.html#badgel)
 
-> **Shared Research Materials and Data Policy for Accepted Articles.** <mark style="background-color: orange;">*Language Learning* encourages accepted authors to upload their data collection materials and/or data to the IRIS database (<http://www.iris-database.org>).</mark> IRIS is an online repository for data collection materials used for second language research. This includes data elicitation instruments such as <mark style="background-color: orange;">interview and observation schedules, language tests, pictures, questionnaires, software scripts, URL links, word lists, pedagogical interventions, and so on.</mark> (...) The sharing of research instrumentation benefits the research community and helps authors and journals increase the visibility of their published research.
+> **Open Science Initiatives** <mark style="background-color: orange;">Language Learning encourages authors to share the data, materials, research instruments, and other artefacts supporting the results in their study by archiving them in an appropriate public repository.</mark> Examples of qualifying public, open-access databases of data, research instruments, and materials are the IRIS digital repository, the Open Science Framework repository, and the SLA Speech Tools repository. Authors who archive the data, materials, research instruments, testing protocols, and/or other research artefacts used in their study should include an accessibility statement with a link to the repository they have used.
 
+## 1. Quartoを使って分析結果をまとめることができる
 
+::: callout-note
+Week 1の復習です。
+:::
 
-## 1. R Markdownを使って分析結果をまとめることができる
+### Positronを開いて作成する
 
-### R Studioを開いて作成する
-
-#### R Markdownの解体新書
+#### Quartoの解体新書
 
 -   【パーツ１】YAML（YAML　Ain't Markup Language）ヘッダー：文章全体の体裁や情報を操作する
 
@@ -61,7 +54,6 @@ library(kableExtra)
 -   【パーツ３】ドキュメントチャンク：[Markdownと呼ばれるプログラム言語](https://www.jaysong.net/RBook/rmarkdown.html#rmarkdown-intro)で記述するところ
 
     -   見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く
-
 
 ### Knit🧶を押して出力！
 - 初期設定はHTMLファイル出力です
@@ -734,7 +726,7 @@ decorate("example") %>%
 
 ## 次週までの課題
 
-- なし。
+- 本日の内容に関してはなし。しかし、期末課題があります。
 
 ## 期末課題レポートについて
 
@@ -754,10 +746,7 @@ decorate("example") %>%
       
         - 先行研究との比較などは書かなくてもよいですが、今回の結果を踏まえて研究課題に対してどのような問いが得られたのかも記載してください
 
-- 締め切りは**8月8日金曜日の17時**です。
-
-- 未提出・再提出課題についても8月8日金曜日の17時まで受け付けます。提出は```terai.research [at] gmail.com```宛てに送ってください。
-
+- 締め切りは**8月7日金曜日の17時**です。
 </div>
 
 
@@ -788,35 +777,3 @@ decorate("example") %>%
 -   [💻R Markdown クックブック](https://gedevan-aleksizde.github.io/rmarkdown-cookbook/)
 
 -   [💻R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-
-```{=html}
-<style>
-
-/* Whole document */
-body {
-  font-family: Helvetica;
-  font-size: 16pt;
-}
-
-/* Headers */
-h1, h2, h3, h4, h5, h6 {
-  font-size: 24pt;
-}
-
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
