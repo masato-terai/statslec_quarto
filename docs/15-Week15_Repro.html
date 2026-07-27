@@ -399,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026-07-27 17:25:28</p>
+      <p class="date-modified">2026-07-27 18:04:46</p>
     </div>
   </div>
     
@@ -751,106 +751,41 @@ Important
 <ul>
 <li>最初に実行すると、以下のメッセージが表示されます。</li>
 </ul>
-<pre><code>renv: Project Environments for R
-
-Welcome to renv! It looks like this is your first time using renv.
-This is a one-time message, briefly describing some of renv's functionality.
-
-renv will write to files within the active project folder, including:
-
-  - A folder 'renv' in the project directory, and
-  - A lockfile called 'renv.lock' in the project directory.
-
-In particular, projects using renv will normally use a private, per-project
-R library, in which new packages will be installed. This project library is
-isolated from other R libraries on your system.
-
-In addition, renv will update files within your project directory, including:
-
-  - .gitignore
-  - .Rbuildignore
-  - .Rprofile
-
-Finally, renv maintains a local cache of data on the filesystem, located at:
-
-  - "C:/Users/terai-masato/AppData/Local/R/cache/R/renv"
-
-This path can be customized: please see the documentation in `?renv::paths`.
-
-Please read the introduction vignette with `vignette("renv")` for more information.
-You can browse the package documentation online at https://rstudio.github.io/renv/.
-Do you want to proceed? [y/N]: </code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; renv::init()</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">The following package(s) will be updated in the lockfile:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># CRAN -----------------------------------------------------------------------</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>renv   <span class="co">[</span><span class="ot">* -&gt; 1.1.8</span><span class="co">]</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>The version of R recorded in the lockfile will be updated:</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R      <span class="co">[</span><span class="ot">* -&gt; 4.3.2</span><span class="co">]</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lockfile written to "C:/Users/terai/Desktop/tmp/renv.lock".</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>renv activated -- please restart the R session.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ul>
-<li>yを押して進むと、開いているプロジェクトのあるディレクトリに<strong>renv</strong>というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、<strong>renv.lock</strong>というファイルも同じディレクトリに作成されます。<strong>新しく作成されたものは、すべて<code>renv</code>パッケージの利用に必要なので、削除しないでください。</strong></li>
+<li><p>開いているプロジェクトのあるディレクトリに<strong>renv</strong>というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、<strong>renv.lock</strong>というファイルも同じディレクトリに作成されます。<strong>新しく作成されたものは、すべて<code>renv</code>パッケージの利用に必要なので、削除しないでください。</strong></p></li>
+<li><p>メッセージにもあるように、Rを再起動してください。</p></li>
 </ul>
-<pre><code>- "C:/Users/terai-masato/AppData/Local/R/cache/R/renv" has been created.
-- Linking packages into the project library ... [33/33] Done!
-- Resolving missing dependencies ... 
-# Installing packages --------------------------------------------------------
-The following package(s) will be updated in the lockfile:
-
-# CRAN -----------------------------------------------------------------------
-- base64enc     [* -&gt; 0.1-3]
-- bslib         [* -&gt; 0.5.1]
-- cachem        [* -&gt; 1.0.8]
-- cli           [* -&gt; 3.6.1]
-- digest        [* -&gt; 0.6.33]
-- ellipsis      [* -&gt; 0.3.2]
-- evaluate      [* -&gt; 0.23]
-- fastmap       [* -&gt; 1.1.1]
-- fontawesome   [* -&gt; 0.5.2]
-- fs            [* -&gt; 1.6.3]
-- glue          [* -&gt; 1.6.2]
-- highr         [* -&gt; 0.10]
-- htmltools     [* -&gt; 0.5.7]
-- jquerylib     [* -&gt; 0.1.4]
-- jsonlite      [* -&gt; 1.8.7]
-- knitr         [* -&gt; 1.45]
-- lifecycle     [* -&gt; 1.0.4]
-- magrittr      [* -&gt; 2.0.3]
-- memoise       [* -&gt; 2.0.1]
-- mime          [* -&gt; 0.12]
-- prettydoc     [* -&gt; 0.4.1]
-- R6            [* -&gt; 2.5.1]
-- rappdirs      [* -&gt; 0.3.3]
-- renv          [* -&gt; 1.0.7]
-- rlang         [* -&gt; 1.1.2]
-- rmarkdown     [* -&gt; 2.25]
-- sass          [* -&gt; 0.4.7]
-- stringi       [* -&gt; 1.7.12]
-- stringr       [* -&gt; 1.5.0]
-- tictoc        [* -&gt; 1.2]
-- tinytex       [* -&gt; 0.48]
-- vctrs         [* -&gt; 0.6.4]
-- xfun          [* -&gt; 0.41]
-- yaml          [* -&gt; 2.3.7]
-
-The version of R recorded in the lockfile will be updated:
-- R             [* -&gt; 4.3.2]
-
-- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".
-
-Restarting R session...
-
-- Project '~/LET/LET_Workshop_2024/materials_LETworkshop_2024' loaded. [renv 1.0.7]</code></pre>
 </section>
 <section id="パッケージ情報の保存" class="level3">
 <h3 class="anchored" data-anchor-id="パッケージ情報の保存">パッケージ情報の保存</h3>
 <ul>
-<li><p>パッケージの追加・更新・削除を行ったら、<code>snapshot</code>関数を使って<strong>renv.lock</strong>ファイルを更新します。これを忘れると、バージョン情報が変更されないので、注意。</p></li>
+<li><p>パッケージの追加・更新・削除を行ったら、<code>snapshot</code>関数を使って<strong>renv.lock</strong>ファイルを更新します。これを忘れると、バージョン情報が変更されないので、注意してください。</p></li>
 <li><p>試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる<code>fortunes</code>パッケージをインストールしましょう。興味のある方はこちらにリストがあります(<a href="https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf">R Fortunes: Collected Wisdom</a>)。</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>install.packages("fortunes")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>install.packages("fortunes")</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"fortunes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"fortunes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] '1.5.4'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">78</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">78</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 R is the lingua franca of statistical research. Work in all other languages
@@ -860,7 +795,7 @@ should be discouraged.
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">386</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">386</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 If we put in a function into rstan that dropped chains, people would use it.
@@ -873,21 +808,36 @@ If we put in a function into rstan that dropped chains, people would use it.
 <li>今回の追加をrenv.lockファイルに追加しましょう。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>renv::snapshot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>renv::snapshot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>The following package(s) will be updated in the lockfile:
 
 # CRAN -----------------------------------------------------------------------
-- fortunes   [* -&gt; 1.5-4]
+- fortunes   [* -&gt; 1.5-5]
 
 Do you want to proceed? [Y/n]: </code></pre>
 <ul>
-<li>ファイルが更新される。</li>
+<li>[CONSOLE]で<code>Y</code>と入力すると、renv.lockファイルが更新されます。</li>
 </ul>
 <pre><code>- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".</code></pre>
 <ul>
 <li>renvフォルダーの中の、library &gt; R-あなたのバージョン &gt; あなたのパソコンPlatformを開くと、パッケージの名前と同じフォルダ（<strong>fortunes</strong>）が追加されています（五十音順になっているので見つけやすいです）。</li>
 </ul>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>renv::snapshot()</code> は、既定ではプロジェクト（フォルダー📁）内の <code>.R</code> や <code>.qmd</code> ファイルを調べ、その中で使用されているパッケージを <code>renv.lock</code> に記録します。</p>
+<p>よって、プロジェクト内に <code>.R</code> や <code>.qmd</code> ファイルが存在しない場合、使用中のパッケージを検出できず、<code>renv.lock</code> にパッケージが追加されません。これはエラーではなく、<code>renv</code> の通常の動作です。</p>
+<p><code>.R</code> または <code>.qmd</code> ファイルを作成し、<code>library()</code> や <code>パッケージ名::関数名()</code> を記述した後で、再度 <code>renv::snapshot()</code> を実行しましょう。</p>
+</div>
+</div>
 </section>
 <section id="パッケージ情報の復元" class="level3">
 <h3 class="anchored" data-anchor-id="パッケージ情報の復元">パッケージ情報の復元</h3>
@@ -903,38 +853,36 @@ Do you want to proceed? [Y/n]: </code></pre>
 <li><p>注！ここで<code>renv::snapshot()</code>はやらない。やってしまうと、renv.lockからも削除され、戻らなくなってしまう。</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fortunes@1.4-0"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fortunes@1.4-0"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<pre><code># Installing packages --------------------------------------------------------
-- Installing fortunes ...                       OK [linked from cache]
-Successfully installed 1 package in 22 milliseconds.
+<pre><code>The following package(s) will be installed:
+- fortunes [1.4-0]
+These packages will be installed into "C:/Users/terai/Desktop/tmp/renv/library/R-4.3/x86_64-w64-mingw32".
 
-The following loaded package(s) have been updated:
-- fortunes
-Restart your R session to use the new versions.</code></pre>
+Do you want to proceed? [Y/n]: </code></pre>
 <ul>
-<li>restart（quit session）をして再度開く。</li>
-<li><strong>renv.lock</strong>ファイルは確認すると、1.5-4のまま！</li>
-<li>しかし、パッケージのバージョンは1.4.0!</li>
+<li><p>[CONSOLE]で<code>Y</code>を入力し、Rを再起動して再度開きます。</p></li>
+<li><p><strong>renv.lock</strong>ファイルは確認すると、1.5-4のまま！</p></li>
+<li><p>しかし、パッケージのバージョンは1.4.0!</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"fortunes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"fortunes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><a href="https://cran.r-project.org/src/contrib/Archive/fortunes/">バージョン1.4.0は2010年9月9日にリリースされている</a></li>
 <li>2016年に追加された386番目の名言はこのバージョンでは追加されていないので表示されない。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">78</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">78</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">386</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fortunes<span class="sc">::</span><span class="fu">fortune</span>(<span class="at">which =</span> <span class="dv">386</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>元に戻す場合は、<code>renv::restore()</code></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>renv::restore()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>renv::restore()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>The following package(s) will be updated:
 
@@ -946,13 +894,13 @@ Do you want to proceed? [Y/n]: </code></pre>
 <!-- ```{r} -->
 <!-- packageVersion("fortunes") -->
 <!-- ``` -->
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -975,23 +923,23 @@ Important
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  value: now</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  format: "YYYY-MM-DD HH<span class="sc">:mm:</span>ss"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  value: now</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  format: "YYYY-MM-DD HH<span class="sc">:mm:</span>ss"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>寺井のおすすめ。最初に作成した日付と、アップデートした日付を表示します。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> </span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  value: now</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  format: "<span class="co">[</span><span class="ot">Published: 2026-07-27, last update:</span><span class="co">]</span> YYYY-MM-DD HH<span class="sc">:mm:</span>ss"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Masato Terai"</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> </span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  value: now</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  format: "<span class="co">[</span><span class="ot">Published: 2026-07-27, last update:</span><span class="co">]</span> YYYY-MM-DD HH<span class="sc">:mm:</span>ss"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="rのバージョン-使用したrのパッケージのバージョン" class="level3">
@@ -1000,7 +948,7 @@ Important
 <li>Rのバージョンやパッケージのバージョン情報など</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.3.2 (2023-10-31 ucrt)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
@@ -1058,8 +1006,8 @@ loaded via a namespace (and not attached):
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("benchmarkme") # 入れていないかたは先にインストールしてください</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>benchmarkme<span class="sc">::</span><span class="fu">get_cpu</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("benchmarkme") # 入れていないかたは先にインストールしてください</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>benchmarkme<span class="sc">::</span><span class="fu">get_cpu</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>     Unable to detect your CPU.
             Please raise an issue at https://github.com/csgillespie/benchmarkme</code></pre>
@@ -1076,7 +1024,7 @@ $no_of_cores
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>benchmarkme<span class="sc">::</span><span class="fu">get_ram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>benchmarkme<span class="sc">::</span><span class="fu">get_ram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>33.8 GB</code></pre>
 </div>
@@ -1091,20 +1039,20 @@ $no_of_cores
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tictoc") # 入れていないかたは先にインストールしてください</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tictoc") # 入れていないかたは先にインストールしてください</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'tictoc' was built under R version 4.3.3</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>() <span class="co">#測定開始</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span><span class="cn">NULL</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  I <span class="ot">&lt;-</span> <span class="fu">c</span>(I,  i)}</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>() <span class="co">#測定終了</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>() <span class="co">#測定開始</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span><span class="cn">NULL</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  I <span class="ot">&lt;-</span> <span class="fu">c</span>(I,  i)}</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>() <span class="co">#測定終了</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>17.86 sec elapsed</code></pre>
+<pre><code>24.5 sec elapsed</code></pre>
 </div>
 </div>
 </section>
@@ -1117,11 +1065,11 @@ $no_of_cores
 <li><p><code>require(関数名)</code>：<code>library()</code>とほとんど変わらないが、関数を読み込めたかどうかを論理値で返すことができる。関数が読み込めない（＝パッケージを入れていない）場合に、まずそのパッケージを読み込んで、処理に進ませるみたいな用途で使える。</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>if (require(パッケージ名) == FALSE) {</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a> install.packages(パッケージ名)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>} else {</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a> #パッケージを利用してやろうとしていたことをここに書く</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>if (require(パッケージ名) == FALSE) {</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a> install.packages(パッケージ名)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>} else {</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a> #パッケージを利用してやろうとしていたことをここに書く</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="関数名が被ることがあるxxxはマスクされています" class="level3">
 <h3 class="anchored" data-anchor-id="関数名が被ることがあるxxxはマスクされています">関数名が被ることがある（xxxはマスクされています）</h3>
@@ -1132,15 +1080,15 @@ $no_of_cores
 </ul></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; library(ggplot2)</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="at">Need help getting started? Try the R Graphics</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="at">Cookbook: https://r-graphics.org</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a> 次のパッケージを付け加えます: ‘ggplot2’ </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a> 以下のオブジェクトは ‘package:psych’ からマスクされています:</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="in">    %+%, alpha</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; library(ggplot2)</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="at">Need help getting started? Try the R Graphics</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="at">Cookbook: https://r-graphics.org</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a> 次のパッケージを付け加えます: ‘ggplot2’ </span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a> 以下のオブジェクトは ‘package:psych’ からマスクされています:</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="in">    %+%, alpha</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="関数とパッケージの対応は覚えにくい" class="level3">
@@ -1149,16 +1097,16 @@ $no_of_cores
 <li>Quartoファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>library(dplyr)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>library(stats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>library(dplyr)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>library(stats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>どのパッケージに属する関数なのか一目瞭然。ただしその都度パッケージ名を書くので、コードが長くなるという欠点も</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>data |&gt;</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  dplyr::select() |&gt;</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  stats::lm(formula = cyl ~ am)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>data |&gt;</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  dplyr::select() |&gt;</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  stats::lm(formula = cyl ~ am)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="gitによるコードのバージョン管理" class="level3">
