@@ -105,7 +105,7 @@ Week 1の復習です。
 
 ## 答え合わせ
 
-```{}
+```{markdown}
 # 名古屋飯といえば
 ## ひつまぶし：*Hitsumabushi*
 おすすめは以下のお店です。
@@ -175,7 +175,7 @@ total <- sum(hitsu, miso)
 
 ## 答え合わせ
 
-```{}
+```{markdown}
 ## 食費の合計
 - 以下は、名古屋旅行で使った食費の合計である。
 
@@ -199,16 +199,9 @@ total <- sum(hitsu, miso)
 
 ### Wordに出力
 
-### Before
+- formatを```docx```に変更。
 
-```{}         
-title: "Untitled"
-format: docx
-```
-
-### After
-
-```{}         
+```{markdown}         
 title: "Untitled"
 format: docx
 ```
@@ -264,7 +257,7 @@ format: revealjs
 
 -   Let's インストール
 
-```{}         
+```{markdown}         
 install.packages("renv")
 ```
 
@@ -278,7 +271,7 @@ install.packages("renv")
 
 -   以下のコマンドを走らせると、**プロジェクト内で**使用しているパッケージを、RやRmdファイルなどから検出します。そして、そのバージョンの情報を`renv.lock`ファイルに保存します。
 
-```{}         
+```{markdown}         
 renv::init()
 ```
 
@@ -377,7 +370,7 @@ Restarting R session...
 
 -   試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる`fortunes`パッケージをインストールしましょう。興味のある方はこちらにリストがあります([R Fortunes: Collected Wisdom](https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf))。
 
-```{}         
+```{markdown}         
 install.packages("fortunes")
 ```
 
@@ -396,7 +389,7 @@ fortunes::fortune(which = 386)
 
 -   今回の追加をrenv.lockファイルに追加しましょう。
 
-```{}         
+```{markdown}         
 renv::snapshot()
 ```
 
@@ -473,7 +466,7 @@ fortunes::fortune(which = 386)
 
 -   元に戻す場合は、`renv::restore()`
 
-```{}         
+```{markdown}         
 renv::restore()
 ```
 
@@ -505,13 +498,24 @@ Do you want to proceed? [Y/n]:
 - いつ作成されたファイルで、更新はされたことあるのかを明記することが重要
     -   デフォルトでは、ファイルの作成日を手動で切り替えないといけない。
 
-```{}         
+```{markdown}         
 title: "Untitled"
 author: "Masato Terai"
 format: html
 date:
   value: now
   format: "YYYY-MM-DD HH:mm:ss"
+```
+
+- 寺井のおすすめ。最初に作成した日付と、アップデートした日付を表示します。
+
+```{markdown}
+title: "Untitled"
+author: "Masato Terai"
+format: html
+date: 
+  value: now
+  format: "[Published: 2026-07-27, last update:] YYYY-MM-DD HH:mm:ss"
 ```
 
 ### Rのバージョン & 使用したRのパッケージのバージョン
@@ -567,7 +571,7 @@ toc() #測定終了
 
 3.  `require(関数名)`：`library()`とほとんど変わらないが、関数を読み込めたかどうかを論理値で返すことができる。関数が読み込めない（＝パッケージを入れていない）場合に、まずそのパッケージを読み込んで、処理に進ませるみたいな用途で使える。
 
-```{}
+```{markdown}
 if (require(パッケージ名) == FALSE) {
  install.packages(パッケージ名)
 } else {
@@ -581,7 +585,7 @@ if (require(パッケージ名) == FALSE) {
 
     -   エラーの原因になる場合あり。`::`で定義すると回避できる。
 
-```{}         
+```{markdown}         
 > library(ggplot2)
 Need help getting started? Try the R Graphics
 Cookbook: https://r-graphics.org
@@ -597,13 +601,14 @@ Cookbook: https://r-graphics.org
 
 -   Quartoファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。
 
-```{}         
+```{markdown}         
 library(dplyr)
 library(stats)
 ```
+
 -   どのパッケージに属する関数なのか一目瞭然。ただしその都度パッケージ名を書くので、コードが長くなるという欠点も
 
-```{}         
+```{markdown}         
 data |>
   dplyr::select() |>
   stats::lm(formula = cyl ~ am)
