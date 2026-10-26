@@ -105,7 +105,7 @@ Week 1の復習です。
 
 ## 答え合わせ
 
-```{}
+```{markdown}
 # 名古屋飯といえば
 ## ひつまぶし：*Hitsumabushi*
 おすすめは以下のお店です。
@@ -175,7 +175,7 @@ total <- sum(hitsu, miso)
 
 ## 答え合わせ
 
-```{}
+```{markdown}
 ## 食費の合計
 - 以下は、名古屋旅行で使った食費の合計である。
 
@@ -199,16 +199,9 @@ total <- sum(hitsu, miso)
 
 ### Wordに出力
 
-### Before
+- formatを```docx```に変更。
 
-```{}         
-title: "Untitled"
-format: docx
-```
-
-### After
-
-```{}         
+```{markdown}         
 title: "Untitled"
 format: docx
 ```
@@ -264,7 +257,7 @@ format: revealjs
 
 -   Let's インストール
 
-```{}         
+```{markdown}         
 install.packages("renv")
 ```
 
@@ -278,106 +271,37 @@ install.packages("renv")
 
 -   以下のコマンドを走らせると、**プロジェクト内で**使用しているパッケージを、RやRmdファイルなどから検出します。そして、そのバージョンの情報を`renv.lock`ファイルに保存します。
 
-```{}         
+```{markdown}         
 renv::init()
 ```
 
 -   最初に実行すると、以下のメッセージが表示されます。
 
-```         
-renv: Project Environments for R
-
-Welcome to renv! It looks like this is your first time using renv.
-This is a one-time message, briefly describing some of renv's functionality.
-
-renv will write to files within the active project folder, including:
-
-  - A folder 'renv' in the project directory, and
-  - A lockfile called 'renv.lock' in the project directory.
-
-In particular, projects using renv will normally use a private, per-project
-R library, in which new packages will be installed. This project library is
-isolated from other R libraries on your system.
-
-In addition, renv will update files within your project directory, including:
-
-  - .gitignore
-  - .Rbuildignore
-  - .Rprofile
-
-Finally, renv maintains a local cache of data on the filesystem, located at:
-
-  - "C:/Users/terai-masato/AppData/Local/R/cache/R/renv"
-
-This path can be customized: please see the documentation in `?renv::paths`.
-
-Please read the introduction vignette with `vignette("renv")` for more information.
-You can browse the package documentation online at https://rstudio.github.io/renv/.
-Do you want to proceed? [y/N]: 
-```
-
--  yを押して進むと、開いているプロジェクトのあるディレクトリに**renv**というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、**renv.lock**というファイルも同じディレクトリに作成されます。**新しく作成されたものは、すべて`renv`パッケージの利用に必要なので、削除しないでください。**
-
-```         
-- "C:/Users/terai-masato/AppData/Local/R/cache/R/renv" has been created.
-- Linking packages into the project library ... [33/33] Done!
-- Resolving missing dependencies ... 
-# Installing packages --------------------------------------------------------
+```{markdown}
+> renv::init()
 The following package(s) will be updated in the lockfile:
 
 # CRAN -----------------------------------------------------------------------
-- base64enc     [* -> 0.1-3]
-- bslib         [* -> 0.5.1]
-- cachem        [* -> 1.0.8]
-- cli           [* -> 3.6.1]
-- digest        [* -> 0.6.33]
-- ellipsis      [* -> 0.3.2]
-- evaluate      [* -> 0.23]
-- fastmap       [* -> 1.1.1]
-- fontawesome   [* -> 0.5.2]
-- fs            [* -> 1.6.3]
-- glue          [* -> 1.6.2]
-- highr         [* -> 0.10]
-- htmltools     [* -> 0.5.7]
-- jquerylib     [* -> 0.1.4]
-- jsonlite      [* -> 1.8.7]
-- knitr         [* -> 1.45]
-- lifecycle     [* -> 1.0.4]
-- magrittr      [* -> 2.0.3]
-- memoise       [* -> 2.0.1]
-- mime          [* -> 0.12]
-- prettydoc     [* -> 0.4.1]
-- R6            [* -> 2.5.1]
-- rappdirs      [* -> 0.3.3]
-- renv          [* -> 1.0.7]
-- rlang         [* -> 1.1.2]
-- rmarkdown     [* -> 2.25]
-- sass          [* -> 0.4.7]
-- stringi       [* -> 1.7.12]
-- stringr       [* -> 1.5.0]
-- tictoc        [* -> 1.2]
-- tinytex       [* -> 0.48]
-- vctrs         [* -> 0.6.4]
-- xfun          [* -> 0.41]
-- yaml          [* -> 2.3.7]
+- renv   [* -> 1.1.8]
 
 The version of R recorded in the lockfile will be updated:
-- R             [* -> 4.3.2]
+- R      [* -> 4.3.2]
 
-- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".
-
-Restarting R session...
-
-- Project '~/LET/LET_Workshop_2024/materials_LETworkshop_2024' loaded. [renv 1.0.7]
+- Lockfile written to "C:/Users/terai/Desktop/tmp/renv.lock".
+- renv activated -- please restart the R session.
 ```
+
+-  開いているプロジェクトのあるディレクトリに**renv**というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、**renv.lock**というファイルも同じディレクトリに作成されます。**新しく作成されたものは、すべて`renv`パッケージの利用に必要なので、削除しないでください。**
+
+- メッセージにもあるように、Rを再起動してください。
 
 ### パッケージ情報の保存
 
--   パッケージの追加・更新・削除を行ったら、`snapshot`関数を使って**renv.lock**ファイルを更新します。これを忘れると、バージョン情報が変更されないので、注意。
+- パッケージの追加・更新・削除を行ったら、```snapshot```関数を使って**renv.lock**ファイルを更新します。これを忘れると、バージョン情報が変更されないので、注意してください。
 
--   試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる`fortunes`パッケージをインストールしましょう。興味のある方はこちらにリストがあります([R Fortunes: Collected Wisdom](https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf))。
+- 試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる`fortunes`パッケージをインストールしましょう。興味のある方はこちらにリストがあります([R Fortunes: Collected Wisdom](https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf))。
 
-```{}         
+```{markdown}         
 install.packages("fortunes")
 ```
 
@@ -396,7 +320,7 @@ fortunes::fortune(which = 386)
 
 -   今回の追加をrenv.lockファイルに追加しましょう。
 
-```{}         
+```{markdown}         
 renv::snapshot()
 ```
 
@@ -404,17 +328,26 @@ renv::snapshot()
 The following package(s) will be updated in the lockfile:
 
 # CRAN -----------------------------------------------------------------------
-- fortunes   [* -> 1.5-4]
+- fortunes   [* -> 1.5-5]
 
 Do you want to proceed? [Y/n]: 
 ```
 
--   ファイルが更新される。
+- [CONSOLE]で```Y```と入力すると、renv.lockファイルが更新されます。
 
 ```         
 - Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".
 ```
--   renvフォルダーの中の、library \> R-あなたのバージョン \> あなたのパソコンPlatformを開くと、パッケージの名前と同じフォルダ（**fortunes**）が追加されています（五十音順になっているので見つけやすいです）。
+-  renvフォルダーの中の、library \> R-あなたのバージョン \> あなたのパソコンPlatformを開くと、パッケージの名前と同じフォルダ（**fortunes**）が追加されています（五十音順になっているので見つけやすいです）。
+
+::: callout-caution
+`renv::snapshot()` は、既定ではプロジェクト（フォルダー📁）内の `.R` や `.qmd` ファイルを調べ、その中で使用されているパッケージを `renv.lock` に記録します。
+
+よって、プロジェクト内に `.R` や `.qmd` ファイルが存在しない場合、使用中のパッケージを検出できず、`renv.lock` にパッケージが追加されません。これはエラーではなく、`renv` の通常の動作です。
+
+`.R` または `.qmd` ファイルを作成し、`library()` や `パッケージ名::関数名()` を記述した後で、再度 `renv::snapshot()` を実行しましょう。
+
+:::
 
 ### パッケージ情報の復元
 
@@ -437,17 +370,15 @@ install.packages("fortunes@1.4-0")
 ```
 
 ```         
-# Installing packages --------------------------------------------------------
-- Installing fortunes ...                       OK [linked from cache]
-Successfully installed 1 package in 22 milliseconds.
+The following package(s) will be installed:
+- fortunes [1.4-0]
+These packages will be installed into "C:/Users/terai/Desktop/tmp/renv/library/R-4.3/x86_64-w64-mingw32".
 
-The following loaded package(s) have been updated:
-- fortunes
-Restart your R session to use the new versions.
+Do you want to proceed? [Y/n]: 
 ```
+- [CONSOLE]で```Y```を入力し、Rを再起動して再度開きます。
 
--   restart（quit session）をして再度開く。
--   **renv.lock**ファイルは確認すると、1.5-4のまま！
+-  **renv.lock**ファイルは確認すると、1.5-4のまま！
 -   しかし、パッケージのバージョンは1.4.0!
 
 ```{r}
@@ -473,7 +404,7 @@ fortunes::fortune(which = 386)
 
 -   元に戻す場合は、`renv::restore()`
 
-```{}         
+```{markdown}         
 renv::restore()
 ```
 
@@ -494,7 +425,7 @@ Do you want to proceed? [Y/n]:
 
 <!-- ``` -->
 
-::: callout-important
+::: callout-note
 パッケージによっては、手動でのダウンロードが必要なものがあります。その場合、エラーメッセージでどのパッケージのインストールができないのか表示されます。エラーメッセージに表示されているパッケージを見て、手動でそれをインストールします。
 :::
 
@@ -505,13 +436,24 @@ Do you want to proceed? [Y/n]:
 - いつ作成されたファイルで、更新はされたことあるのかを明記することが重要
     -   デフォルトでは、ファイルの作成日を手動で切り替えないといけない。
 
-```{}         
+```{markdown}         
 title: "Untitled"
 author: "Masato Terai"
 format: html
 date:
   value: now
   format: "YYYY-MM-DD HH:mm:ss"
+```
+
+- 寺井のおすすめ。最初に作成した日付と、アップデートした日付を表示します。
+
+```{markdown}
+title: "Untitled"
+author: "Masato Terai"
+format: html
+date: 
+  value: now
+  format: "[Published: 2026-07-27, last update:] YYYY-MM-DD HH:mm:ss"
 ```
 
 ### Rのバージョン & 使用したRのパッケージのバージョン
@@ -567,7 +509,7 @@ toc() #測定終了
 
 3.  `require(関数名)`：`library()`とほとんど変わらないが、関数を読み込めたかどうかを論理値で返すことができる。関数が読み込めない（＝パッケージを入れていない）場合に、まずそのパッケージを読み込んで、処理に進ませるみたいな用途で使える。
 
-```{}
+```{markdown}
 if (require(パッケージ名) == FALSE) {
  install.packages(パッケージ名)
 } else {
@@ -581,7 +523,7 @@ if (require(パッケージ名) == FALSE) {
 
     -   エラーの原因になる場合あり。`::`で定義すると回避できる。
 
-```{}         
+```{markdown}         
 > library(ggplot2)
 Need help getting started? Try the R Graphics
 Cookbook: https://r-graphics.org
@@ -597,13 +539,14 @@ Cookbook: https://r-graphics.org
 
 -   Quartoファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。
 
-```{}         
+```{markdown}         
 library(dplyr)
 library(stats)
 ```
+
 -   どのパッケージに属する関数なのか一目瞭然。ただしその都度パッケージ名を書くので、コードが長くなるという欠点も
 
-```{}         
+```{markdown}         
 data |>
   dplyr::select() |>
   stats::lm(formula = cyl ~ am)
